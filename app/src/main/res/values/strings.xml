@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HashiSushi</string>
+    <string name="txt_usuario">Email:</string>
+    <string name="txt_password">Senha:</string>
+    <string name="btn_entrar">ENTRAR</string>
+    <string name="btn_cadastrar">CADASTRAR</string>
+    <string name="txt_nome">Hashi Sushi</string>
 </resources>
