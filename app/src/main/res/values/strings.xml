@@ -5,4 +5,6 @@
     <string name="btn_entrar">ENTRAR</string>
     <string name="btn_cadastrar">CADASTRAR</string>
     <string name="txt_nome">Hashi Sushi</string>
+    <string name="hide_email">Digite seu email</string>
+    <string name="hint_senha">Digite sua senha</string>
 </resources>
