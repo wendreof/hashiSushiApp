@@ -2,11 +2,13 @@ package com.example.hashisushi;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -14,6 +16,7 @@ public class MainAct extends AppCompatActivity {
 
     private Button btnEntrar;
     private Button btnCadastrar;
+    private TextView txtLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public class MainAct extends AppCompatActivity {
 
         btnEntrar = findViewById(R.id.btnEntrar);
         btnCadastrar = findViewById(R.id.btnCadastrar);
+        txtLogo = findViewById(R.id.txtLogo);
+        //Chama metudo que altera fonte logo
+        fontLogo();
 
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +63,11 @@ public class MainAct extends AppCompatActivity {
         // cria um obj atvib que recebe seu valor de context
         Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(tempo);
+    }
+    //Altera fonte do txtLogo
+    private void fontLogo(){
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Japonesa.ttf");
+        txtLogo.setTypeface(font);
     }
 }
