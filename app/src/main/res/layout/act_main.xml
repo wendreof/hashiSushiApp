@@ -59,8 +59,8 @@
 
     <TextView
         android:id="@+id/txtEmail"
-        android:layout_width="48dp"
-        android:layout_height="24dp"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/txt_usuario"
@@ -133,7 +133,7 @@
     <TextView
         android:id="@+id/txtLogo"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="59dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

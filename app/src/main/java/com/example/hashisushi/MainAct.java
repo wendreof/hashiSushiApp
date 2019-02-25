@@ -67,7 +67,7 @@ public class MainAct extends AppCompatActivity {
     //Altera fonte do txtLogo
     private void fontLogo(){
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "Japonesa.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtLogo.setTypeface(font);
     }
 }
