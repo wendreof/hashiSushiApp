@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainAct extends AppCompatActivity {
+public class ActLogin extends AppCompatActivity {
 
     private Button btnEntrar;
     private Button btnCadastrar;
@@ -22,7 +22,7 @@ public class MainAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.act_main);
+        setContentView(R.layout.act_login);
 
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
