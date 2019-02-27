@@ -7,4 +7,5 @@
     <string name="txt_nome">Hashi Sushi</string>
     <string name="hide_email">Digite seu email</string>
     <string name="hint_senha">Digite sua senha</string>
+    <string name="promotions">Promoções</string>
 </resources>

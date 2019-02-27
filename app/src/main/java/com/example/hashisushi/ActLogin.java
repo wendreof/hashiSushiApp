@@ -1,6 +1,7 @@
 package com.example.hashisushi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActLogin extends AppCompatActivity {
+public class ActLogin extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnEntrar;
     private Button btnCadastrar;
@@ -47,6 +48,9 @@ public class ActLogin extends AppCompatActivity {
             }
         });
 
+        btnCadastrar.setOnClickListener( this );
+        btnEntrar.setOnClickListener( this );
+
     }
     /**
      * Para que a nova fonte seja exibida na tela,
@@ -69,5 +73,19 @@ public class ActLogin extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtLogo.setTypeface(font);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if ( v.getId() == R.id.btnEntrar )
+        {
+            Intent it = new Intent(this, ActPromotion.class);
+            startActivity(it);
+        }
+        else
+        {
+            Intent it = new Intent(this, ActPromotion.class);
+            startActivity(it);
+        }
     }
 }

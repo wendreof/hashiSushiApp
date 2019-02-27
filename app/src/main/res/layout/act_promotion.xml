@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSmoky"
+    android:orientation="vertical"
+    tools:context=".ActPromotion">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:text="@string/promotions"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        tools:ignore="ObsoleteLayoutParam" />
+
+    <ImageView
+        android:layout_width="133dp"
+        android:layout_height="74dp"
+        android:src="@drawable/iconstrave"
+        tools:ignore="ContentDescription" />
+
+    <ListView
+        android:id="@+id/list_produsts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
+</LinearLayout>
