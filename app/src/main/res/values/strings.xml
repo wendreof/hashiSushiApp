@@ -8,4 +8,8 @@
     <string name="hide_email">Digite seu email</string>
     <string name="hint_senha">Digite sua senha</string>
     <string name="promotions">Promoções</string>
+    <string name="txt_search">Buscar prato:</string>
+    <string name="txt_menu_sales">Cardapio</string>
+    <string name="hint_seach_plate">Digite o prato para busca</string>
+    <string name="txt_list_plate">Pratos e Bebidas</string>
 </resources>

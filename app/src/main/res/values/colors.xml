@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#49111c</color>
     <color name="colorPrimaryDark">#8b2635 </color>
-    <color name="colorAccent">#f18805</color>
+    <color name="colorAccent">#F18805</color>
     <color name="colorOrege">#f0a202 </color>
     <color name="colorVemelium">#D95D39</color>
     <color name="colorMaize">#edf060</color>
