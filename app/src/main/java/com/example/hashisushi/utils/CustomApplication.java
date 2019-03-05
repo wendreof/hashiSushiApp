@@ -5,10 +5,12 @@
   * fonte principal.
   * E Japonesa e samurai como fonts secundarias
   * */
-package com.example.hashisushi;
+package com.example.hashisushi.utils;
 
 import android.app.Application;
 
+
+import com.example.hashisushi.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 

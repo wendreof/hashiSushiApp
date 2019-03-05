@@ -1,4 +1,4 @@
-package com.example.hashisushi;
+package com.example.hashisushi.views;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.hashisushi.R;
 
 public class ActSaleCardap extends AppCompatActivity {
 
