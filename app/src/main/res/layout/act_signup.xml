@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/jo_o_da_silva"
             android:inputType="textPersonName"
-            android:textColorHint="@color/colorHintText"/>
+            android:textColorHint="@color/colorHintText" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                 android:hint="@string/_123_456_789_01"
                 android:inputType="text"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                android:textColorHint="@color/colorHintText" />
 
             <EditText
                 android:id="@+id/user_born_date"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/_01_01_2019"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                android:textColorHint="@color/colorHintText" />
 
         </LinearLayout>
 
@@ -88,14 +88,14 @@
 
             <TextView
                 android:id="@+id/textview_user_address_street"
-                android:layout_width="275dp"
+                android:layout_width="268dp"
                 android:layout_height="wrap_content"
                 android:text="@string/endere_o"
                 android:textColor="@android:color/background_light" />
 
             <TextView
                 android:id="@+id/textview_user_address_number"
-                android:layout_width="86dp"
+                android:layout_width="99dp"
                 android:layout_height="wrap_content"
                 android:text="@string/n_mero"
                 android:textColor="@android:color/background_light" />
@@ -108,12 +108,12 @@
 
             <EditText
                 android:id="@+id/user_address_street"
-                android:layout_width="272dp"
+                android:layout_width="268dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/rua_aparecida"
                 android:inputType="text"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                android:textColorHint="@color/colorHintText" />
 
             <EditText
                 android:id="@+id/user_address_number"
@@ -122,7 +122,7 @@
                 android:hint="@string/_99"
                 android:inputType="text|number"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                android:textColorHint="@color/colorHintText" />
 
         </LinearLayout>
 
@@ -140,7 +140,7 @@
             android:hint="@string/jardim_nova_alian_a"
             android:inputType="text"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            android:textColorHint="@color/colorHintText" />
 
         <TextView
             android:id="@+id/textview_user_city"
@@ -156,7 +156,7 @@
             android:hint="@string/vargem_grande_do_sul"
             android:inputType="text"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            android:textColorHint="@color/colorHintText" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -186,11 +186,11 @@
                 android:id="@+id/user_cep"
                 android:layout_width="198dp"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:hint="@string/_13870_001"
                 android:inputType="text"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light"
-                android:autofillHints="" />
+                android:textColorHint="@color/colorHintText" />
 
             <EditText
                 android:id="@+id/user_adress_state"
@@ -199,7 +199,7 @@
                 android:hint="@string/s_o_paulo"
                 android:inputType="text"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@android:color/background_light" />
+                android:textColorHint="@color/colorHintText" />
 
         </LinearLayout>
 
@@ -237,7 +237,7 @@
             android:hint="@string/seunome_gmail_com"
             android:inputType="textEmailAddress"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            android:textColorHint="@color/colorHintText" />
 
         <TextView
             android:id="@+id/textview_phone"
@@ -253,9 +253,14 @@
             android:hint="@string/_19_99999_9999"
             android:inputType="phone"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            android:textColorHint="@color/colorHintText" />
+
+        <Button
+            android:id="@+id/button_user_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorVemelium"
+            android:text="@string/finalizar" />
 
     </LinearLayout>
-
-
 </ScrollView>
