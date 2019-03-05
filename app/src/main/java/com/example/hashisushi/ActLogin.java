@@ -82,9 +82,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             Intent it = new Intent(this, ActPromotion.class);
             startActivity(it);
         }
-        else
+        else if ( v.getId() == R.id.btnCadastrar )
         {
-            Intent it = new Intent(this, ActPromotion.class);
+            Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
     }
