@@ -211,25 +211,22 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textview_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="@string/celular_whatsapp"
+            android:textColor="@android:color/background_light" />
 
-            <CheckBox
-                android:id="@+id/checkbox_user_sex_F"
-                android:layout_width="194dp"
-                android:layout_height="wrap_content"
-                android:text="@string/feminino"
-                android:textColor="@android:color/background_light" />
-
-            <CheckBox
-                android:id="@+id/checkbox_user_sex_M"
-                android:layout_width="216dp"
-                android:layout_height="wrap_content"
-                android:text="@string/masculino"
-                android:textColor="@android:color/background_light" />
-        </LinearLayout>
+        <EditText
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="@string/_19_99999_9999"
+            android:inputType="phone"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@color/colorHintText" />
 
         <TextView
             android:id="@+id/textview_user_email"
@@ -249,21 +246,23 @@
             android:textColorHint="@color/colorHintText" />
 
         <TextView
-            android:id="@+id/textview_phone"
+            android:id="@+id/textview_user_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/celular_whatsapp"
+            android:text="@string/senha"
             android:textColor="@android:color/background_light" />
 
         <EditText
-            android:id="@+id/user_phone"
+            android:id="@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/_19_99999_9999"
-            android:inputType="phone"
+            android:hint="@string/password"
+            android:inputType="textPassword"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@color/colorHintText" />
+            android:textColorHint="@color/colorHintText"
+            android:autofillHints="" />
+
+
 
         <Button
             android:id="@+id/button_user_signup"
@@ -273,3 +272,5 @@
             android:text="@string/finalizar" />
     </LinearLayout>
 </ScrollView>
+
+

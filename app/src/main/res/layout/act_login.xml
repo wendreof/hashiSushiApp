@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
+    android:id="@+id/ActLogin"
     tools:context=".views.ActLogin">
 
     <Button

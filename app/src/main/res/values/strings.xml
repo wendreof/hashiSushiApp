@@ -38,4 +38,13 @@
     <string name="celular_whatsapp">Celular/WhatsApp</string>
     <string name="_19_99999_9999">(19)99999-9999</string>
     <string name="finalizar">Finalizar</string>
+    <string name="preencha_os_campos">Por favor preencha os campos solicitados</string>
+    <string name="password">******</string>
+    <string name="senha">Senha</string>
+    <string name="sua_senha">Informe o sua senha!</string>
+    <string name="seu_telefone">Informe o seu Telefone!</string>
+    <string name="seu_email">Informe o seu E-mail!</string>
+    <string name="seu_cpf">Informe o seu CPF!</string>
+    <string name="seu_nome">Informe o seu nome!</string>
+    <string name="cadastro_concluido">Cadastrado concluído com sucesso!</string>
 </resources>

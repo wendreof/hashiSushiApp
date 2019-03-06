@@ -1,6 +1,9 @@
 package com.example.hashisushi.views;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import com.example.hashisushi.R;
 
 public class ActSignup extends AppCompatActivity implements OnClickListener {
 
+    private static int TIME_OUT = 4000; //Time to launch the another activity
+
     private EditText userName;
     private EditText userCPF;
     private EditText userBornDate;
@@ -24,10 +29,9 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
     private EditText userAddressCity;
     private EditText userAddressCEP;
     private EditText userAddressState;
-    private CheckBox userSexF;
-    private CheckBox userSexM;
     private EditText userEmail;
     private EditText userPhone;
+    private EditText userPassword;
     private Button btnSignUp;
     private ScrollView ActSignUp;
 
@@ -39,11 +43,51 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
 
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         findViewById();
 
         btnSignUp.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.button_user_signup) {
+
+            if (userName.getText().toString().equals("")) {
+                ShowMSG();
+                userName.setError(getString(R.string.seu_nome));
+            } else if (userCPF.getText().toString().equals("")) {
+                ShowMSG();
+                userCPF.setError(getString(R.string.seu_cpf));
+            } else if (userEmail.getText().toString().equals("")) {
+                ShowMSG();
+                userEmail.setError(getString(R.string.seu_email));
+            } else if (userPhone.getText().toString().equals("")) {
+                ShowMSG();
+                userPhone.setError(getString(R.string.seu_telefone));
+            } else if (userPassword.getText().toString().equals("")) {
+                ShowMSG();
+                userPassword.setError(getString(R.string.sua_senha));
+            } else {
+                //Intent it = new Intent(this, ActLogin.class);
+                //startActivity(it, "");
+
+                Snackbar.make(ActSignUp, R.string.cadastro_concluido, Snackbar.LENGTH_LONG).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent it = new Intent(getApplicationContext(), ActLogin.class);
+                        startActivity(it);
+                        finish();
+                    }
+                }, TIME_OUT);
+            }
+
+        }
+    }
+
+    private void ShowMSG() {
+        Snackbar.make(ActSignUp, R.string.preencha_os_campos, Snackbar.LENGTH_LONG).show();
     }
 
     private void findViewById() {
@@ -56,33 +100,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         userAddressCity = findViewById(R.id.user_address_city);
         userAddressCEP = findViewById(R.id.user_cep);
         userAddressState = findViewById(R.id.user_adress_state);
-        userSexF = findViewById(R.id.checkbox_user_sex_F);
-        userSexM = findViewById(R.id.checkbox_user_sex_M);
+        userPassword = findViewById(R.id.user_password);
         userEmail = findViewById(R.id.user_email);
         userPhone = findViewById(R.id.user_phone);
         btnSignUp = findViewById(R.id.button_user_signup);
         ActSignUp = findViewById(R.id.ActSignUp);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button_user_signup) {
-
-            if (userName.getText().toString().equals("")|| userCPF.getText().toString().equals("")
-                 || userEmail.getText().toString().equals("") || userPhone.getText().toString().equals("")) {
-
-                ShowMSG();
-                userName.setError("Informe o seu nome");
-                userCPF.setError("Informe o seu CPF");
-                userEmail.setError("Informe o seu E-mail");
-                userPhone.setError("Informe o seu Telefone");
-            }
-
-        }
-    }
-
-    private void ShowMSG() {
-        Snackbar.make(ActSignUp, "Por favor preencha os campos solicitados", Snackbar.LENGTH_LONG).show();
     }
 }
