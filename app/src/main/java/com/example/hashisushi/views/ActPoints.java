@@ -5,11 +5,12 @@ import android.os.Bundle;
 
 import com.example.hashisushi.R;
 
-public class ActPoints extends AppCompatActivity {
-
+public class ActPoints extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_points);
+    protected void onCreate( Bundle savedInstanceState )
+    {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_act_points );
     }
 }

@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.example.hashisushi.R;
 
-public class ActSaleCardap extends AppCompatActivity {
-
+public class ActSaleCardap extends AppCompatActivity
+{
     private EditText edtSearchPlate;
     private TextView txtCardap;
     private ImageButton imgBtnSearchPlate;
@@ -21,21 +21,20 @@ public class ActSaleCardap extends AppCompatActivity {
     private FloatingActionButton flotBntCarSales;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_sale_cardap);
+    protected void onCreate( Bundle savedInstanceState )
+    {
+        super.onCreate( savedInstanceState);
+        setContentView( R.layout.act_sale_cardap );
         getSupportActionBar().hide();
         //Travæ rotaçãø da tela
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
-        txtCardap = findViewById(R.id.txtCardap);
+        txtCardap = findViewById( R.id.txtCardap );
         fontLogo();
-
-
     }
     //Altera fonte do txtLogo
-    private void fontLogo(){
-
+    private void fontLogo()
+    {
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardap.setTypeface(font);
     }

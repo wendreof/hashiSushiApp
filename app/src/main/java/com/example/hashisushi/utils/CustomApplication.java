@@ -14,17 +14,16 @@ import com.example.hashisushi.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class CustomApplication extends Application {
-
+public class CustomApplication extends Application
+{
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("RobotoSlab-Regular.ttf")
-                //.setDefaultFontPath("Japonesa.ttf")
-                .setFontAttrId(R.attr.fontPath)
+        CalligraphyConfig.initDefault( new CalligraphyConfig.Builder()
+                .setDefaultFontPath( "RobotoSlab-Regular.ttf" )
+                //.setDefaultFontPath( "Japonesa.ttf" )
+                .setFontAttrId( R.attr.fontPath )
                 .build());
     }
-
-
 }

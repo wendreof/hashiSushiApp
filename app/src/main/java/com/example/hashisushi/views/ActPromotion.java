@@ -11,47 +11,46 @@ import android.widget.TextView;
 
 import com.example.hashisushi.R;
 
-public class ActPromotion extends AppCompatActivity {
-
+public class ActPromotion extends AppCompatActivity
+{
     private TextView txtTitle;
     private FloatingActionButton flotBntSalesCardap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_promotion);
+    protected void onCreate( Bundle savedInstanceState )
+    {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.act_promotion );
 
         getSupportActionBar().hide();
         //Travæ rotaçãø da tela
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
-        txtTitle = findViewById(R.id.txtTitle);
+        txtTitle = findViewById( R.id.txtTitle );
         fontLogo();
 
-        flotBntSalesCardap = findViewById(R.id.flotBntSalesCadap);
+        flotBntSalesCardap = findViewById( R.id.flotBntSalesCadap );
 
-        flotBntSalesCardap.setOnClickListener(new View.OnClickListener() {
+        flotBntSalesCardap.setOnClickListener( new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick( View v )
+            {
                 iniActSaleCardp();
             }
         });
-
     }
 
     //Altera fonte do txtLogo
-    private void fontLogo(){
-
-        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-        txtTitle.setTypeface(font);
+    private void fontLogo()
+    {
+        Typeface font = Typeface.createFromAsset( getAssets(), "RagingRedLotusBB.ttf" );
+        txtTitle.setTypeface( font );
     }
 
-
-    public void iniActSaleCardp(){
-
-            Intent it = new Intent(this, ActSaleCardap.class);
-            startActivity(it);
-
-
+    public void iniActSaleCardp()
+    {
+            Intent it = new Intent( this, ActSaleCardap.class );
+            startActivity( it );
     }
 }

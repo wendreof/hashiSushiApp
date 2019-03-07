@@ -26,7 +26,7 @@
             android:id="@+id/textview_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nome_completo"
+            android:text="@string/full_name"
             android:textColor="@android:color/background_light" />
 
         <EditText
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:hint="@string/jo_o_da_silva"
+            android:hint="@string/joao_da_silva"
             android:inputType="textPersonName"
             android:textColorHint="@color/colorHintText" />
 
@@ -54,7 +54,7 @@
                 android:id="@+id/textview_user_born_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/data_de_nascimento"
+                android:text="@string/bord_date"
                 android:textColor="@android:color/background_light" />
 
         </LinearLayout>
@@ -100,7 +100,7 @@
                 android:id="@+id/textview_user_address_number"
                 android:layout_width="92dp"
                 android:layout_height="wrap_content"
-                android:text="@string/n_mero"
+                android:text="@string/number"
                 android:textColor="@android:color/background_light" />
 
         </LinearLayout>
@@ -135,7 +135,7 @@
             android:id="@+id/textview_user_address_neighborhood"
             android:layout_width="194dp"
             android:layout_height="wrap_content"
-            android:text="@string/bairro"
+            android:text="@string/neighborhood"
             android:textColor="@android:color/background_light" />
 
         <EditText
@@ -143,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:hint="@string/jardim_nova_alian_a"
+            android:hint="@string/jardim_nova_alianca"
             android:inputType="text"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText" />
@@ -152,7 +152,7 @@
             android:id="@+id/textview_user_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cidade"
+            android:text="@string/city"
             android:textColor="@android:color/background_light" />
 
         <EditText
@@ -180,7 +180,7 @@
                 android:id="@+id/textview_user_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/estado"
+                android:text="@string/state"
                 android:textColor="@android:color/background_light" />
 
         </LinearLayout>
@@ -204,7 +204,7 @@
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="@string/s_o_paulo"
+                android:hint="@string/sao_paulo"
                 android:inputType="text"
                 android:textColor="@android:color/background_light"
                 android:textColorHint="@color/colorHintText" />
@@ -215,7 +215,7 @@
             android:id="@+id/textview_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/celular_whatsapp"
+            android:text="@string/whatsapp"
             android:textColor="@android:color/background_light" />
 
         <EditText
@@ -240,7 +240,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:hint="@string/seunome_gmail_com"
+            android:hint="@string/your_email"
             android:inputType="textEmailAddress"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText" />
@@ -249,7 +249,7 @@
             android:id="@+id/textview_user_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/senha"
+            android:text="@string/pass"
             android:textColor="@android:color/background_light" />
 
         <EditText
