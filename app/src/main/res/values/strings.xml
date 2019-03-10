@@ -54,4 +54,12 @@
     <string name="marcos_f_c_rangel">Marcos F C Rangel</string>
     <string name="points">Pontos:</string>
     <string name="_8">8</string>
+    <string name="txt_open">Estamos Atendeno:</string>
+    <string name="txt_close">Não estamos atendeno.</string>
+    <string name="txt_order">Pedido</string>
+    <string name="txt_orders">Itens do Pedido:</string>
+    <string name="ridio_btn_Delivery">Entregar</string>
+    <string name="radio_btn_withdraw">Retirar</string>
+    <string name="txt_total">Total :</string>
+    <string name="btn_final">Finalizar Pedido</string>
 </resources>

@@ -21,6 +21,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private Button btnCadastrar;
     private TextView txtLogo;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,25 +37,13 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         //Chama metudo que altera fonte logo
         fontLogo();
 
-        btnEntrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ativeVibrar(90);
-            }
-        });
 
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ativeVibrar(90);
-            }
-        });
 
         btnCadastrar.setOnClickListener( this );
         btnEntrar.setOnClickListener( this );
 
     }
-    /**
+    /*
      * Para que a nova fonte seja exibida na tela,
      * precisamos chamar um método na Activity que sobrescreva
      * o contexto base com um Wrapper da biblioteca.
@@ -64,12 +53,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    //Metudo que ativa vibração
-    private void ativeVibrar(long tempo) {
-        // cria um obj atvib que recebe seu valor de context
-        Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        atvib.vibrate(tempo);
-    }
     //Altera fonte do txtLogo
     private void fontLogo(){
 
@@ -81,13 +64,22 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         if ( v.getId() == R.id.btnEntrar )
         {
+            startVibrate(90);
             Intent it = new Intent(this, ActPromotion.class);
             startActivity(it);
         }
         else if ( v.getId() == R.id.btnCadastrar )
         {
+            startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
+    }
+
+    //Metudo que ativa vibração
+    public void startVibrate(long time) {
+        // cria um obj atvib que recebe seu valor de context
+        Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        atvib.vibrate(time);
     }
 }

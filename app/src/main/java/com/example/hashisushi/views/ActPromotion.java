@@ -16,6 +16,7 @@ public class ActPromotion extends AppCompatActivity
     private TextView txtTitle;
     private FloatingActionButton flotBntSalesCardap;
 
+
     @Override
     protected void onCreate( Bundle savedInstanceState )
     {

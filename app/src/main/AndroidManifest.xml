@@ -5,8 +5,8 @@
 
     <dist:module dist:instant="true" />
 
-    <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name=".utils.CustomApplication"
         android:allowBackup="true"
@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ActPoints"></activity>
+        <activity android:name=".views.ActOrder"></activity>
+        <activity android:name=".views.ActPoints" />
         <activity android:name=".views.ActSignup" />
         <activity android:name=".views.ActSaleCardap" />
         <activity android:name=".views.ActPromotion" />
