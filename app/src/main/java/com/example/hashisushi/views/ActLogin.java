@@ -37,8 +37,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         //Chama metudo que altera fonte logo
         fontLogo();
 
-
-
         btnCadastrar.setOnClickListener( this );
         btnEntrar.setOnClickListener( this );
 
@@ -70,7 +68,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         }
         else if ( v.getId() == R.id.btnCadastrar )
         {
-            startVibrate(90);
+           startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
@@ -82,4 +80,5 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
     }
+
 }
