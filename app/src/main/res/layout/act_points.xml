@@ -98,7 +98,7 @@
         tools:ignore="UnusedAttribute" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntHome"
+        android:id="@+id/flotBtnScanPont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -109,6 +109,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/texture_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/ic_home_white_24dp" />
+        app:srcCompat="@drawable/ler_cod_barra" />
 
 </LinearLayout>

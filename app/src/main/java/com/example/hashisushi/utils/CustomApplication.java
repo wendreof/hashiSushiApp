@@ -21,8 +21,9 @@ public class CustomApplication extends Application
     {
         super.onCreate();
         CalligraphyConfig.initDefault( new CalligraphyConfig.Builder()
-                //.setDefaultFontPath( "RobotoSlab-Regular.ttf" )
-                .setDefaultFontPath( "Japonesa.ttf" )
+                .setDefaultFontPath( "RobotoSlab-Regular.ttf" )
+                //.setDefaultFontPath( "Japonesa.ttf" )
+                //.setDefaultFontPath("RagingRedLotusBB.ttf")
                 .setFontAttrId( R.attr.fontPath )
                 .build());
     }

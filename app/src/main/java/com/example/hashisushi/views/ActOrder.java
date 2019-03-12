@@ -1,7 +1,6 @@
 package com.example.hashisushi.views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +8,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.hashisushi.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity {
     private TextView txtTitle;
@@ -21,7 +22,10 @@ public class ActOrder extends AppCompatActivity {
         txtTitle =findViewById(R.id.txtTitle);
         fontLogo();
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     //Altera fonte do txtLogo
     private void fontLogo()
     {

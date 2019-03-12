@@ -1,5 +1,6 @@
 package com.example.hashisushi.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 
 import com.example.hashisushi.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActSignup extends AppCompatActivity implements OnClickListener {
 
@@ -37,6 +40,10 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         findViewById();
 
         btnSignUp.setOnClickListener( this );
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
