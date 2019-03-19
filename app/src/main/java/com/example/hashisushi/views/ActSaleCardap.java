@@ -1,7 +1,5 @@
 package com.example.hashisushi.views;
 
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,8 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+
 
 public class ActSaleCardap extends AppCompatActivity
 {
@@ -25,7 +22,6 @@ public class ActSaleCardap extends AppCompatActivity
     private TextView txtCardap;
     private FloatingActionButton flotBntSearch;
     private FloatingActionButton flotBntHomeMenu;
-    private FloatingActionButton flotBntScanQcodeMenu;
     private FloatingActionButton flotBntCarSalesMenu;
     private FloatingActionButton flotBntPersonsMenu;
     private FloatingActionButton flotBntPontsMenu;
@@ -41,10 +37,8 @@ public class ActSaleCardap extends AppCompatActivity
 
         txtCardap = findViewById( R.id.txtCardap );
         fontLogo();
-        final Activity actScanCod = this;
         flotBntSearch = findViewById(R.id.flotBntSearch);
         flotBntCarSalesMenu = findViewById(R.id.flotBntCarSalesMenu);
-        flotBntScanQcodeMenu = findViewById(R.id.flotBntScanQcode);
         flotBntPersonsMenu = findViewById(R.id.flotBntEdtPersoMenu);
         flotBntPontsMenu = findViewById(R.id.flotBntPonts);
 
@@ -55,13 +49,7 @@ public class ActSaleCardap extends AppCompatActivity
                 iniActOrder();
             }
         });
-        flotBntScanQcodeMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVibrate(90);
-                scanerCode(actScanCod);
-            }
-        });
+
     }
     //Altera fonte do txtLogo
     private void fontLogo()
@@ -89,36 +77,8 @@ public class ActSaleCardap extends AppCompatActivity
         startActivity( it );
     }
 
-    //Implemention Scan
-    public void scanerCode(Activity activity){
-        IntentIntegrator integrator = new IntentIntegrator(activity);
+    private void msgShort(String msg) {
 
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scaneando codigo...");
-        integrator.setCameraId(0);
-        integrator.initiateScan();
-
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode , Intent data ){
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-
-        if(result != null){
-            if(result.getContents() != null){
-                alerta("Codigo recebido :"+ result.getContents());
-                String codigo = result.getContents();
-            }else {
-                alerta("Scan cancelado!");
-            }
-
-        }else {
-            super.onActivityResult(requestCode,resultCode,data);
-        }
-
-    }
-    public void alerta(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-    }
-
 }

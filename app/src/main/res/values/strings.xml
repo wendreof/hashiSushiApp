@@ -60,6 +60,10 @@
     <string name="txt_orders">Itens do Pedido:</string>
     <string name="ridio_btn_Delivery">Entregar</string>
     <string name="radio_btn_withdraw">Retirar</string>
-    <string name="txt_total">Total :</string>
+    <string name="txt_total">Total:</string>
     <string name="btn_final">Finalizar Pedido</string>
+    <string name="txt_type_payment">Pagar com:</string>
+    <string name="txt_change_to">Troco para:</string>
+    <string name="hint_value">quanto ?</string>
+    <string name="hint_total">Total R$</string>
 </resources>

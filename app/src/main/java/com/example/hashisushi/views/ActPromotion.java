@@ -19,7 +19,7 @@ public class ActPromotion extends AppCompatActivity
 {
     private TextView txtTitle;
     private FloatingActionButton flotBntSalesCardap;
-    private FloatingActionButton flotBntScanQcodeProm;
+
 
 
     @Override
@@ -37,7 +37,6 @@ public class ActPromotion extends AppCompatActivity
         txtTitle = findViewById( R.id.txtTitle );
         fontLogo();
 
-        flotBntScanQcodeProm = findViewById(R.id.flotBntScanQcodeProm);
         flotBntSalesCardap = findViewById( R.id.flotBntSalesCadap );
 
         flotBntSalesCardap.setOnClickListener( new View.OnClickListener()
@@ -49,13 +48,7 @@ public class ActPromotion extends AppCompatActivity
                 startVibrate(90);
             }
         });
-        flotBntScanQcodeProm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               iniActPoints();
-                startVibrate(90);
-            }
-        });
+
     }
 
     @Override
