@@ -20,6 +20,7 @@ public class ActSaleCardap extends AppCompatActivity
 {
     private EditText edtSearchPlate;
     private TextView txtCardap;
+    private TextView txtLogoCard;
     private FloatingActionButton flotBntSearch;
     private FloatingActionButton flotBntHomeMenu;
     private FloatingActionButton flotBntCarSalesMenu;
@@ -36,11 +37,12 @@ public class ActSaleCardap extends AppCompatActivity
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
         txtCardap = findViewById( R.id.txtCardap );
+        txtLogoCard = findViewById( R.id.txtLogoCard );
         fontLogo();
         flotBntSearch = findViewById(R.id.flotBntSearch);
         flotBntCarSalesMenu = findViewById(R.id.flotBntCarSalesMenu);
         flotBntPersonsMenu = findViewById(R.id.flotBntEdtPersoMenu);
-        flotBntPontsMenu = findViewById(R.id.flotBntPonts);
+        flotBntPontsMenu = findViewById(R.id.flotBntPontsMenu);
 
         flotBntCarSalesMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +52,21 @@ public class ActSaleCardap extends AppCompatActivity
             }
         });
 
+        flotBntPontsMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVibrate(90);
+                iniActPoints();
+            }
+        });
+
     }
     //Altera fonte do txtLogo
     private void fontLogo()
     {
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardap.setTypeface(font);
+        txtLogoCard.setTypeface( font );
     }
 
     public void iniActOrder()
@@ -81,4 +92,5 @@ public class ActSaleCardap extends AppCompatActivity
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -16,10 +16,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity {
     private TextView txtTitle;
+    private TextView txtPedido;
 
-    private String[] fillPay = { "Dinheiro","Credito MasterCard","Credito Visa","Credito Aura",
-                                 "Credito Elo","Credito Diners Club","Credito Sorocred",
-                                 "Credito Hipercard","Debito MasterCard","Debito Visa"};
+    private String[] fillPay = { "Dinheiro","MasterCard Credito","Visa Credito","Aura Credito",
+                                 "Elo Credito","Diners Club Credito","Sorocred Credito",
+                                 "Hipercard Credito","MaestroCard Debito","Visa Eletrônic Debito"};
     private Spinner spnFillPayment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class ActOrder extends AppCompatActivity {
         getSupportActionBar().hide();
 
         spnFillPayment = findViewById(R.id.spnfillPayMent);
-        txtTitle =findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.txtTitle);
+        txtPedido = findViewById(R.id.txtPedido);
 
         fontLogo();
         fillPayMent();
@@ -42,6 +44,7 @@ public class ActOrder extends AppCompatActivity {
     {
         Typeface font = Typeface.createFromAsset( getAssets(), "RagingRedLotusBB.ttf" );
         txtTitle.setTypeface( font );
+        txtPedido.setTypeface(font);
     }
 
 

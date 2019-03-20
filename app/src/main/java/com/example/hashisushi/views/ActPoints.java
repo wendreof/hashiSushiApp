@@ -22,6 +22,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActPoints extends AppCompatActivity
 {
     private TextView txtLogo;
+    private  TextView txtPonts;
     private FloatingActionButton flotBntScanQcodePont;
 
     @Override
@@ -32,6 +33,8 @@ public class ActPoints extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getSupportActionBar().hide();
         final Activity actScanCod = this;
+
+        txtPonts =findViewById(R.id.txtPonts);
         txtLogo = findViewById(R.id.txtLogo);
         fontLogo();
 
@@ -57,6 +60,7 @@ public class ActPoints extends AppCompatActivity
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtLogo.setTypeface(font);
+        txtPonts.setTypeface( font );
     }
 
     //Implemention Scan
