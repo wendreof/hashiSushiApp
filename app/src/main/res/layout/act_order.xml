@@ -22,38 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
-    <RadioButton
-        android:id="@+id/radioBtnDelivery"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/ridio_btn_Delivery"
-        android:textColor="@color/ic_launcher_background"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline17"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPedido" />
-
-    <RadioButton
-        android:id="@+id/radioBtnWithdraw"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/radio_btn_withdraw"
-        android:textColor="@color/ic_launcher_background"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline17"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/txtPedido" />
-
     <ListView
         android:id="@+id/lstOrder"
         android:layout_width="0dp"
@@ -188,12 +156,12 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="59dp"
+        android:layout_width="0dp"
         android:layout_height="23dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/txt_total"
+        android:text="@string/hint_total"
         android:textColor="@color/ic_launcher_background"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
@@ -203,13 +171,13 @@
 
     <EditText
         android:id="@+id/edtTotal"
-        android:layout_width="84dp"
+        android:layout_width="70dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="@string/hint_total"
+        android:hint="@string/txt_total"
         android:inputType="numberDecimal"
         android:textColor="@color/ic_launcher_background"
         android:textColorHint="@color/colorHintText"
@@ -293,12 +261,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/txt_type_payment"
         android:textAllCaps="true"
         android:textColor="@color/ic_launcher_background"
         android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/spnfillPayMent"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14" />
@@ -334,6 +304,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/guideline15" />
+
+    <CheckBox
+        android:id="@+id/chkBxRetirar"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/radio_btn_withdraw"
+        android:textColor="@color/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/txtPedido" />
+
+    <CheckBox
+        android:id="@+id/chkBxEntrega"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/ridio_btn_Delivery"
+        android:textColor="@color/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPedido" />
 
 
 </android.support.constraint.ConstraintLayout>
