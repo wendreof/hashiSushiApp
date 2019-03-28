@@ -66,4 +66,7 @@
     <string name="txt_change_to">Troco para:</string>
     <string name="hint_value">quanto ?</string>
     <string name="hint_total">Total R$:</string>
+    <string name="title_activity_act_cardap">Cardapio</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

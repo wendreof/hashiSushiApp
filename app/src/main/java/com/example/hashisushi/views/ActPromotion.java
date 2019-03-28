@@ -18,8 +18,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActPromotion extends AppCompatActivity
 {
     private TextView txtTitle;
+    private TextView txtStatus;
     private FloatingActionButton flotBntSalesCardap;
-
+    private System status;
 
 
     @Override
@@ -33,9 +34,13 @@ public class ActPromotion extends AppCompatActivity
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
 
-
+        txtStatus = findViewById( R.id.txtEstatus );
         txtTitle = findViewById( R.id.txtTitle );
+        getStatus();
         fontLogo();
+
+
+
 
         flotBntSalesCardap = findViewById( R.id.flotBntSalesCadap );
 
@@ -49,6 +54,11 @@ public class ActPromotion extends AppCompatActivity
             }
         });
 
+    }
+
+    private void getStatus(){
+       String stt = System.getProperty("STATUS_ENV");
+       txtStatus.setText(stt);
     }
 
     @Override
