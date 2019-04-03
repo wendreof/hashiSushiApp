@@ -159,7 +159,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HHmm");
 
         Calendar  cal = Calendar.getInstance();
-
         Date data_atual = cal.getTime();
 
         String hora_atual = dateFormat_hora.format(data_atual);
@@ -167,9 +166,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         Integer intHora = Integer.parseInt(hora_atual);
 
         if( intHora > 900  && intHora < 2200){
-            STATUS = "Estamos atendeno";
+            STATUS = "Estamos atendendo !";
         }else{
-            STATUS = "Não estamos atendeno agora !";
+            STATUS = "Não estamos atendendo agora !";
         }
 
     }
