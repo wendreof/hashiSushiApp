@@ -165,24 +165,7 @@
         android:textColor="@color/ic_launcher_background"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toStartOf="@+id/edtTotal"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
-
-    <EditText
-        android:id="@+id/edtTotal"
-        android:layout_width="70dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="@string/txt_total"
-        android:inputType="numberDecimal"
-        android:textColor="@color/ic_launcher_background"
-        android:textColorHint="@color/colorHintText"
-        app:layout_constraintBottom_toTopOf="@+id/guideline15"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
     <Spinner
@@ -313,6 +296,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:checked="false"
         android:text="@string/radio_btn_withdraw"
         android:textColor="@color/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
@@ -334,6 +318,22 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPedido" />
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/txt_total"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
 
 </android.support.constraint.ConstraintLayout>

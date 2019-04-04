@@ -5,7 +5,10 @@ import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,12 @@ public class ActOrder extends AppCompatActivity {
                                  "Elo Credito","Diners Club Credito","Sorocred Credito",
                                  "Hipercard Credito","MaestroCard Debito","Visa Eletrônic Debito"};
     private Spinner spnFillPayment;
+
+    private CheckBox chkBxRetirar;
+    private CheckBox chkBxEntrega;
+    private  boolean ischkRetirar ;
+    private  boolean ischkEntregar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +41,39 @@ public class ActOrder extends AppCompatActivity {
         txtTitle = findViewById(R.id.txtTitle);
         txtPedido = findViewById(R.id.txtPedido);
 
+        chkBxRetirar = findViewById(R.id.chkBxRetirar);
+        chkBxEntrega = findViewById(R.id.chkBxEntrega);
+
         fontLogo();
         fillPayMent();
+
+        chkBxEntrega.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    ischkRetirar = false;
+                    ischkEntregar = isChecked;
+
+                    chkBxRetirar.setChecked(ischkRetirar);
+                    chkBxEntrega.setChecked(ischkEntregar);
+                }
+            }
+        });
+
+        chkBxRetirar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    ischkRetirar = isChecked;
+                    ischkEntregar = false;
+
+                    chkBxRetirar.setChecked(ischkRetirar);
+                    chkBxEntrega.setChecked(ischkEntregar);
+                }
+            }
+        });
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

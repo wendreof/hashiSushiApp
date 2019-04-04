@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/txtPonts"
-        android:layout_width="11dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
 
@@ -53,9 +53,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toEndOf="@+id/user_points_points"
-        app:layout_constraintTop_toBottomOf="@+id/user_points_name" />
+        app:layout_constraintTop_toBottomOf="@+id/user_points_name"
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
         android:id="@+id/textView9"
@@ -242,7 +243,7 @@
         app:layout_constraintGuide_percent="0.61" />
 
     <TextView
-        android:id="@+id/txtPonts"
+        android:id="@+id/txtTitlePonts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
