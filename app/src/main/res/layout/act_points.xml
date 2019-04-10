@@ -11,7 +11,7 @@
     tools:context=".views.ActPoints">
 
     <TextView
-        android:id="@+id/txtLogo"
+        android:id="@+id/txtLogoCombo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -141,22 +141,6 @@
         app:srcCompat="@drawable/ler_cod_barra" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntCarSallesPont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_sales_cart_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/flotBntHomePont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -197,34 +181,17 @@
         app:layout_constraintGuide_percent="0.89" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntEditPerson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.666"
-        app:srcCompat="@drawable/ic_persons_white_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/flotBntSalesMenuPont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:srcCompat="@drawable/ic_menu2_white_24dp" />
 
@@ -257,7 +224,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLogoCombo" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline20"

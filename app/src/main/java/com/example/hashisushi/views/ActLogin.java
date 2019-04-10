@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,15 +40,15 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.act_login);
+        getSupportActionBar().hide();
 
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btnEntrar = findViewById(R.id.btnEntrar);
         btnCadastrar = findViewById(R.id.btnCadastrar);
-        txtLogo = findViewById(R.id.txtLogo);
+        txtLogo = findViewById(R.id.txtLogoCombo);
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
         //Chama metudo que altera fonte logo

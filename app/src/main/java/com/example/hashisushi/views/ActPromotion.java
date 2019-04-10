@@ -39,9 +39,6 @@ public class ActPromotion extends AppCompatActivity
         getStatus();
         fontLogo();
 
-
-
-
         flotBntSalesCardap = findViewById( R.id.flotBntSalesCadap );
 
         flotBntSalesCardap.setOnClickListener( new View.OnClickListener()

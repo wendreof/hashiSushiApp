@@ -116,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLogo"
+        app:layout_constraintTop_toBottomOf="@+id/txtLogoCombo"
         app:srcCompat="@drawable/iconstrave" />
 
     <android.support.constraint.Guideline
@@ -134,7 +134,7 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <TextView
-        android:id="@+id/txtLogo"
+        android:id="@+id/txtLogoCombo"
         android:layout_width="0dp"
         android:layout_height="59dp"
         android:layout_marginStart="8dp"

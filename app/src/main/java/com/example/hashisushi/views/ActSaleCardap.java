@@ -6,22 +6,24 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.FragmantAdapter;
 
 
 public class ActSaleCardap extends AppCompatActivity
 {
-    private EditText edtSearchPlate;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
     private TextView txtCardap;
     private TextView txtLogoCard;
-    private FloatingActionButton flotBntSearch;
     private FloatingActionButton flotBntHomeMenu;
     private FloatingActionButton flotBntCarSalesMenu;
     private FloatingActionButton flotBntPersonsMenu;
@@ -37,28 +39,14 @@ public class ActSaleCardap extends AppCompatActivity
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
         txtCardap = findViewById( R.id.txtCardap );
-        txtLogoCard = findViewById( R.id.txtLogoCard );
-        fontLogo();
-        flotBntSearch = findViewById(R.id.flotBntSearch);
+        txtLogoCard = findViewById( R.id.txtLogoCombo);
+
         flotBntCarSalesMenu = findViewById(R.id.flotBntCarSalesMenu);
         flotBntPersonsMenu = findViewById(R.id.flotBntEdtPersoMenu);
         flotBntPontsMenu = findViewById(R.id.flotBntPontsMenu);
 
-        flotBntCarSalesMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVibrate(90);
-                iniActOrder();
-            }
-        });
+        paginador();
 
-        flotBntPontsMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVibrate(90);
-                iniActPoints();
-            }
-        });
 
     }
     //Altera fonte do txtLogo
@@ -91,6 +79,16 @@ public class ActSaleCardap extends AppCompatActivity
     private void msgShort(String msg) {
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+   //ativa paginaçao
+    private void paginador(){
+
+        mTabLayout = findViewById(R.id.TabCardap);
+        mViewPager = findViewById(R.id.view_pager);
+
+        mViewPager.setAdapter(new FragmantAdapter(getSupportFragmentManager(),
+                getResources().getStringArray(R.array.titles_tab)));
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
 }

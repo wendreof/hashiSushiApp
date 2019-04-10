@@ -9,8 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,9 +24,10 @@ public class ActPoints extends AppCompatActivity
 {
 
     private TextView txtLogo;
-    private  TextView txtTitlePonts;
-    private  TextView txtPonts;
+    private TextView txtTitlePonts;
+    private TextView txtPonts;
     private FloatingActionButton flotBntScanQcodePont;
+
     private ImageView imgVw1,imgVw2,imgVw3,imgVw4,imgVw5,imgVw6,imgVw7,imgVw8;
     private ImageView imgVw9,imgVw10,imgVw11,imgVw12,imgVw13,imgVw14,imgVw15;
     private ImageView imgVw16,imgVw17,imgVw18,imgVw19,imgVw20,imgVw21,imgVw22;
@@ -44,13 +43,15 @@ public class ActPoints extends AppCompatActivity
         setContentView( R.layout.act_points);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getSupportActionBar().hide();
+        // Activity read code
         final Activity actScanCod = this;
 
         txtTitlePonts = findViewById(R.id.txtTitlePonts);
         txtPonts = findViewById(R.id.txtPonts);
-        txtLogo = findViewById(R.id.txtLogo);
+        txtLogo = findViewById(R.id.txtLogoCombo);
 
-        pontos = 10;
+        pontos = 13;
+        txtPonts.setText(pontos);
         imgView();
         controlImgView();
         controlPonts();
@@ -117,8 +118,6 @@ public class ActPoints extends AppCompatActivity
         }
 
     }
-
-
 
     public void alerta(String msg){
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
