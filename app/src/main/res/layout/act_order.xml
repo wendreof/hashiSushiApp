@@ -38,7 +38,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntAbout"
+        android:id="@+id/flotBntAboutO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -54,7 +54,7 @@
         app:srcCompat="@drawable/ic_about_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntSalesCadOrder"
+        android:id="@+id/flotBntVoltarO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_menu2_white_24dp" />
+        app:srcCompat="@drawable/ic_arrow_left_24dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -94,7 +94,7 @@
         app:layout_constraintGuide_percent="0.89" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntPontsOrder"
+        android:id="@+id/flotBntPontsO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -110,7 +110,7 @@
         app:srcCompat="@drawable/ic_ponts_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntEditPerson"
+        android:id="@+id/flotBntEditPersonO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -159,14 +159,13 @@
         android:layout_width="0dp"
         android:layout_height="23dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="1dp"
         android:text="@string/hint_total"
         android:textColor="@color/ic_launcher_background"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+        app:layout_constraintTop_toTopOf="@+id/spnfillPayMent" />
 
     <Spinner
 
@@ -176,7 +175,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="1dp"
         android:background="@color/colorVemelium"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -188,14 +187,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.70" />
+        app:layout_constraintGuide_percent="0.68" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/screen_border"
         android:text="@string/btn_final"
         android:textColor="@color/ic_launcher_background"
         android:textStyle="bold"
@@ -243,7 +242,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="2dp"
@@ -253,6 +252,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/spnfillPayMent"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
@@ -324,16 +324,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="1dp"
         android:text="@string/txt_total"
         android:textColor="@color/ic_launcher_background"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+        app:layout_constraintTop_toTopOf="@+id/spnfillPayMent" />
 
 
 </android.support.constraint.ConstraintLayout>

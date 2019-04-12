@@ -70,7 +70,7 @@
     </ListView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/flotBntSaleCardapP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -80,13 +80,12 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_sales_cart_24dp" />
+        app:srcCompat="@drawable/ic_arrow_right_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntSalesCadap"
+        android:id="@+id/flotBntExitP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -98,7 +97,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_menu2_white_24dp" />
+        app:srcCompat="@drawable/ic_close_24dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -126,7 +125,7 @@
         app:layout_constraintGuide_percent="0.89" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntPonts"
+        android:id="@+id/flotBntPontsProm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -142,7 +141,7 @@
         app:srcCompat="@drawable/ic_ponts_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntEditPerson"
+        android:id="@+id/flotBntEditPersonP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

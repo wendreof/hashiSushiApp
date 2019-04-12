@@ -48,10 +48,11 @@ public class ActPoints extends AppCompatActivity
 
         txtTitlePonts = findViewById(R.id.txtTitlePonts);
         txtPonts = findViewById(R.id.txtPonts);
-        txtLogo = findViewById(R.id.txtLogoCombo);
+        txtLogo = findViewById(R.id.txtLogoC);
 
         pontos = 13;
-        txtPonts.setText(pontos);
+        String p = String.valueOf(pontos);
+        txtPonts.setText(p);
         imgView();
         controlImgView();
         controlPonts();

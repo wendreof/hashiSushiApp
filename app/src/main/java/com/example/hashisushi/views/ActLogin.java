@@ -48,7 +48,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
         btnEntrar = findViewById(R.id.btnEntrar);
         btnCadastrar = findViewById(R.id.btnCadastrar);
-        txtLogo = findViewById(R.id.txtLogoCombo);
+        txtLogo = findViewById(R.id.txtLogoC);
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
         //Chama metudo que altera fonte logo

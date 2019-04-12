@@ -15,11 +15,14 @@ import com.example.hashisushi.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActPromotion extends AppCompatActivity
+public class ActPromotion extends AppCompatActivity implements View.OnClickListener
 {
     private TextView txtTitle;
     private TextView txtStatus;
     private FloatingActionButton flotBntSalesCardap;
+    private FloatingActionButton flotBntPontsProm;
+    private FloatingActionButton flotBntExitP;
+    private  FloatingActionButton flotBntEditPersonP;
     private System status;
 
 
@@ -38,18 +41,15 @@ public class ActPromotion extends AppCompatActivity
         txtTitle = findViewById( R.id.txtTitle );
         getStatus();
         fontLogo();
+        flotBntExitP = findViewById(R.id.flotBntExitP);
+        flotBntPontsProm = findViewById(R.id.flotBntPontsProm);
+        flotBntSalesCardap = findViewById( R.id.flotBntSaleCardapP);
+        flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
 
-        flotBntSalesCardap = findViewById( R.id.flotBntSalesCadap );
-
-        flotBntSalesCardap.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View v )
-            {
-                iniActSaleCardp();
-                startVibrate(90);
-            }
-        });
+        flotBntExitP.setOnClickListener(this);
+        flotBntPontsProm.setOnClickListener(this);
+        flotBntSalesCardap.setOnClickListener(this);
+        flotBntEditPersonP.setOnClickListener( this );
 
     }
 
@@ -70,22 +70,43 @@ public class ActPromotion extends AppCompatActivity
         txtTitle.setTypeface( font );
     }
 
-    public void iniActSaleCardp()
-    {
+
+    @Override
+    public void onClick(View v) {
+
+        if ( v.getId() == R.id.flotBntSaleCardapP ) {
+
+            startVibrate(90);
             Intent it = new Intent( this, ActSaleCardap.class );
             startActivity( it );
+
+        }
+        if ( v.getId() == R.id.flotBntPontsProm ) {
+
+            startVibrate(90);
+            Intent it = new Intent( this, ActPoints.class );
+            startActivity( it );
+
+        }if(v.getId() == R.id.flotBntEditPersonP){
+            startVibrate(90);
+            Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
+        } else if(v.getId() == R.id.flotBntExitP) {
+
+            startVibrate(90);
+            //finaliza a activity atual e todas a baixo
+            this.finishAffinity();
+        }
     }
 
-    public void iniActPoints()
-    {
-        Intent it = new Intent( this, ActPoints.class );
-        startActivity( it );
-    }
+
     //Metudo que ativa vibração
     public void startVibrate(long time) {
         // cria um obj atvib que recebe seu valor de context
         Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
     }
+
+
 
 }

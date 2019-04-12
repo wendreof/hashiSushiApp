@@ -6,28 +6,27 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.adapter.FragmantAdapter;
+import com.example.hashisushi.views.cardap.ActPlatHot;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActSaleCardap extends AppCompatActivity
+public class ActSaleCardap extends AppCompatActivity implements View.OnClickListener
 {
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private TextView txtCardapScardp;
+    private TextView txtLogoScardp;
+    private TextView txtSalesCardap;
 
-    private TextView txtCardap;
-    private TextView txtLogoCard;
-    private FloatingActionButton flotBntHomeMenu;
-    private FloatingActionButton flotBntCarSalesMenu;
-    private FloatingActionButton flotBntPersonsMenu;
-    private FloatingActionButton flotBntPontsMenu;
+    private FloatingActionButton flotBntVoltarPromoE;
+    private FloatingActionButton flotBntEdtPersoE;
+    private FloatingActionButton flotBntPontsE;
+    private FloatingActionButton flotBtnPlatHotE;
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -38,30 +37,71 @@ public class ActSaleCardap extends AppCompatActivity
 
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
-        txtCardap = findViewById( R.id.txtCardap );
-        txtLogoCard = findViewById( R.id.txtLogoCombo);
+        txtCardapScardp = findViewById(R.id.txtCardapScardp);
+        txtLogoScardp = findViewById(R.id.txtLogoScardp);
+        txtSalesCardap = findViewById(R.id.txtSalesCardap);
 
-        flotBntCarSalesMenu = findViewById(R.id.flotBntCarSalesMenu);
-        flotBntPersonsMenu = findViewById(R.id.flotBntEdtPersoMenu);
-        flotBntPontsMenu = findViewById(R.id.flotBntPontsMenu);
+        flotBntVoltarPromoE = findViewById(R.id.flotBntVoltarPromoE);
+        flotBntEdtPersoE = findViewById(R.id.flotBntEdtPersoE);
+        flotBntPontsE = findViewById(R.id.flotBntPontsE);
+        flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
-        paginador();
+        fontLogo();
+
+        flotBntVoltarPromoE.setOnClickListener(this);
+        flotBntEdtPersoE.setOnClickListener(this);
+        flotBntPontsE.setOnClickListener(this);
+        flotBtnPlatHotE.setOnClickListener(this);
+
 
 
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if ( v.getId() == R.id.flotBntVoltarPromoE) {
+
+            startVibrate(90);
+
+            Intent it = new Intent(ActSaleCardap.this, ActPromotion.class);
+            it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(it);
+
+        }
+        if ( v.getId() == R.id.flotBntPontsE ) {
+
+            startVibrate(90);
+            Intent it = new Intent( this, ActPoints.class );
+            startActivity( it );
+
+        }if(v.getId() == R.id.flotBntEdtPersoE){
+            startVibrate(90);
+            Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
+        } if(v.getId() == R.id.flotBtnPlatHotE) {
+
+            startVibrate(90);
+            Intent it = new Intent(this, ActPlatHot.class);
+            startActivity(it);
+
+        }
+    }
+
     //Altera fonte do txtLogo
-    private void fontLogo()
-    {
+    private void fontLogo(){
+
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-        txtCardap.setTypeface(font);
-        txtLogoCard.setTypeface( font );
+        txtCardapScardp.setTypeface(font);
+        txtLogoScardp.setTypeface(font);
+        txtSalesCardap.setTypeface(font);
     }
 
-    public void iniActOrder()
-    {
-        Intent it = new Intent( this, ActOrder.class );
-        startActivity( it );
-    }
 
     //Metudo que ativa vibração
     public void startVibrate(long time) {
@@ -70,25 +110,16 @@ public class ActSaleCardap extends AppCompatActivity
         atvib.vibrate(time);
     }
 
-    public void iniActPoints()
-    {
-        Intent it = new Intent( this, ActPoints.class );
-        startActivity( it );
-    }
-
     private void msgShort(String msg) {
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
-   //ativa paginaçao
-    private void paginador(){
 
-        mTabLayout = findViewById(R.id.TabCardap);
-        mViewPager = findViewById(R.id.view_pager);
+    //Altera fonte do txtLogo
+    public Typeface setFont(){
 
-        mViewPager.setAdapter(new FragmantAdapter(getSupportFragmentManager(),
-                getResources().getStringArray(R.array.titles_tab)));
-        mTabLayout.setupWithViewPager(mViewPager);
+        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
+
+        return font;
     }
-
 }

@@ -4,17 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSmoky">
-
+    android:background="@color/colorSmoky"
+    tools:context=".views.cardap.ActPlatHot">
 
     <TextView
-        android:id="@+id/txtPlatHot"
+        android:id="@+id/txtCardapPh"
         android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/txt_menu_sales"
+        android:textAlignment="center"
+        android:textColor="@color/ic_launcher_background"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtPlaHot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLogoPh" />
+
+    <TextView
+        android:id="@+id/txtPlaHot"
+        android:layout_width="0dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/txt_plat_hot"
         android:textAlignment="center"
         android:textColor="@color/ic_launcher_background"
@@ -23,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLogoCombo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCardapT" />
 
     <ListView
         android:id="@+id/LstPlatHot"
@@ -31,16 +49,16 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/colorVemelium"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6"
-        app:layout_constraintVertical_bias="0.528" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntHomeMenu"
+        android:id="@+id/flotBntVoltarPh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -52,10 +70,10 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/ic_home_white_24dp" />
+        app:srcCompat="@drawable/ic_arrow_left_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntCarSalesMenu"
+        android:id="@+id/flotBntPlanAcePh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -67,14 +85,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/ic_sales_cart_24dp" />
+        app:srcCompat="@drawable/ic_arrow_right_24dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.21" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
@@ -112,7 +130,7 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntEdtPersoMenu"
+        android:id="@+id/flotBntEdtPersoPh"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -127,7 +145,7 @@
         app:srcCompat="@drawable/ic_persons_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntPontsMenu"
+        android:id="@+id/flotBntPontsPh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -142,7 +160,7 @@
         app:srcCompat="@drawable/ic_ponts_white_24dp" />
 
     <TextView
-        android:id="@+id/txtLogoPlatHot"
+        android:id="@+id/txtLogoPh"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"

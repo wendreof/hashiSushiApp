@@ -15,6 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".views.cardap.ActDrinks"></activity>
+        <activity android:name=".views.cardap.ActCombo" />
+        <activity android:name=".views.cardap.ActTemakis" />
+        <activity android:name=".views.cardap.ActPlatAce" />
+        <activity android:name=".views.cardap.ActPlatHot" />
         <activity android:name=".views.ActOrder" />
         <activity android:name=".views.ActPoints" />
         <activity android:name=".views.ActSignup" />
