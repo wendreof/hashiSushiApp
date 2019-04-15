@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.views.ActPoints;
+import com.example.hashisushi.views.ActSaleCardap;
 import com.example.hashisushi.views.ActSignup;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -84,8 +87,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         } else if(v.getId() == R.id.flotBntTemakisAce) {
 
             startVibrate(90);
-            Intent it = new Intent(this, ActTemakis.class);
-            startActivity(it);
+            openTemakis();
 
         }
     }
@@ -105,4 +107,20 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         txtPlatAce.setTypeface(font);
     }
 
+    private void openTemakis(){
+
+        Intent intent = new Intent(ActPlatAce.this,ActTemakis.class);
+        //Passa efeitos de transzição
+        ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
+                R.anim.fade_in,R.anim.mover_direita);
+        ActivityCompat.startActivity(ActPlatAce.this,intent,actcompat.toBundle());
+
+    }
+
+    //oa clicar em voltar chama efeito de transição
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
+    }
 }

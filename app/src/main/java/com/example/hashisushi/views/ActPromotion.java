@@ -6,12 +6,15 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.views.cardap.ActPlatHot;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -77,8 +80,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         if ( v.getId() == R.id.flotBntSaleCardapP ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActSaleCardap.class );
-            startActivity( it );
+            openSaleCardap();
 
         }
         if ( v.getId() == R.id.flotBntPontsProm ) {
@@ -105,6 +107,18 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         // cria um obj atvib que recebe seu valor de context
         Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
+    }
+
+    private void openSaleCardap(){
+
+        Intent intent = new Intent(ActPromotion.this, ActSaleCardap.class);
+        //Passa efeitos de transzição
+        ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
+                R.anim.fade_in,R.anim.mover_direita);
+        ActivityCompat.startActivity(ActPromotion.this,intent,actcompat.toBundle());
+        //startActivity(intent);
+
+
     }
 
 

@@ -15,15 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.cardap.ActDrinks"></activity>
-        <activity android:name=".views.cardap.ActCombo" />
-        <activity android:name=".views.cardap.ActTemakis" />
-        <activity android:name=".views.cardap.ActPlatAce" />
-        <activity android:name=".views.cardap.ActPlatHot" />
+
         <activity android:name=".views.ActOrder" />
         <activity android:name=".views.ActPoints" />
         <activity android:name=".views.ActSignup" />
-        <activity android:name=".views.ActSaleCardap" />
         <activity android:name=".views.ActPromotion" />
         <activity android:name=".views.ActLogin">
             <intent-filter>
@@ -32,6 +27,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".views.ActSaleCardap"
+            android:parentActivityName=".views.cardap.ActPlatHot">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.cardap.ActPlatHot"/>
+        </activity>
+
+        <activity
+            android:name=".views.cardap.ActPlatHot"
+            android:parentActivityName=".views.cardap.ActPlatAce">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.ActPoints"/>
+        </activity>
+
+        <activity
+            android:name=".views.cardap.ActPlatAce"
+            android:parentActivityName=".views.cardap.ActTemakis">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.cardap.ActTemakis"/>
+        </activity>
+
+        <activity
+            android:name=".views.cardap.ActTemakis"
+            android:parentActivityName=".views.cardap.ActCombo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.cardap.ActCombo"/>
+        </activity>
+
+        <activity
+            android:name=".views.cardap.ActCombo"
+            android:parentActivityName=".views.cardap.ActDrinks">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.cardap.ActDrinks"/>
+        </activity>
+
+        <activity
+            android:name=".views.cardap.ActDrinks"
+            android:parentActivityName=".views.ActOrder">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.cardap.ActDrinks"/>
+        </activity>
+
+
+
     </application>
 
 </manifest>

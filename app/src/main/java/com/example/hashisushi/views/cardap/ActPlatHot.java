@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -85,8 +87,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         } else if(v.getId() == R.id.flotBntPlanAcePh) {
 
             startVibrate(90);
-            Intent it = new Intent(this, ActPlatAce.class);
-            startActivity(it);
+            openPlatAce();
 
         }
     }
@@ -106,6 +107,25 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         txtCardapPh.setTypeface(font);
         txtLogoPh.setTypeface(font);
         txtPlatHot.setTypeface(font);
+    }
+
+    private void openPlatAce(){
+
+        Intent intent = new Intent(ActPlatHot.this,ActPlatAce.class);
+        //Passa efeitos de transzição
+        ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
+                R.anim.fade_in,R.anim.mover_direita);
+        ActivityCompat.startActivity(ActPlatHot.this,intent,actcompat.toBundle());
+        //startActivity(intent);
+
+
+    }
+
+    //oa clicar em voltar chama efeito de transição
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
     }
 
 }

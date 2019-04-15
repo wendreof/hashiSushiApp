@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -87,8 +89,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         } if(v.getId() == R.id.flotBtnPlatHotE) {
 
             startVibrate(90);
-            Intent it = new Intent(this, ActPlatHot.class);
-            startActivity(it);
+            openPlatHot();
 
         }
     }
@@ -121,5 +122,25 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
 
         return font;
+    }
+
+
+    private void openPlatHot(){
+
+        Intent intent = new Intent(ActSaleCardap.this,ActPlatHot.class);
+        //Passa efeitos de transzição
+        ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
+                R.anim.fade_in,R.anim.mover_direita);
+        ActivityCompat.startActivity(ActSaleCardap.this,intent,actcompat.toBundle());
+        //startActivity(intent);
+
+
+    }
+
+    //oa clicar em voltar chama efeito de transição
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
     }
 }

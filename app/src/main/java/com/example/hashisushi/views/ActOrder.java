@@ -163,4 +163,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    //oa clicar em voltar chama efeito de transição
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
+    }
+
 }
