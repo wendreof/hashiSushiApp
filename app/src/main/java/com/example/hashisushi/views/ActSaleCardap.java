@@ -71,10 +71,10 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
             startVibrate(90);
 
-            Intent it = new Intent(ActSaleCardap.this, ActPromotion.class);
-            it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(it);
-
+            //Intent it = new Intent(ActSaleCardap.this, ActPromotion.class);
+            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            //startActivity(it);
+            finish();
         }
         if ( v.getId() == R.id.flotBntPontsE ) {
 

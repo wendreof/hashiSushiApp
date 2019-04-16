@@ -16,109 +16,112 @@
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/txt_name"
         android:textAlignment="center"
         android:textColor="@color/ic_launcher_background"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/txtTitlePonts"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/user_points_points"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
 
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/points"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_points_name" />
+        app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <TextView
         android:id="@+id/txtPonts"
         android:layout_width="0dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
 
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/_8"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/user_points_points"
-        app:layout_constraintTop_toBottomOf="@+id/user_points_name" />
+        app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <TextView
         android:id="@+id/textView9"
 
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/client"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtPonts"
+        app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_points_code" />
+        app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
     <TextView
         android:id="@+id/user_points_name"
 
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/marcos_f_c_rangel"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtPonts"
+        app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/user_points_code" />
+        app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="21dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/code"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitlePonts" />
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/user_points_code"
 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/_2071"
         android:textColor="@android:color/background_light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/user_points_name"
+        app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitlePonts" />
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline19"
@@ -181,7 +184,7 @@
         app:layout_constraintGuide_percent="0.89" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntAboutPont"
+        android:id="@+id/flotBntOrderPont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -213,15 +216,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/my_points"
         android:textAlignment="center"
         android:textColor="@color/ic_launcher_background"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtLogoC" />
 
@@ -270,9 +274,9 @@
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline19"
+        app:layout_constraintVertical_bias="0.56"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
@@ -307,10 +311,10 @@
         android:id="@+id/imgVw4"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -619,6 +623,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/screen_border"
         android:text="@string/btn_rescue"
         android:textColor="@color/ic_launcher_background"
@@ -626,6 +631,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline24" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2027027" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,9 @@ public class ActPoints extends AppCompatActivity
     private TextView txtTitlePonts;
     private TextView txtPonts;
     private FloatingActionButton flotBntScanQcodePont;
+    private FloatingActionButton flotBntHomePont;
+    private FloatingActionButton flotBntAOrderPont;
+    private Button btnRescuePont;
 
     private ImageView imgVw1,imgVw2,imgVw3,imgVw4,imgVw5,imgVw6,imgVw7,imgVw8;
     private ImageView imgVw9,imgVw10,imgVw11,imgVw12,imgVw13,imgVw14,imgVw15;
@@ -34,6 +39,8 @@ public class ActPoints extends AppCompatActivity
     private ImageView imgVw23,imgVw24,imgVw25;
 
     private int pontos;
+    // Activity read code
+    private final Activity actScanCod = this;
 
 
     @Override
@@ -43,14 +50,13 @@ public class ActPoints extends AppCompatActivity
         setContentView( R.layout.act_points);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getSupportActionBar().hide();
-        // Activity read code
-        final Activity actScanCod = this;
+
 
         txtTitlePonts = findViewById(R.id.txtTitlePonts);
         txtPonts = findViewById(R.id.txtPonts);
         txtLogo = findViewById(R.id.txtLogoC);
 
-        pontos = 13;
+        pontos = 24;
         String p = String.valueOf(pontos);
         txtPonts.setText(p);
         imgView();
@@ -60,10 +66,37 @@ public class ActPoints extends AppCompatActivity
         fontLogo();
 
         flotBntScanQcodePont = findViewById(R.id.flotBntScanQcodePont);
+        flotBntHomePont = findViewById(R.id.flotBntHomePont);
+        flotBntAOrderPont = findViewById(R.id.flotBntOrderPont);
+        btnRescuePont =findViewById(R.id.btnRescuePont);
+
+        flotBntAOrderPont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVibrate(90);
+                initOrder();
+            }
+        });
+        flotBntHomePont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVibrate(90);
+                initHome();
+            }
+        });
         flotBntScanQcodePont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startVibrate(90);
                 scanerCode(actScanCod);
+            }
+        });
+        btnRescuePont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startVibrate(90);
+                pontinsTest();
             }
         });
     }
@@ -123,6 +156,48 @@ public class ActPoints extends AppCompatActivity
     public void alerta(String msg){
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
     }
+
+    private void initHome(){
+        Intent it = new Intent( this, ActPromotion.class );
+        startActivity( it );
+    }
+
+    private void initOrder(){
+        Intent it = new Intent(this, ActOrder.class);
+        startActivity(it);
+    }
+
+    private void pontinsTest(){
+
+        if(pontos == 0 ){
+
+            alerta("Voçê não possui pontos para resgatar !");
+
+        }if (pontos > 0 && pontos <= 24) {
+
+            alerta("Voçê não completou 25 atualmente voçê tem : " + pontos + " ,pontos !") ;
+            int p = pontos - 25;
+            alerta("Faltão :" + p + " pontos para voçê fazer o resgate !");
+
+        }else if(pontos == 25){
+
+            String p = String.valueOf(pontos);
+            System.setProperty("PONTS_ENV",p);
+
+            pontos = 0;
+            txtPonts.setText("0");
+            alerta("Pontos regatados !");
+            controlImgView();
+        }
+    }
+
+    public void startVibrate(long time) {
+        // cria um obj atvib que recebe seu valor de context
+        Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        atvib.vibrate(time);
+    }
+
+
 
     public void imgView() {
 

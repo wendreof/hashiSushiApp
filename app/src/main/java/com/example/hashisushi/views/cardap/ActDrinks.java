@@ -68,9 +68,10 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         if ( v.getId() == R.id.flotBntVoltarD ) {
 
             startVibrate(90);
-            Intent it = new Intent(ActDrinks.this, ActCombo.class);
-            it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(it);
+            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
+            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            //startActivity(it);
+            finish();
 
         }
         if ( v.getId() == R.id.flotBntPontsD ) {

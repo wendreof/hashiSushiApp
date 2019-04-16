@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -27,6 +28,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
 
     private TextView txtTitle;
     private TextView txtPedido;
+    private TextView txtTotal;
 
     private String[] fillPay = { "Dinheiro","MasterCard Credito","Visa Credito","Aura Credito",
                                  "Elo Credito","Diners Club Credito","Sorocred Credito",
@@ -42,6 +44,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
     private FloatingActionButton flotBntEdtPersoO;
     private FloatingActionButton flotBntPontsO;
     private FloatingActionButton flotBntAboutO;
+    private Button btnFinishOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
         flotBntEdtPersoO = findViewById(R.id.flotBntEditPersonO);
         flotBntPontsO = findViewById(R.id.flotBntPontsO);
         flotBntAboutO = findViewById(R.id.flotBntAboutO);
+        btnFinishOrder = findViewById(R.id.btnFinishOrder);
 
         spnFillPayment = findViewById(R.id.spnfillPayMent);
         txtTitle = findViewById(R.id.txtTitle);
         txtPedido = findViewById(R.id.txtPedido);
+        txtTotal = findViewById(R.id.txtTotal);
 
         chkBxRetirar = findViewById(R.id.chkBxRetirar);
         chkBxEntrega = findViewById(R.id.chkBxEntrega);
@@ -92,6 +97,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
                     chkBxRetirar.setChecked(ischkRetirar);
                     chkBxEntrega.setChecked(ischkEntregar);
                 }
+            }
+        });
+
+        btnFinishOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVibrate(190);
+                valueTest();
             }
         });
     }
@@ -131,12 +144,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
-    private void comeBack() {
-        startVibrate(90);
-        Intent it = new Intent(ActOrder.this, ActDrinks.class);
-        it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(it);
-    }
 
     @Override
     public void onClick(View v) {
@@ -144,22 +151,26 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
         if ( v.getId() == R.id.flotBntVoltarO ) {
 
             startVibrate(90);
-            comeBack();
+            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
+            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            //startActivity(it);
+            finish();
 
-        }
-        if ( v.getId() == R.id.flotBntPontsO ) {
+        } if ( v.getId() == R.id.flotBntPontsO ) {
 
             startVibrate(90);
             Intent it = new Intent( this, ActPoints.class );
             startActivity( it );
 
-        }if(v.getId() == R.id.flotBntEditPersonO){
+        } if(v.getId() == R.id.flotBntEditPersonO){
+
             startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
-        } else if(v.getId() == R.id.flotBntAboutO) {
 
+        }if(v.getId() == R.id.flotBntAboutO) {
 
+            startVibrate(90);
         }
     }
 
@@ -168,6 +179,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
+    }
+
+    private void valueTest(){
+        String value = txtTotal.getText().toString();
+
+        if(value.equals( "00,00" )){
+            msgShort("Não há itens para finalizar o pedido !");
+        }
     }
 
 }

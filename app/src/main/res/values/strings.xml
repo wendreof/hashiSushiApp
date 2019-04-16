@@ -88,4 +88,5 @@
     <string name="txt_combo">COMBO</string>
     <string name="txt_driks">BEBIDAS E SUCOS</string>
     <string name="btn_rescue">Resgatar Pontos</string>
+    <string name="txt_remember_password">Lembrar Senha</string>
 </resources>

@@ -69,9 +69,10 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         if ( v.getId() == R.id.flotBntVoltarAce ) {
 
             startVibrate(90);
-            Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
-            it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(it);
+            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
+            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            //startActivity(it);
+            finish();
 
         }
         if ( v.getId() == R.id.flotBntPontsAce ) {

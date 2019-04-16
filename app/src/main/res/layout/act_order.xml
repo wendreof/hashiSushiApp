@@ -190,7 +190,7 @@
         app:layout_constraintGuide_percent="0.68" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnFinishOrder"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -267,7 +267,7 @@
         android:textColor="@color/ic_launcher_background"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/btnFinishOrder"
         app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
     <EditText
