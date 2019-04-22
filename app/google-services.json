@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "872099789834",
+    "firebase_url": "https://hashishushi.firebaseio.com",
+    "project_id": "hashishushi",
+    "storage_bucket": "hashishushi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872099789834:android:0db554c81e135a08",
+        "android_client_info": {
+          "package_name": "com.example.hashisushi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872099789834-hm8r04t6vgf4rpeeob82kh2tu13uk52o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hashisushi",
+            "certificate_hash": "a9698dd67aede012db582655a50b731262c6693b"
+          }
+        },
+        {
+          "client_id": "872099789834-pdul04fbprr5t0fcqq3o5tr7rjb8abi6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl4fYFCApMQxwKeRrhUK9OnLS918f9gPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872099789834-pdul04fbprr5t0fcqq3o5tr7rjb8abi6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

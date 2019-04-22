@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.google.firebase.auth.FirebaseAuthException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private String senha;
     private String email;
     private int cont;
+
 
     public static  String STATUS = null;
 
