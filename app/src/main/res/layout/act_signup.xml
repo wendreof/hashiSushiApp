@@ -14,13 +14,23 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txtCadLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtCad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:text="@string/cadastro"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textview_user_name"
@@ -35,6 +45,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/joao_da_silva"
             android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
             android:textColorHint="@color/colorHintText" />
 
         <LinearLayout
@@ -260,8 +271,9 @@
             android:id="@+id/button_user_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorVemelium"
-            android:text="@string/finalizar" />
+            android:background="@drawable/screen_border"
+            android:text="@string/finalizar"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 </ScrollView>

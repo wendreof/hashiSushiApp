@@ -47,6 +47,7 @@
     <string name="your_cpf">Informe o seu CPF!</string>
     <string name="your_name">Informe o seu nome!</string>
     <string name="registration_completed">Cadastrado concluído com sucesso!</string>
+    <string name="registration_error">Cadastrado não realizado houve algum erro !</string>
     <string name="my_points">Meus Pontos</string>
     <string name="code">Código:</string>
     <string name="_2071">2071</string>
