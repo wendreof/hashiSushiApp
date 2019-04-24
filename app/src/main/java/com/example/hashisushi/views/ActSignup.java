@@ -119,16 +119,13 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void addUser(){
+    private void addUser() {
 
         DatabaseReference users = reference.child("users");
-
         try {
-
             user = new User();
-            long id = 0001;
-            String strID = String.valueOf(id);
-            user.setIdUser(id);
+
+            user.setIdUser(0002l);
             user.setName(userName.getText().toString());
             user.setBornDate(userBornDate.getText().toString());
             user.setAddress(userAddressStreet.getText().toString());
@@ -141,16 +138,14 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
             user.setPassword(userPassword.getText().toString());
             user.setPonts(0);
 
-           users.child("0001").setValue(user);
+            users.child("0002").setValue(user);
 
             Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
-
-
-        }catch (Exception erro){
+        } catch (Exception erro) {
             msgShort("Erro na gravação ERRO : "+ erro);
             Snackbar.make(ActSignUp, R.string.registration_error , Snackbar.LENGTH_LONG).show();
-        }
 
+        }
     }
 
     private void msgShort(String msg) {
