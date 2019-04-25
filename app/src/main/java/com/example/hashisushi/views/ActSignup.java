@@ -19,8 +19,7 @@ import android.widget.Toast;
 import com.example.hashisushi.R;
 import com.example.hashisushi.dao.UserDao;
 import com.example.hashisushi.model.User;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -118,19 +117,10 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
     }
 
     private void addUser() {
-<<<<<<< HEAD
-        try {
-            user = new User();
-
-            user.setIdUser(0003l);
-=======
-
-        DatabaseReference users = reference.child("users");
         try {
             user = new User();
 
             user.setIdUser(0002l);
->>>>>>> d86a27dd9f7671a24821b5632b48f62563e224f4
             user.setName(userName.getText().toString());
             user.setBornDate(userBornDate.getText().toString());
             user.setAddress(userAddressStreet.getText().toString());
@@ -143,12 +133,8 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
             user.setPassword(userPassword.getText().toString());
             user.setPonts(0);
 
-<<<<<<< HEAD
             UserDao userDao = new UserDao();
             userDao.addUser(user);
-=======
-            users.child("0002").setValue(user);
->>>>>>> d86a27dd9f7671a24821b5632b48f62563e224f4
 
             Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
         } catch (Exception erro) {

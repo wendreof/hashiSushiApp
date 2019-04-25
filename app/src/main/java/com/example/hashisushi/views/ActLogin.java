@@ -38,6 +38,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private String senha;
     private String email;
     private int cont;
+    private char controlBtn;
 
     private FirebaseAuth userAuth;
     public static  String STATUS = null;
@@ -61,6 +62,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         fontLogo();
 
         this.userAuth = FirebaseAuth.getInstance();
+        userAuth.signOut();
 
         btnCadastrar.setOnClickListener( this );
         btnEntrar.setOnClickListener( this );
@@ -89,21 +91,24 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
         if ( v.getId() == R.id.btnEntrar )
         {
+            controlBtn = 'E';
             startVibrate(90);
             validateFields();
 
         }
         else if ( v.getId() == R.id.btnCadastrar )
         {
-           startVibrate(90);
-           validateFields();
+            controlBtn = 'C';
+            startVibrate(90);
+            validateFields();
             //Intent it = new Intent(this, ActSignup.class);
             //startActivity(it);
         }
     }
 
-    //create user in firebase 
+    //create user in firebase
     public void addUserLogin(String email,String senha){
+
         userAuth.createUserWithEmailAndPassword(email,senha)
                 .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -119,14 +124,37 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    //login user in firebase
+    public void login(String email,String senha){
+
+        userAuth.signInWithEmailAndPassword(email,senha)
+                .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()){
+                            msgShort("Usuario logado com susseço !");
+                            initPromotion();
+                        }else {
+                            msgShort("Usuario não foi logado !");
+                        }
+                    }
+                });
+
+    }
+
     public void yesUserAuth(){
         if (userAuth.getCurrentUser() !=null){
             msgShort("Usuario Logado!");
-            Intent it = new Intent(this, ActPromotion.class);
-            startActivity(it);
+
         }else {
             msgShort("Usuario não foi Logado  !");
         }
+    }
+
+    private void initPromotion(){
+        Intent it = new Intent(this, ActPromotion.class);
+        startActivity(it);
     }
 
     //Metudo que ativa vibração
@@ -142,30 +170,27 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         // Usando oque foi definido e referenciado
         email = edtEmail.getText().toString();
         senha = edtSenha.getText().toString();
-        if(cont <= 2) {
+        if(cont <= 3) {
             //desisão para tratar campos em brando Se campos em branco
 
             if (email.trim().isEmpty() || senha.trim().isEmpty()) {
                 cont++;
-                //Cria o alerta ao clicar no botão se ouver campos em braco
-                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-                dlg.setIcon(android.R.drawable.ic_dialog_alert);
-                dlg.setTitle("Há campos em branco !");
-                dlg.setMessage("Digite E-mail e senha para logar ou crie um caso não tenha," +
-                        "clique em cadastrar e após cadastro logue se.");
-                dlg.setNegativeButton("OK", null);
-                dlg.show();
+                msgShort("Digite E-mail e senha para logar!");
+                msgShort("Cadastre se caso não tenha conta !");
             } else {
                 // mensagem(user+" logado !");
                 //msgShort("Seja Bem Vindo !");
-                addUserLogin(email,senha);
 
-                yesUserAuth();
+                if ( controlBtn == 'E')
+                {
+                    login(email,senha);
+                }
+                else if ( controlBtn == 'C' )
+                {
+                    addUserLogin(email,senha);
+                }
 
                 System.setProperty("STATUS_ENV",STATUS);
-
-               // Intent it = new Intent(this, ActPromotion.class);
-                //startActivity(it);
 
                 clearFields();
 

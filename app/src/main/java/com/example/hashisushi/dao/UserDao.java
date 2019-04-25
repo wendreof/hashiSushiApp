@@ -35,7 +35,7 @@ public class UserDao {
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Log.i("USUARIOS----->",dataSnapshot.getValue().toString());
+                Log.i("USUARIOS----->",dataSnapshot.getValue().toString());
             }
 
             @Override
