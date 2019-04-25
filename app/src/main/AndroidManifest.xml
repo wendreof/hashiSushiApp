@@ -6,7 +6,11 @@
     <dist:module dist:instant="true" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET" />
+=======
+    <uses-permission android:name="android.permission.INTERNET"/>
+>>>>>>> d86a27dd9f7671a24821b5632b48f62563e224f4
 
     <application
         android:name=".utils.CustomApplication"
