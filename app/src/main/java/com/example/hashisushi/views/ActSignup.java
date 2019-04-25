@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.dao.UserDao;
 import com.example.hashisushi.model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,7 +38,6 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
     private Button btnSignUp;
     private ScrollView ActSignUp;
 
-    private DatabaseReference reference ;
     private User user;
 
     @Override
@@ -54,8 +54,6 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         txtCadLogo = findViewById(R.id.txtCadLogo);
 
         fontLogo();
-
-        reference = FirebaseDatabase.getInstance().getReference();
 
         btnSignUp.setOnClickListener( this );
 
@@ -119,16 +117,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void addUser(){
-
-        DatabaseReference users = reference.child("users");
-
+    private void addUser() {
         try {
-
             user = new User();
-            long id = 0001;
-            String strID = String.valueOf(id);
-            user.setIdUser(id);
+
+            user.setIdUser(0003l);
             user.setName(userName.getText().toString());
             user.setBornDate(userBornDate.getText().toString());
             user.setAddress(userAddressStreet.getText().toString());
@@ -141,17 +134,17 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
             user.setPassword(userPassword.getText().toString());
             user.setPonts(0);
 
-           users.child("0001").setValue(user);
+            UserDao userDao = new UserDao();
+            userDao.addUser(user);
 
             Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
-
-
-        }catch (Exception erro){
+        } catch (Exception erro) {
             msgShort("Erro na gravação ERRO : "+ erro);
             Snackbar.make(ActSignUp, R.string.registration_error , Snackbar.LENGTH_LONG).show();
-        }
 
+        }
     }
+
 
     private void msgShort(String msg) {
 

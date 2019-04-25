@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.google.firebase.auth.FirebaseAuthException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,7 +39,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private String email;
     private int cont;
 
-
+    private FirebaseAuth userAuth;
     public static  String STATUS = null;
 
 
@@ -55,6 +59,8 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtSenha = findViewById(R.id.edtSenha);
         //Chama metudo que altera fonte logo
         fontLogo();
+
+        this.userAuth = FirebaseAuth.getInstance();
 
         btnCadastrar.setOnClickListener( this );
         btnEntrar.setOnClickListener( this );
@@ -90,8 +96,36 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         else if ( v.getId() == R.id.btnCadastrar )
         {
            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
+           validateFields();
+            //Intent it = new Intent(this, ActSignup.class);
+            //startActivity(it);
+        }
+    }
+
+    //create user in firebase 
+    public void addUserLogin(String email,String senha){
+        userAuth.createUserWithEmailAndPassword(email,senha)
+                .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()){
+                            msgShort("Usuario cadastrado com susseço !");
+                        }else {
+                            msgShort("Usuario não foi cadastrado !");
+                        }
+                    }
+                });
+
+    }
+
+    public void yesUserAuth(){
+        if (userAuth.getCurrentUser() !=null){
+            msgShort("Usuario Logado!");
+            Intent it = new Intent(this, ActPromotion.class);
             startActivity(it);
+        }else {
+            msgShort("Usuario não foi Logado  !");
         }
     }
 
@@ -123,12 +157,15 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                 dlg.show();
             } else {
                 // mensagem(user+" logado !");
-                msgShort("Seja Bem Vindo !");
+                //msgShort("Seja Bem Vindo !");
+                addUserLogin(email,senha);
+
+                yesUserAuth();
 
                 System.setProperty("STATUS_ENV",STATUS);
 
-                Intent it = new Intent(this, ActPromotion.class);
-                startActivity(it);
+               // Intent it = new Intent(this, ActPromotion.class);
+                //startActivity(it);
 
                 clearFields();
 
@@ -163,7 +200,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         Date data_atual = cal.getTime();
 
         String hora_atual = dateFormat_hora.format(data_atual);
-
         Integer intHora = Integer.parseInt(hora_atual);
 
         if( intHora > 900  && intHora < 2200){

@@ -42,4 +42,4 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 }
 // Add to the bottom of the file firebase
-apply plugin: 'com.google.gms.google-services'
+apply plugin:'com.google.gms.google-services'
