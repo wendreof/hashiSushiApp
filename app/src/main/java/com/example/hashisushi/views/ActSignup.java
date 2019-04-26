@@ -120,7 +120,7 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         try {
             user = new User();
 
-            user.setIdUser(0002l);
+            user.setIdUser(0);
             user.setName(userName.getText().toString());
             user.setBornDate(userBornDate.getText().toString());
             user.setAddress(userAddressStreet.getText().toString());

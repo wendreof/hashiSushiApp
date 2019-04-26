@@ -1,17 +1,19 @@
 package com.example.hashisushi.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Product {
+public class Product implements Serializable {
 
     private long idProd;
     private String name;
     private String description;
-    private BigDecimal price;
-    private BigDecimal costPrece;
-    private BigDecimal salePrice;
+    private double price;
+    private double costPrece;
+    private double salePrice;
     private int quantityStok;
     private boolean isPromotion;
+    private String type;
     private int discount;
 
     public Product() {
@@ -42,27 +44,27 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public BigDecimal getCostPrece() {
+    public double getCostPrece() {
         return costPrece;
     }
 
-    public void setCostPrece(BigDecimal costPrece) {
+    public void setCostPrece(double costPrece) {
         this.costPrece = costPrece;
     }
 
-    public BigDecimal getSalePrice() {
+    public double getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(BigDecimal salePrice) {
+    public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
 
@@ -81,6 +83,15 @@ public class Product {
     public void setPromotion(boolean promotion) {
         isPromotion = promotion;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 
     public int getDiscount() {
         return discount;

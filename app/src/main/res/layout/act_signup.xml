@@ -120,7 +120,7 @@
 
             <EditText
                 android:id="@+id/user_address_street"
-                android:layout_width="268dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/rua_aparecida"
                 android:inputType="text"
@@ -129,7 +129,7 @@
 
             <EditText
                 android:id="@+id/user_address_number"
-                android:layout_width="275dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/_99"
                 android:inputType="text|number"

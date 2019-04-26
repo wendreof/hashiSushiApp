@@ -1,6 +1,5 @@
 package com.example.hashisushi.views;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.dao.UserDao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,9 +60,11 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtSenha = findViewById(R.id.edtSenha);
         //Chama metudo que altera fonte logo
         fontLogo();
+        UserDao userDao = new UserDao();
+        userDao.searchUser();
 
         this.userAuth = FirebaseAuth.getInstance();
-        userAuth.signOut();
+        //userAuth.signOut();
 
         btnCadastrar.setOnClickListener( this );
         btnEntrar.setOnClickListener( this );
@@ -136,7 +138,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                             msgShort("Usuario logado com susseço !");
                             initPromotion();
                         }else {
-                            msgShort("Usuario não foi logado !");
+                            msgShort("Falha no login !");
                         }
                     }
                 });
@@ -148,7 +150,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             msgShort("Usuario Logado!");
 
         }else {
-            msgShort("Usuario não foi Logado  !");
+            msgShort("Usuario não esta Logado  !");
         }
     }
 
@@ -176,7 +178,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             if (email.trim().isEmpty() || senha.trim().isEmpty()) {
                 cont++;
                 msgShort("Digite E-mail e senha para logar!");
-                msgShort("Cadastre se caso não tenha conta !");
+                msgShort("Ou cadastre se caso não tenha conta !");
             } else {
                 // mensagem(user+" logado !");
                 //msgShort("Seja Bem Vindo !");
@@ -202,7 +204,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void finaliza(){
-        msgShort("O R Notas foi finalisado");
+        msgShort("Hashi Shushi Finalizado !");
        // System.clearProperty("codigoUser");
         finish();
     }
