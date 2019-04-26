@@ -8,10 +8,7 @@
 package com.example.hashisushi.utils;
 
 import android.app.Application;
-
-
 import com.example.hashisushi.R;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class CustomApplication extends Application

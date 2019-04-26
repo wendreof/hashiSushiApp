@@ -2,7 +2,6 @@ package com.example.hashisushi.dao;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-
 import com.example.hashisushi.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,7 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 public class UserDao {
 
     private DatabaseReference reference ;
-
 
     public UserDao() {
         this.reference = FirebaseDatabase.getInstance().getReference();
@@ -36,7 +34,6 @@ public class UserDao {
         //retorna o no setado
        // DatabaseReference usersSearch = users.child("0001");
         Query queryUser = users.orderByChild("name").equalTo("Speeder Man");
-
 
         //cria um ouvinte
         queryUser.addValueEventListener(new ValueEventListener() {
