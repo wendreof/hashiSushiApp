@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 import com.example.hashisushi.views.cardap.ActPlatHot;
 import com.google.firebase.FirebaseApp;
@@ -46,8 +47,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private FloatingActionButton flotBtnPlatHotE;
 
     private DatabaseReference reference ;
-    private List<Product> products = new ArrayList<Product>();
-    private ArrayAdapter<Product> productArrayAdapter;
+    private List<Product> productsList = new ArrayList<Product>();
     private ListView lstEntrada;
 
 
@@ -195,18 +195,23 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
                     Product p = objSnapshot.getValue(Product.class);
-                    products.add(p);
-                }
-                if(products.size() == 0){
-                    msgShort("Sem retorno ");
-                }else {
-                    msgShort(products.toString());
+                    productsList.add(p);
                 }
 
-                productArrayAdapter = new ArrayAdapter<Product>(
-                        ActSaleCardap.this,
-                        android.R.layout.simple_expandable_list_item_1,products);
-                lstEntrada.setAdapter(productArrayAdapter);
+                if (productsList != null) {
+                    if (productsList.size() > 0) {
+                        ProductListAdapter plsadp = new ProductListAdapter(
+                                getApplicationContext(), productsList);
+                        lstEntrada.setAdapter(plsadp);
+                    }else{
+                        productsList = new ArrayList<>();
+                        msgShort("Não há produtos para listar!");
+
+                    }
+
+                }
+
+
             }
 
             @Override
