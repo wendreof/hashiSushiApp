@@ -5,16 +5,31 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.ProductListAdapter;
+import com.example.hashisushi.model.Product;
 import com.example.hashisushi.views.cardap.ActPlatHot;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -28,6 +43,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private  FloatingActionButton flotBntEditPersonP;
     private System status;
 
+    private DatabaseReference reference ;
+    private List<Product> productsList = new ArrayList<Product>();
+    private ListView list_produsts;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -39,15 +58,21 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         //Travæ rotaçãø da tela
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
-
         txtStatus = findViewById( R.id.txtEstatus );
         txtTitle = findViewById( R.id.txtTitle );
-        getStatus();
-        fontLogo();
+
         flotBntExitP = findViewById(R.id.flotBntExitP);
         flotBntPontsProm = findViewById(R.id.flotBntPontsProm);
         flotBntSalesCardap = findViewById( R.id.flotBntSaleCardapP);
         flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
+
+        list_produsts = findViewById(R.id.list_produsts);
+
+        initDB();
+        initSearch();
+
+        getStatus();
+        fontLogo();
 
         flotBntExitP.setOnClickListener(this);
         flotBntPontsProm.setOnClickListener(this);
@@ -121,6 +146,57 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void initDB() {
+        FirebaseApp.initializeApp(ActPromotion.this);
+        this.reference = FirebaseDatabase.getInstance().getReference();
+    }
 
+    public void initSearch(){
+        //retorna usuarios
+        DatabaseReference productDB = reference.child("product");
+        //retorna o no setado
+        // DatabaseReference usersSearch = users.child("0001");
+        Query querySearch = productDB.orderByChild("is_promotion").equalTo(true);
+
+        productsList.clear();
+
+        //cria um ouvinte
+        querySearch.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
+                    Product p = objSnapshot.getValue(Product.class);
+                    productsList.add(p);
+                }
+
+                    if (productsList.size() > 0) {
+
+
+                        ProductListAdapter plsadp = new ProductListAdapter(
+                                getApplicationContext(), productsList);
+                        list_produsts.setAdapter(plsadp);
+                        plsadp.notifyDataSetInvalidated();
+
+
+                    }else{
+                        productsList = new ArrayList<>();
+                        msgShort("Não há produtos para listar!");
+
+                    }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                msgShort("Houve algum erro :" + databaseError);
+            }
+        });
+    }
+
+    private void msgShort(String msg) {
+
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
 
 }

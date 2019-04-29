@@ -259,7 +259,6 @@ public class ActPoints extends AppCompatActivity
             imgVw25.setVisibility(View.INVISIBLE);
         }
 
-
     }
 
     private void controlPonts(){

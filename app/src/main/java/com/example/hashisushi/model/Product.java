@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public class Product implements Serializable {
 
-    private String idProd;
+    private int idProd;
     private String name;
     private String description;
     private String price;
@@ -20,11 +20,11 @@ public class Product implements Serializable {
 
     }
 
-    public String getIdProd() {
+    public int getIdProd() {
         return idProd;
     }
 
-    public void setIdProd(String idProd) {
+    public void setIdProd(int idProd) {
         this.idProd = idProd;
     }
 

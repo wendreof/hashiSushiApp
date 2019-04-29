@@ -44,19 +44,21 @@ public class ProductListAdapter extends BaseAdapter {
 
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         View view = inflater.inflate(R.layout.products_adp_list,null);
 
-        TextView txtName = (TextView) view.findViewById(R.id.txtName);
+        TextView txtName = view.findViewById(R.id.txtNameAd);
         txtName.setText(""+(p.getName()));
 
-        TextView txtDescription = (TextView) view.findViewById(R.id.txtDescription);
-        txtDescription.setText("Descrição: "+p.getDescription());
+        TextView txtDescription = view.findViewById(R.id.txtDescriptionAd);
+        txtDescription.setText("Descrição: " + p.getDescription());
 
-        TextView txtSalesPrice = (TextView) view.findViewById(R.id.txtSalesPrice);
-        txtSalesPrice.setText("Preço: "+p.getSalePrice());
+        TextView txtSalesPrice =  view.findViewById(R.id.txtSalesPriceAd);
+        txtSalesPrice.setText("Preço: " + p.getSalePrice());
 
-        TextView txtIdProduction = (TextView) view.findViewById(R.id.txtIdProduct);
-        txtIdProduction.setText("Nº: "+p.getIdProd());
+        TextView txtIdProduction = view.findViewById(R.id.txtIdProductAd);
+        txtIdProduction.setText("Nº: " + String.valueOf( p.getIdProd()));
+
 
         return view;
     }

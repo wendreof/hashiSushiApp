@@ -1,5 +1,6 @@
 package com.example.hashisushi.views;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -49,8 +50,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
     private ListView lstEntrada;
-
-
 
 
     @Override
@@ -179,44 +178,49 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
         lstEntrada = findViewById(R.id.lstEntrada);
+
     }
 
     public void initSearch(){
+
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
         Query querySearch = productDB.orderByChild("type").equalTo("Entrada");
 
+        productsList.clear();
+
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
-                    Product p = objSnapshot.getValue(Product.class);
-                    productsList.add(p);
-                }
-
-                if (productsList != null) {
-                    if (productsList.size() > 0) {
-                        ProductListAdapter plsadp = new ProductListAdapter(
-                                getApplicationContext(), productsList);
-                        lstEntrada.setAdapter(plsadp);
-                    }else{
-                        productsList = new ArrayList<>();
-                        msgShort("Não há produtos para listar!");
-
-                    }
-
+                    Product product = objSnapshot.getValue(Product.class);
+                    productsList.add(product);
                 }
 
 
+                if (productsList.size() > 0) {
+                    ProductListAdapter plsadp = new ProductListAdapter(
+                            getApplicationContext(), productsList);
+
+                    lstEntrada.setAdapter(plsadp);
+                 plsadp.notifyDataSetInvalidated();
+
+                }else{
+                    productsList = new ArrayList<>();
+                    msgShort("Não há produtos para listar!");
+
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                msgShort("Houve algum erro :" + databaseError);
             }
         });
     }
