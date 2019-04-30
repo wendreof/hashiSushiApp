@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
+
 import com.example.hashisushi.views.ActPoints;
-import com.example.hashisushi.views.ActSaleCardap;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -32,8 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActTemakis extends AppCompatActivity implements View.OnClickListener {
 

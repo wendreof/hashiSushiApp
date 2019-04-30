@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
+
 import com.example.hashisushi.views.ActPoints;
-import com.example.hashisushi.views.ActSaleCardap;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -163,7 +163,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Pratos Quente");
+        Query querySearch = productDB.orderByChild("type").equalTo("Pratos Frios");
 
         productsList.clear();
         //cria um ouvinte

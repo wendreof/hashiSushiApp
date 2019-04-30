@@ -1,6 +1,6 @@
 package com.example.hashisushi.views;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,9 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,11 +68,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         flotBntEdtPersoE.setOnClickListener(this);
         flotBntPontsE.setOnClickListener(this);
         flotBtnPlatHotE.setOnClickListener(this);
-
-
     }
-
-
 
     @Override
     protected void attachBaseContext(Context newBase) {

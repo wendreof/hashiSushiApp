@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +19,9 @@ import android.widget.Toast;
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
+
+
 import com.example.hashisushi.views.ActPoints;
-import com.example.hashisushi.views.ActSaleCardap;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -59,14 +59,12 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
         getSupportActionBar().hide();
 
-        //Travæ rotaçãø da tela
+        //Hold  rotat screen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         initComponent();
         initDB();
         initSearch();
-
-
 
         flotBntVoltarPh.setOnClickListener(this);
         flotBntEdtPersoPh.setOnClickListener(this);
@@ -92,10 +90,10 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
            // startActivity(it);
             finish();
         }
-        if ( v.getId() == R.id.flotBntPontsE ) {
+        if ( v.getId() == R.id.flotBntPontsPh ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActPoints.class);
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoPh){
@@ -168,7 +166,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Pratos Quente");
+        Query querySearch = productDB.orderByChild("type").equalTo("Pratos Quentes");
 
         productsList.clear();
         //cria um ouvinte

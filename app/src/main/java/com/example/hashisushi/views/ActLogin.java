@@ -63,8 +63,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtSenha = findViewById(R.id.edtSenha);
         //Chama metudo que altera fonte logo
         fontLogo();
-        UserDao userDao = new UserDao();
-        userDao.searchUser();
 
         this.userAuth = FirebaseAuth.getInstance();
         //userAuth.signOut();
@@ -106,8 +104,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             controlBtn = 'C';
             startVibrate(90);
             validateFields();
-            //Intent it = new Intent(this, ActSignup.class);
-            //startActivity(it);
         }
     }
 

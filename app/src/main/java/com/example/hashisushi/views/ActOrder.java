@@ -17,10 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.views.cardap.ActCombo;
-import com.example.hashisushi.views.cardap.ActDrinks;
-import com.example.hashisushi.views.cardap.ActPlatAce;
-import com.example.hashisushi.views.cardap.ActTemakis;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

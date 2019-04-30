@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
+
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
