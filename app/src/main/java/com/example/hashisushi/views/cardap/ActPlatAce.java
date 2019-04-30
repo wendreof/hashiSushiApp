@@ -163,7 +163,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Pratos Frios");
+        Query querySearch = productDB.orderByChild("type").equalTo("Pratos_Frios");
 
         productsList.clear();
         //cria um ouvinte

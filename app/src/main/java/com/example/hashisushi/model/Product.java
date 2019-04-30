@@ -8,13 +8,11 @@ public class Product implements Serializable {
     private int idProd;
     private String name;
     private String description;
-    private String price;
     private String costPrece;
     private String salePrice;
-    private String quantityStok;
     private String isPromotion;
     private String type;
-    private String discount;
+
 
     public Product() {
 
@@ -44,13 +42,6 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 
     public String getCostPrece() {
         return costPrece;
@@ -68,13 +59,6 @@ public class Product implements Serializable {
         this.salePrice = salePrice;
     }
 
-    public String getQuantityStok() {
-        return quantityStok;
-    }
-
-    public void setQuantityStok(String quantityStok) {
-        this.quantityStok = quantityStok;
-    }
 
     public String getIsPromotion() {
         return isPromotion;
@@ -92,11 +76,4 @@ public class Product implements Serializable {
         this.type = type;
     }
 
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
 }

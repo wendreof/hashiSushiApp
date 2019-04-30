@@ -159,7 +159,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         // DatabaseReference usersSearch = users.child("0001");
         Query querySearch = productDB.orderByChild("type").equalTo("Temakis");
 
-        productsList.clear();
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override

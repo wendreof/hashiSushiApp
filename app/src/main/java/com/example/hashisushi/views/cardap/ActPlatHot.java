@@ -3,6 +3,7 @@ package com.example.hashisushi.views.cardap;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -166,20 +167,18 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Pratos Quentes");
+        Query querySearch = productDB.orderByChild("type").equalTo("Pratos_Quentes");
 
-        productsList.clear();
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
                     Product product = objSnapshot.getValue(Product.class);
+
                     productsList.add(product);
                 }
-
 
                 if (productsList.size() > 0) {
                     ProductListAdapter plsadp = new ProductListAdapter(

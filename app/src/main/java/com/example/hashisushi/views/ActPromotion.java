@@ -157,7 +157,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         // DatabaseReference usersSearch = users.child("0001");
         Query querySearch = productDB.orderByChild("is_promotion").equalTo(true);
 
-        productsList.clear();
 
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
