@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#49111c</color>
-    <color name="colorPrimaryDark">#8B2635</color>
-    <color name="colorAccent">#F18805</color>
+    <color name="colorPrimary">#4F000B </color>
+    <color name="colorPrimaryDark">#A30015</color>
+    <color name="colorAccent">#A30015 </color>
+    <color name="colorSalmon">#FA7F72 </color>
+    <color name="colorSilver">#C1C1C1 </color>
+
+    //PALETA ANTIGA
     <color name="colorOrege">#F0A202</color>
     <color name="colorVemelium">#D95D39</color>
     <color name="colorMaize">#EDF060</color>

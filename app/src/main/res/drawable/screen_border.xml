@@ -4,7 +4,7 @@
     android:padding="10dp"
     android:shape="rectangle">
 
-    <solid android:color="@color/colorVemelium" />
+    <solid android:color="@color/colorAccent" />
 
     <corners
         android:bottomLeftRadius="20dp"
