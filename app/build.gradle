@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.hashisushi"
+        applicationId 'com.example.hashisushi'
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -40,7 +40,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.8'
     //depemdence auth
     implementation 'com.google.firebase:firebase-auth:16.2.1'
-   //implementation 'com.google.android.gms:play-services-auth:16.0.1'
+   implementation 'com.google.android.gms:play-services-auth:16.0.1'
 }
 // Add to the bottom of the file firebase
 apply plugin:'com.google.gms.google-services'

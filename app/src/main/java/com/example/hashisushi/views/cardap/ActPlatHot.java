@@ -3,7 +3,6 @@ package com.example.hashisushi.views.cardap;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
