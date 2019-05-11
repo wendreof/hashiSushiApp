@@ -197,19 +197,14 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                     productsList.add(product);
                 }
 
-
-                if (productsList.size() > 0) {
                     ProductListAdapter plsadp = new ProductListAdapter(
                             getApplicationContext(), productsList);
 
                     lstEntrada.setAdapter(plsadp);
                     plsadp.notifyDataSetInvalidated();
 
-                }else{
-                    productsList = new ArrayList<>();
-                    msgShort("Não há produtos para listar!");
 
-                }
+
             }
 
             @Override
