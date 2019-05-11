@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
     private ListView lstEntrada;
+
 
 
     @Override
@@ -172,16 +174,15 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
         lstEntrada = findViewById(R.id.lstEntrada);
-
     }
 
     public void initSearch(){
 
         //retorna usuarios
-        DatabaseReference productDB = reference.child("product");
-        //retorna o no setado
+        final DatabaseReference productDB = reference.child("product");
+        //retorna o no setado onChildChanged()
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Entrada");
+        Query querySearch = productDB.orderByChild("type").equalTo("Entrada" );
 
         productsList.clear();
 
@@ -202,7 +203,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                             getApplicationContext(), productsList);
 
                     lstEntrada.setAdapter(plsadp);
-                 plsadp.notifyDataSetInvalidated();
+                    plsadp.notifyDataSetInvalidated();
 
                 }else{
                     productsList = new ArrayList<>();

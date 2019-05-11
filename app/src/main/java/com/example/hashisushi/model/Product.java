@@ -7,14 +7,23 @@ public class Product implements Serializable {
     private int idProd;
     private String name;
     private String description;
-    private String costPrece;
     private String salePrice;
-    private String isPromotion;
+    private boolean isPromotion;
     private String type;
 
 
     public Product() {
 
+    }
+
+    public Product(int idProd, String name, String description,
+                   String salePrice, boolean isPromotion, String type) {
+        this.idProd = idProd;
+        this.name = name;
+        this.description = description;
+        this.salePrice = salePrice;
+        this.isPromotion = isPromotion;
+        this.type = type;
     }
 
     public int getIdProd() {
@@ -42,14 +51,6 @@ public class Product implements Serializable {
     }
 
 
-    public String getCostPrece() {
-        return costPrece;
-    }
-
-    public void setCostPrece(String costPrece) {
-        this.costPrece = costPrece;
-    }
-
     public String getSalePrice() {
         return salePrice;
     }
@@ -58,13 +59,12 @@ public class Product implements Serializable {
         this.salePrice = salePrice;
     }
 
-
-    public String getIsPromotion() {
+    public boolean isPromotion() {
         return isPromotion;
     }
 
-    public void setIsPromotion(String isPromotion) {
-        this.isPromotion = isPromotion;
+    public void setPromotion(boolean promotion) {
+        isPromotion = promotion;
     }
 
     public String getType() {

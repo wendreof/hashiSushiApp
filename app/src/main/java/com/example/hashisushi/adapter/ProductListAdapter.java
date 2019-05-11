@@ -57,8 +57,7 @@ public class ProductListAdapter extends BaseAdapter {
         salesPrice.setText("Preço: " + p.getSalePrice());
 
         TextView idProduction = view.findViewById(R.id.txtIdProductAd);
-        idProduction.setText("Nº: " + String.valueOf( p.getIdProd()));
-
+        idProduction.setText("Nº: " +  p.getIdProd());
 
         return view;
     }
