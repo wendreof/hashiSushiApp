@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.views.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -150,7 +151,8 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void initPromotion(){
-        Intent it = new Intent(this, ActPromotion.class);
+        //Intent it = new Intent(this, ActPromotion.class);
+        Intent it = new Intent(this, Navigation.class);
         startActivity(it);
     }
 
