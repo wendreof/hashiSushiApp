@@ -14,8 +14,6 @@
     android:paddingRight="1dp"
     android:paddingBottom="1dp">
 
-
-
     <TextView
         android:id="@+id/txtNameAd"
         android:layout_width="match_parent"

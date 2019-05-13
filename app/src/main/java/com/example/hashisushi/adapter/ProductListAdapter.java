@@ -47,8 +47,8 @@ public class ProductListAdapter extends BaseAdapter {
 
         View view = inflater.inflate(R.layout.products_adp_list,null);
 
-        TextView Name = view.findViewById(R.id.txtNameAd);
-        Name.setText(""+(p.getName()));
+        TextView name = view.findViewById(R.id.txtNameAd);
+        name.setText(""+(p.getName()));
 
         TextView description = view.findViewById(R.id.txtDescriptionAd);
         description.setText("Descrição: " + p.getDescription());

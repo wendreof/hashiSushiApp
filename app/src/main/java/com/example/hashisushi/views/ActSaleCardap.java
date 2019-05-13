@@ -47,8 +47,9 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private FloatingActionButton flotBtnPlatHotE;
 
     private DatabaseReference reference ;
-    private List<Product> productsList = new ArrayList<Product>();
+    private List<Product> productsList ;
     private ListView lstEntrada;
+    private ArrayAdapter<String>adapter;
 
 
 
@@ -60,6 +61,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         getSupportActionBar().hide();
 
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
+        lstEntrada = findViewById(R.id.lstEntrada);
 
         initComponent();
         initDB();
@@ -129,15 +131,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
-    //Altera fonte do txtLogo
-    public Typeface setFont(){
-
-        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-
-        return font;
-    }
-
-
     private void openPlatHot(){
 
         Intent intent = new Intent(ActSaleCardap.this,ActPlatHot.class);
@@ -146,8 +139,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                 R.anim.fade_in,R.anim.mover_direita);
         ActivityCompat.startActivity(ActSaleCardap.this,intent,actcompat.toBundle());
         //startActivity(intent);
-
-
     }
 
     //oa clicar em voltar chama efeito de transição
@@ -173,7 +164,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         flotBntPontsE = findViewById(R.id.flotBntPontsE);
         flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
-        lstEntrada = findViewById(R.id.lstEntrada);
     }
 
     public void initSearch(){
@@ -184,27 +174,24 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         // DatabaseReference usersSearch = users.child("0001");
         Query querySearch = productDB.orderByChild("type").equalTo("Entrada" );
 
-        productsList.clear();
-
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
-                for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
-                    Product product = objSnapshot.getValue(Product.class);
-                    productsList.add(product);
+                productsList = new ArrayList<Product>();
+                int retorno = 0;
+                for (DataSnapshot objSnapshot:dataSnapshot.getChildren()) {
+                    Product p = objSnapshot.getValue(Product.class);
+                    productsList.add(p);
+                    //retorno = productsList.size();
                 }
 
-                    ProductListAdapter plsadp = new ProductListAdapter(
-                            getApplicationContext(), productsList);
 
-                    lstEntrada.setAdapter(plsadp);
-                    plsadp.notifyDataSetInvalidated();
-
-
-
+                ProductListAdapter plsadp = new ProductListAdapter(
+                        getApplicationContext(), productsList);
+                lstEntrada.setAdapter(plsadp);
+                plsadp.notifyDataSetInvalidated();
             }
 
             @Override
