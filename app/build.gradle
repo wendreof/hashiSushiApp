@@ -43,14 +43,13 @@ dependencies {
     //depemdence auth
     implementation 'com.google.firebase:firebase-auth:16.2.1'
 
-   implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
 // Add to the bottom of the file firebase
-apply plugin:'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 repositories {
     mavenCentral()
 }
-

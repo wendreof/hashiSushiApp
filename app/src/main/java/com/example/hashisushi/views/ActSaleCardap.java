@@ -29,7 +29,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,28 +174,33 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     public void initSearch(){
 
         //retorna usuarios
-        final DatabaseReference productDB = reference.child("product");
+        DatabaseReference productDB = reference.child("product");
         //retorna o no setado onChildChanged()
-        // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Entrada" );
+         //DatabaseReference usersSearch = users.child("0001");
+
+        Query querySearch = productDB.orderByChild("type").equalTo("Entrada");
+
+        productsList = new ArrayList<>();
 
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                productsList = new ArrayList<Product>();
-                int retorno = 0;
-                for (DataSnapshot objSnapshot:dataSnapshot.getChildren()) {
-                    Product p = objSnapshot.getValue(Product.class);
+                System.out.println("RETORNO 3 DATA:::-->>"+dataSnapshot.toString());
+                // O dataSnapshot recebe os dados
+                productsList.clear();
+
+                for (DataSnapshot ds:dataSnapshot.getChildren()) {
+                    Product p = ds.getValue(Product.class);
                     productsList.add(p);
-                    //retorno = productsList.size();
                 }
 
-
                 ProductListAdapter plsadp = new ProductListAdapter(
-                        getApplicationContext(), productsList);
+                        getApplicationContext(),productsList);
                 lstEntrada.setAdapter(plsadp);
+
+                lstEntrada.deferNotifyDataSetChanged();
                 plsadp.notifyDataSetInvalidated();
             }
 
@@ -201,4 +211,5 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
 }

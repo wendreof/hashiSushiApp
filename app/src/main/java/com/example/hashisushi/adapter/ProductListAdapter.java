@@ -51,13 +51,13 @@ public class ProductListAdapter extends BaseAdapter {
         name.setText(""+(p.getName()));
 
         TextView description = view.findViewById(R.id.txtDescriptionAd);
-        description.setText("Descrição: " + p.getDescription());
+        description.setText("Descrição: "+(p.getDescription()));
 
-        TextView salesPrice =  view.findViewById(R.id.txtSalesPriceAd);
-        salesPrice.setText("Preço: " + p.getSalePrice());
+        TextView txtsalesPrice =  view.findViewById(R.id.txtSalesPriceAd);
+        txtsalesPrice.setText("Preço: "+(p.getSalePrice()));
 
         TextView idProduction = view.findViewById(R.id.txtIdProductAd);
-        idProduction.setText("Nº: " +  p.getIdProd());
+        idProduction.setText("Nº: "+(p.getIdProd()));
 
         return view;
     }

@@ -16,15 +16,6 @@ public class Product implements Serializable {
 
     }
 
-    public Product(int idProd, String name, String description,
-                   String salePrice, boolean isPromotion, String type) {
-        this.idProd = idProd;
-        this.name = name;
-        this.description = description;
-        this.salePrice = salePrice;
-        this.isPromotion = isPromotion;
-        this.type = type;
-    }
 
     public int getIdProd() {
         return idProd;
