@@ -55,7 +55,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
         btnFinishOrder = findViewById(R.id.btnFinishOrder);
 
         spnFillPayment = findViewById(R.id.spnfillPayMent);
-        txtTitle = findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.txtTitleReg);
         txtPedido = findViewById(R.id.txtPedido);
         txtTotal = findViewById(R.id.txtTotal);
 

@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.hashisushi.model.Product;
+import com.example.hashisushi.model.User;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +22,21 @@ public class ProductDao {
 
     public ProductDao() {
         this.reference = FirebaseDatabase.getInstance().getReference();
-       // FirebaseApp.initializeApp(ActSaleCardap.this);
+       //FirebaseApp.initializeApp(Act);
+    }
+
+
+    public void addProduct(Product product) {
+
+        DatabaseReference productsDB = reference.child("product");
+
+        try {
+            // push cria um novo no
+            productsDB.push().setValue(product);
+            System.out.printf("ERRO-produto não foi salvo !");
+        } catch (Exception erro) {
+            System.out.printf("Atenção produto não foi salvo ! ERRO :"+erro);
+        }
     }
 
     public void searchProduct(){

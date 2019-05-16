@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.hashisushi.R;
 import com.example.hashisushi.model.Product;
 
+
 import java.util.List;
 
 public class ProductListAdapter extends BaseAdapter {

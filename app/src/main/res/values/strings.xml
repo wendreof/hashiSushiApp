@@ -104,4 +104,12 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="txt_regirter_prod">Cadastro de produto</string>
+    <string name="txt_number_prod">Nº Produto</string>
+    <string name="hint_name_prod">Digite o nome do produto</string>
+    <string name="txt_name_prod">Nome do Produto:</string>
+    <string name="txt_decrition">Descrição:</string>
+    <string name="txt_price_prod">Valor R$:</string>
+    <string name="txt_type">Selecione o tipo:</string>
+    <string name="txt_Is_promotion">Esta em promoção:</string>
 </resources>

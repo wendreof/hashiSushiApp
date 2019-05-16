@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
     private ListView list_produsts;
+    private ProductListAdapter plsadp;
 
 
     @Override
@@ -57,16 +59,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         //Travæ rotaçãø da tela
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
-        txtStatus = findViewById( R.id.txtEstatus );
-        txtTitle = findViewById( R.id.txtTitle );
-
-        flotBntExitP = findViewById(R.id.flotBntExitP);
-        flotBntPontsProm = findViewById(R.id.flotBntPontsProm);
-        flotBntSalesCardap = findViewById( R.id.flotBntSaleCardapP);
-        flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
-
-        list_produsts = findViewById(R.id.list_produsts);
-
+        startComponet();
         initDB();
         initSearch();
 
@@ -79,6 +72,18 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         flotBntEditPersonP.setOnClickListener( this );
 
     }
+    private void startComponet(){
+        txtStatus = findViewById( R.id.txtEstatus );
+        txtTitle = findViewById( R.id.txtTitleReg);
+
+        flotBntExitP = findViewById(R.id.flotBntExitP);
+        flotBntPontsProm = findViewById(R.id.flotBntPontsProm);
+        flotBntSalesCardap = findViewById( R.id.flotBntSalesCardap);
+        flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
+        //RecyclerView---
+        list_produsts = findViewById(R.id.list_produsts);
+    }
+
 
     private void getStatus(){
        String stt = System.getProperty("STATUS_ENV");
@@ -101,22 +106,25 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        if ( v.getId() == R.id.flotBntSaleCardapP ) {
+        if ( v.getId() == R.id.flotBntSalesCardap) {
 
             startVibrate(90);
             openSaleCardap();
 
         }
-        if ( v.getId() == R.id.flotBntPontsProm ) {
+        if ( v.getId() == R.id.flotBntPontsProm) {
 
             startVibrate(90);
             Intent it = new Intent( this, ActPoints.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEditPersonP){
+
             startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
+            //Intent it = new Intent(this, ActSignup.class);
+            Intent it = new Intent(this, ActRegProd.class);
             startActivity(it);
+
         } else if(v.getId() == R.id.flotBntExitP) {
 
             startVibrate(90);
@@ -124,7 +132,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             this.finishAffinity();
         }
     }
-
 
     //Metudo que ativa vibração
     public void startVibrate(long time) {
@@ -165,14 +172,20 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
                     Product p = objSnapshot.getValue(Product.class);
-                    productsList.add(p);
+
+                    Product product = new Product();
+
+                    product.setName(p.getName());
+                    product.setDescription(p.getDescription());
+                    product.setSalePrice(p.getSalePrice());
+                    product.setIdProd(p.getIdProd());
+
+                    productsList.add( product);
                 }
 
                     if (productsList.size() > 0) {
 
-
-                        ProductListAdapter plsadp = new ProductListAdapter(
-                                getApplicationContext(), productsList);
+                        plsadp = new ProductListAdapter(getApplicationContext(), productsList);
                         list_produsts.setAdapter(plsadp);
                         plsadp.notifyDataSetInvalidated();
 

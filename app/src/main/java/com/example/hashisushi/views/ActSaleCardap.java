@@ -29,12 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,9 +47,10 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private FloatingActionButton flotBtnPlatHotE;
 
     private DatabaseReference reference ;
-    private List<Product> productsList ;
+    private List<Product> productsList = new ArrayList<>();
     private ListView lstEntrada;
     private ArrayAdapter<String>adapter;
+    private ProductListAdapter plsadp;
 
 
 
@@ -66,7 +62,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         getSupportActionBar().hide();
 
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
-        lstEntrada = findViewById(R.id.lstEntrada);
+
 
         initComponent();
         initDB();
@@ -140,7 +136,8 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
         Intent intent = new Intent(ActSaleCardap.this,ActPlatHot.class);
         //Passa efeitos de transzição
-        ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
+        ActivityOptionsCompat actcompat = ActivityOptionsCompat
+                .makeCustomAnimation(getApplicationContext(),
                 R.anim.fade_in,R.anim.mover_direita);
         ActivityCompat.startActivity(ActSaleCardap.this,intent,actcompat.toBundle());
         //startActivity(intent);
@@ -169,38 +166,37 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         flotBntPontsE = findViewById(R.id.flotBntPontsE);
         flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
+        lstEntrada = findViewById(R.id.lstEntrada);
+
     }
 
     public void initSearch(){
 
         //retorna usuarios
-        DatabaseReference productDB = reference.child("product");
+       final DatabaseReference productDB = reference.child("product");
         //retorna o no setado onChildChanged()
-         //DatabaseReference usersSearch = users.child("0001");
+        //DatabaseReference usersSearch = users.child("0001");
 
+        //Query querySearch = dados.orderByChild("type").startAt("E").endAt("E"+"\uf8ff");
         Query querySearch = productDB.orderByChild("type").equalTo("Entrada");
 
-        productsList = new ArrayList<>();
-
-        //cria um ouvinte
+            //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 System.out.println("RETORNO 3 DATA:::-->>"+dataSnapshot.toString());
-                // O dataSnapshot recebe os dados
-                productsList.clear();
+
+                 productsList.clear();
 
                 for (DataSnapshot ds:dataSnapshot.getChildren()) {
-                    Product p = ds.getValue(Product.class);
-                    productsList.add(p);
+
+                    productsList.add(ds.getValue(Product.class));
                 }
 
-                ProductListAdapter plsadp = new ProductListAdapter(
-                        getApplicationContext(),productsList);
+                plsadp = new ProductListAdapter(getApplicationContext(),productsList);
                 lstEntrada.setAdapter(plsadp);
 
-                lstEntrada.deferNotifyDataSetChanged();
                 plsadp.notifyDataSetInvalidated();
             }
 
@@ -210,6 +206,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                 msgShort("Houve algum erro :" + databaseError);
             }
         });
+
     }
 
 }

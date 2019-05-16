@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    private int idProd;
-    private String name;
     private String description;
+    private String idProd;
+    private Boolean isPromotion;
+    private String name;
     private String salePrice;
-    private boolean isPromotion;
     private String type;
 
 
@@ -16,21 +16,14 @@ public class Product implements Serializable {
 
     }
 
-
-    public int getIdProd() {
-        return idProd;
-    }
-
-    public void setIdProd(int idProd) {
+    public Product(String description,String idProd,Boolean isPromotion ,
+                   String name, String salePrice, String type) {
+        this.description = description;
         this.idProd = idProd;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+        this.isPromotion = isPromotion;
         this.name = name;
+        this.salePrice = salePrice;
+        this.type = type;
     }
 
     public String getDescription() {
@@ -41,6 +34,29 @@ public class Product implements Serializable {
         this.description = description;
     }
 
+    public String getIdProd() {
+        return idProd;
+    }
+
+    public void setIdProd(String idProd) {
+        this.idProd = idProd;
+    }
+
+    public Boolean getPromotion() {
+        return isPromotion;
+    }
+
+    public void setPromotion(Boolean promotion) {
+        isPromotion = promotion;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getSalePrice() {
         return salePrice;
@@ -48,14 +64,6 @@ public class Product implements Serializable {
 
     public void setSalePrice(String salePrice) {
         this.salePrice = salePrice;
-    }
-
-    public boolean isPromotion() {
-        return isPromotion;
-    }
-
-    public void setPromotion(boolean promotion) {
-        isPromotion = promotion;
     }
 
     public String getType() {
@@ -66,4 +74,15 @@ public class Product implements Serializable {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "description='" + description + '\'' +
+                ", idProd='" + idProd + '\'' +
+                ", isPromotion=" + isPromotion +
+                ", name='" + name + '\'' +
+                ", salePrice='" + salePrice + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

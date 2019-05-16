@@ -17,6 +17,7 @@ public class UserDao {
     public UserDao() {
         this.reference = FirebaseDatabase.getInstance().getReference();
     }
+
     public void addUser(User user) {
         DatabaseReference users = reference.child("users");
         try {

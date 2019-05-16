@@ -18,10 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".views.ActRegProd"></activity>
         <activity
             android:name=".views.navigation.Navigation"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".views.ActOrder" />
         <activity android:name=".views.ActSignup" />
         <activity android:name=".views.ActPromotion" />

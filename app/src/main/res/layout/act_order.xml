@@ -20,7 +20,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTitleReg" />
 
     <ListView
         android:id="@+id/lstOrder"
@@ -227,7 +227,7 @@
         app:layout_constraintGuide_percent="0.20930232" />
 
     <TextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/txtTitleReg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
