@@ -25,7 +25,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActRegProd extends AppCompatActivity implements View.OnClickListener{
 
-    private String[] type = { "Entrada","Pratos Quentes","Pratos Frios",
+    private String[] type = { "Entrada","Pratos_Quentes","Pratos_Frios",
             "Temakis","Bebidas","Combo"};
     private String[] isPromotion = { "Não","Sim"};
     private Spinner spnType;
