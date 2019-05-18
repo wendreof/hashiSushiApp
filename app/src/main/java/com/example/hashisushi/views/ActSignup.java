@@ -24,11 +24,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActSignup extends AppCompatActivity implements OnClickListener {
 
-    private static int TIME_OUT = 1500; //Time to launch the another activity
+    private static int TIME_OUT = 1000; //Time to launch the another activity
     private EditText userName, userCPF, userBornDate;
     private EditText userAddressStreet, userAddressNeighborhood, userAddressNumber;
     private EditText userAddressCity, userAddressCEP, userAddressState;
@@ -47,6 +48,7 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.act_signup);
 
         this.auth = FirebaseAuth.getInstance();
+
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
@@ -88,13 +90,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
                 ShowMSG();
                 userPassword.setError(getString(R.string.your_password));
             } else {
-                addUser();
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent it = new Intent(getApplicationContext(), ActLogin.class);
-                        startActivity(it);
-                        finish();
+                        addUser();
                     }
                 }, TIME_OUT);
             }
@@ -103,32 +103,42 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
 
     private void addUser() {
         try {
-            user = new User();
-            user.setIdUser(0);
-            user.setName(userName.getText().toString());
-            user.setBornDate(userBornDate.getText().toString());
-            user.setAddress(userAddressStreet.getText().toString());
-            user.setNumberHome(userAddressNumber.getText().toString());
-            user.setCity(userAddressCity.getText().toString());
-            user.setCep(userAddressCEP.getText().toString());
-            user.setState(userAddressState.getText().toString());
-            user.setPhone(userPhone.getText().toString());
-            user.setEmail(userEmail.getText().toString());
-            user.setPassword(userPassword.getText().toString());
-            user.setPonts(0);
 
-            UserDao userDao = new UserDao();
-            userDao.addUser(user);
+            if (userPassword.getText().length() < 6) {
+                Snackbar.make(ActSignUp, "A senha deve conter no mínimo 6 caracteres", Snackbar.LENGTH_LONG).show();
+            } else {
+                user = new User();
+                user.setIdUser(0);
+                user.setName(userName.getText().toString());
+                user.setBornDate(userBornDate.getText().toString());
+                user.setAddress(userAddressStreet.getText().toString());
+                user.setNumberHome(userAddressNumber.getText().toString());
+                user.setCity(userAddressCity.getText().toString());
+                user.setCep(userAddressCEP.getText().toString());
+                user.setState(userAddressState.getText().toString());
+                user.setPhone(userPhone.getText().toString());
+                user.setEmail(userEmail.getText().toString());
+                user.setPassword(userPassword.getText().toString());
+                user.setPonts(0);
 
-            addUserLogin(user.getEmail(), user.getPassword());
+                UserDao userDao = new UserDao();
 
-            Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
+                //Cadastra os dados do Usuário
+                userDao.addUser(user);
+
+                //Cadastra Login e Senha do usuário
+                addUserLogin(user.getEmail(), user.getPassword());
+
+                Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
+                Intent it = new Intent(getApplicationContext(), ActLogin.class);
+                startActivity(it);
+            }
+
         } catch (Exception erro) {
-            msgShort("Erro na gravação ERRO : " + erro);
+            msgShort("Erro ao realizar o cadastro :( " + erro);
             Snackbar.make(ActSignUp, R.string.registration_error, Snackbar.LENGTH_LONG).show();
         }
     }
-
 
     //create user in firebase
     public void addUserLogin(String email, String senha) {

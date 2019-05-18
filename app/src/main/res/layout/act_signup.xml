@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textview_user_cpf"
                 android:hint="@string/_123_456_789_01"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="@android:color/background_light"
                 android:textColorHint="@color/colorHintText"
                 app:mask="###.###.###-##" />

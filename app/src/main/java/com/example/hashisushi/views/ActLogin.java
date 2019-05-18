@@ -151,8 +151,8 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
             if (email.trim().isEmpty() || senha.trim().isEmpty()) {
                 cont++;
-                msgShort("Digite E-mail e senha para logar!");
-                msgShort("Ou cadastre se caso não tenha conta !");
+                msgShort("Por favor, digite seu e-mail e senha para entrar!");
+                msgShort("Ou cadastre-se!");
             } else {
                 // mensagem(user+" logado !");
                 //msgShort("Seja Bem Vindo !");
