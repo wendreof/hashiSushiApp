@@ -58,7 +58,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         //Chama metudo que altera fonte logo
         fontLogo();
 
-
         this.userAuth = FirebaseAuth.getInstance();
         //userAuth.signOut();
 

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ActSignUp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
     android:padding="20dp"
-    android:id="@+id/ActSignUp"
     tools:context=".views.ActSignup">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -43,6 +44,7 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:hint="@string/joao_da_silva"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
@@ -74,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <EditText
+            <com.vicmikhailau.maskededittext.MaskedEditText
                 android:id="@+id/user_cpf"
                 android:layout_width="183dp"
                 android:layout_height="wrap_content"
@@ -82,15 +84,18 @@
                 android:hint="@string/_123_456_789_01"
                 android:inputType="text"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText" />
+                android:textColorHint="@color/colorHintText"
+                app:mask="###.###.###-##" />
 
-            <EditText
+            <com.vicmikhailau.maskededittext.MaskedEditText
                 android:id="@+id/user_born_date"
                 android:layout_width="183dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/_01_01_2019"
+                android:inputType="date"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText" />
+                android:textColorHint="@color/colorHintText"
+                app:mask="##/##/####" />
 
         </LinearLayout>
 
@@ -129,7 +134,7 @@
 
             <EditText
                 android:id="@+id/user_address_number"
-                android:layout_width="200dp"
+                android:layout_width="118dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/_99"
                 android:inputType="text|number"
@@ -194,19 +199,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <EditText
+            <com.vicmikhailau.maskededittext.MaskedEditText
                 android:id="@+id/user_cep"
                 android:layout_width="198dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:hint="@string/_13870_001"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText" />
+                android:textColorHint="@color/colorHintText"
+                app:mask="#####-###" />
 
             <EditText
                 android:id="@+id/user_adress_state"
-                android:layout_width="275dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/sao_paulo"
                 android:inputType="text"
@@ -216,8 +222,6 @@
         </LinearLayout>
 
 
-
-
         <TextView
             android:id="@+id/textview_phone"
             android:layout_width="wrap_content"
@@ -225,14 +229,15 @@
             android:text="@string/whatsapp"
             android:textColor="@android:color/background_light" />
 
-        <EditText
+        <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/user_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/_19_99999_9999"
             android:inputType="phone"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@color/colorHintText" />
+            android:textColorHint="@color/colorHintText"
+            app:mask="(##)#.####-####" />
 
         <TextView
             android:id="@+id/textview_user_email"
@@ -265,7 +270,6 @@
             android:inputType="textPassword"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText" />
-
 
         <Button
             android:id="@+id/button_user_signup"

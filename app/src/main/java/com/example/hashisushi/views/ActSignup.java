@@ -28,7 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActSignup extends AppCompatActivity implements OnClickListener {
 
-    private static int TIME_OUT = 2000; //Time to launch the another activity
+    private static int TIME_OUT = 1500; //Time to launch the another activity
     private EditText userName, userCPF, userBornDate;
     private EditText userAddressStreet, userAddressNeighborhood, userAddressNumber;
     private EditText userAddressCity, userAddressCEP, userAddressState;
