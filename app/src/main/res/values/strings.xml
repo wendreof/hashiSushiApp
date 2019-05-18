@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">Hashi Sushi</string>
-    <string name="txt_user">Email:</string>
+    <string name="txt_user">E-mail:</string>
     <string name="txt_password">Senha:</string>
     <string name="btn_login">ENTRAR</string>
     <string name="btn_signUp">CADASTRAR</string>
     <string name="txt_name">Hashi Sushi</string>
-    <string name="hide_email">Digite seu email</string>
+    <string name="hide_email">Digite seu e-mail</string>
     <string name="hint_password">Digite sua senha</string>
     <string name="promotions">Promoções</string>
     <string name="txt_search">Buscar prato:</string>
-    <string name="txt_menu_sales">Cardapio</string>
+    <string name="txt_menu_sales">Cardápio</string>
     <string name="hint_seach_plate">Digite o prato para busca</string>
     <string name="txt_list_plate">Pratos e Bebidas</string>
     <string name="cadastro">Cadastro</string>

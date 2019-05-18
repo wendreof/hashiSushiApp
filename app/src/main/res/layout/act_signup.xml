@@ -47,6 +47,7 @@
             android:autofillHints=""
             android:hint="@string/joao_da_silva"
             android:inputType="textPersonName"
+            android:drawableStart="@drawable/ic_person_gray_24dp"
             android:textColor="#FFFFFF"
             android:textColorHint="@color/colorHintText" />
 
@@ -129,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/rua_aparecida"
                 android:inputType="text"
+                android:drawableStart="@drawable/ic_place_black_24dp"
                 android:textColor="@android:color/background_light"
                 android:textColorHint="@color/colorHintText" />
 
@@ -154,6 +156,7 @@
             android:id="@+id/user_address_neighborhood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:hint="@string/jardim_nova_alianca"
             android:inputType="text"
             android:textColor="@android:color/background_light"
@@ -235,6 +238,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/_19_99999_9999"
             android:inputType="phone"
+            android:drawableStart="@drawable/ic_phone_black_24dp"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText"
             app:mask="(##)#.####-####" />
@@ -252,6 +256,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/your_email"
             android:inputType="textEmailAddress"
+            android:drawableStart="@drawable/ic_email_black_24dp"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText" />
 
@@ -267,6 +272,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
             android:inputType="textPassword"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText" />

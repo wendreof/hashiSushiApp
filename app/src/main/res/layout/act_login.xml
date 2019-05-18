@@ -31,14 +31,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/screen_border"
         android:text="@string/btn_signUp"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -52,6 +52,7 @@
         android:autoText="true"
         android:ems="10"
         android:hint="@string/hide_email"
+        android:drawableStart="@drawable/ic_email_black_24dp"
         android:inputType="textWebEmailAddress"
         android:textColor="@android:color/background_light"
         android:textColorHint="@color/colorHintText"
@@ -82,8 +83,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:drawableStart="@drawable/ic_lock_black_24dp"
         android:ems="10"
         android:hint="@string/hint_password"
+
         android:inputType="textPassword"
         android:textColor="@android:color/background_light"
         android:textColorHint="@color/colorHintText"
@@ -124,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.64" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -149,7 +152,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
+    <Switch
         android:id="@+id/chkBxRememberPasswd"
         android:layout_width="159dp"
         android:layout_height="wrap_content"

@@ -29,9 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActSignup extends AppCompatActivity implements OnClickListener {
-
-    private static int TIME_OUT = 1000; //Time to launch the another activity
+public class ActSignup extends AppCompatActivity implements OnClickListener
+{
     private EditText userName, userCPF, userBornDate;
     private EditText userAddressStreet, userAddressNeighborhood, userAddressNumber;
     private EditText userAddressCity, userAddressCEP, userAddressState;
@@ -40,13 +39,13 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
     private TextView txtCadLogo;
     private Button btnSignUp;
     private ScrollView ActSignUp;
-    private ConstraintLayout ActLogin;
 
     private User user;
     private FirebaseAuth auth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.act_signup);
@@ -64,52 +63,65 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     //Altera fonte do txtLogo
-    private void fontLogo() {
+    private void fontLogo()
+    {
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCad.setTypeface(font);
         txtCadLogo.setTypeface(font);
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button_user_signup) {
-            if (userName.getText().toString().equals("")) {
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.button_user_signup)
+        {
+            if (userName.getText().toString().equals(""))
+            {
                 ShowMSG();
                 userName.setError(getString(R.string.your_name));
-            } else if (userCPF.getText().toString().equals("")) {
+            }
+            else if (userCPF.getText().toString().equals(""))
+            {
                 ShowMSG();
                 userCPF.setError(getString(R.string.your_cpf));
-            } else if (userEmail.getText().toString().equals("")) {
+            }
+            else if (userEmail.getText().toString().equals(""))
+            {
                 ShowMSG();
                 userEmail.setError(getString(R.string.your_email2));
-            } else if (userPhone.getText().toString().equals("")) {
+            }
+            else if (userPhone.getText().toString().equals(""))
+            {
                 ShowMSG();
                 userPhone.setError(getString(R.string.your_phone));
-            } else if (userPassword.getText().toString().equals("")) {
+            }
+            else if (userPassword.getText().toString().equals(""))
+            {
                 ShowMSG();
                 userPassword.setError(getString(R.string.your_password));
-            } else {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        addUser();
-                    }
-                }, TIME_OUT);
             }
+            else if (userPassword.getText().length() < 6)
+            {
+                Snackbar.make(ActSignUp, "A senha deve conter no mínimo 6 caracteres :s", Snackbar.LENGTH_LONG).show();
+                userPassword.setError("Tente outra senha");
+            }
+            else
+             {
+                 addUser();
+             }
         }
     }
 
-    private void addUser() {
-        try {
-
-            if (userPassword.getText().length() < 6) {
-                Snackbar.make(ActSignUp, "A senha deve conter no mínimo 6 caracteres", Snackbar.LENGTH_LONG).show();
-            } else {
+    private void addUser()
+    {
+        try
+        {
                 user = new User();
                 user.setIdUser(0);
                 user.setName(userName.getText().toString());
@@ -132,47 +144,53 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
                 //Cadastra Login e Senha do usuário
                 addUserLogin(user.getEmail(), user.getPassword());
 
-           //     Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
-                Intent it = new Intent(getApplicationContext(), ActLogin.class);
-                startActivity(it);
+            Intent it = new Intent(getApplicationContext(), ActLogin.class);
+            startActivity(it);
 
-               msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
-            }
-
-        } catch (Exception erro) {
+            msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
+        }
+        catch (Exception erro)
+        {
             msgShort("Erro ao realizar o cadastro :( " + erro);
             Snackbar.make(ActSignUp, R.string.registration_error, Snackbar.LENGTH_LONG).show();
         }
     }
 
     //create user in firebase
-    public void addUserLogin(String email, String senha) {
+    public void addUserLogin(String email, String senha)
+    {
 
         auth.createUserWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(ActSignup.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(ActSignup.this, new OnCompleteListener<AuthResult>()
+                {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()) {
-                            Intent it = new Intent(getApplicationContext(), ActLogin.class);
-                            startActivity(it);
+                        if (task.isSuccessful())
+                        {
                             Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
-                        } else {
+                            //msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
+                        }
+                        else
+                        {
                             Log.i("Erro", "Infelizmente não foi possível concluir o cadastro :(");
                         }
                     }
                 });
     }
 
-    private void msgShort(String msg) {
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    private void msgShort(String msg)
+    {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
-    private void ShowMSG() {
+    private void ShowMSG()
+    {
         Snackbar.make(ActSignUp, R.string.preencha_os_campos, Snackbar.LENGTH_LONG).show();
     }
 
-    private void findViewById() {
+    private void findViewById()
+    {
         userName = findViewById(R.id.user_name);
         userCPF = findViewById(R.id.user_cpf);
         userBornDate = findViewById(R.id.user_born_date);
@@ -187,6 +205,5 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         userPhone = findViewById(R.id.user_phone);
         btnSignUp = findViewById(R.id.button_user_signup);
         ActSignUp = findViewById(R.id.ActSignUp);
-        ActLogin = findViewById(R.id.ActLogin);
     }
 }
