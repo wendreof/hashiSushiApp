@@ -79,7 +79,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
     //Altera fonte do txtLogo
     private void fontLogo() {
-
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtLogo.setTypeface(font);
     }
@@ -100,24 +99,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
-    }
-
-    //create user in firebase
-    public void addUserLogin(String email, String senha) {
-
-        userAuth.createUserWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            msgShort("Usuario cadastrado com susseço !");
-                        } else {
-                            msgShort("Usuario não foi cadastrado !");
-                        }
-                    }
-                });
-
     }
 
     //login user in firebase
@@ -162,7 +143,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void validateFields() {
-
         //Declara variavel Recupra valores
         // Usando oque foi definido e referenciado
         email = edtEmail.getText().toString();
@@ -182,7 +162,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                     login(email, senha);
 
                 } else if (controlBtn == 'C') {
-                    addUserLogin(email, senha);
+                   // addUserLogin(email, senha);
                 }
 
                 System.setProperty("STATUS_ENV", STATUS);
@@ -197,13 +177,12 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void finaliza() {
-        msgShort("Hashi Shushi Finalizado !");
+        msgShort("Hashi Sushi Finalizado !");
         // System.clearProperty("codigoUser");
         finish();
     }
 
     private void msgShort(String msg) {
-
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -223,11 +202,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         Integer intHora = Integer.parseInt(hora_atual);
 
         if (intHora > 900 && intHora < 2200) {
-            STATUS = "Estamos atendendo !";
+            STATUS = "Estamos atendendo!";
         } else {
-            STATUS = "Não estamos atendendo agora !";
+            STATUS = "Não estamos atendendo agora!";
         }
-
     }
-
 }
