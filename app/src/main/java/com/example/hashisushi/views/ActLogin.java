@@ -29,19 +29,17 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActLogin extends AppCompatActivity implements View.OnClickListener {
 
+    public static String STATUS = null;
     private Button btnEntrar;
     private Button btnCadastrar;
     private TextView txtLogo;
     private EditText edtEmail;
     private EditText edtSenha;
-
     private String senha;
     private String email;
     private int cont;
     private char controlBtn;
     private FirebaseAuth userAuth;
-    public static  String STATUS = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +62,11 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         this.userAuth = FirebaseAuth.getInstance();
         //userAuth.signOut();
 
-        btnCadastrar.setOnClickListener( this );
-        btnEntrar.setOnClickListener( this );
+        btnCadastrar.setOnClickListener(this);
+        btnEntrar.setOnClickListener(this);
         getDate();
     }
+
     /*
      * Para que a nova fonte seja exibida na tela,
      * precisamos chamar um método na Activity que sobrescreva
@@ -79,7 +78,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
     //Altera fonte do txtLogo
-    private void fontLogo(){
+    private void fontLogo() {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtLogo.setTypeface(font);
@@ -88,33 +87,32 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if ( v.getId() == R.id.btnEntrar )
-        {
+        if (v.getId() == R.id.btnEntrar) {
 
             controlBtn = 'E';
             startVibrate(90);
             validateFields();
 
-        }
-        else if ( v.getId() == R.id.btnCadastrar )
-        {
+        } else if (v.getId() == R.id.btnCadastrar) {
             controlBtn = 'C';
             startVibrate(90);
-            validateFields();
+            //validateFields();
+            Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
         }
     }
 
     //create user in firebase
-    public void addUserLogin(String email,String senha){
+    public void addUserLogin(String email, String senha) {
 
-        userAuth.createUserWithEmailAndPassword(email,senha)
+        userAuth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             msgShort("Usuario cadastrado com susseço !");
-                        }else {
+                        } else {
                             msgShort("Usuario não foi cadastrado !");
                         }
                     }
@@ -123,17 +121,17 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
     //login user in firebase
-    public void login(String email,String senha){
+    public void login(String email, String senha) {
 
-        userAuth.signInWithEmailAndPassword(email,senha)
+        userAuth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             msgShort("Usuario logado com susseço !");
                             initPromotion();
-                        }else {
+                        } else {
                             msgShort("Falha no login !");
                         }
                     }
@@ -141,16 +139,16 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    public void yesUserAuth(){
-        if (userAuth.getCurrentUser() !=null){
+    public void yesUserAuth() {
+        if (userAuth.getCurrentUser() != null) {
             msgShort("Usuario Logado!");
 
-        }else {
+        } else {
             msgShort("Usuario não esta Logado  !");
         }
     }
 
-    private void initPromotion(){
+    private void initPromotion() {
         //Intent it = new Intent(this, ActPromotion.class);
         Intent it = new Intent(this, Navigation.class);
         startActivity(it);
@@ -159,17 +157,17 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     //Metudo que ativa vibração
     public void startVibrate(long time) {
         // cria um obj atvib que recebe seu valor de context
-        Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator atvib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
     }
 
-    public void validateFields(){
+    public void validateFields() {
 
         //Declara variavel Recupra valores
         // Usando oque foi definido e referenciado
         email = edtEmail.getText().toString();
         senha = edtSenha.getText().toString();
-        if(cont <= 3) {
+        if (cont <= 3) {
             //desisão para tratar campos em brando Se campos em branco
 
             if (email.trim().isEmpty() || senha.trim().isEmpty()) {
@@ -180,56 +178,53 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                 // mensagem(user+" logado !");
                 //msgShort("Seja Bem Vindo !");
 
-                if ( controlBtn == 'E')
-                {
-                    login(email,senha);
+                if (controlBtn == 'E') {
+                    login(email, senha);
 
-                }
-                else if ( controlBtn == 'C' )
-                {
-                    addUserLogin(email,senha);
+                } else if (controlBtn == 'C') {
+                    addUserLogin(email, senha);
                 }
 
-                System.setProperty("STATUS_ENV",STATUS);
+                System.setProperty("STATUS_ENV", STATUS);
 
                 clearFields();
 
                 cont = 0;
             }//if campos
-        }else {
+        } else {
             finaliza();
         }//if cont
     }
 
-    private void finaliza(){
+    private void finaliza() {
         msgShort("Hashi Shushi Finalizado !");
-       // System.clearProperty("codigoUser");
+        // System.clearProperty("codigoUser");
         finish();
     }
 
     private void msgShort(String msg) {
 
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    private void clearFields(){
+    private void clearFields() {
         edtEmail.setText("");
         edtSenha.setText("");
     }
 
-    private void getDate(){
+    private void getDate() {
 
         SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HHmm");
 
-        Calendar  cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         Date data_atual = cal.getTime();
 
         String hora_atual = dateFormat_hora.format(data_atual);
         Integer intHora = Integer.parseInt(hora_atual);
 
-        if( intHora > 900  && intHora < 2200){
+        if (intHora > 900 && intHora < 2200) {
             STATUS = "Estamos atendendo !";
-        }else{
+        } else {
             STATUS = "Não estamos atendendo agora !";
         }
 

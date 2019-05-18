@@ -1,6 +1,7 @@
 package com.example.hashisushi.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Order {
 
@@ -13,6 +14,8 @@ public class Order {
     private int quantProd;
     private int discont;
     private BigDecimal totalPrince;
+    private List<Product> products;
+    private String observation;
 
     public Order() { }
 
@@ -86,5 +89,21 @@ public class Order {
 
     public void setTotalPrince(BigDecimal totalPrince) {
         this.totalPrince = totalPrince;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 }

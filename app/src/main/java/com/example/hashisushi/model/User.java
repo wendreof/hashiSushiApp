@@ -1,6 +1,7 @@
 package com.example.hashisushi.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
 
@@ -132,5 +133,51 @@ public class User implements Serializable {
 
     public void setPonts(int ponts) {
         this.ponts = ponts;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser=" + idUser +
+                ", name='" + name + '\'' +
+                ", bornDate='" + bornDate + '\'' +
+                ", address='" + address + '\'' +
+                ", neigthborhood='" + neigthborhood + '\'' +
+                ", numberHome='" + numberHome + '\'' +
+                ", city='" + city + '\'' +
+                ", cep='" + cep + '\'' +
+                ", state='" + state + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isAdmin='" + isAdmin + '\'' +
+                ", ponts=" + ponts +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return getIdUser() == user.getIdUser() &&
+                getPonts() == user.getPonts() &&
+                Objects.equals(getName(), user.getName()) &&
+                Objects.equals(getBornDate(), user.getBornDate()) &&
+                Objects.equals(getAddress(), user.getAddress()) &&
+                Objects.equals(getNeigthborhood(), user.getNeigthborhood()) &&
+                Objects.equals(getNumberHome(), user.getNumberHome()) &&
+                Objects.equals(getCity(), user.getCity()) &&
+                Objects.equals(getCep(), user.getCep()) &&
+                Objects.equals(getState(), user.getState()) &&
+                Objects.equals(getPhone(), user.getPhone()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getIsAdmin(), user.getIsAdmin());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdUser(), getName(), getBornDate(), getAddress(), getNeigthborhood(), getNumberHome(), getCity(), getCep(), getState(), getPhone(), getEmail(), getPassword(), getIsAdmin(), getPonts());
     }
 }
