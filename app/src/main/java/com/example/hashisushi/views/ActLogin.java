@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private String email;
     private int cont;
     private char controlBtn;
+    private ConstraintLayout ActLogin;
     private FirebaseAuth userAuth;
 
     @Override
@@ -55,6 +57,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         txtLogo = findViewById(R.id.txtLogoC);
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
+        ActLogin = findViewById(R.id.ActLogin);
         //Chama metudo que altera fonte logo
         fontLogo();
 

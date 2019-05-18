@@ -6,9 +6,11 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,6 +40,8 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
     private TextView txtCadLogo;
     private Button btnSignUp;
     private ScrollView ActSignUp;
+    private ConstraintLayout ActLogin;
+
     private User user;
     private FirebaseAuth auth;
 
@@ -90,7 +94,6 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
                 ShowMSG();
                 userPassword.setError(getString(R.string.your_password));
             } else {
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -129,9 +132,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
                 //Cadastra Login e Senha do usuário
                 addUserLogin(user.getEmail(), user.getPassword());
 
-                Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
+           //     Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
                 Intent it = new Intent(getApplicationContext(), ActLogin.class);
                 startActivity(it);
+
+               msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
             }
 
         } catch (Exception erro) {
@@ -149,9 +154,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            msgShort("O Usuário " + user.getName() + " foi cadastrado com sucesso!");
+                            Intent it = new Intent(getApplicationContext(), ActLogin.class);
+                            startActivity(it);
+                            Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
                         } else {
-                            msgShort("Infelizmente, não foi possível concluir o cadastro :(");
+                            Log.i("Erro", "Infelizmente não foi possível concluir o cadastro :(");
                         }
                     }
                 });
@@ -180,5 +187,6 @@ public class ActSignup extends AppCompatActivity implements OnClickListener {
         userPhone = findViewById(R.id.user_phone);
         btnSignUp = findViewById(R.id.button_user_signup);
         ActSignUp = findViewById(R.id.ActSignUp);
+        ActLogin = findViewById(R.id.ActLogin);
     }
 }
