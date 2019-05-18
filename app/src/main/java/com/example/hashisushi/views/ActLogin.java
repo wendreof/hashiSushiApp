@@ -39,7 +39,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private String email;
     private int cont;
     private char controlBtn;
-
     private FirebaseAuth userAuth;
     public static  String STATUS = null;
 
@@ -60,6 +59,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtSenha = findViewById(R.id.edtSenha);
         //Chama metudo que altera fonte logo
         fontLogo();
+
 
         this.userAuth = FirebaseAuth.getInstance();
         //userAuth.signOut();
