@@ -42,6 +42,7 @@
     <string name="finalizar">Finalizar</string>
     <string name="preencha_os_campos">Por favor preencha os campos solicitados</string>
     <string name="password">Informe sua senha</string>
+    <string name="password_RETYPE">Repita sua senha</string>
     <string name="pass">Senha</string>
     <string name="your_password">Informe o sua senha!</string>
     <string name="your_phone">Informe o seu celular!</string>

@@ -19,6 +19,7 @@ public class User implements Serializable {
     private String password;
     private String isAdmin;
     private int ponts;
+    private String referencePoint;
 
     //firebade requer constructor
     public User() { }
@@ -133,6 +134,14 @@ public class User implements Serializable {
 
     public void setPonts(int ponts) {
         this.ponts = ponts;
+    }
+
+    public String getReferencePoint() {
+        return referencePoint;
+    }
+
+    public void setReferencePoint(String referencePoint) {
+        this.referencePoint = referencePoint;
     }
 
     @Override

@@ -34,12 +34,10 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     private EditText userName, userCPF, userBornDate;
     private EditText userAddressStreet, userAddressNeighborhood, userAddressNumber;
     private EditText userAddressCity, userAddressCEP, userAddressState;
-    private EditText userEmail, userPhone, userPassword;
-    private TextView txtCad;
-    private TextView txtCadLogo;
+    private EditText userEmail, userPhone, userPassword, userPasswordRetype, userReferencePoint;
+    private TextView txtCad, txtCadLogo;
     private Button btnSignUp;
     private ScrollView ActSignUp;
-
     private User user;
     private FirebaseAuth auth;
 
@@ -111,6 +109,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                 Snackbar.make(ActSignUp, "A senha deve conter no mínimo 6 caracteres :s", Snackbar.LENGTH_LONG).show();
                 userPassword.setError("Tente outra senha");
             }
+            else if (!userPasswordRetype.getText().toString().equals(userPassword.getText().toString()))
+            {
+                Snackbar.make(ActSignUp, "As senhas não conferem :s", Snackbar.LENGTH_LONG).show();
+                userPasswordRetype.setError("As senhas devem ser idênticas");
+            }
             else
              {
                  addUser();
@@ -126,7 +129,15 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                 user.setIdUser(0);
                 user.setName(userName.getText().toString());
                 user.setBornDate(userBornDate.getText().toString());
-                user.setAddress(userAddressStreet.getText().toString());
+                if(userReferencePoint.getText().toString().equals(""))
+                {
+                    user.setAddress(userAddressStreet.getText().toString());
+                }
+                else
+                {
+                    user.setAddress(userAddressStreet.getText().toString() + " - Ponto de referência: " + userReferencePoint.getText().toString());
+                }
+                user.setNeigthborhood(userAddressNeighborhood.getText().toString());
                 user.setNumberHome(userAddressNumber.getText().toString());
                 user.setCity(userAddressCity.getText().toString());
                 user.setCep(userAddressCEP.getText().toString());
@@ -159,13 +170,12 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     //create user in firebase
     public void addUserLogin(String email, String senha)
     {
-
         auth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(ActSignup.this, new OnCompleteListener<AuthResult>()
                 {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
                         if (task.isSuccessful())
                         {
                             Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
@@ -201,9 +211,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         userAddressCEP = findViewById(R.id.user_cep);
         userAddressState = findViewById(R.id.user_adress_state);
         userPassword = findViewById(R.id.user_password);
+        userPasswordRetype = findViewById(R.id.user_password_RETYPE);
         userEmail = findViewById(R.id.user_email);
         userPhone = findViewById(R.id.user_phone);
         btnSignUp = findViewById(R.id.button_user_signup);
         ActSignUp = findViewById(R.id.ActSignUp);
+        userReferencePoint = findViewById(R.id.user_reference_point);
     }
 }
