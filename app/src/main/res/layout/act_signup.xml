@@ -35,220 +35,246 @@
 
         <TextView
             android:id="@+id/textview_user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/full_name"
-            android:textColor="@android:color/background_light" />
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
             android:hint="@string/joao_da_silva"
-            android:inputType="textPersonName"
-            android:drawableStart="@drawable/ic_person_gray_24dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@color/colorHintText" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textview_user_cpf"
-                android:layout_width="185dp"
-                android:layout_height="wrap_content"
-                android:text="@string/cpf"
-                android:textColor="@android:color/background_light" />
-
-            <TextView
-                android:id="@+id/textview_user_born_date"
-                android:layout_width="181dp"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/textview_user_cpf"
-                android:text="@string/bord_date"
-                android:textColor="@android:color/background_light" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <com.vicmikhailau.maskededittext.MaskedEditText
-                android:id="@+id/user_cpf"
-                android:layout_width="183dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textview_user_cpf"
-                android:hint="@string/_123_456_789_01"
-                android:inputType="number"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText"
-                app:mask="###.###.###-##" />
-
-            <com.vicmikhailau.maskededittext.MaskedEditText
-                android:id="@+id/user_born_date"
-                android:layout_width="183dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/_01_01_2019"
-                android:inputType="date"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText"
-                app:mask="##/##/####" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textview_user_address_street"
-                android:layout_width="268dp"
-                android:layout_height="wrap_content"
-                android:text="@string/endere_o"
-                android:textColor="@android:color/background_light" />
-
-            <TextView
-                android:id="@+id/textview_user_address_number"
-                android:layout_width="99dp"
-                android:layout_height="wrap_content"
-                android:text="@string/number"
-                android:textColor="@android:color/background_light" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/user_address_street"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/rua_aparecida"
-                android:inputType="text"
-                android:drawableStart="@drawable/ic_place_black_24dp"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText" />
-
-            <EditText
-                android:id="@+id/user_address_number"
-                android:layout_width="118dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/_99"
-                android:inputType="text|number"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText" />
-
-        </LinearLayout>
+            android:inputType="textPersonName|textCapWords"
+            android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textview_user_address_neighborhood"
-            android:layout_width="194dp"
-            android:layout_height="wrap_content"
-            android:text="@string/neighborhood"
-            android:textColor="@android:color/background_light" />
-
-        <EditText
-            android:id="@+id/user_address_neighborhood"
+            android:id="@+id/textview_user_cpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:hint="@string/jardim_nova_alianca"
-            android:inputType="text"
+            android:text="@string/cpf"
+            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@color/colorHintText" />
+            android:textSize="18sp" />
+
+        <com.vicmikhailau.maskededittext.MaskedEditText
+            android:id="@+id/user_cpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_user_cpf"
+            android:hint="@string/_123_456_789_01"
+            android:inputType="number|textCapWords"
+            android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp"
+            app:mask="###.###.###-##" />
+
+        <TextView
+            android:id="@+id/textview_user_born_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textview_user_cpf"
+            android:text="@string/bord_date"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <com.vicmikhailau.maskededittext.MaskedEditText
+            android:id="@+id/user_born_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/_01_01_2019"
+            android:inputType="date"
+            android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp"
+            app:mask="##/##/####" />
+
+        <TextView
+            android:id="@+id/textview_user_cep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cep"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <com.vicmikhailau.maskededittext.MaskedEditText
+            android:id="@+id/user_cep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:enabled="false"
+            android:hint="@string/_13870_001"
+            android:inputType="number"
+            android:text="13880-000"
+            android:textAllCaps="true"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@color/colorHintText"
+            android:visibility="gone"
+            app:mask="#####-###" />
+
+        <TextView
+            android:id="@+id/textview_user_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/state"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/user_adress_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/sao_paulo"
+            android:inputType="text"
+            android:text="São Paulo"
+            android:textAllCaps="true"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@color/colorHintText"
+            android:visibility="gone" />
+
 
         <TextView
             android:id="@+id/textview_user_city"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/city"
-            android:textColor="@android:color/background_light" />
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/user_address_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:hint="@string/vargem_grande_do_sul"
             android:inputType="text"
+            android:text="Vargem Grande do Sul"
+            android:textAllCaps="true"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textview_user_address_neighborhood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/neighborhood"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textview_user_cep"
-                android:layout_width="198dp"
-                android:layout_height="wrap_content"
-                android:text="@string/cep"
-                android:textColor="@android:color/background_light" />
+        <EditText
+            android:id="@+id/user_address_neighborhood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/jardim_nova_alianca"
+            android:inputType="text|textCapWords"
+            android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textview_user_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/state"
-                android:textColor="@android:color/background_light" />
+        <TextView
+            android:id="@+id/textview_user_address_street"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/endere_o"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
-        </LinearLayout>
+        <EditText
+            android:id="@+id/user_address_street"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/rua_aparecida"
+            android:inputType="text|textCapWords"
+            android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textview_user_address_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/number"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
-            <com.vicmikhailau.maskededittext.MaskedEditText
-                android:id="@+id/user_cep"
-                android:layout_width="198dp"
-                android:layout_height="wrap_content"
-                android:autofillHints=""
-                android:hint="@string/_13870_001"
-                android:inputType="number"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText"
-                app:mask="#####-###" />
-
-            <EditText
-                android:id="@+id/user_adress_state"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/sao_paulo"
-                android:inputType="text"
-                android:textColor="@android:color/background_light"
-                android:textColorHint="@color/colorHintText" />
-
-        </LinearLayout>
+        <EditText
+            android:id="@+id/user_address_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/_99"
+            android:inputType="text|number|textCapWords"
+            android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
 
 
         <TextView
+            android:id="@+id/textview_user_reference_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reference"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/user_reference_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/referencepoint"
+            android:inputType="text|textCapWords"
+            android:textColor="@color/colorHintText"
+            android:textAllCaps="true"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/textview_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/whatsapp"
-            android:textColor="@android:color/background_light" />
+            android:textStyle="bold"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
         <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/user_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/_19_99999_9999"
-            android:inputType="phone"
-            android:drawableStart="@drawable/ic_phone_black_24dp"
+            android:inputType="phone|textCapCharacters"
+            android:textAllCaps="true"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText"
+            android:textSize="18sp"
             app:mask="(##)#.####-####" />
 
         <TextView
             android:id="@+id/textview_user_email"
-            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/e_mail"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/user_email"
@@ -256,26 +282,39 @@
             android:layout_height="wrap_content"
             android:hint="@string/your_email"
             android:inputType="textEmailAddress"
-            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:textAllCaps="true"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@color/colorHintText" />
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textview_user_password"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pass"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
             android:inputType="textPassword"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@color/colorHintText" />
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/user_password_RETYPE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_RETYPE"
+            android:inputType="textPassword"
+            android:textColor="@color/colorHintText"
+            android:textColorHint="@color/colorHintText"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button_user_signup"
@@ -283,7 +322,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/screen_border"
             android:text="@string/finalizar"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </ScrollView>
