@@ -144,14 +144,19 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                 //Cadastra Login e Senha do usuário
                 addUserLogin(user.getEmail(), user.getPassword());
 
+             //Wendreo aqui poderiamos testar se user esta logado caso sim
+            // Ja poderiamos direcionar para ActPromotion
+
             Intent it = new Intent(getApplicationContext(), ActLogin.class);
             startActivity(it);
 
-            msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
+            //msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
+            // O Snackbar aqui acho legal para manter o padrão
+            Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
         }
         catch (Exception erro)
         {
-            msgShort("Erro ao realizar o cadastro :( " + erro);
+            //msgShort("Erro ao realizar o cadastro :( " + erro);
             Snackbar.make(ActSignUp, R.string.registration_error, Snackbar.LENGTH_LONG).show();
         }
     }
@@ -169,7 +174,7 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                         if (task.isSuccessful())
                         {
                             Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
-                            //msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
+                            //msgShort("Você foi cadastrado esta logado :" + user.getName());
                         }
                         else
                         {

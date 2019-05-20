@@ -131,7 +131,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener
                 });
     }
 
-    public void yesUserAuth()
+    public void testUserAuth()
     {
         if (userAuth.getCurrentUser() != null)
         {
