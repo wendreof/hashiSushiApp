@@ -11,14 +11,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.adapter.ProductListAdapter;
+import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.model.Product;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -45,8 +46,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
-    private ListView list_produsts;
-    private ProductListAdapter plsadp;
+    private RecyclerView list_produsts;
+    private AdapterProduct adapterProduct;
 
 
     @Override
@@ -65,6 +66,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         getStatus();
         fontLogo();
+        recyclerViewConfig();
 
         flotBntExitP.setOnClickListener(this);
         flotBntPontsProm.setOnClickListener(this);
@@ -72,6 +74,17 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         flotBntEditPersonP.setOnClickListener( this );
 
     }
+
+    private void recyclerViewConfig(){
+
+        //Configura recyclerview
+        list_produsts.setLayoutManager(new LinearLayoutManager(this));
+        list_produsts.setHasFixedSize(true);
+        adapterProduct = new AdapterProduct(productsList, this);
+        list_produsts.setAdapter( adapterProduct );
+
+    }
+
     private void startComponet(){
         txtStatus = findViewById( R.id.txtEstatus );
         txtTitle = findViewById( R.id.txtTitleReg);
@@ -149,7 +162,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         ActivityCompat.startActivity(ActPromotion.this,intent,actcompat.toBundle());
         //startActivity(intent);
 
-
     }
 
     public void initDB() {
@@ -161,9 +173,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
-        // DatabaseReference usersSearch = users.child("0001");
         Query querySearch = productDB.orderByChild("is_promotion").equalTo(true);
-
 
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
@@ -173,29 +183,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
                     Product p = objSnapshot.getValue(Product.class);
 
-                    Product product = new Product();
-
-                    product.setName(p.getName());
-                    product.setDescription(p.getDescription());
-                    product.setSalePrice(p.getSalePrice());
-                    product.setIdProd(p.getIdProd());
-
-                    productsList.add( product);
+                    productsList.add(p);
                 }
-
-                    if (productsList.size() > 0) {
-
-                        plsadp = new ProductListAdapter(getApplicationContext(), productsList);
-                        list_produsts.setAdapter(plsadp);
-                        plsadp.notifyDataSetInvalidated();
-
-
-                    }else{
-                        productsList = new ArrayList<>();
-                        msgShort("Não há produtos para listar!");
-
-                    }
-
+                adapterProduct.notifyDataSetChanged();
             }
 
             @Override

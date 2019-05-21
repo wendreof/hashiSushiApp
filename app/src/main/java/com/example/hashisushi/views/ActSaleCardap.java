@@ -12,6 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 import com.example.hashisushi.views.cardap.ActPlatHot;
@@ -48,9 +51,8 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<>();
-    private ListView lstEntrada;
-    private ArrayAdapter<String>adapter;
-    private ProductListAdapter plsadp;
+    private RecyclerView lstEntrada;
+    private AdapterProduct adapterProduct;
 
 
 
@@ -68,11 +70,22 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         initDB();
         initSearch();
         fontLogo();
+        recyclerViewConfig();
 
         flotBntVoltarPromoE.setOnClickListener(this);
         flotBntEdtPersoE.setOnClickListener(this);
         flotBntPontsE.setOnClickListener(this);
         flotBtnPlatHotE.setOnClickListener(this);
+    }
+
+    private void recyclerViewConfig(){
+
+        //Configura recyclerview
+        lstEntrada.setLayoutManager(new LinearLayoutManager(this));
+        lstEntrada.setHasFixedSize(true);
+        adapterProduct = new AdapterProduct(productsList, this);
+        lstEntrada.setAdapter( adapterProduct );
+
     }
 
     @Override
@@ -174,10 +187,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
         //retorna usuarios
        final DatabaseReference productDB = reference.child("product");
-        //retorna o no setado onChildChanged()
-        //DatabaseReference usersSearch = users.child("0001");
 
-        //Query querySearch = dados.orderByChild("type").startAt("E").endAt("E"+"\uf8ff");
         Query querySearch = productDB.orderByChild("type").equalTo("Entrada");
 
             //cria um ouvinte
@@ -194,10 +204,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                     productsList.add(ds.getValue(Product.class));
                 }
 
-                plsadp = new ProductListAdapter(getApplicationContext(),productsList);
-                lstEntrada.setAdapter(plsadp);
-
-                plsadp.notifyDataSetInvalidated();
+                adapterProduct.notifyDataSetChanged();
             }
 
             @Override

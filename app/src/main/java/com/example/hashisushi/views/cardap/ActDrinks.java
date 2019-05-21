@@ -11,12 +11,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 import com.example.hashisushi.views.ActOrder;
@@ -49,7 +52,8 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
-    private ListView lstDrinks;
+    private RecyclerView lstDrinks;
+    private AdapterProduct adapterProduct;
 
 
     @Override
@@ -65,8 +69,18 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         initComponent();
         initDB();
         initSearch();
-
         fontLogo();
+        recyclerViewConfig();
+    }
+
+    private void recyclerViewConfig(){
+
+        //Configura recyclerview
+        lstDrinks.setLayoutManager(new LinearLayoutManager(this));
+        lstDrinks.setHasFixedSize(true);
+        adapterProduct = new AdapterProduct(productsList, this);
+        lstDrinks.setAdapter( adapterProduct );
+
     }
 
     @Override
@@ -181,18 +195,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
                     productsList.add(product);
                 }
 
-
-                if (productsList.size() > 0) {
-                    ProductListAdapter plsadp = new ProductListAdapter(
-                            getApplicationContext(), productsList);
-
-                    lstDrinks.setAdapter(plsadp);
-                    plsadp.notifyDataSetInvalidated();
-                }else{
-                    productsList = new ArrayList<>();
-                    msgShort("Não há produtos para listar!");
-
-                }
+                adapterProduct.notifyDataSetChanged();
             }
 
             @Override

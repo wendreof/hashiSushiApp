@@ -11,12 +11,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 
@@ -48,7 +51,8 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
-    private ListView lstPlaAce;
+    private RecyclerView lstPlaAce;
+    private AdapterProduct adapterProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +67,25 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         initComponent();
         initDB();
         initSearch();
+        fontLogo();
+        recyclerViewConfig();
 
         flotBntVoltarAce.setOnClickListener(this);
         flotBntEdtPersoAce.setOnClickListener(this);
         flotBntPontsAce.setOnClickListener(this);
         flotBntTemakisAce.setOnClickListener(this);
 
-        fontLogo();
+    }
+
+
+    private void recyclerViewConfig(){
+
+        //Configura recyclerview
+        lstPlaAce.setLayoutManager(new LinearLayoutManager(this));
+        lstPlaAce.setHasFixedSize(true);
+        adapterProduct = new AdapterProduct(productsList, this);
+        lstPlaAce.setAdapter( adapterProduct );
+
     }
 
     @Override
@@ -176,19 +192,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
                     Product product = objSnapshot.getValue(Product.class);
                     productsList.add(product);
                 }
-
-
-                if (productsList.size() > 0) {
-                    ProductListAdapter plsadp = new ProductListAdapter(
-                            getApplicationContext(), productsList);
-
-                    lstPlaAce.setAdapter(plsadp);
-                    plsadp.notifyDataSetInvalidated();
-                }else{
-                    productsList = new ArrayList<>();
-                    msgShort("Não há produtos para listar!");
-
-                }
+                adapterProduct.notifyDataSetChanged();
             }
 
             @Override

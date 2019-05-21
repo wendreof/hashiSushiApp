@@ -11,12 +11,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 
@@ -33,6 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ActTemakis extends AppCompatActivity implements View.OnClickListener {
 
     private FloatingActionButton flotBntVoltarT;
@@ -46,7 +51,8 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
-    private ListView lstTemakis;
+    private RecyclerView lstTemakis;
+    private AdapterProduct adapterProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +66,19 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         initComponent();
         initDB();
         initSearch();
-
         fontLogo();
+        recyclerViewConfig();
+
+    }
+
+    private void recyclerViewConfig(){
+
+        //Configura recyclerview
+        lstTemakis.setLayoutManager(new LinearLayoutManager(this));
+        lstTemakis.setHasFixedSize(true);
+        adapterProduct = new AdapterProduct(productsList, this);
+        lstTemakis.setAdapter( adapterProduct );
+
     }
 
     @Override
@@ -98,6 +115,11 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         // cria um obj atvib que recebe seu valor de context
         Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     //Altera fonte do txtLogo
@@ -170,18 +192,7 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
                     productsList.add(product);
                 }
 
-
-                if (productsList.size() > 0) {
-                    ProductListAdapter plsadp = new ProductListAdapter(
-                            getApplicationContext(), productsList);
-
-                    lstTemakis.setAdapter(plsadp);
-                    plsadp.notifyDataSetInvalidated();
-                }else{
-                    productsList = new ArrayList<>();
-                    msgShort("Não há produtos para listar!");
-
-                }
+                adapterProduct.notifyDataSetChanged();
             }
 
             @Override

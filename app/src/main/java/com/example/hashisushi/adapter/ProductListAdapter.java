@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.model.Product;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -59,6 +61,14 @@ public class ProductListAdapter extends BaseAdapter {
 
         TextView idProduction = view.findViewById(R.id.txtIdProductAd);
         idProduction.setText("Nº: "+(p.getIdProd()));
+
+        //Carregar imagem
+        ImageView imgProdution = view.findViewById(R.id.imgProductAd);
+
+        String urlselecionada = p.getImgUrl();
+
+        Picasso.get().load(urlselecionada).into(imgProdution);
+
 
         return view;
     }

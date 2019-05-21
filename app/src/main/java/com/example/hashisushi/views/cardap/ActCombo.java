@@ -11,12 +11,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 
@@ -48,7 +51,8 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
-    private ListView lstCombo;
+    private RecyclerView lstCombo;
+    private AdapterProduct adapterProduct;
 
 
     @Override
@@ -64,8 +68,18 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         initComponent();
         initDB();
         initSearch();
-
         fontLogo();
+        recyclerViewConfig();
+    }
+
+    private void recyclerViewConfig(){
+
+        //Configura recyclerview
+        lstCombo.setLayoutManager(new LinearLayoutManager(this));
+        lstCombo.setHasFixedSize(true);
+        adapterProduct = new AdapterProduct(productsList, this);
+        lstCombo.setAdapter( adapterProduct );
+
     }
 
     @Override
@@ -157,7 +171,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         flotBntPontsC.setOnClickListener(this);
         flotBntDrinksC.setOnClickListener(this);
 
-        lstCombo = findViewById(R.id.LstCombo);
+        lstCombo = findViewById(R.id.lstCombo);
 
     }
 
@@ -180,18 +194,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                     productsList.add(product);
                 }
 
-
-                if (productsList.size() > 0) {
-                    ProductListAdapter plsadp = new ProductListAdapter(
-                            getApplicationContext(), productsList);
-
-                    lstCombo.setAdapter(plsadp);
-                    plsadp.notifyDataSetInvalidated();
-                }else{
-                    productsList = new ArrayList<>();
-                    msgShort("Não há produtos para listar!");
-
-                }
+                adapterProduct.notifyDataSetChanged();
             }
 
             @Override
