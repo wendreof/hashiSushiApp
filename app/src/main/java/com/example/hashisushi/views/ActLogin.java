@@ -48,6 +48,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.act_login);
         getSupportActionBar().hide();
 

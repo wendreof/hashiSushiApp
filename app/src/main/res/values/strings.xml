@@ -115,4 +115,5 @@
     <string name="txt_price_prod">Valor R$:</string>
     <string name="txt_type">Selecione o tipo:</string>
     <string name="txt_Is_promotion">Esta em promoção:</string>
+    <string name="txt_url_img">URL imagem produto:</string>
 </resources>

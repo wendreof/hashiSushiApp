@@ -2,24 +2,39 @@ package com.example.hashisushi.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Vibrator;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.dao.FirebaseConfig;
 import com.example.hashisushi.dao.ProductDao;
-import com.example.hashisushi.dao.UserDao;
 import com.example.hashisushi.model.Product;
-import com.example.hashisushi.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -35,6 +50,9 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
     private EditText edtNumberPro;
     private EditText edtNameProd;
     private EditText edtValProd;
+    private EditText edtUrl;
+
+    private ImageView imgVwProduction;
 
     private FloatingActionButton flotBntHomeReg;
     private FloatingActionButton flotBntSaveReg;
@@ -43,6 +61,13 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
     private TextView txtTitleReg;
     private TextView txtRegisterProd;
+
+    private static final int SELECAO_GALERIA = 200;
+    private StorageReference storageReference;
+    private DatabaseReference firebaseReference;
+    private String idUsuarioLogado;
+    private String urlImagemSelecionada = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +79,87 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
         isPromotionSpn();
         typeSpn();
         fontLogo();
+        startDB();
 
         flotBntHomeReg.setOnClickListener(this);
         flotBntSaveReg.setOnClickListener(this);
         flotBntNewReg.setOnClickListener(this);
         flotBntExitReg.setOnClickListener(this);
+
+        imgVwProduction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVibrate(90);
+                getImage();
+            }
+        });
+    }
+
+    private void recuperarDadosProduction(){
+
+        //retorna usuarios
+        final DatabaseReference productDB = firebaseReference.child("product");
+
+        //Query queryProduction = productDB.orderByChild("type").equalTo("Entrada");
+
+        productDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if( dataSnapshot.getValue() != null ){
+                    Product product = dataSnapshot.getValue(Product.class);
+
+                    edtNameProd.setText(product.getName());
+                    edtDiscriptionProd.setText(product.getDescription());
+                    edtValProd.setText(product.getSalePrice());
+                    edtNumberPro.setText(product.getIdProd());
+                    spnIsPrmotion.setSelected(product.getPromotion());
+                    // spnType.setSelection();
+                    edtUrl.setText(product.getImgUrl());
+
+                    urlImagemSelecionada = product.getImgUrl();
+                    if( urlImagemSelecionada != "" ){
+                        Picasso.get()
+                                .load(urlImagemSelecionada)
+                                .into(imgVwProduction);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+    }
+
+
+
+    private void getImage(){
+
+        String idProd = edtNumberPro.getText().toString();
+        if(idProd.equals("")){
+
+            msgShort("Defina um valor para Nº do produto.");
+
+        }else {
+            Intent intent = new Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            );
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(intent, SELECAO_GALERIA);
+            }
+        }
+    }
+
+    private void startDB(){
+        storageReference = FirebaseConfig.getFirebaseStorage();
+        firebaseReference = FirebaseConfig.getFirebase();
     }
 
     @Override
@@ -71,8 +172,6 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtRegisterProd.setTypeface(font);
-        txtTitleReg.setTypeface(font);
-
     }
 
     private void startCompnent(){
@@ -84,9 +183,12 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
         edtNumberPro = findViewById(R.id.edtNumberPro);
         edtNameProd = findViewById(R.id.edtNameProd);
         edtValProd = findViewById(R.id.edtValProd);
+        edtUrl = findViewById(R.id.edtUrl);
 
         txtTitleReg = findViewById(R.id.txtTitleReg);
         txtRegisterProd = findViewById(R.id.txtRegisterProd);
+
+        imgVwProduction = findViewById(R.id.imgVwProduction);
 
         flotBntHomeReg = findViewById(R.id.flotBntHomeReg);
         flotBntSaveReg = findViewById(R.id.flotBntSaveReg);
@@ -186,6 +288,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
                 String strType = spnType.getSelectedItem().toString();
                 p.setType(strType);
+                p.setImgUrl(edtUrl.getText().toString());
 
                 ProductDao productDao = new ProductDao();
                 productDao.addProduct(p);
@@ -199,4 +302,65 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
             }
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if( resultCode == RESULT_OK){
+            Bitmap imagem = null;
+
+            try {
+
+                switch (requestCode) {
+                    case SELECAO_GALERIA:
+                        Uri localImagem = data.getData();
+                        imagem = MediaStore.Images
+                                .Media
+                                .getBitmap(
+                                        getContentResolver(),
+                                        localImagem
+                                );
+                        break;
+                }
+
+                if( imagem != null){
+
+                    imgVwProduction.setImageBitmap( imagem );
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
+                    byte[] dadosImagem = baos.toByteArray();
+
+                    StorageReference imagemRef = storageReference
+                            .child("produtos")
+                            .child("img")
+                            .child(edtNumberPro.getText() + "jpeg");
+
+                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            msgShort( "Erro ao fazer upload da imagem !");
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            urlImagemSelecionada = taskSnapshot.getUploadSessionUri().toString();
+                            edtUrl.setText(urlImagemSelecionada);
+                            msgShort("Sucesso ao fazer upload da imagem !");
+                        }
+                    });
+
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
 }
