@@ -194,11 +194,6 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                 });
     }
 
-    private void msgShort(String msg)
-    {
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-    }
-
     private void ShowMSG()
     {
         Snackbar.make(ActSignUp, R.string.preencha_os_campos, Snackbar.LENGTH_LONG).show();

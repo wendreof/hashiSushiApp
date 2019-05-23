@@ -65,7 +65,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
-
         initComponent();
         initDB();
         initSearch();
@@ -194,8 +193,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                System.out.println("RETORNO 3 DATA:::-->>"+dataSnapshot.toString());
 
                  productsList.clear();
 

@@ -25,9 +25,12 @@ import com.example.hashisushi.dao.ProductDao;
 import com.example.hashisushi.model.Product;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
@@ -35,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.util.UUID;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -93,19 +97,22 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
                 getImage();
             }
         });
+
     }
 
     private void recuperarDadosProduction(){
 
+
         //retorna usuarios
         final DatabaseReference productDB = firebaseReference.child("product");
 
-        //Query queryProduction = productDB.orderByChild("type").equalTo("Entrada");
+        Query querySearch = productDB.orderByChild("idProd").equalTo("22");
 
-        productDB.addValueEventListener(new ValueEventListener() {
+        //cria um ouvinte
+        querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                System.out.println("PRODUTO RETRNO :"+dataSnapshot);
                 if( dataSnapshot.getValue() != null ){
                     Product product = dataSnapshot.getValue(Product.class);
 
@@ -113,7 +120,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
                     edtDiscriptionProd.setText(product.getDescription());
                     edtValProd.setText(product.getSalePrice());
                     edtNumberPro.setText(product.getIdProd());
-                    spnIsPrmotion.setSelected(product.getPromotion());
+                  //  spnIsPrmotion.setSelected(product.getPromotion());
                     // spnType.setSelection();
                     edtUrl.setText(product.getImgUrl());
 
@@ -136,8 +143,6 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
         });
 
     }
-
-
 
     private void getImage(){
 
@@ -243,8 +248,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
         if ( v.getId() == R.id.flotBntNewReg ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
-            startActivity( it );
+           recuperarDadosProduction();
 
         }if(v.getId() == R.id.flotBntSaveReg){
 
@@ -276,15 +280,15 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
                 p.setSalePrice(edtValProd.getText().toString());
                 p.setIdProd(edtNumberPro.getText().toString());
 
-                String strProme = spnIsPrmotion.getSelectedItem().toString();
+                String strProm = spnIsPrmotion.getSelectedItem().toString();
 
-                boolean bolProme  = false;
-                if(strProme.equals("Sim")){
-                    bolProme = true;
+                boolean bolProm  = false;
+                if(strProm.equals("Sim")){
+                    bolProm = true;
                 }else {
-                    bolProme = false;
+                    bolProm = false;
                 }
-                p.setPromotion(bolProme);
+                p.setPromotion(bolProm);
 
                 String strType = spnType.getSelectedItem().toString();
                 p.setType(strType);
@@ -332,12 +336,13 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
                     imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                     byte[] dadosImagem = baos.toByteArray();
 
+                    String nameImagem = UUID.randomUUID().toString();
                     StorageReference imagemRef = storageReference
                             .child("produtos")
                             .child("img")
-                            .child(edtNumberPro.getText() + "jpeg");
+                            .child(nameImagem + "jpeg");
 
-                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                    final UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -347,8 +352,9 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            urlImagemSelecionada = taskSnapshot.getUploadSessionUri().toString();
-                            edtUrl.setText(urlImagemSelecionada);
+                           urlImagemSelecionada = taskSnapshot.getDownloadUrl().toString();
+
+                           edtUrl.setText(urlImagemSelecionada);
                             msgShort("Sucesso ao fazer upload da imagem !");
                         }
                     });

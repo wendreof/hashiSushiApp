@@ -115,7 +115,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         txtTitle.setTypeface( font );
     }
 
-
     @Override
     public void onClick(View v) {
 
@@ -173,7 +172,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
-        Query querySearch = productDB.orderByChild("is_promotion").equalTo(true);
+        Query querySearch = productDB.orderByChild("promotion").equalTo(true);
 
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {

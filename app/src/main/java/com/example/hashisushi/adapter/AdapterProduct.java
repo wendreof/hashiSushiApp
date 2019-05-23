@@ -1,6 +1,8 @@
 package com.example.hashisushi.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,7 +32,7 @@ public class AdapterProduct extends
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View itemLista = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.products_adp_list,parent, false);
+        View itemLista =  LayoutInflater.from(parent.getContext()).inflate(R.layout.products_adp_list,parent, false);
         return new MyViewHolder(itemLista);
     }
 
@@ -41,13 +43,12 @@ public class AdapterProduct extends
 
         holder.nameProduction.setText(product.getName());
         holder.descrition.setText("Descrição :"+product.getDescription());
-        holder.sales_price.setText("Preço R$:"+product.getSalePrice());
-        holder.idProd.setText("Nº :" + product.getIdProd());
+        holder.sales_price.setText("Preço R$ :"+product.getSalePrice());
+        holder.idProd.setText("Nº :"+ product.getIdProd());
 
-        //Carregar imagem
-        String urlImagem = product.getImgUrl();
-        Picasso.get().load( urlImagem ).into( holder.imgProduct );
-
+        //Carregar imagem com picasso api
+        String url = product.getImgUrl();
+                Picasso.get().load(url).into( holder.imgProductAd );
     }
 
     @Override
@@ -64,7 +65,7 @@ public class AdapterProduct extends
         TextView descrition;
         TextView sales_price;
         TextView idProd;
-        ImageView imgProduct;
+        ImageView imgProductAd;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -73,7 +74,7 @@ public class AdapterProduct extends
             descrition = itemView.findViewById(R.id.txtDescriptionAd);
             sales_price = itemView.findViewById(R.id.txtSalesPriceAd);
             idProd = itemView.findViewById(R.id.txtIdProductAd);
-            imgProduct = itemView.findViewById(R.id.imgProductAd);
+            imgProductAd = (ImageView) itemView.findViewById(R.id.imgProductAd);
         }
     }
 }

@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+
 public class FirebaseConfig {
 
     private static DatabaseReference  databaseReference;
@@ -38,6 +39,7 @@ public class FirebaseConfig {
     public static StorageReference getFirebaseStorage(){
         if( storageReference == null ){
             storageReference = FirebaseStorage.getInstance().getReference();
+
         }
         return storageReference;
     }
