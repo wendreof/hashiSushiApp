@@ -93,7 +93,7 @@
     <string name="txt_combo">COMBO</string>
     <string name="txt_driks">BEBIDAS E SUCOS</string>
     <string name="btn_rescue">Resgatar Pontos</string>
-    <string name="txt_remember_password">Lembrar Senha</string>
+    <string name="txt_remember_password">Lembrar-me</string>
     <string name="title_activity_navigation">Navigation</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -116,4 +116,6 @@
     <string name="txt_type">Selecione o tipo:</string>
     <string name="txt_Is_promotion">Esta em promoção:</string>
     <string name="txt_url_img">URL imagem produto:</string>
+    <string name="vgs">Vargem Grande do Sul</string>
+    <string name="SP">São Paulo</string>
 </resources>

@@ -38,9 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/full_name"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_name"
@@ -58,9 +58,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cpf"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/user_cpf"
@@ -81,9 +81,9 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textview_user_cpf"
             android:text="@string/bord_date"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/user_born_date"
@@ -137,7 +137,7 @@
             android:enabled="false"
             android:hint="@string/sao_paulo"
             android:inputType="text"
-            android:text="São Paulo"
+            android:text="@string/SP"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light"
             android:textColorHint="@color/colorHintText"
@@ -149,9 +149,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/city"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_address_city"
@@ -160,9 +160,9 @@
             android:enabled="false"
             android:hint="@string/vargem_grande_do_sul"
             android:inputType="text"
-            android:text="Vargem Grande do Sul"
+            android:text="@string/vgs"
             android:textAllCaps="true"
-            android:textColor="@android:color/background_light"
+            android:textColor="@color/colorHintText"
             android:textColorHint="@color/colorHintText" />
 
         <TextView
@@ -170,9 +170,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/neighborhood"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_address_neighborhood"
@@ -190,9 +190,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/endere_o"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_address_street"
@@ -210,9 +210,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/number"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_address_number"
@@ -231,9 +231,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/reference"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_reference_point"
@@ -241,8 +241,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/referencepoint"
             android:inputType="text|textCapWords"
-            android:textColor="@color/colorHintText"
             android:textAllCaps="true"
+            android:textColor="@color/colorHintText"
             android:textColorHint="@color/colorHintText"
             android:textSize="18sp" />
 
@@ -251,9 +251,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/whatsapp"
-            android:textStyle="bold"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.vicmikhailau.maskededittext.MaskedEditText
             android:id="@+id/user_phone"
@@ -269,12 +269,12 @@
 
         <TextView
             android:id="@+id/textview_user_email"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/e_mail"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/user_email"
@@ -289,32 +289,48 @@
 
         <TextView
             android:id="@+id/textview_user_password"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pass"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/user_password"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@android:color/background_light"
-            android:textColorHint="@color/colorHintText"
-            android:textSize="18sp" />
+            android:gravity="center"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorHintText">
 
-        <EditText
-            android:id="@+id/user_password_RETYPE"
+            <EditText
+                android:id="@+id/user_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="@color/colorHintText"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password_RETYPE"
-            android:inputType="textPassword"
-            android:textColor="@color/colorHintText"
-            android:textColorHint="@color/colorHintText"
-            android:textSize="18sp" />
+            android:gravity="center"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorHintText">
+
+            <EditText
+                android:id="@+id/user_password_RETYPE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_RETYPE"
+                android:inputType="textPassword"
+                android:textColor="@color/colorHintText"
+                android:textColorHint="@color/colorHintText"
+                android:textSize="18sp" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/button_user_signup"
