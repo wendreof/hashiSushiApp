@@ -49,7 +49,7 @@
     <string name="your_email2">Informe o seu E-mail!</string>
     <string name="your_cpf">Informe o seu CPF!</string>
     <string name="your_name">Informe o seu nome!</string>
-    <string name="registration_completed">Cadastrado concluído com sucesso! :)</string>
+    <string name="registration_completed"> O seu cadastrado foi concluído com sucesso! :)</string>
     <string name="registration_error">Cadastrado não realizado houve algum erro! :s</string>
     <string name="login_load">Aguarde validação de login... </string>
     <string name="my_points">Meus Pontos</string>
@@ -118,4 +118,20 @@
     <string name="txt_url_img">URL imagem produto:</string>
     <string name="vgs">Vargem Grande do Sul</string>
     <string name="SP">São Paulo</string>
+    <string name="we_are_not_open">Não estamos atendendo agora!</string>
+    <string name="we_are_open_now">Estamos atendendo!</string>
+    <string name="app_finished">Hashi Sushi Finalizado!</string>
+    <string name="please_type_password">Por favor, preencha esse campo!</string>
+    <string name="please_type_email">Por favor, preencha esse campo!</string>
+    <string name="type_email_and_pass">Por favor, informe e-mail e senha para acessar ou cadastre-se.</string>
+    <string name="user_not_loged">Usuário não esta Logado !</string>
+    <string name="user_loged">Usuário Logado!</string>
+    <string name="error_to_access">Falha ao acessar o app! =[</string>
+    <string name="welcome">Bem vindo! =]</string>
+    <string name="email_rememberd">Seu e-mail será lembrado!</string>
+    <string name="email_not_rememberd">Seu e-mail não será lembrado!</string>
+    <string name="pass_not_equals">As senhas devem ser idênticas</string>
+    <string name="pass_not_equals2">As senhas não conferem :s</string>
+    <string name="try_another_pass">Tente outra senha</string>
+    <string name="wrong_pass">A senha deve conter no mínimo 6 caracteres :s</string>
 </resources>

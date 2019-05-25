@@ -53,8 +53,6 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
-        txtCad = findViewById(R.id.txtCad);
-        txtCadLogo = findViewById(R.id.txtCadLogo);
 
         fontLogo();
         btnSignUp.setOnClickListener(this);
@@ -106,13 +104,13 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
             }
             else if (userPassword.getText().length() < 6)
             {
-                Snackbar.make(ActSignUp, "A senha deve conter no mínimo 6 caracteres :s", Snackbar.LENGTH_LONG).show();
-                userPassword.setError("Tente outra senha");
+                Snackbar.make(ActSignUp, R.string.wrong_pass, Snackbar.LENGTH_LONG).show();
+                userPassword.setError(getString(R.string.try_another_pass));
             }
             else if (!userPasswordRetype.getText().toString().equals(userPassword.getText().toString()))
             {
-                Snackbar.make(ActSignUp, "As senhas não conferem :s", Snackbar.LENGTH_LONG).show();
-                userPasswordRetype.setError("As senhas devem ser idênticas");
+                Snackbar.make(ActSignUp, R.string.pass_not_equals2, Snackbar.LENGTH_LONG).show();
+                userPasswordRetype.setError(getString(R.string.pass_not_equals));
             }
             else
              {
@@ -161,9 +159,11 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
             Intent it = new Intent(getApplicationContext(), ActLogin.class);
             startActivity(it);
 
-            //msgShort("Seu cadastro foi efetuado com sucesso " + user.getName());
+            //msgShort(String.format("%s%d", user.getName(), R.string.registration_completed));
+            msgShort("Cadastro realizado com sucesso!");
             // O Snackbar aqui acho legal para manter o padrão
-            Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
+            // AQUI O SNACK NÃO FUNCIONA PORQUE ESTÁ TROCANDO DE ACTIVITY
+            //Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
         }
         catch (Exception erro)
         {
@@ -176,22 +176,22 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     public void addUserLogin(String email, String senha)
     {
         auth.createUserWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(ActSignup.this, new OnCompleteListener<AuthResult>()
+            .addOnCompleteListener(ActSignup.this, new OnCompleteListener<AuthResult>()
+            {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task)
                 {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
+                    if (task.isSuccessful())
                     {
-                        if (task.isSuccessful())
-                        {
-                            Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
-                            //msgShort("Você foi cadastrado esta logado :" + user.getName());
-                        }
-                        else
-                        {
-                            Log.i("Erro", "Infelizmente não foi possível concluir o cadastro :(");
-                        }
+                        Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
+                        //msgShort("Você foi cadastrado esta logado :" + user.getName());
                     }
-                });
+                    else
+                    {
+                        Log.i("Erro", "Infelizmente não foi possível concluir o cadastro :(");
+                    }
+                }
+            });
     }
 
     private void ShowMSG()
@@ -217,5 +217,12 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         btnSignUp = findViewById(R.id.button_user_signup);
         ActSignUp = findViewById(R.id.ActSignUp);
         userReferencePoint = findViewById(R.id.user_reference_point);
+        txtCad = findViewById(R.id.txtCad);
+        txtCadLogo = findViewById(R.id.txtCadLogo);
+    }
+
+    private void msgShort(String msg)
+    {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }
