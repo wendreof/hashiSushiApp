@@ -1,20 +1,18 @@
 package com.example.hashisushi.views.navigation;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.views.ActOrder;
@@ -104,23 +102,16 @@ public class Navigation extends AppCompatActivity
         } else if (id == R.id.nav_tools) {
             Intent it = new Intent(this, ActPlatAce.class);
             startActivity(it);
-        }
-        else if (id == R.id.temakis) {
+        } else if (id == R.id.temakis) {
             Intent it = new Intent(this, ActTemakis.class);
             startActivity(it);
-        }
-
-        else if (id == R.id.combo) {
+        } else if (id == R.id.combo) {
             Intent it = new Intent(this, ActCombo.class);
             startActivity(it);
-        }
-
-        else if (id == R.id.bebidas) {
+        } else if (id == R.id.bebidas) {
             Intent it = new Intent(this, ActDrinks.class);
             startActivity(it);
-        }
-
-        else if (id == R.id.carrinho) {
+        } else if (id == R.id.carrinho) {
             Intent it = new Intent(this, ActOrder.class);
             startActivity(it);
         }
