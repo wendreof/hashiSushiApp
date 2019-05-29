@@ -100,19 +100,19 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    private void recuperarDadosProduction(){
+    private void recuperarDadosProduction(String id){
 
 
         //retorna usuarios
         final DatabaseReference productDB = firebaseReference.child("product");
 
-        Query querySearch = productDB.orderByChild("idProd").equalTo("22");
+        Query querySearch = productDB.orderByChild("idProd").equalTo(id);
 
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("PRODUTO RETRNO :"+dataSnapshot);
+
                 if( dataSnapshot.getValue() != null ){
                     Product product = dataSnapshot.getValue(Product.class);
 
@@ -248,7 +248,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
         if ( v.getId() == R.id.flotBntNewReg ) {
 
             startVibrate(90);
-           recuperarDadosProduction();
+
 
         }if(v.getId() == R.id.flotBntSaveReg){
 

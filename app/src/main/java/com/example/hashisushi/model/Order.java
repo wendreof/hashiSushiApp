@@ -1,9 +1,12 @@
 package com.example.hashisushi.model;
 
+import com.google.android.gms.common.data.SingleRefDataBufferIterator;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
 
     private long idOrder;
     private Product Production;

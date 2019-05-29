@@ -48,8 +48,10 @@ dependencies {
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //Pacasso
+    //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    //recycroView
+
 }
 repositories {
     mavenCentral()

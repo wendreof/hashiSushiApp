@@ -14,13 +14,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
-import com.example.hashisushi.adapter.ProductListAdapter;
+import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
 
 import com.example.hashisushi.views.ActPoints;
@@ -69,6 +69,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         initSearch();
         fontLogo();
         recyclerViewConfig();
+        recycleOnclick();
 
         flotBntVoltarAce.setOnClickListener(this);
         flotBntEdtPersoAce.setOnClickListener(this);
@@ -77,6 +78,34 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    private void recycleOnclick(){
+        //Adiciona evento de clique no recyclerview
+        lstPlaAce.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        lstPlaAce,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                                msgShort("Posiçao :"+position);
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Product produtoSelecionado = productsList.get(position);
+                                msgShort("Produto :"+produtoSelecionado);
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        }
+                )
+        );
+
+    }
 
     private void recyclerViewConfig(){
 

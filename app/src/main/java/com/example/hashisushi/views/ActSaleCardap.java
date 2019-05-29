@@ -15,14 +15,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
-import com.example.hashisushi.adapter.ProductListAdapter;
 import com.example.hashisushi.model.Product;
 import com.example.hashisushi.views.cardap.ActPlatHot;
 import com.google.firebase.FirebaseApp;

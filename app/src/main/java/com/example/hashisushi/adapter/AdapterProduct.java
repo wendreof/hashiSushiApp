@@ -1,8 +1,6 @@
 package com.example.hashisushi.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +30,8 @@ public class AdapterProduct extends
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View itemLista =  LayoutInflater.from(parent.getContext()).inflate(R.layout.products_adp_list,parent, false);
+        View itemLista =  LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.products_adp_list,parent, false);
         return new MyViewHolder(itemLista);
     }
 
@@ -56,8 +55,6 @@ public class AdapterProduct extends
         return products.size();
     }
 
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         //ImageView imagemProduction;
@@ -74,7 +71,7 @@ public class AdapterProduct extends
             descrition = itemView.findViewById(R.id.txtDescriptionAd);
             sales_price = itemView.findViewById(R.id.txtSalesPriceAd);
             idProd = itemView.findViewById(R.id.txtIdProductAd);
-            imgProductAd = (ImageView) itemView.findViewById(R.id.imgProductAd);
+            imgProductAd =  itemView.findViewById(R.id.imgProductAd);
         }
     }
 }

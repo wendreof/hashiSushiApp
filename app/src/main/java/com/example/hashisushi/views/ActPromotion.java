@@ -15,11 +15,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
+import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -48,17 +50,16 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private List<Product> productsList = new ArrayList<Product>();
     private RecyclerView list_produsts;
     private AdapterProduct adapterProduct;
-
+    private Product product;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState )
-    {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.act_promotion );
+    protected void onCreate( Bundle savedInstanceState ) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_promotion);
 
         getSupportActionBar().hide();
         //Travæ rotaçãø da tela
-        setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         startComponet();
         initDB();
@@ -71,7 +72,39 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         flotBntExitP.setOnClickListener(this);
         flotBntPontsProm.setOnClickListener(this);
         flotBntSalesCardap.setOnClickListener(this);
-        flotBntEditPersonP.setOnClickListener( this );
+        flotBntEditPersonP.setOnClickListener(this);
+
+        recycleOnclick();
+
+
+    }//end oncreat
+
+    private void recycleOnclick(){
+        //Adiciona evento de clique no recyclerview
+        list_produsts.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        list_produsts,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                                msgShort("Posiçao :"+position);
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Product produtoSelecionado = productsList.get(position);
+                                msgShort("Produto :"+produtoSelecionado);
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        }
+                )
+        );
 
     }
 
