@@ -1,22 +1,22 @@
 package com.example.hashisushi.utils
 
-import java.util.ArrayList
+import java.util.*
 
 object MockPaymentMethods {
 
     val paymentMethods: List<String>
-    get() {
-        val list = ArrayList<String>()
-        list.add("Selecione")
-        list.add("Dinheiro")
-        list.add("MasterCard Crédito")
-        list.add("MasterCard Débito")
-        list.add("Visa Crédito")
-        list.add("Visa Débito")
-        list.add("Elo Crédito")
-        list.add("Elo Débito")
-        return list
-    }
+        get() {
+            val list = ArrayList<String>()
+            list.add("Selecione uma opção")
+            list.add("Dinheiro")
+            list.add("MasterCard Crédito")
+            list.add("MasterCard Débito")
+            list.add("Visa Crédito")
+            list.add("Visa Débito")
+            list.add("Elo Crédito")
+            list.add("Elo Débito")
+            return list
+        }
     // OLD LIST
     //private val fillPay = arrayOf("Dinheiro",
     // "MasterCard Credito",

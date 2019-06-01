@@ -1,23 +1,24 @@
 package com.example.hashisushi.views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.hashisushi.R;
 import com.example.hashisushi.utils.MockPaymentMethods;
+
 import java.util.List;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
@@ -26,10 +27,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
     private TextView txtPedido;
     private TextView txtTotal;
     private Spinner spnFillPayment;
-    private CheckBox chkBxRetirar;
-    private CheckBox chkBxEntrega;
-    private boolean ischkRetirar;
-    private boolean ischkEntregar;
+    private RadioButton chkBxRetirar;
+    private RadioButton chkBxEntrega;
+    private EditText editObservation;
+    private Button btnFinishOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,61 +38,22 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.act_order);
         getSupportActionBar().hide();
 
-        FloatingActionButton flotBntVoltarO = findViewById(R.id.flotBntVoltarO);
-        FloatingActionButton flotBntEdtPersoO = findViewById(R.id.flotBntEditPersonO);
-        FloatingActionButton flotBntPontsO = findViewById(R.id.flotBntPontsO);
-        FloatingActionButton flotBntAboutO = findViewById(R.id.flotBntAboutO);
-        Button btnFinishOrder = findViewById(R.id.btnFinishOrder);
+        //   FloatingActionButton flotBntVoltarO = findViewById(R.id.flotBntVoltarO);
+        //    FloatingActionButton flotBntEdtPersoO = findViewById(R.id.flotBntEditPersonO);
+        //     FloatingActionButton flotBntPontsO = findViewById(R.id.flotBntPontsO);
+        //      FloatingActionButton flotBntAboutO = findViewById(R.id.flotBntAboutO);
 
-        spnFillPayment = findViewById(R.id.spnfillPayMent);
-        txtTitle = findViewById(R.id.txtTitleReg);
-        txtPedido = findViewById(R.id.txtPedido);
-        txtTotal = findViewById(R.id.txtTotal);
+        findViewByIds();
 
-        chkBxRetirar = findViewById(R.id.chkBxRetirar);
-        chkBxEntrega = findViewById(R.id.chkBxEntrega);
-
-        flotBntVoltarO.setOnClickListener(this);
-        flotBntEdtPersoO.setOnClickListener(this);
-        flotBntPontsO.setOnClickListener(this);
-        flotBntAboutO.setOnClickListener(this);
+        //      flotBntVoltarO.setOnClickListener(this);
+        //     flotBntEdtPersoO.setOnClickListener(this);
+        //     flotBntPontsO.setOnClickListener(this);
+        //     flotBntAboutO.setOnClickListener(this);
 
         fontLogo();
         fillPayMent();
 
-        chkBxEntrega.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    ischkRetirar = false;
-                    ischkEntregar = isChecked;
-
-                    chkBxRetirar.setChecked(ischkRetirar);
-                    chkBxEntrega.setChecked(ischkEntregar);
-                }
-            }
-        });
-
-        chkBxRetirar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    ischkRetirar = isChecked;
-                    ischkEntregar = false;
-
-                    chkBxRetirar.setChecked(ischkRetirar);
-                    chkBxEntrega.setChecked(ischkEntregar);
-                }
-            }
-        });
-
-        btnFinishOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVibrate(190);
-                valueTest();
-            }
-        });
+        btnFinishOrder.setOnClickListener(this);
     }
 
     @Override
@@ -132,7 +94,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.flotBntVoltarO) {
+       /* if (v.getId() == R.id.flotBntVoltarO) {
 
             startVibrate(90);
             //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
@@ -156,6 +118,31 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
         else if  (v.getId() == R.id.flotBntAboutO) {
             startVibrate(90);
         }
+
+       */
+
+        if (v.getId() == R.id.btnFinishOrder) {
+            startVibrate(190);
+            valueTest();
+        }
+
+      /*  if (v.getId() == R.id.spnfillPayMent) {
+            spnFillPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                   // if (!spnFillPayment.getSelectedItem().toString().equals("Dinheiro")) {
+                        txtTroco.setEnabled(false);
+                        editValueTroco.setEnabled(false);
+                        msgShort(spnFillPayment.getSelectedItem().toString());
+                   // }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        } */
     }
 
     //oa clicar em voltar chama efeito de transição
@@ -169,7 +156,18 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
         String value = txtTotal.getText().toString();
 
         if (value.equals("00,00")) {
-            msgShort("Não há itens para finalizar o pedido !");
+            msgShort("Não há itens para finalizar o pedido! =x");
         }
+    }
+
+    private void findViewByIds() {
+        spnFillPayment = findViewById(R.id.spnfillPayMent);
+        txtTitle = findViewById(R.id.txtTitleReg);
+        txtPedido = findViewById(R.id.txtPedido);
+        txtTotal = findViewById(R.id.txtTotal);
+        chkBxRetirar = findViewById(R.id.chkBxRetirar);
+        chkBxEntrega = findViewById(R.id.chkBxEntrega);
+        btnFinishOrder = findViewById(R.id.btnFinishOrder);
+        editObservation = findViewById(R.id.editObservation);
     }
 }
