@@ -134,4 +134,7 @@
     <string name="pass_not_equals2">As senhas não conferem :s</string>
     <string name="try_another_pass">Tente outra senha</string>
     <string name="wrong_pass">A senha deve conter no mínimo 6 caracteres :s</string>
+    <string name="menu_entrada">Entrada</string>
+    <string name="menu_edtcadastro">EDITAR CADASTRO</string>
+    <string name="menu_cad_prod">CADASTRAR PRODUTO</string>
 </resources>

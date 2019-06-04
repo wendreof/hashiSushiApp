@@ -133,7 +133,7 @@
         app:srcCompat="@drawable/ic_persons_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntPontsPh"
+        android:id="@+id/flotBntFinishPh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -145,7 +145,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/ic_ponts_white_24dp" />
+        app:srcCompat="@drawable/ic_check_24dp" />
 
     <TextView
         android:id="@+id/txtLogoPh"

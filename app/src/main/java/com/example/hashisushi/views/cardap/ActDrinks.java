@@ -43,7 +43,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
     private FloatingActionButton flotBntVoltarD;
     private FloatingActionButton flotBntEdtPersoD;
-    private FloatingActionButton flotBntPontsD;
+    private FloatingActionButton flotBntFinishD;
     private FloatingActionButton flotBntOrderSaleD;
 
     private TextView txtCardapD;
@@ -130,10 +130,10 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
             finish();
 
         }
-        if ( v.getId() == R.id.flotBntPontsD ) {
+        if ( v.getId() == R.id.flotBntFinishD) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoD){
@@ -190,12 +190,12 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private void initComponent(){
         flotBntVoltarD = findViewById(R.id.flotBntVoltarD);
         flotBntEdtPersoD = findViewById(R.id.flotBntEdtPersoD);
-        flotBntPontsD = findViewById(R.id.flotBntPontsD);
+        flotBntFinishD = findViewById(R.id.flotBntFinishD);
         flotBntOrderSaleD = findViewById(R.id.flotBntOrderSaleD);
 
         flotBntVoltarD.setOnClickListener(this);
         flotBntEdtPersoD.setOnClickListener(this);
-        flotBntPontsD.setOnClickListener(this);
+        flotBntFinishD.setOnClickListener(this);
         flotBntOrderSaleD.setOnClickListener(this);
 
         txtCardapD = findViewById(R.id.txtCardapD);

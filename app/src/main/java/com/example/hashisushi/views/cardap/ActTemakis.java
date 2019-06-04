@@ -23,6 +23,7 @@ import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
 
+import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
@@ -42,7 +43,7 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
     private FloatingActionButton flotBntVoltarT;
     private FloatingActionButton flotBntEdtPersoT;
-    private FloatingActionButton flotBntPontsT;
+    private FloatingActionButton flotBtnFinishT;
     private FloatingActionButton flotBntComboT;
 
     private TextView txtCardapT;
@@ -123,10 +124,10 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
             finish();
 
         }
-        if ( v.getId() == R.id.flotBntPontsT ) {
+        if ( v.getId() == R.id.flotBtnFinishT ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoT){
@@ -188,12 +189,12 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
         flotBntVoltarT = findViewById(R.id.flotBntVoltarT);
         flotBntEdtPersoT = findViewById(R.id.flotBntEdtPersoT);
-        flotBntPontsT = findViewById(R.id.flotBntPontsT);
+        flotBtnFinishT = findViewById(R.id.flotBtnFinishT);
         flotBntComboT = findViewById(R.id.flotBntComboT);
 
         flotBntVoltarT.setOnClickListener(this);
         flotBntEdtPersoT.setOnClickListener(this);
-        flotBntPontsT.setOnClickListener(this);
+        flotBtnFinishT.setOnClickListener(this);
         flotBntComboT.setOnClickListener(this);
 
         txtCardapT = findViewById(R.id.txtCardapT);

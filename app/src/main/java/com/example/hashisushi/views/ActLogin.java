@@ -1,5 +1,6 @@
 package com.example.hashisushi.views;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.utils.data.SecurityPreferences;
-import com.example.hashisushi.views.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActLogin extends AppCompatActivity implements View.OnClickListener {
@@ -47,6 +48,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private SecurityPreferences shared;
     private Switch chkBxRememberPasswd;
     private String emailUser;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -138,6 +140,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                     {
                         if (task.isSuccessful())
                         {
+
                             msgShort(getString(R.string.welcome));
                             initPromotion();
                         }
@@ -164,7 +167,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
     private void initPromotion()
     {
-        Intent it = new Intent(this, Navigation.class);
+        Intent it = new Intent(this, ActPromotion.class);
         startActivity(it);
     }
 
@@ -192,7 +195,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             {
                 if (controlBtn == 'E')
                 {
+                    setDialog();
                     login(email, senha);
+
                 }
 
                 System.setProperty("STATUS_ENV", STATUS);
@@ -204,6 +209,16 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         {
             finaliza();
         }
+    }
+
+    private void setDialog(){
+
+        dialog =  new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage("Carregando dados....")
+                .setCancelable(false)
+                .build();
+        dialog.show();
     }
 
     private void finaliza()

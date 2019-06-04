@@ -23,6 +23,7 @@ import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
 
+import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
@@ -42,7 +43,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
     private FloatingActionButton flotBntVoltarAce;
     private FloatingActionButton flotBntEdtPersoAce;
-    private FloatingActionButton flotBntPontsAce;
+    private FloatingActionButton flotBntFinishAce;
     private FloatingActionButton flotBntTemakisAce;
 
     private TextView txtCardapA;
@@ -73,7 +74,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
         flotBntVoltarAce.setOnClickListener(this);
         flotBntEdtPersoAce.setOnClickListener(this);
-        flotBntPontsAce.setOnClickListener(this);
+        flotBntFinishAce.setOnClickListener(this);
         flotBntTemakisAce.setOnClickListener(this);
 
     }
@@ -134,10 +135,10 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
             finish();
 
         }
-        if ( v.getId() == R.id.flotBntPontsAce ) {
+        if ( v.getId() == R.id.flotBntFinishAce) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoAce){
@@ -192,7 +193,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
     private void initComponent(){
         flotBntVoltarAce = findViewById(R.id.flotBntVoltarAce);
         flotBntEdtPersoAce = findViewById(R.id.flotBntEdtPersoAce);
-        flotBntPontsAce = findViewById(R.id.flotBntPontsAce);
+        flotBntFinishAce = findViewById(R.id.flotBntFinishAce);
         flotBntTemakisAce = findViewById(R.id.flotBntTemakisAce);
 
         txtCardapA = findViewById(R.id.txtCardapA);

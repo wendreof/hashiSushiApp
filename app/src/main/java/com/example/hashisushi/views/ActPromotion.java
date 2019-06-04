@@ -1,18 +1,26 @@
 package com.example.hashisushi.views;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -23,6 +31,11 @@ import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
+import com.example.hashisushi.views.cardap.ActCombo;
+import com.example.hashisushi.views.cardap.ActDrinks;
+import com.example.hashisushi.views.cardap.ActPlatAce;
+import com.example.hashisushi.views.cardap.ActPlatHot;
+import com.example.hashisushi.views.cardap.ActTemakis;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +54,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private TextView txtTitle;
     private TextView txtStatus;
     private FloatingActionButton flotBntSalesCardap;
-    private FloatingActionButton flotBntPontsProm;
+    private FloatingActionButton flotBntFinishProm;
     private FloatingActionButton flotBntExitP;
     private  FloatingActionButton flotBntEditPersonP;
     private System status;
@@ -57,7 +70,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_promotion);
 
-        getSupportActionBar().hide();
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
+
+        // getSupportActionBar().hide();
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -66,11 +82,11 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         initSearch();
 
         getStatus();
-        fontLogo();
+//        fontLogo();
         recyclerViewConfig();
 
         flotBntExitP.setOnClickListener(this);
-        flotBntPontsProm.setOnClickListener(this);
+        flotBntFinishProm.setOnClickListener(this);
         flotBntSalesCardap.setOnClickListener(this);
         flotBntEditPersonP.setOnClickListener(this);
 
@@ -123,7 +139,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         txtTitle = findViewById( R.id.txtTitleReg);
 
         flotBntExitP = findViewById(R.id.flotBntExitP);
-        flotBntPontsProm = findViewById(R.id.flotBntPontsProm);
+        flotBntFinishProm = findViewById(R.id.flotBntFinishProm);
         flotBntSalesCardap = findViewById( R.id.flotBntSalesCardap);
         flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
         //RecyclerView---
@@ -145,7 +161,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private void fontLogo()
     {
         Typeface font = Typeface.createFromAsset( getAssets(), "RagingRedLotusBB.ttf" );
-        txtTitle.setTypeface( font );
+//        txtTitle.setTypeface( font );
     }
 
     @Override
@@ -157,10 +173,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             openSaleCardap();
 
         }
-        if ( v.getId() == R.id.flotBntPontsProm) {
+        if ( v.getId() == R.id.flotBntFinishProm) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEditPersonP){
@@ -231,5 +247,78 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
+
+    //==> MENUS
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_promotion, menu);
+        return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        //Sobre
+
+        if(id == R.id.menu_enter){
+            Intent it = new Intent(this, ActSaleCardap.class);
+            startActivity(it);
+            return  true;
+        }
+
+        if(id == R.id.menu_plat_hot){
+            Intent it = new Intent(this, ActPlatHot.class);
+            startActivity(it);
+            return  true;
+        }
+
+        if(id == R.id.menu_plat_ace){
+            Intent it = new Intent(this, ActPlatAce.class);
+            startActivity(it);
+            return  true;
+        }
+
+        if(id ==R.id.menu_combo){
+            Intent it = new Intent(this, ActCombo.class);
+            startActivity(it);
+            return true;
+        }
+
+        if(id ==R.id.menu_drinks){
+            Intent it = new Intent(this, ActDrinks.class);
+            startActivity(it);
+            return true;
+        }
+        if(id == R.id.menu_temakis){
+            Intent it = new Intent(this, ActTemakis.class);
+            startActivity(it);
+            return true;
+        }
+
+        if(id ==R.id.menu_edit_cadastro){
+            Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
+            return true;
+        }
+
+        if(id ==R.id.menu_cad_prod){
+            Intent it = new Intent(this, ActRegProd.class);
+            startActivity(it);
+            return true;
+        }
+        if(id ==R.id.menu_points){
+            Intent it = new Intent(this, ActPoints.class);
+            startActivity(it);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    //==>FIM MENUS
 
 }

@@ -43,7 +43,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
     private FloatingActionButton flotBntVoltarPromoE;
     private FloatingActionButton flotBntEdtPersoE;
-    private FloatingActionButton flotBntPontsE;
+    private FloatingActionButton flotBntFinishE;
     private FloatingActionButton flotBtnPlatHotE;
 
     private DatabaseReference reference ;
@@ -70,7 +70,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
         flotBntVoltarPromoE.setOnClickListener(this);
         flotBntEdtPersoE.setOnClickListener(this);
-        flotBntPontsE.setOnClickListener(this);
+        flotBntFinishE.setOnClickListener(this);
         flotBtnPlatHotE.setOnClickListener(this);
     }
 
@@ -101,10 +101,10 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
             //startActivity(it);
             finish();
         }
-        if ( v.getId() == R.id.flotBntPontsE ) {
+        if ( v.getId() == R.id.flotBntFinishE ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoE){
@@ -172,7 +172,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
         flotBntVoltarPromoE = findViewById(R.id.flotBntVoltarPromoE);
         flotBntEdtPersoE = findViewById(R.id.flotBntEdtPersoE);
-        flotBntPontsE = findViewById(R.id.flotBntPontsE);
+        flotBntFinishE = findViewById(R.id.flotBntFinishE);
         flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
         lstEntrada = findViewById(R.id.lstEntrada);

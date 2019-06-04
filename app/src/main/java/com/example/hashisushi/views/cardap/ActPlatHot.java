@@ -24,6 +24,7 @@ import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
 
 
+import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
@@ -43,7 +44,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
     private FloatingActionButton flotBntVoltarPh;
     private FloatingActionButton flotBntEdtPersoPh;
-    private FloatingActionButton flotBntPontsPh;
+    private FloatingActionButton flotBntFinishPh;
     private FloatingActionButton flotBntPlanAcePh;
 
     private TextView txtCardapPh;
@@ -76,7 +77,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
         flotBntVoltarPh.setOnClickListener(this);
         flotBntEdtPersoPh.setOnClickListener(this);
-        flotBntPontsPh.setOnClickListener(this);
+        flotBntFinishPh.setOnClickListener(this);
         flotBntPlanAcePh.setOnClickListener(this);
 
     }
@@ -136,10 +137,10 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
            // startActivity(it);
             finish();
         }
-        if ( v.getId() == R.id.flotBntPontsPh ) {
+        if ( v.getId() == R.id.flotBntFinishPh ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class);
+            Intent it = new Intent( this, ActOrder.class);
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoPh){
@@ -200,7 +201,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
         flotBntVoltarPh = findViewById(R.id.flotBntVoltarPh);
         flotBntEdtPersoPh = findViewById(R.id.flotBntEdtPersoPh);
-        flotBntPontsPh = findViewById(R.id.flotBntPontsPh);
+        flotBntFinishPh = findViewById(R.id.flotBntFinishPh);
         flotBntPlanAcePh = findViewById(R.id.flotBntPlanAcePh);
 
         lstPlaHot = findViewById(R.id.LstPlatHot);

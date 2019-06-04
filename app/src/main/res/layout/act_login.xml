@@ -10,11 +10,11 @@
 
     <Button
         android:id="@+id/btnEntrar"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/screen_border"
         android:text="@string/btn_login"
@@ -27,11 +27,11 @@
 
     <Button
         android:id="@+id/btnCadastrar"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/screen_border"
         android:text="@string/btn_signUp"
         android:textColor="@android:color/background_light"
@@ -43,11 +43,11 @@
 
     <EditText
         android:id="@+id/edtEmail"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:drawableStart="@drawable/ic_email_black_24dp"
         android:ems="10"
         android:inputType="textWebEmailAddress|textNoSuggestions"
@@ -55,14 +55,16 @@
         android:textColorHint="@color/colorHintText"
         app:layout_constraintBottom_toTopOf="@+id/txtSenha"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtEmail"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/txt_user"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
@@ -76,10 +78,10 @@
 
     <EditText
         android:id="@+id/edtSenha"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:drawableStart="@drawable/ic_lock_black_24dp"
         android:ems="10"
         android:inputType="textPassword|textNoSuggestions"
@@ -87,20 +89,22 @@
         android:textColorHint="@color/colorHintText"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtSenha"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/txt_password"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edtSenha"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.004"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edtSenha" />
 
     <ImageView
@@ -150,15 +154,18 @@
 
     <Switch
         android:id="@+id/chkBxRememberPasswd"
-        android:layout_width="159dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
+        android:layout_width="140dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="1dp"
         android:checked="false"
         android:text="@string/txt_remember_password"
         android:textColor="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.676"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline18"
         app:layout_constraintVertical_bias="1.0" />

@@ -23,6 +23,7 @@ import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.Product;
 
+import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
@@ -42,7 +43,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
     private FloatingActionButton flotBntVoltarC;
     private FloatingActionButton flotBntEdtPersoC;
-    private FloatingActionButton flotBntPontsC;
+    private FloatingActionButton flotBntFinishC;
     private FloatingActionButton flotBntDrinksC;
 
     private TextView txtCardapC;
@@ -131,10 +132,10 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
             finish();
 
         }
-        if ( v.getId() == R.id.flotBntPontsC ) {
+        if ( v.getId() == R.id.flotBntFinshC ) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
+            Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoC) {
@@ -191,7 +192,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
         flotBntVoltarC = findViewById(R.id.flotBntVoltarC);
         flotBntEdtPersoC = findViewById(R.id.flotBntEdtPersoC);
-        flotBntPontsC = findViewById(R.id.flotBntPontsC);
+        flotBntFinishC = findViewById(R.id.flotBntFinshC);
         flotBntDrinksC = findViewById(R.id.flotBntDrinksC);
 
         txtCardapC = findViewById(R.id.txtCardapC);
@@ -200,7 +201,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
         flotBntVoltarC.setOnClickListener(this);
         flotBntEdtPersoC.setOnClickListener(this);
-        flotBntPontsC.setOnClickListener(this);
+        flotBntFinishC.setOnClickListener(this);
         flotBntDrinksC.setOnClickListener(this);
 
         lstCombo = findViewById(R.id.lstCombo);
