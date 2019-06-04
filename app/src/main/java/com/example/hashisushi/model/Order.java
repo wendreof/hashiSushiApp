@@ -1,13 +1,13 @@
 package com.example.hashisushi.model;
 
-import com.google.android.gms.common.data.SingleRefDataBufferIterator;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class Order implements Serializable {
 
+    /* DESIGN PATTERN SINGLETON */
+    private static Order order;
     private long idOrder;
     private Product Production;
     private User user;
@@ -20,7 +20,17 @@ public class Order implements Serializable {
     private List<Product> products;
     private String observation;
 
-    public Order() { }
+    private Order() {
+
+    }
+
+    public static synchronized Order getInstance() {
+        if (order == null) {
+            order = new Order();
+        }
+
+        return order;
+    }
 
     public long getIdOrder() {
         return idOrder;
@@ -109,4 +119,6 @@ public class Order implements Serializable {
     public void setObservation(String observation) {
         this.observation = observation;
     }
+
+
 }

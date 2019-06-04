@@ -1,45 +1,35 @@
 package com.example.hashisushi.views;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Vibrator;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.utils.MockPaymentMethods;
+
+import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActOrder extends AppCompatActivity implements View.OnClickListener{
+public class ActOrder extends AppCompatActivity implements View.OnClickListener {
 
     private TextView txtTitle;
     private TextView txtPedido;
     private TextView txtTotal;
-
-    private String[] fillPay = { "Dinheiro","MasterCard Credito","Visa Credito","Aura Credito",
-                                 "Elo Credito","Diners Club Credito","Sorocred Credito",
-                                 "Hipercard Credito","MaestroCard Debito","Visa Eletrônic Debito"};
     private Spinner spnFillPayment;
-
-    private CheckBox chkBxRetirar;
-    private CheckBox chkBxEntrega;
-    private  boolean ischkRetirar ;
-    private  boolean ischkEntregar;
-
-    private FloatingActionButton flotBntVoltarO;
-    private FloatingActionButton flotBntEdtPersoO;
-    private FloatingActionButton flotBntPontsO;
-    private FloatingActionButton flotBntAboutO;
+    private RadioButton chkBxRetirar;
+    private RadioButton chkBxEntrega;
+    private EditText editObservation;
     private Button btnFinishOrder;
 
     @Override
@@ -48,103 +38,63 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.act_order);
         getSupportActionBar().hide();
 
-        flotBntVoltarO = findViewById(R.id.flotBntVoltarO);
-        flotBntEdtPersoO = findViewById(R.id.flotBntEditPersonO);
-        flotBntPontsO = findViewById(R.id.flotBntPontsO);
-        flotBntAboutO = findViewById(R.id.flotBntAboutO);
-        btnFinishOrder = findViewById(R.id.btnFinishOrder);
+        //   FloatingActionButton flotBntVoltarO = findViewById(R.id.flotBntVoltarO);
+        //    FloatingActionButton flotBntEdtPersoO = findViewById(R.id.flotBntEditPersonO);
+        //     FloatingActionButton flotBntPontsO = findViewById(R.id.flotBntPontsO);
+        //      FloatingActionButton flotBntAboutO = findViewById(R.id.flotBntAboutO);
 
-        spnFillPayment = findViewById(R.id.spnfillPayMent);
-        txtTitle = findViewById(R.id.txtTitleReg);
-        txtPedido = findViewById(R.id.txtPedido);
-        txtTotal = findViewById(R.id.txtTotal);
+        findViewByIds();
 
-        chkBxRetirar = findViewById(R.id.chkBxRetirar);
-        chkBxEntrega = findViewById(R.id.chkBxEntrega);
-
-        flotBntVoltarO.setOnClickListener(this);
-        flotBntEdtPersoO.setOnClickListener(this);
-        flotBntPontsO.setOnClickListener(this);
-        flotBntAboutO.setOnClickListener(this);
+        //      flotBntVoltarO.setOnClickListener(this);
+        //     flotBntEdtPersoO.setOnClickListener(this);
+        //     flotBntPontsO.setOnClickListener(this);
+        //     flotBntAboutO.setOnClickListener(this);
 
         fontLogo();
         fillPayMent();
 
-        chkBxEntrega.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    ischkRetirar = false;
-                    ischkEntregar = isChecked;
-
-                    chkBxRetirar.setChecked(ischkRetirar);
-                    chkBxEntrega.setChecked(ischkEntregar);
-                }
-            }
-        });
-
-        chkBxRetirar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
-                    ischkRetirar = isChecked;
-                    ischkEntregar = false;
-
-                    chkBxRetirar.setChecked(ischkRetirar);
-                    chkBxEntrega.setChecked(ischkEntregar);
-                }
-            }
-        });
-
-        btnFinishOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startVibrate(190);
-                valueTest();
-            }
-        });
+        btnFinishOrder.setOnClickListener(this);
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     //Altera fonte do txtLogo
-    private void fontLogo()
-    {
-        Typeface font = Typeface.createFromAsset( getAssets(), "RagingRedLotusBB.ttf" );
-        txtTitle.setTypeface( font );
+    private void fontLogo() {
+        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
+        txtTitle.setTypeface(font);
         txtPedido.setTypeface(font);
     }
-
 
     //Metudo que ativa vibração
     public void startVibrate(long time) {
         // cria um obj atvib que recebe seu valor de context
-        Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator atvib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
     }
 
-    private void fillPayMent(){
+    private void fillPayMent() {
         try {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1,fillPay);
+            List<String> list = MockPaymentMethods.INSTANCE.getPaymentMethods();
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnFillPayment.setAdapter(adapter);
-        }catch (Exception ex){
-            msgShort("Erro:-->"+ex.getMessage());
+        } catch (Exception ex) {
+            msgShort("Erro:" + ex.getMessage());
         }
     }
+
     private void msgShort(String msg) {
-
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public void onClick(View v) {
 
-        if ( v.getId() == R.id.flotBntVoltarO ) {
+       /* if (v.getId() == R.id.flotBntVoltarO) {
 
             startVibrate(90);
             //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
@@ -152,37 +102,72 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener{
             //startActivity(it);
             finish();
 
-        } if ( v.getId() == R.id.flotBntPontsO ) {
+        }
+        else if (v.getId() == R.id.flotBntPontsO) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActPoints.class );
-            startActivity( it );
+            Intent it = new Intent(this, ActPoints.class);
+            startActivity(it);
 
-        } if(v.getId() == R.id.flotBntEditPersonO){
-
+        }
+        else if  (v.getId() == R.id.flotBntEditPersonO) {
             startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
-
-        }if(v.getId() == R.id.flotBntAboutO) {
-
+        }
+        else if  (v.getId() == R.id.flotBntAboutO) {
             startVibrate(90);
         }
+
+       */
+
+        if (v.getId() == R.id.btnFinishOrder) {
+            startVibrate(190);
+            valueTest();
+        }
+
+      /*  if (v.getId() == R.id.spnfillPayMent) {
+            spnFillPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                   // if (!spnFillPayment.getSelectedItem().toString().equals("Dinheiro")) {
+                        txtTroco.setEnabled(false);
+                        editValueTroco.setEnabled(false);
+                        msgShort(spnFillPayment.getSelectedItem().toString());
+                   // }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        } */
     }
 
     //oa clicar em voltar chama efeito de transição
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
+        overridePendingTransition(R.anim.mover_esquerda, R.anim.fade_out);
     }
 
-    private void valueTest(){
+    private void valueTest() {
         String value = txtTotal.getText().toString();
 
-        if(value.equals( "00,00" )){
-            msgShort("Não há itens para finalizar o pedido !");
+        if (value.equals("00,00")) {
+            msgShort("Não há itens para finalizar o pedido! =x");
         }
     }
 
+    private void findViewByIds() {
+        spnFillPayment = findViewById(R.id.spnfillPayMent);
+        txtTitle = findViewById(R.id.txtTitleReg);
+        txtPedido = findViewById(R.id.txtPedido);
+        txtTotal = findViewById(R.id.txtTotal);
+        chkBxRetirar = findViewById(R.id.chkBxRetirar);
+        chkBxEntrega = findViewById(R.id.chkBxEntrega);
+        btnFinishOrder = findViewById(R.id.btnFinishOrder);
+        editObservation = findViewById(R.id.editObservation);
+    }
 }

@@ -23,7 +23,7 @@
             android:name=".views.navigation.Navigation"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.ActOrder" />
+        <activity android:name=".views.ActOrder"/>
         <activity android:name=".views.ActSignup" />
         <activity android:name=".views.ActPromotion" />
         <activity android:name=".views.ActPoints" />
