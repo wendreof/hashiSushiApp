@@ -20,12 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.dao.UserDao;
+import com.example.hashisushi.dao.FirebaseConfig;
+import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -40,6 +39,9 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     private ScrollView ActSignUp;
     private User user;
     private FirebaseAuth auth;
+    private String retornIdUser;
+    DatabaseReference reference;
+    private String retornEmailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,12 +52,18 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
 
         this.auth = FirebaseAuth.getInstance();
 
+        //reference db and recover value
+        retornEmailUser = UserFirebase.getUserCorrent().getEmail();
+        retornIdUser = UserFirebase.getIdUser();
+        reference = FirebaseConfig.getFirebase();
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
 
         fontLogo();
         btnSignUp.setOnClickListener(this);
+
+        userEmail.setText(retornEmailUser);
     }
 
     @Override
@@ -124,7 +132,7 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         try
         {
                 user = new User();
-                user.setIdUser(0);
+                user.setIdUser(retornIdUser);
                 user.setName(userName.getText().toString());
                 user.setBornDate(userBornDate.getText().toString());
                 if(userReferencePoint.getText().toString().equals(""))
@@ -142,56 +150,32 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                 user.setState(userAddressState.getText().toString());
                 user.setPhone(userPhone.getText().toString());
                 user.setEmail(userEmail.getText().toString());
+                user.setIsAdmin(false); //----verificar com Wendreo
                 user.setPassword(userPassword.getText().toString());
+                user.setCpf(userCPF.getText().toString());
+
                 user.setPonts(0);
+                //novo metudo para salvar user
+                user.salvarUser();
 
-                UserDao userDao = new UserDao();
+                if (auth.getCurrentUser() != null)
+                {
+                    Intent it = new Intent(getApplicationContext(), ActPromotion.class);
+                    startActivity(it);
+                    msgShort("Cadastro finalizado com sucesso!");
+                }
+                else {
+                    Intent it = new Intent(getApplicationContext(), ActLogin.class);
+                    startActivity(it);
+                    msgShort("Novo login é necessario.");
+                }
 
-                //Cadastra os dados do Usuário
-                userDao.addUser(user);
-
-                //Cadastra Login e Senha do usuário
-                addUserLogin(user.getEmail(), user.getPassword());
-
-             //Wendreo aqui poderiamos testar se user esta logado caso sim
-            // Ja poderiamos direcionar para ActPromotion
-
-            Intent it = new Intent(getApplicationContext(), ActLogin.class);
-            startActivity(it);
-
-            //msgShort(String.format("%s%d", user.getName(), R.string.registration_completed));
-            msgShort("Cadastro realizado com sucesso!");
-            // O Snackbar aqui acho legal para manter o padrão
-            // AQUI O SNACK NÃO FUNCIONA PORQUE ESTÁ TROCANDO DE ACTIVITY
-            //Snackbar.make(ActSignUp, R.string.registration_completed, Snackbar.LENGTH_LONG).show();
         }
         catch (Exception erro)
         {
-            //msgShort("Erro ao realizar o cadastro :( " + erro);
+
             Snackbar.make(ActSignUp, R.string.registration_error, Snackbar.LENGTH_LONG).show();
         }
-    }
-
-    //create user in firebase
-    public void addUserLogin(String email, String senha)
-    {
-        auth.createUserWithEmailAndPassword(email, senha)
-            .addOnCompleteListener(ActSignup.this, new OnCompleteListener<AuthResult>()
-            {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task)
-                {
-                    if (task.isSuccessful())
-                    {
-                        Log.i("Sucesso", "Seu cadastro foi efetuado com sucesso!" + user.getName());
-                        //msgShort("Você foi cadastrado esta logado :" + user.getName());
-                    }
-                    else
-                    {
-                        Log.i("Erro", "Infelizmente não foi possível concluir o cadastro :(");
-                    }
-                }
-            });
     }
 
     private void ShowMSG()

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,7 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.dao.FirebaseConfig;
+import com.example.hashisushi.dao.UserFirebase;
+import com.example.hashisushi.model.User;
 import com.example.hashisushi.utils.MockPaymentMethods;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -31,29 +40,25 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
     private RadioButton chkBxEntrega;
     private EditText editObservation;
     private Button btnFinishOrder;
-
+    private String idUser;
+    DatabaseReference reference;
+    private String emailUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_order);
         getSupportActionBar().hide();
 
-        //   FloatingActionButton flotBntVoltarO = findViewById(R.id.flotBntVoltarO);
-        //    FloatingActionButton flotBntEdtPersoO = findViewById(R.id.flotBntEditPersonO);
-        //     FloatingActionButton flotBntPontsO = findViewById(R.id.flotBntPontsO);
-        //      FloatingActionButton flotBntAboutO = findViewById(R.id.flotBntAboutO);
-
         findViewByIds();
-
-        //      flotBntVoltarO.setOnClickListener(this);
-        //     flotBntEdtPersoO.setOnClickListener(this);
-        //     flotBntPontsO.setOnClickListener(this);
-        //     flotBntAboutO.setOnClickListener(this);
 
         fontLogo();
         fillPayMent();
 
         btnFinishOrder.setOnClickListener(this);
+        emailUser = UserFirebase.getUserCorrent().getEmail();
+        idUser = UserFirebase.getIdUser();
+        reference = FirebaseConfig.getFirebase();
+
     }
 
     @Override
@@ -94,36 +99,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-       /* if (v.getId() == R.id.flotBntVoltarO) {
-
-            startVibrate(90);
-            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //startActivity(it);
-            finish();
-
-        }
-        else if (v.getId() == R.id.flotBntPontsO) {
-
-            startVibrate(90);
-            Intent it = new Intent(this, ActPoints.class);
-            startActivity(it);
-
-        }
-        else if  (v.getId() == R.id.flotBntEditPersonO) {
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
-        }
-        else if  (v.getId() == R.id.flotBntAboutO) {
-            startVibrate(90);
-        }
-
-       */
 
         if (v.getId() == R.id.btnFinishOrder) {
             startVibrate(190);
-            valueTest();
+           // valueTest();
         }
 
       /*  if (v.getId() == R.id.spnfillPayMent) {
@@ -170,4 +149,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
         btnFinishOrder = findViewById(R.id.btnFinishOrder);
         editObservation = findViewById(R.id.editObservation);
     }
+
+
 }

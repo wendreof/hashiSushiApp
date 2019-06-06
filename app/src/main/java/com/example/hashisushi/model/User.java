@@ -1,11 +1,14 @@
 package com.example.hashisushi.model;
 
+import com.example.hashisushi.dao.FirebaseConfig;
+import com.google.firebase.database.DatabaseReference;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class User implements Serializable {
 
-    private long idUser;
+    private String idUser;
     private String name;
     private String bornDate;
     private String address;
@@ -17,18 +20,26 @@ public class User implements Serializable {
     private String phone;
     private String email;
     private String password;
-    private String isAdmin;
+    private boolean isAdmin;
     private int ponts;
     private String referencePoint;
+    private String cpf;
 
     //firebade requer constructor
     public User() { }
 
-    public long getIdUser() {
+    public void salvarUser()
+    {
+        DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
+        DatabaseReference usuarioRef = firebaseRef.child("users").child(getIdUser());
+        usuarioRef.setValue(this);
+    }
+
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -120,11 +131,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(String isAdmin) {
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
@@ -144,6 +155,14 @@ public class User implements Serializable {
         this.referencePoint = referencePoint;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -161,6 +180,8 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", isAdmin='" + isAdmin + '\'' +
                 ", ponts=" + ponts +
+                ", referencePoint='" + referencePoint + '\'' +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
 

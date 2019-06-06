@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActLogin extends AppCompatActivity implements View.OnClickListener {
+
     public static String STATUS = null;
     private Button btnEntrar;
     private Button btnCadastrar;
@@ -49,6 +51,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private Switch chkBxRememberPasswd;
     private String emailUser;
     private AlertDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -103,15 +106,18 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     {
         if (v.getId() == R.id.btnEntrar)
         {
+            ShowMSG("Logando usuario.....");
+
             controlBtn = 'E';
             startVibrate(90);
             validateFields();
         }
         else if (v.getId() == R.id.btnCadastrar)
         {
+            //-----------------
+            controlBtn = 'C';
             startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
+            validateFields();
         }
         else if (v.getId() == R.id.chkBxRememberPasswd)
         {
@@ -140,7 +146,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                     {
                         if (task.isSuccessful())
                         {
-
                             msgShort(getString(R.string.welcome));
                             initPromotion();
                         }
@@ -152,22 +157,40 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                 });
     }
 
-    public void testUserAuth()
+    //create user in firebase
+    public void addUserLogin(String email, String senha)
     {
-        if (userAuth.getCurrentUser() != null)
-        {
-            msgShort(getString(R.string.user_loged));
-
-        }
-        else
-        {
-            msgShort(getString(R.string.user_not_loged));
-        }
+        userAuth.createUserWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(ActLogin.this, new OnCompleteListener<AuthResult>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            msgShort("Pré cadastro concluido.");
+                            msgShort("Só mais um momento e terminamos tudo !");
+                            initSignup();
+                        }
+                        else
+                        {
+                            msgShort("Infelizmente não foi possível concluir o cadastro :-(");
+                            Log.i("Erro", "Infelizmente não foi possível concluir o cadastro :(");
+                        }
+                    }
+                });
     }
+
+
 
     private void initPromotion()
     {
         Intent it = new Intent(this, ActPromotion.class);
+        startActivity(it);
+    }
+    private void initSignup()
+    {
+        Intent it = new Intent(this, ActSignup.class);
         startActivity(it);
     }
 
@@ -195,9 +218,12 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             {
                 if (controlBtn == 'E')
                 {
-                    setDialog();
                     login(email, senha);
 
+
+                }if(controlBtn == 'C')
+                {
+                    addUserLogin(email,senha);
                 }
 
                 System.setProperty("STATUS_ENV", STATUS);
@@ -211,15 +237,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    private void setDialog(){
-
-        dialog =  new SpotsDialog.Builder()
-                .setContext(this)
-                .setMessage("Carregando dados....")
-                .setCancelable(false)
-                .build();
-        dialog.show();
-    }
 
     private void finaliza()
     {
