@@ -38,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -100,7 +101,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    private void recuperarDadosProduction(String id){
+    private void recoverDataProduction(String id){
 
 
         //retorna usuarios
@@ -118,7 +119,8 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
                     edtNameProd.setText(product.getName());
                     edtDiscriptionProd.setText(product.getDescription());
-                    edtValProd.setText(product.getSalePrice());
+                    String srtSalePrice = String.valueOf(product.getSalePrice());
+                    edtValProd.setText(srtSalePrice);
                     edtNumberPro.setText(product.getIdProd());
                   //  spnIsPrmotion.setSelected(product.getPromotion());
                     // spnType.setSelection();

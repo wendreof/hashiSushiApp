@@ -1,7 +1,9 @@
 package com.example.hashisushi.views;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -24,13 +26,18 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
+import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
+import com.example.hashisushi.model.OrderItens;
+import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
+import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.cardap.ActCombo;
 import com.example.hashisushi.views.cardap.ActDrinks;
 import com.example.hashisushi.views.cardap.ActPlatAce;
@@ -44,13 +51,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActPromotion extends AppCompatActivity implements View.OnClickListener
 {
+    private TextView txt_quant_item;
+    private TextView  txtTotalOrder;
     private TextView txtTitle;
     private TextView txtStatus;
     private FloatingActionButton flotBntSalesCardap;
@@ -61,10 +76,17 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
+    private List<OrderItens> itensCars = new ArrayList<>();
     private RecyclerView list_produsts;
     private AdapterProduct adapterProduct;
-    private Product product;
+    private AlertDialog dialog;
+    private int metodoPagamento;
+    private String retornIdUser;
+    private User user;
 
+    private Orders ordersRecovery;
+    private int qtdItensCar ;
+    private Double totalCar ;
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
@@ -83,16 +105,17 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         getStatus();
 //        fontLogo();
-        recyclerViewConfig();
 
         flotBntExitP.setOnClickListener(this);
         flotBntFinishProm.setOnClickListener(this);
         flotBntSalesCardap.setOnClickListener(this);
         flotBntEditPersonP.setOnClickListener(this);
 
+        recyclerViewConfig();
         recycleOnclick();
 
-
+        retornIdUser = UserFirebase.getIdUser();
+        recoveryDataUser();
     }//end oncreat
 
     private void recycleOnclick(){
@@ -104,8 +127,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-
-                                msgShort("Posiçao :"+position);
+                                confirmItem(position);
                             }
 
                             @Override
@@ -137,6 +159,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private void startComponet(){
         txtStatus = findViewById( R.id.txtEstatus );
         txtTitle = findViewById( R.id.txtTitleReg);
+        txt_quant_item = findViewById( R.id.txt_quant_item);
+        txtTotalOrder = findViewById( R.id.txtTotalOrder);
 
         flotBntExitP = findViewById(R.id.flotBntExitP);
         flotBntFinishProm = findViewById(R.id.flotBntFinishProm);
@@ -144,6 +168,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
         //RecyclerView---
         list_produsts = findViewById(R.id.list_produsts);
+
     }
 
 
@@ -176,8 +201,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         if ( v.getId() == R.id.flotBntFinishProm) {
 
             startVibrate(90);
-            Intent it = new Intent( this, ActOrder.class );
-            startActivity( it );
+            confirmarPedido();
+           // Intent it = new Intent( this, ActOrder.class );
+            //startActivity( it );
 
         }if(v.getId() == R.id.flotBntEditPersonP){
 
@@ -218,6 +244,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initSearch(){
+
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
@@ -247,8 +274,173 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
+//comfirmar
+    private void confirmItem(final int position){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quantidadde");
+        alert.setMessage("Digite a quantidade");
 
-    //==> MENUS
+        final EditText edtQuant = new EditText(this);
+        edtQuant.setText("1");
+
+        alert.setView(edtQuant);
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String quantity = edtQuant.getText().toString();
+
+                Product productSelectd = productsList.get(position);
+                OrderItens itemOrder = new OrderItens();
+
+                itemOrder.setIdProduct( productSelectd.getIdProd() );
+                itemOrder.setNameProduct(productSelectd.getName() );
+                itemOrder.setItenSalePrice( productSelectd.getSalePrice());
+                itemOrder.setQuantity( Integer.parseInt(quantity) );
+
+                itensCars.add( itemOrder );
+
+                msgShort(itensCars.toString());
+
+                if( ordersRecovery == null ){
+                    ordersRecovery = new Orders(retornIdUser);
+                }
+                ordersRecovery.setName( user.getName() );
+                ordersRecovery.setAddress( user.getAddress() );
+                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                ordersRecovery.setNumberHome(user.getNumberHome());
+                ordersRecovery.setCellphone(user.getPhone());
+                ordersRecovery.setOrderItens( itensCars );
+                ordersRecovery.salvar();
+
+
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
+    }
+
+//confimar pedido
+    private void confirmarPedido() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Selecione um método de pagamento");
+
+        CharSequence[] itens = new CharSequence[]{
+                "Dinheiro", "Máquina cartão"
+        };
+        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                metodoPagamento = which;
+            }
+        });
+
+        final EditText editObservacao = new EditText(this);
+        editObservacao.setHint("Digite uma observação");
+        builder.setView( editObservacao );
+
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+               String observacao = editObservacao.getText().toString();
+
+                SimpleDateFormat dateFormat_data = new SimpleDateFormat("DDMMAAAA");
+                SimpleDateFormat horaFormat_hora = new SimpleDateFormat("hhmm");
+                Calendar cal = Calendar.getInstance();
+
+                Date data_atual = cal.getTime();
+                Date hora_atual = cal.getTime();
+
+                String hora = horaFormat_hora.format(hora_atual);
+                String dataAtual = dateFormat_data.format(data_atual);
+
+                int dataInt = Integer.parseInt(dataAtual);
+                int horaInt = Integer.parseInt(hora);
+
+                ordersRecovery.setDateOrder( dataInt );
+                ordersRecovery.setHour( horaInt );
+                ordersRecovery.setObservation( observacao );
+                ordersRecovery.setStatus("confirmado");
+                ordersRecovery.confimar();
+                ordersRecovery.remover();
+                ordersRecovery = null;
+
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+//recupera user
+    private void recoveryDataUser(){
+
+        DatabaseReference pedidoRef = reference
+                .child("orders_user")
+                .child( retornIdUser );
+
+        pedidoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                qtdItensCar = 0;
+                totalCar = 0.0;
+                itensCars = new ArrayList<>();
+
+                if(dataSnapshot.getValue() != null){
+
+                    ordersRecovery = dataSnapshot.getValue(Orders.class);
+                    itensCars = ordersRecovery.getOrderItens();
+
+
+                    for(OrderItens orderItens: itensCars){
+
+                        int qtde = orderItens.getQuantity();
+
+                        String strPreco = orderItens.getItenSalePrice();
+                        double preco = Double.parseDouble( strPreco );
+                        System.out.println(preco);
+
+                        totalCar += (qtde * preco);
+                        qtdItensCar += qtde;
+
+                    }
+
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
+                txt_quant_item.setText( "" + String.valueOf(qtdItensCar) );
+                txtTotalOrder.setText("R$ " + df.format( totalCar ) );
+
+                dialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+        //==> MENUS
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -262,8 +454,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
-        //Sobre
 
         if(id == R.id.menu_enter){
             Intent it = new Intent(this, ActSaleCardap.class);

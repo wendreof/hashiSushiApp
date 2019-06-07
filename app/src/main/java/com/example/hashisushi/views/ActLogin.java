@@ -50,7 +50,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private SecurityPreferences shared;
     private Switch chkBxRememberPasswd;
     private String emailUser;
-    private AlertDialog dialog;
 
 
     @Override

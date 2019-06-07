@@ -137,4 +137,8 @@
     <string name="menu_entrada">Entrada</string>
     <string name="menu_edtcadastro">EDITAR CADASTRO</string>
     <string name="menu_cad_prod">CADASTRAR PRODUTO</string>
+    <string name="txt_car_item">Ver Carrinho:</string>
+    <string name="txt_quant_item">Qt:</string>
+    <string name="txt_qt">0</string>
+    <string name="txt_total_order">R$:</string>
 </resources>

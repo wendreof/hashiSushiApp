@@ -16,7 +16,7 @@ public class Order implements Serializable {
     private String qrCode;
     private int quantProd;
     private int discont;
-    private BigDecimal totalPrince;
+    private String totalPrince;
     private List<Product> products;
     private String observation;
 
@@ -96,11 +96,11 @@ public class Order implements Serializable {
         this.discont = discont;
     }
 
-    public BigDecimal getTotalPrince() {
+    public String getTotalPrince() {
         return totalPrince;
     }
 
-    public void setTotalPrince(BigDecimal totalPrince) {
+    public void setTotalPrince(String totalPrince) {
         this.totalPrince = totalPrince;
     }
 

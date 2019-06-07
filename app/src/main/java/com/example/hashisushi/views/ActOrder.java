@@ -55,9 +55,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
         fillPayMent();
 
         btnFinishOrder.setOnClickListener(this);
+        //reference db and recover value
         emailUser = UserFirebase.getUserCorrent().getEmail();
         idUser = UserFirebase.getIdUser();
         reference = FirebaseConfig.getFirebase();
+
+        recoveryDataUser();
 
     }
 
@@ -102,7 +105,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 
         if (v.getId() == R.id.btnFinishOrder) {
             startVibrate(190);
-           // valueTest();
+            valueTest();
         }
 
       /*  if (v.getId() == R.id.spnfillPayMent) {
@@ -148,6 +151,32 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
         chkBxEntrega = findViewById(R.id.chkBxEntrega);
         btnFinishOrder = findViewById(R.id.btnFinishOrder);
         editObservation = findViewById(R.id.editObservation);
+    }
+
+    private void recoveryDataUser(){
+
+        DatabaseReference usuarioRef = reference
+                .child("usuarios")
+                .child( idUser );
+
+        usuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if( dataSnapshot.getValue() != null ){
+
+                    User user = dataSnapshot.getValue(User.class);
+                     msgShort("Nome:"+user.getName()+" "+" Endereço :"+user.getAddress());
+                    System.out.println("Nome:"+user.getName()+" "+" Endereço :"+user.getAddress());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
