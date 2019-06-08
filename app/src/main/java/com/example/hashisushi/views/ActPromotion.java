@@ -64,7 +64,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActPromotion extends AppCompatActivity implements View.OnClickListener
 {
-    private TextView txt_quant_item;
+    private TextView txtQuantItens;
     private TextView  txtTotalOrder;
     private TextView txtTitle;
     private TextView txtStatus;
@@ -101,8 +101,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         startComponet();
         initDB();
-        initSearch();
-
+        retornIdUser = UserFirebase.getIdUser();
         getStatus();
 //        fontLogo();
 
@@ -114,8 +113,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         recyclerViewConfig();
         recycleOnclick();
 
-        retornIdUser = UserFirebase.getIdUser();
-        recoveryDataUser();
+        initSearch();
+       recoveryDataUser();
     }//end oncreat
 
     private void recycleOnclick(){
@@ -159,7 +158,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private void startComponet(){
         txtStatus = findViewById( R.id.txtEstatus );
         txtTitle = findViewById( R.id.txtTitleReg);
-        txt_quant_item = findViewById( R.id.txt_quant_item);
+        txtQuantItens = findViewById( R.id.txtQuantItens);
         txtTotalOrder = findViewById( R.id.txtTotalOrder);
 
         flotBntExitP = findViewById(R.id.flotBntExitP);
@@ -274,10 +273,11 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
-//comfirmar
+
+//comfirmar item com dialog
     private void confirmItem(final int position){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Quantidadde");
+        alert.setTitle("Quantidade");
         alert.setMessage("Digite a quantidade");
 
         final EditText edtQuant = new EditText(this);
@@ -300,7 +300,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
                 itensCars.add( itemOrder );
 
-                msgShort(itensCars.toString());
+               // msgShort(itensCars.toString());
 
                 if( ordersRecovery == null ){
                     ordersRecovery = new Orders(retornIdUser);
@@ -327,8 +327,39 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         dialog.show();
 
     }
+    //recupera dados do usuario esta com
+    // proplema para recuperar user
+    private void recoveryDataUser() {
 
-//confimar pedido
+        dialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage("Carregando dados....")
+                .setCancelable( false )
+                .build();
+        dialog.show();
+
+        DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
+
+        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if( dataSnapshot.getValue() != null ){
+
+                    user = dataSnapshot.getValue(User.class);
+                }
+                recoveryOrder();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+//confimar pedido  --  Este metodo provavel  mente saira
     private void confirmarPedido() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -352,34 +383,31 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-               String observacao = editObservacao.getText().toString();
+                String observacao = editObservacao.getText().toString();
 
-                SimpleDateFormat dateFormat_data = new SimpleDateFormat("DDMMAAAA");
-                SimpleDateFormat horaFormat_hora = new SimpleDateFormat("hhmm");
+                SimpleDateFormat dateFormat_data = new SimpleDateFormat("ddMMyyyy");
+                SimpleDateFormat horaFormat_hora = new SimpleDateFormat("HHmm");
                 Calendar cal = Calendar.getInstance();
 
                 Date data_atual = cal.getTime();
-                Date hora_atual = cal.getTime();
 
-                String hora = horaFormat_hora.format(hora_atual);
+                String hora = horaFormat_hora.format(data_atual);
                 String dataAtual = dateFormat_data.format(data_atual);
 
-                int dataInt = Integer.parseInt(dataAtual);
-                int horaInt = Integer.parseInt(hora);
-
-                ordersRecovery.setDateOrder( dataInt );
-                ordersRecovery.setHour( horaInt );
-                ordersRecovery.setObservation( observacao );
+                ordersRecovery.setDateOrder(Integer.parseInt(dataAtual));
+                ordersRecovery.setHour(Integer.parseInt(hora));
+                ordersRecovery.setObservation(observacao);
                 ordersRecovery.setStatus("confirmado");
                 ordersRecovery.confimar();
                 ordersRecovery.remover();
                 ordersRecovery = null;
 
+                msgShort("Pedido Confirmado !");
             }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                msgShort("Pedido não confirmado");
 
             }
         });
@@ -388,8 +416,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         dialog.show();
 
     }
-//recupera user
-    private void recoveryDataUser(){
+//recupera pedido
+    private void recoveryOrder(){
 
         DatabaseReference pedidoRef = reference
                 .child("orders_user")
@@ -426,8 +454,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                txt_quant_item.setText( "" + String.valueOf(qtdItensCar) );
-                txtTotalOrder.setText("R$ " + df.format( totalCar ) );
+                txtQuantItens.setText( String.valueOf(qtdItensCar) );
+                txtTotalOrder.setText(df.format( totalCar ) );
 
                 dialog.dismiss();
 
@@ -439,8 +467,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
-        //==> MENUS
+    //==> MENUS
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
