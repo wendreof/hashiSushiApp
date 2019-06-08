@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 public class Orders implements Serializable{
 
@@ -35,7 +36,9 @@ public class Orders implements Serializable{
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders_user")
                 .child( idUser);
-        setIdOrders( pedidoRef.push().getKey() );
+        UUID uuid = UUID.randomUUID();
+        String strUuid = uuid.toString();
+        setIdOrders( strUuid );
     }
 
     public void salvar(){
@@ -63,7 +66,7 @@ public class Orders implements Serializable{
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders")
-                .child( getIdUser());
+                .child( getIdOrders() );
         pedidoRef.setValue( this );
 
     }
