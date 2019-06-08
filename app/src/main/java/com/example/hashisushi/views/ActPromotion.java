@@ -397,6 +397,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 ordersRecovery.setDateOrder(Integer.parseInt(dataAtual));
                 ordersRecovery.setHour(Integer.parseInt(hora));
                 ordersRecovery.setObservation(observacao);
+                ordersRecovery.setQuantProd(qtdItensCar);
+                String total = String.valueOf(totalCar);
+                ordersRecovery.setTotalPrince(total);
                 ordersRecovery.setStatus("confirmado");
                 ordersRecovery.confimar();
                 ordersRecovery.remover();
