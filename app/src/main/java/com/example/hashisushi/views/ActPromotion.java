@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -18,15 +19,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,23 +58,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActPromotion extends AppCompatActivity implements View.OnClickListener
-{
+public class ActPromotion extends AppCompatActivity implements View.OnClickListener {
     private TextView txtQuantItens;
-    private TextView  txtTotalOrder;
+    private TextView txtTotalOrder;
     private TextView txtTitle;
     private TextView txtStatus;
     private FloatingActionButton flotBntSalesCardap;
     private FloatingActionButton flotBntFinishProm;
     private FloatingActionButton flotBntExitP;
-    private  FloatingActionButton flotBntEditPersonP;
+    private FloatingActionButton flotBntEditPersonP;
     private System status;
 
-    private DatabaseReference reference ;
+    private DatabaseReference reference;
     private List<Product> productsList = new ArrayList<Product>();
     private List<OrderItens> itensCars = new ArrayList<>();
     private RecyclerView list_produsts;
@@ -85,10 +83,12 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private User user;
 
     private Orders ordersRecovery;
-    private int qtdItensCar ;
-    private Double totalCar ;
+    private int qtdItensCar;
+    private Double totalCar;
+
     @Override
-    protected void onCreate( Bundle savedInstanceState ) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_promotion);
 
@@ -114,29 +114,34 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         recycleOnclick();
 
         initSearch();
-       recoveryDataUser();
+        recoveryDataUser();
     }//end oncreat
 
-    private void recycleOnclick(){
+    private void recycleOnclick()
+    {
         //Adiciona evento de clique no recyclerview
         list_produsts.addOnItemTouchListener(
                 new RecyclerItemClickListener(
                         this,
                         list_produsts,
-                        new RecyclerItemClickListener.OnItemClickListener() {
+                        new RecyclerItemClickListener.OnItemClickListener()
+                        {
                             @Override
-                            public void onItemClick(View view, int position) {
+                            public void onItemClick(View view, int position)
+                            {
                                 confirmItem(position);
                             }
 
                             @Override
-                            public void onLongItemClick(View view, int position) {
+                            public void onLongItemClick(View view, int position)
+                            {
                                 Product produtoSelecionado = productsList.get(position);
-                                msgShort("Produto :"+produtoSelecionado);
+                                msgShort("Produto :" + produtoSelecionado);
                             }
 
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                            {
 
                             }
                         }
@@ -145,74 +150,81 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void recyclerViewConfig(){
-
+    private void recyclerViewConfig()
+    {
         //Configura recyclerview
         list_produsts.setLayoutManager(new LinearLayoutManager(this));
         list_produsts.setHasFixedSize(true);
         adapterProduct = new AdapterProduct(productsList, this);
-        list_produsts.setAdapter( adapterProduct );
-
+        list_produsts.setAdapter(adapterProduct);
     }
 
-    private void startComponet(){
-        txtStatus = findViewById( R.id.txtEstatus );
-        txtTitle = findViewById( R.id.txtTitleReg);
-        txtQuantItens = findViewById( R.id.txtQuantItens);
-        txtTotalOrder = findViewById( R.id.txtTotalOrder);
+    private void startComponet()
+    {
+        txtStatus = findViewById(R.id.txtEstatus);
+        txtTitle = findViewById(R.id.txtTitleReg);
+        txtQuantItens = findViewById(R.id.txtQuantItens);
+        txtTotalOrder = findViewById(R.id.txtTotalOrder);
 
         flotBntExitP = findViewById(R.id.flotBntExitP);
         flotBntFinishProm = findViewById(R.id.flotBntFinishProm);
-        flotBntSalesCardap = findViewById( R.id.flotBntSalesCardap);
+        flotBntSalesCardap = findViewById(R.id.flotBntSalesCardap);
         flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
         //RecyclerView---
         list_produsts = findViewById(R.id.list_produsts);
-
     }
 
-
-    private void getStatus(){
-       String stt = System.getProperty("STATUS_ENV");
-       txtStatus.setText(stt);
+    private void getStatus()
+    {
+        String stt = System.getProperty("STATUS_ENV");
+        if (stt.equals(getString(R.string.we_are_open_now)))
+        {
+        txtStatus.setTextColor(Color.GREEN);
+        }
+        else
+        {
+            txtStatus.setTextColor(Color.RED);
+        }
+        txtStatus.setText(stt);
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase)
+    {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     //Altera fonte do txtLogo
     private void fontLogo()
     {
-        Typeface font = Typeface.createFromAsset( getAssets(), "RagingRedLotusBB.ttf" );
+        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
 //        txtTitle.setTypeface( font );
     }
 
     @Override
-    public void onClick(View v) {
-
-        if ( v.getId() == R.id.flotBntSalesCardap) {
-
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.flotBntSalesCardap)
+        {
             startVibrate(90);
             openSaleCardap();
-
         }
-        if ( v.getId() == R.id.flotBntFinishProm) {
-
+        if (v.getId() == R.id.flotBntFinishProm)
+        {
             startVibrate(90);
             confirmarPedido();
-           // Intent it = new Intent( this, ActOrder.class );
+            // Intent it = new Intent( this, ActOrder.class );
             //startActivity( it );
-
-        }if(v.getId() == R.id.flotBntEditPersonP){
-
+        }
+        if (v.getId() == R.id.flotBntEditPersonP)
+        {
             startVibrate(90);
             //Intent it = new Intent(this, ActSignup.class);
             Intent it = new Intent(this, ActRegProd.class);
             startActivity(it);
-
-        } else if(v.getId() == R.id.flotBntExitP) {
-
+        }
+        else if (v.getId() == R.id.flotBntExitP)
+        {
             startVibrate(90);
             //finaliza a activity atual e todas a baixo
             this.finishAffinity();
@@ -220,62 +232,66 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     }
 
     //Metudo que ativa vibração
-    public void startVibrate(long time) {
+    public void startVibrate(long time)
+    {
         // cria um obj atvib que recebe seu valor de context
-        Vibrator atvib = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator atvib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         atvib.vibrate(time);
     }
 
-    private void openSaleCardap(){
-
+    private void openSaleCardap()
+    {
         Intent intent = new Intent(ActPromotion.this, ActSaleCardap.class);
         //Passa efeitos de transzição
         ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
-                R.anim.fade_in,R.anim.mover_direita);
-        ActivityCompat.startActivity(ActPromotion.this,intent,actcompat.toBundle());
+                R.anim.fade_in, R.anim.mover_direita);
+        ActivityCompat.startActivity(ActPromotion.this, intent, actcompat.toBundle());
         //startActivity(intent);
-
     }
 
-    public void initDB() {
+    public void initDB()
+    {
         FirebaseApp.initializeApp(ActPromotion.this);
         this.reference = FirebaseDatabase.getInstance().getReference();
     }
 
-    public void initSearch(){
-
+    public void initSearch()
+    {
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         Query querySearch = productDB.orderByChild("promotion").equalTo(true);
 
         //cria um ouvinte
-        querySearch.addValueEventListener(new ValueEventListener() {
+        querySearch.addValueEventListener(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren())
+                {
                     Product p = objSnapshot.getValue(Product.class);
-
                     productsList.add(p);
                 }
                 adapterProduct.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
                 msgShort("Houve algum erro :" + databaseError);
             }
         });
     }
 
-    private void msgShort(String msg) {
-
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    private void msgShort(String msg)
+    {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-//comfirmar item com dialog
-    private void confirmItem(final int position){
+    //comfirmar item com dialog
+    private void confirmItem(final int position)
+    {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Quantidade");
         alert.setMessage("Digite a quantidade");
@@ -284,105 +300,111 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         edtQuant.setText("1");
 
         alert.setView(edtQuant);
-        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(DialogInterface dialog, int which)
+            {
                 String quantity = edtQuant.getText().toString();
 
                 Product productSelectd = productsList.get(position);
                 OrderItens itemOrder = new OrderItens();
 
-                itemOrder.setIdProduct( productSelectd.getIdProd() );
-                itemOrder.setNameProduct(productSelectd.getName() );
-                itemOrder.setItenSalePrice( productSelectd.getSalePrice());
-                itemOrder.setQuantity( Integer.parseInt(quantity) );
+                itemOrder.setIdProduct(productSelectd.getIdProd());
+                itemOrder.setNameProduct(productSelectd.getName());
+                itemOrder.setItenSalePrice(productSelectd.getSalePrice());
+                itemOrder.setQuantity(Integer.parseInt(quantity));
 
-                itensCars.add( itemOrder );
+                itensCars.add(itemOrder);
 
-               // msgShort(itensCars.toString());
+                // msgShort(itensCars.toString());
 
-                if( ordersRecovery == null ){
+                if (ordersRecovery == null)
+                {
                     ordersRecovery = new Orders(retornIdUser);
                 }
-                ordersRecovery.setName( user.getName() );
-                ordersRecovery.setAddress( user.getAddress() );
+                ordersRecovery.setName(user.getName());
+                ordersRecovery.setAddress(user.getAddress());
                 ordersRecovery.setNeigthborhood(user.getNeigthborhood());
                 ordersRecovery.setNumberHome(user.getNumberHome());
                 ordersRecovery.setCellphone(user.getPhone());
-                ordersRecovery.setOrderItens( itensCars );
+                ordersRecovery.setOrderItens(itensCars);
                 ordersRecovery.salvar();
-
-
             }
         });
 
-        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
 
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
-
     }
+
     //recupera dados do usuario esta com
     // proplema para recuperar user
-    private void recoveryDataUser() {
-
+    private void recoveryDataUser()
+    {
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .setMessage("Carregando dados....")
-                .setCancelable( false )
+                .setCancelable(false)
                 .build();
         dialog.show();
 
         DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
 
-        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener() {
+        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if( dataSnapshot.getValue() != null ){
-
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.getValue() != null)
+                {
                     user = dataSnapshot.getValue(User.class);
                 }
                 recoveryOrder();
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError)
+            {
 
             }
         });
 
     }
 
-//confimar pedido  --  Este metodo provavel  mente saira
-    private void confirmarPedido() {
-
+    //confimar pedido  --  Este metodo provavel  mente saira
+    private void confirmarPedido()
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Selecione um método de pagamento");
 
-        CharSequence[] itens = new CharSequence[]{
-                "Dinheiro", "Máquina cartão"
-        };
-        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
+        CharSequence[] itens = new CharSequence[]
+                {"Dinheiro", "Máquina cartão"};
+        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
                 metodoPagamento = which;
             }
         });
 
         final EditText editObservacao = new EditText(this);
         editObservacao.setHint("Digite uma observação");
-        builder.setView( editObservacao );
+        builder.setView(editObservacao);
 
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(DialogInterface dialog, int which)
+            {
                 String observacao = editObservacao.getText().toString();
 
                 SimpleDateFormat dateFormat_data = new SimpleDateFormat("ddMMyyyy");
@@ -407,73 +429,72 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
                 msgShort("Pedido Confirmado !");
             }
-        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
                 msgShort("Pedido não confirmado");
-
             }
         });
-
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
-//recupera pedido
-    private void recoveryOrder(){
 
+    //recupera pedido
+    private void recoveryOrder()
+    {
         DatabaseReference pedidoRef = reference
                 .child("orders_user")
-                .child( retornIdUser );
+                .child(retornIdUser);
 
-        pedidoRef.addValueEventListener(new ValueEventListener() {
+        pedidoRef.addValueEventListener(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 qtdItensCar = 0;
                 totalCar = 0.0;
                 itensCars = new ArrayList<>();
 
-                if(dataSnapshot.getValue() != null){
-
+                if (dataSnapshot.getValue() != null)
+                {
                     ordersRecovery = dataSnapshot.getValue(Orders.class);
                     itensCars = ordersRecovery.getOrderItens();
 
-
-                    for(OrderItens orderItens: itensCars){
-
+                    for (OrderItens orderItens : itensCars)
+                    {
                         int qtde = orderItens.getQuantity();
 
                         String strPreco = orderItens.getItenSalePrice();
-                        double preco = Double.parseDouble( strPreco );
+                        double preco = Double.parseDouble(strPreco);
                         System.out.println(preco);
 
                         totalCar += (qtde * preco);
                         qtdItensCar += qtde;
-
                     }
-
                 }
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                txtQuantItens.setText( String.valueOf(qtdItensCar) );
-                txtTotalOrder.setText(df.format( totalCar ) );
+                txtQuantItens.setText(String.valueOf(qtdItensCar));
+                txtTotalOrder.setText(df.format(totalCar));
 
                 dialog.dismiss();
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError)
+            {
 
             }
         });
     }
+
     //==> MENUS
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_promotion, menu);
         return true;
     }
@@ -481,64 +502,70 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
 
-        if(id == R.id.menu_enter){
+        if (id == R.id.menu_enter)
+        {
             Intent it = new Intent(this, ActSaleCardap.class);
             startActivity(it);
-            return  true;
+            return true;
         }
 
-        if(id == R.id.menu_plat_hot){
+        if (id == R.id.menu_plat_hot)
+        {
             Intent it = new Intent(this, ActPlatHot.class);
             startActivity(it);
-            return  true;
+            return true;
         }
 
-        if(id == R.id.menu_plat_ace){
+        if (id == R.id.menu_plat_ace)
+        {
             Intent it = new Intent(this, ActPlatAce.class);
             startActivity(it);
-            return  true;
+            return true;
         }
 
-        if(id ==R.id.menu_combo){
+        if (id == R.id.menu_combo)
+        {
             Intent it = new Intent(this, ActCombo.class);
             startActivity(it);
             return true;
         }
 
-        if(id ==R.id.menu_drinks){
+        if (id == R.id.menu_drinks)
+        {
             Intent it = new Intent(this, ActDrinks.class);
             startActivity(it);
             return true;
         }
-        if(id == R.id.menu_temakis){
+        if (id == R.id.menu_temakis)
+        {
             Intent it = new Intent(this, ActTemakis.class);
             startActivity(it);
             return true;
         }
-
-        if(id ==R.id.menu_edit_cadastro){
+        if (id == R.id.menu_edit_cadastro)
+        {
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
             return true;
         }
 
-        if(id ==R.id.menu_cad_prod){
+        if (id == R.id.menu_cad_prod)
+        {
             Intent it = new Intent(this, ActRegProd.class);
             startActivity(it);
             return true;
         }
-        if(id ==R.id.menu_points){
+        if (id == R.id.menu_points)
+        {
             Intent it = new Intent(this, ActPoints.class);
             startActivity(it);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
     //==>FIM MENUS
-
 }
