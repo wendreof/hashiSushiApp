@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,7 +69,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton flotBntFinishProm;
     private FloatingActionButton flotBntExitP;
     private FloatingActionButton flotBntEditPersonP;
-    private System status;
 
     private DatabaseReference reference;
     private List<Product> productsList = new ArrayList<Product>();
@@ -78,7 +76,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private RecyclerView list_produsts;
     private AdapterProduct adapterProduct;
     private AlertDialog dialog;
-    private int metodoPagamento;
     private String retornIdUser;
     private User user;
 
@@ -121,33 +118,34 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     {
         //Adiciona evento de clique no recyclerview
         list_produsts.addOnItemTouchListener(
-                new RecyclerItemClickListener(
-                        this,
-                        list_produsts,
-                        new RecyclerItemClickListener.OnItemClickListener()
+            new RecyclerItemClickListener(
+                    this,
+                    list_produsts,
+                    new RecyclerItemClickListener.OnItemClickListener()
+                    {
+                        @Override
+                        public void onItemClick(View view, int position)
                         {
-                            @Override
-                            public void onItemClick(View view, int position)
-                            {
-                                confirmItem(position);
-                            }
-
-                            @Override
-                            public void onLongItemClick(View view, int position)
-                            {
-                                Product produtoSelecionado = productsList.get(position);
-                                msgShort("Produto :" + produtoSelecionado);
-                            }
-
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                            {
-
-                            }
+                            Product produtoSelecionado = productsList.get(position);
+                            confirmItem(position, produtoSelecionado);
                         }
+
+                        @Override
+                        public void onLongItemClick(View view, int position)
+                        {
+                            Product produtoSelecionado = productsList.get(position);
+                            msgShort("Produto: " + produtoSelecionado.getName());
+                        }
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                        {
+                            Product produtoSelecionado = productsList.get(position);
+                            msgShort("Produto: " + produtoSelecionado.getName());
+                        }
+                    }
                 )
         );
-
     }
 
     private void recyclerViewConfig()
@@ -279,7 +277,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-                msgShort("Houve algum erro :" + databaseError);
+                msgShort("Houve algum erro:" + databaseError);
             }
         });
     }
@@ -290,11 +288,11 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     }
 
     //comfirmar item com dialog
-    private void confirmItem(final int position)
+    private void confirmItem(final int position, Product produtoSelecionado )
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Quantidade");
-        alert.setMessage("Digite a quantidade");
+        alert.setTitle(produtoSelecionado.getName());
+        alert.setMessage("\nInforme a quantiade desejada: ");
 
         final EditText edtQuant = new EditText(this);
         edtQuant.setText("1");
@@ -351,7 +349,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     {
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
-                .setMessage("Carregando dados....")
+                .setMessage("Carregando dados...")
                 .setCancelable(false)
                 .build();
         dialog.show();
@@ -376,7 +374,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
     }
 
     //confimar pedido  --  Este metodo provavel  mente saira
@@ -392,7 +389,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                metodoPagamento = which;
             }
         });
 

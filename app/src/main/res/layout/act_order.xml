@@ -81,7 +81,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
@@ -128,7 +127,6 @@
                 app:layout_constraintTop_toTopOf="@+id/spnfillPayMent" />
         </LinearLayout>
 
-
         <TextView
             android:layout_width="123dp"
             android:layout_height="wrap_content"
@@ -142,7 +140,7 @@
             android:id="@+id/editObservation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Alguma observação?"
+            android:hint="Alguma observação? Ex: remover molho"
             android:inputType="text|textLongMessage"
             android:textColor="@color/colorHintText"
             android:textColorHint="@color/colorHintText" />

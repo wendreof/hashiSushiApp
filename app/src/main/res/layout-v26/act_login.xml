@@ -48,16 +48,17 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
+        android:autofillHints="e-mail"
         android:drawableStart="@drawable/ic_email_black_24dp"
         android:ems="10"
         android:inputType="textWebEmailAddress|textNoSuggestions"
+        android:textAlignment="center"
         android:textColor="@color/colorHintText"
         android:textColorHint="@color/colorHintText"
         app:layout_constraintBottom_toTopOf="@+id/txtSenha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="e-mail" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtEmail"
@@ -84,16 +85,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints="Senha"
         android:drawableStart="@drawable/ic_lock_black_24dp"
         android:ems="10"
         android:inputType="textPassword|textNoSuggestions"
+        android:textAlignment="center"
         android:textColor="@color/colorHintText"
         android:textColorHint="@color/colorHintText"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="Senha" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtSenha"
@@ -111,7 +113,6 @@
         app:layout_constraintStart_toStartOf="@+id/edtSenha" />
 
     <ImageView
-        android:autofillHints="traves orientais"
         android:id="@+id/imgLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -119,6 +120,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
+        android:autofillHints="traves orientais"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

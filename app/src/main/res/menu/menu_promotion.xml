@@ -3,56 +3,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rangelti.lamp.ActLamp">
 
-
-
     <item
         android:id="@+id/menu_points"
-        android:orderInCategory="100"
         android:icon="@drawable/ic_ponits_black_24dp"
+        android:orderInCategory="100"
         android:title="@string/menu_cad_prod"
         android:visible="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_enter"
+        android:icon="@drawable/plate"
         android:orderInCategory="100"
         android:title="@string/txt_enter"
-        android:icon="@drawable/plate"
         android:visible="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_plat_hot"
-        android:orderInCategory="100"
         android:icon="@drawable/plate"
+        android:orderInCategory="100"
         android:title="@string/txt_plat_hot"
         android:visible="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_plat_ace"
-        android:orderInCategory="100"
         android:icon="@drawable/plate"
+        android:orderInCategory="100"
         android:title="@string/txt_plat_ace"
         android:visible="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_combo"
-        android:orderInCategory="100"
         android:icon="@drawable/combo"
+        android:orderInCategory="100"
         android:title="@string/txt_combo"
         android:visible="true"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_temakis"
-        android:orderInCategory="100"
         android:icon="@drawable/temaki"
+        android:orderInCategory="100"
         android:title="@string/txt_temakis"
         android:visible="true"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_drinks"
-        android:orderInCategory="100"
         android:icon="@drawable/drinks"
+        android:orderInCategory="100"
         android:title="@string/txt_driks"
         android:visible="true"
         app:showAsAction="never" />
