@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
@@ -90,7 +91,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
-        // getSupportActionBar().hide();
+        bar.setTitle("");
+        //getSupportActionBar().hide();
+
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -501,6 +504,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         }
         return super.onOptionsItemSelected(item);
     }
+
+
     //==>FIM MENUS
 
 }

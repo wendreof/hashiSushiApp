@@ -1,6 +1,7 @@
 package com.example.hashisushi.views;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,8 @@ public class ActSplash extends AppCompatActivity {
         setContentView(R.layout.activity_act_splash);
         txtDelivery = findViewById(R.id.txtDelivery);
         txtwhats = findViewById(R.id.txtWhats);
-
+        //Travæ rotaçãø da tela
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fontLogo();
 
         getSupportActionBar().hide();
