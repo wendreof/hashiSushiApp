@@ -18,12 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.ActRegProd"/>
-        <activity android:name=".views.ActOrder"/>
+
+        <activity android:name=".views.ActRegProd" />
+        <activity android:name=".views.ActLogin"/>
+        <activity android:name=".views.ActOrder" />
         <activity android:name=".views.ActSignup" />
         <activity android:name=".views.ActPromotion" />
         <activity android:name=".views.ActPoints" />
-        <activity android:name=".views.ActLogin">
+        <activity android:name=".views.ActSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

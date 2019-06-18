@@ -140,7 +140,7 @@
             android:id="@+id/editObservation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Alguma observação? Ex: remover molho"
+            android:hint="Ex: remover molho, Torco para:"
             android:inputType="text|textLongMessage"
             android:textColor="@color/colorHintText"
             android:textColorHint="@color/colorHintText" />

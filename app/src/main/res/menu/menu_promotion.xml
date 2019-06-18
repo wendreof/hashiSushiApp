@@ -1,13 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.rangelti.lamp.ActLamp">
+    tools:context="com.rangelti.lamp.ActPromotion">
 
     <item
         android:id="@+id/menu_points"
         android:icon="@drawable/ic_ponits_black_24dp"
         android:orderInCategory="100"
-        android:title="@string/menu_cad_prod"
+        android:title="@string/menu_pont"
         android:visible="true"
         app:showAsAction="never" />
     <item

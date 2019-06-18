@@ -21,7 +21,7 @@ public class Orders implements Serializable{
         private String qrCode;
         private int quantProd;
         private int discont;
-        private String totalPrince;
+        private double totalPrince;
         private List<OrderItens> orderItens;
         private String observation;
         private String status;
@@ -167,11 +167,11 @@ public class Orders implements Serializable{
         this.discont = discont;
     }
 
-    public String getTotalPrince() {
+    public double getTotalPrince() {
         return totalPrince;
     }
 
-    public void setTotalPrince(String totalPrince) {
+    public void setTotalPrince(double totalPrince) {
         this.totalPrince = totalPrince;
     }
 

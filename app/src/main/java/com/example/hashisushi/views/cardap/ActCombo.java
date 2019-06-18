@@ -41,10 +41,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
@@ -63,7 +60,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
     private TextView txtLogoC;
     private TextView txtCombo;
 
-    //private AlertDialog dialog;
+    private AlertDialog dialog;
     private String retornIdUser;
     private User user;
     private DatabaseReference reference ;
@@ -106,8 +103,8 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                confirmItem(position);
-                                msgShort("click");
+                                Product produtoSelecionado = productsList.get(position);
+                                confirmItem(position,produtoSelecionado);
                             }
 
                             @Override
@@ -267,17 +264,19 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
     }
 
     //comfirmar item com dialog
-    private void confirmItem(final int position){
+    private void confirmItem(final int position, Product produtoSelecionado )
+    {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Quantidade");
-        alert.setMessage("Digite a quantidade");
+        alert.setTitle(produtoSelecionado.getName());
+        alert.setMessage("\nInforme a quantiade desejada: ");
 
         final EditText edtQuant = new EditText(this);
         edtQuant.setText("1");
 
         alert.setView(edtQuant);
-        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener()
+        {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -324,12 +323,13 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
     // proplema para recuperar user
     private void recoveryDataUser() {
 
-       /* dialog = new SpotsDialog.Builder()
+        dialog = new SpotsDialog.Builder()
                 .setContext(this)
-                .setMessage("Carregando dados....")
-                .setCancelable( true )
+                .setMessage("Carregando dados aguarde....")
+                .setCancelable( false )
                 .build();
-        dialog.show();*/
+        dialog.show();
+
 
         DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
 
@@ -393,7 +393,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                 txtQuantItensC.setText( String.valueOf(qtdItensCar) );
                 txtTotalOrderC.setText(df.format( totalCar ) );
 
-                //dialog.dismiss();
+                dialog.dismiss();
 
             }
 

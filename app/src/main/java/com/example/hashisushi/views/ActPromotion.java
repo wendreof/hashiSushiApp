@@ -51,16 +51,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActPromotion extends AppCompatActivity implements View.OnClickListener {
+public class ActPromotion extends AppCompatActivity implements View.OnClickListener
+{
     private TextView txtQuantItens;
     private TextView txtTotalOrder;
     private TextView txtTitle;
@@ -80,13 +78,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private User user;
 
     private Orders ordersRecovery;
-<<<<<<< HEAD
+
     private int qtdItensCar ;
     private Double totalCar ;
-=======
-    private int qtdItensCar;
-    private Double totalCar;
->>>>>>> 17b84b40623bfe8ef6a1384fb13e9118e7d5eaf7
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -96,7 +90,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
-
         // getSupportActionBar().hide();
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -123,14 +116,15 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     {
         //Adiciona evento de clique no recyclerview
         list_produsts.addOnItemTouchListener(
-<<<<<<< HEAD
+
                 new RecyclerItemClickListener(
                         this,
                         list_produsts,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                confirmItem(position);
+                                Product produtoSelecionado = productsList.get(position);
+                                confirmItem(position,produtoSelecionado);
                             }
 
                             @Override
@@ -143,33 +137,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                             }
-=======
-            new RecyclerItemClickListener(
-                    this,
-                    list_produsts,
-                    new RecyclerItemClickListener.OnItemClickListener()
-                    {
-                        @Override
-                        public void onItemClick(View view, int position)
-                        {
-                            Product produtoSelecionado = productsList.get(position);
-                            confirmItem(position, produtoSelecionado);
-                        }
 
-                        @Override
-                        public void onLongItemClick(View view, int position)
-                        {
-                            Product produtoSelecionado = productsList.get(position);
-                            msgShort("Produto: " + produtoSelecionado.getName());
-                        }
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                        {
-                            Product produtoSelecionado = productsList.get(position);
-                            msgShort("Produto: " + produtoSelecionado.getName());
->>>>>>> 17b84b40623bfe8ef6a1384fb13e9118e7d5eaf7
-                        }
                     }
                 )
         );
@@ -184,21 +152,13 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         list_produsts.setAdapter(adapterProduct);
     }
 
-<<<<<<< HEAD
-    private void startComponet(){
 
-        txtStatus = findViewById( R.id.txtEstatus );
-        txtTitle = findViewById( R.id.txtTitleReg);
-        txtQuantItens = findViewById( R.id.txtQuantItens);
-        txtTotalOrder = findViewById( R.id.txtTotalOrder);
-=======
     private void startComponet()
     {
         txtStatus = findViewById(R.id.txtEstatus);
         txtTitle = findViewById(R.id.txtTitleReg);
         txtQuantItens = findViewById(R.id.txtQuantItens);
         txtTotalOrder = findViewById(R.id.txtTotalOrder);
->>>>>>> 17b84b40623bfe8ef6a1384fb13e9118e7d5eaf7
 
         flotBntExitP = findViewById(R.id.flotBntExitP);
         flotBntFinishProm = findViewById(R.id.flotBntFinishProm);
@@ -208,12 +168,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         list_produsts = findViewById(R.id.list_produsts);
     }
 
-<<<<<<< HEAD
 
-    private void getStatus(){
-       String stt = System.getProperty("STATUS_ENV");
-       txtStatus.setText(stt);recoveryDataUser();
-=======
+
     private void getStatus()
     {
         String stt = System.getProperty("STATUS_ENV");
@@ -226,7 +182,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             txtStatus.setTextColor(Color.RED);
         }
         txtStatus.setText(stt);
->>>>>>> 17b84b40623bfe8ef6a1384fb13e9118e7d5eaf7
     }
 
     @Override
@@ -253,9 +208,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.flotBntFinishProm)
         {
             startVibrate(90);
-            confirmarPedido();
-            // Intent it = new Intent( this, ActOrder.class );
-            //startActivity( it );
+             Intent it = new Intent( this, ActOrder.class );
+             startActivity( it );
         }
         if (v.getId() == R.id.flotBntEditPersonP)
         {
@@ -330,15 +284,11 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-<<<<<<< HEAD
-//comfirmar item com dialog
-    private void confirmItem(final int position){
 
-=======
     //comfirmar item com dialog
     private void confirmItem(final int position, Product produtoSelecionado )
     {
->>>>>>> 17b84b40623bfe8ef6a1384fb13e9118e7d5eaf7
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(produtoSelecionado.getName());
         alert.setMessage("\nInforme a quantiade desejada: ");
@@ -393,20 +343,15 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     }
 
     //recupera dados do usuario esta com
-    // proplema para recuperar user
     private void recoveryDataUser()
     {
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
-<<<<<<< HEAD
-                .setMessage("Carregando dados....")
-                .setCancelable( true )
-=======
-                .setMessage("Carregando dados...")
-                .setCancelable(false)
->>>>>>> 17b84b40623bfe8ef6a1384fb13e9118e7d5eaf7
+                .setMessage("Carregando dados aguarde....")
+                .setCancelable( false )
                 .build();
         dialog.show();
+
 
         DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
 
@@ -428,67 +373,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-    }
-
-    //confimar pedido  --  Este metodo provavel  mente saira
-    private void confirmarPedido()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Selecione um método de pagamento");
-
-        CharSequence[] itens = new CharSequence[]
-                {"Dinheiro", "Máquina cartão"};
-        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-            }
-        });
-
-        final EditText editObservacao = new EditText(this);
-        editObservacao.setHint("Digite uma observação");
-        builder.setView(editObservacao);
-
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                String observacao = editObservacao.getText().toString();
-
-                SimpleDateFormat dateFormat_data = new SimpleDateFormat("ddMMyyyy");
-                SimpleDateFormat horaFormat_hora = new SimpleDateFormat("HHmm");
-                Calendar cal = Calendar.getInstance();
-
-                Date data_atual = cal.getTime();
-
-                String hora = horaFormat_hora.format(data_atual);
-                String dataAtual = dateFormat_data.format(data_atual);
-
-                ordersRecovery.setDateOrder(Integer.parseInt(dataAtual));
-                ordersRecovery.setHour(Integer.parseInt(hora));
-                ordersRecovery.setObservation(observacao);
-                ordersRecovery.setQuantProd(qtdItensCar);
-                String total = String.valueOf(totalCar);
-                ordersRecovery.setTotalPrince(total);
-                ordersRecovery.setStatus("confirmado");
-                ordersRecovery.confimar();
-                ordersRecovery.remover();
-                ordersRecovery = null;
-
-                msgShort("Pedido Confirmado !");
-            }
-        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                msgShort("Pedido não confirmado");
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     //recupera pedido
@@ -618,4 +502,5 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
     //==>FIM MENUS
+
 }

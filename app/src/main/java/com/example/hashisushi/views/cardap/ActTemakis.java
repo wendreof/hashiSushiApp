@@ -105,7 +105,8 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                confirmItem(position);
+                                Product produtoSelecionado = productsList.get(position);
+                                confirmItem(position,produtoSelecionado);
                             }
 
                             @Override
@@ -262,16 +263,19 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
     }
 
     //comfirmar item com dialog
-    private void confirmItem(final int position){
+    private void confirmItem(final int position, Product produtoSelecionado )
+    {
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Quantidade");
-        alert.setMessage("Digite a quantidade");
+        alert.setTitle(produtoSelecionado.getName());
+        alert.setMessage("\nInforme a quantiade desejada: ");
 
         final EditText edtQuant = new EditText(this);
         edtQuant.setText("1");
 
         alert.setView(edtQuant);
-        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener()
+        {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -319,12 +323,13 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
     // proplema para recuperar user
     private void recoveryDataUser() {
 
- /* dialog = new SpotsDialog.Builder()
+        dialog = new SpotsDialog.Builder()
                 .setContext(this)
-                .setMessage("Carregando dados....")
+                .setMessage("Carregando dados aguarde....")
                 .setCancelable( false )
                 .build();
-        dialog.show();*/
+        dialog.show();
+
         DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
 
         usuariosDB.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -387,7 +392,7 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
                 txtQuantItensT.setText( String.valueOf(qtdItensCar) );
                 txtTotalOrderT.setText(df.format( totalCar ) );
 
-               // dialog.dismiss();
+                 dialog.dismiss();
 
             }
 

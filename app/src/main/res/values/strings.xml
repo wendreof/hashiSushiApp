@@ -37,7 +37,7 @@
     <string name="male">Masculino</string>
     <string name="e_mail">E-mail:</string>
     <string name="your_email">Informe seu e-mail</string>
-        <string name="whatsapp">Contato:</string>
+    <string name="whatsapp">Contato:</string>
     <string name="_19_99999_9999">Informe seu celular</string>
     <string name="finalizar">Finalizar</string>
     <string name="preencha_os_campos">Por favor preencha os campos solicitados</string>
@@ -107,6 +107,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="menu_pont">Meus pontos</string>
     <string name="txt_regirter_prod">Cadastro de produto</string>
     <string name="txt_number_prod">Nº Produto</string>
     <string name="hint_name_prod">Informe o nome do produto</string>
@@ -116,6 +117,8 @@
     <string name="txt_type">Selecione o tipo:</string>
     <string name="txt_Is_promotion">Esta em promoção:</string>
     <string name="txt_url_img">URL imagem produto:</string>
+    <string name="txt_splash">Fast Delivery</string>
+    <string name="txt_splash_fone">19 9.8605-6578</string>
     <string name="vgs">Vargem Grande do Sul</string>
     <string name="SP">São Paulo</string>
     <string name="we_are_not_open">Não estamos atendendo agora!</string>
