@@ -31,7 +31,6 @@ import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 
-import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -42,10 +41,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
@@ -92,12 +89,12 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         initComponent();
         initDB();
         initSearch();
+        retornIdUser = UserFirebase.getIdUser();
         fontLogo();
         recyclerViewConfig();
         recycleOnclick();
-
-        retornIdUser = UserFirebase.getIdUser();
         recoveryDataUser();
+
     }
 
     private void recycleOnclick(){
@@ -109,13 +106,14 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-
                                 confirmItem(position);
+                                msgShort("click");
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-
+                                //Product produtoSelecionado = productsList.get(position);
+                                // msgShort("Produto :"+produtoSelecionado);
                             }
 
                             @Override
@@ -127,7 +125,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         );
 
     }
-
     private void recyclerViewConfig(){
 
         //Configura recyclerview
@@ -267,15 +264,69 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
+    //comfirmar item com dialog
+    private void confirmItem(final int position){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quantidade");
+        alert.setMessage("Digite a quantidade");
+
+        final EditText edtQuant = new EditText(this);
+        edtQuant.setText("1");
+
+        alert.setView(edtQuant);
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String quantity = edtQuant.getText().toString();
+
+                Product productSelectd = productsList.get(position);
+                OrderItens itemOrder = new OrderItens();
+
+                itemOrder.setIdProduct( productSelectd.getIdProd() );
+                itemOrder.setNameProduct(productSelectd.getName() );
+                itemOrder.setItenSalePrice( productSelectd.getSalePrice());
+                itemOrder.setQuantity( Integer.parseInt(quantity) );
+
+                itensCars.add( itemOrder );
+
+                // msgShort(itensCars.toString());
+
+                if( ordersRecovery == null ){
+                    ordersRecovery = new Orders(retornIdUser);
+                }
+                ordersRecovery.setName( user.getName() );
+                ordersRecovery.setAddress( user.getAddress() );
+                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                ordersRecovery.setNumberHome(user.getNumberHome());
+                ordersRecovery.setCellphone(user.getPhone());
+                ordersRecovery.setOrderItens( itensCars );
+                ordersRecovery.salvar();
+
+
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
+    }
 
     //recupera dados do usuario esta com
     // proplema para recuperar user
     private void recoveryDataUser() {
 
- /* dialog = new SpotsDialog.Builder()
+       /* dialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .setMessage("Carregando dados....")
-                .setCancelable( false )
+                .setCancelable( true )
                 .build();
         dialog.show();*/
 
@@ -300,7 +351,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
     }
 
-  //recupera pedido
+    //recupera pedido
     private void recoveryOrder(){
 
         DatabaseReference pedidoRef = reference
@@ -341,56 +392,12 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
                 txtQuantItensDr.setText( String.valueOf(qtdItensCar) );
                 txtTotalOrderDr.setText(df.format( totalCar ) );
 
-              //  dialog.dismiss();
+                //dialog.dismiss();
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    //comfirmar item com dialog
-    private void confirmItem(final int position) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Quantidade");
-        alert.setMessage("Digite a quantidade");
-
-        final EditText edtQuant = new EditText(this);
-        edtQuant.setText("1");
-
-        alert.setView(edtQuant);
-        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                String quantity = edtQuant.getText().toString();
-
-                Product productSelectd = productsList.get(position);
-                OrderItens itemOrder = new OrderItens();
-
-                itemOrder.setIdProduct(productSelectd.getIdProd());
-                itemOrder.setNameProduct(productSelectd.getName());
-                itemOrder.setItenSalePrice(productSelectd.getSalePrice());
-                itemOrder.setQuantity(Integer.parseInt(quantity));
-
-                itensCars.add(itemOrder);
-
-                // msgShort(itensCars.toString());
-
-                if (ordersRecovery == null) {
-                    ordersRecovery = new Orders(retornIdUser);
-                }
-                ordersRecovery.setName(user.getName());
-                ordersRecovery.setAddress(user.getAddress());
-                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
-                ordersRecovery.setNumberHome(user.getNumberHome());
-                ordersRecovery.setCellphone(user.getPhone());
-                ordersRecovery.setOrderItens(itensCars);
-                ordersRecovery.salvar();
-
 
             }
         });

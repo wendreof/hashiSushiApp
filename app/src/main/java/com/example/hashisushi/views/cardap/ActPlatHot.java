@@ -91,7 +91,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         initComponent();
         initDB();
         initSearch();
-
         fontLogo();
         recyclerViewConfig();
         recycleOnclick();

@@ -278,6 +278,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
 //comfirmar item com dialog
     private void confirmItem(final int position){
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Quantidade");
         alert.setMessage("Digite a quantidade");
@@ -336,7 +337,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .setMessage("Carregando dados....")
-                .setCancelable( false )
+                .setCancelable( true )
                 .build();
         dialog.show();
 

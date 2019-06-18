@@ -88,11 +88,11 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         initDB();
         initSearch();
         fontLogo();
-        recyclerViewConfig();
-        recycleOnclick();
-
         retornIdUser = UserFirebase.getIdUser();
         recoveryDataUser();
+
+        recyclerViewConfig();
+        recycleOnclick();
 
     }
 
@@ -110,7 +110,8 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-
+                                //Product produtoSelecionado = productsList.get(position);
+                                // msgShort("Produto :"+produtoSelecionado);
                             }
 
                             @Override
@@ -122,7 +123,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         );
 
     }
-
     private void recyclerViewConfig(){
 
         //Configura recyclerview
@@ -261,6 +261,60 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
+    //comfirmar item com dialog
+    private void confirmItem(final int position){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quantidade");
+        alert.setMessage("Digite a quantidade");
+
+        final EditText edtQuant = new EditText(this);
+        edtQuant.setText("1");
+
+        alert.setView(edtQuant);
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String quantity = edtQuant.getText().toString();
+
+                Product productSelectd = productsList.get(position);
+                OrderItens itemOrder = new OrderItens();
+
+                itemOrder.setIdProduct( productSelectd.getIdProd() );
+                itemOrder.setNameProduct(productSelectd.getName() );
+                itemOrder.setItenSalePrice( productSelectd.getSalePrice());
+                itemOrder.setQuantity( Integer.parseInt(quantity) );
+
+                itensCars.add( itemOrder );
+
+                // msgShort(itensCars.toString());
+
+                if( ordersRecovery == null ){
+                    ordersRecovery = new Orders(retornIdUser);
+                }
+                ordersRecovery.setName( user.getName() );
+                ordersRecovery.setAddress( user.getAddress() );
+                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                ordersRecovery.setNumberHome(user.getNumberHome());
+                ordersRecovery.setCellphone(user.getPhone());
+                ordersRecovery.setOrderItens( itensCars );
+                ordersRecovery.salvar();
+
+
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
+    }
+
     //recupera dados do usuario esta com
     // proplema para recuperar user
     private void recoveryDataUser() {
@@ -339,50 +393,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    //comfirmar item com dialog
-    private void confirmItem(final int position) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Quantidade");
-        alert.setMessage("Digite a quantidade");
-
-        final EditText edtQuant = new EditText(this);
-        edtQuant.setText("1");
-
-        alert.setView(edtQuant);
-        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                String quantity = edtQuant.getText().toString();
-
-                Product productSelectd = productsList.get(position);
-                OrderItens itemOrder = new OrderItens();
-
-                itemOrder.setIdProduct(productSelectd.getIdProd());
-                itemOrder.setNameProduct(productSelectd.getName());
-                itemOrder.setItenSalePrice(productSelectd.getSalePrice());
-                itemOrder.setQuantity(Integer.parseInt(quantity));
-
-                itensCars.add(itemOrder);
-
-                // msgShort(itensCars.toString());
-
-                if (ordersRecovery == null) {
-                    ordersRecovery = new Orders(retornIdUser);
-                }
-                ordersRecovery.setName(user.getName());
-                ordersRecovery.setAddress(user.getAddress());
-                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
-                ordersRecovery.setNumberHome(user.getNumberHome());
-                ordersRecovery.setCellphone(user.getPhone());
-                ordersRecovery.setOrderItens(itensCars);
-                ordersRecovery.salvar();
-
 
             }
         });
