@@ -1,6 +1,8 @@
 package com.example.hashisushi.views.cardap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -15,14 +17,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
+import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
+import com.example.hashisushi.model.OrderItens;
+import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
 
+import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
@@ -34,9 +41,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActCombo extends AppCompatActivity implements View.OnClickListener{
@@ -45,16 +54,25 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
     private FloatingActionButton flotBntEdtPersoC;
     private FloatingActionButton flotBntFinishC;
     private FloatingActionButton flotBntDrinksC;
+    private TextView txtQuantItensC;
+    private TextView  txtTotalOrderC;
 
     private TextView txtCardapC;
     private TextView txtLogoC;
     private TextView txtCombo;
 
+    private AlertDialog dialog;
+    private String retornIdUser;
+    private User user;
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
     private RecyclerView lstCombo;
     private AdapterProduct adapterProduct;
 
+    private Orders ordersRecovery;
+    private int qtdItensCar ;
+    private Double totalCar ;
+    private List<OrderItens> itensCars = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +90,8 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         fontLogo();
         recyclerViewConfig();
         recycleOnclick();
+        retornIdUser = UserFirebase.getIdUser();
+        recoveryDataUser();
 
     }
 
@@ -84,14 +104,12 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-
-                                msgShort("Posiçao :"+position);
+                                confirmItem(position);
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                Product produtoSelecionado = productsList.get(position);
-                                msgShort("Produto :"+produtoSelecionado);
+
                             }
 
                             @Override
@@ -190,6 +208,9 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
     private void initComponent(){
 
+        txtQuantItensC = findViewById( R.id.txtQuantItensC);
+        txtTotalOrderC = findViewById( R.id.txtTotalOrderC);
+
         flotBntVoltarC = findViewById(R.id.flotBntVoltarC);
         flotBntEdtPersoC = findViewById(R.id.flotBntEdtPersoC);
         flotBntFinishC = findViewById(R.id.flotBntFinshC);
@@ -240,5 +261,134 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
+
+    //recupera dados do usuario esta com
+    // proplema para recuperar user
+    private void recoveryDataUser() {
+
+ /* dialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage("Carregando dados....")
+                .setCancelable( false )
+                .build();
+        dialog.show();*/
+
+        DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
+
+        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if( dataSnapshot.getValue() != null ){
+
+                    user = dataSnapshot.getValue(User.class);
+                }
+                recoveryOrder();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    //recupera pedido
+    private void recoveryOrder(){
+
+        DatabaseReference pedidoRef = reference
+                .child("orders_user")
+                .child( retornIdUser );
+
+        pedidoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                qtdItensCar = 0;
+                totalCar = 0.0;
+                itensCars = new ArrayList<>();
+
+                if(dataSnapshot.getValue() != null){
+
+                    ordersRecovery = dataSnapshot.getValue(Orders.class);
+                    itensCars = ordersRecovery.getOrderItens();
+
+
+                    for(OrderItens orderItens: itensCars){
+
+                        int qtde = orderItens.getQuantity();
+
+                        String strPreco = orderItens.getItenSalePrice();
+                        double preco = Double.parseDouble( strPreco );
+                        System.out.println(preco);
+
+                        totalCar += (qtde * preco);
+                        qtdItensCar += qtde;
+
+                    }
+
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
+                txtQuantItensC.setText( String.valueOf(qtdItensCar) );
+                txtTotalOrderC.setText(df.format( totalCar ) );
+
+                //dialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //comfirmar item com dialog
+    private void confirmItem(final int position) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quantidade");
+        alert.setMessage("Digite a quantidade");
+
+        final EditText edtQuant = new EditText(this);
+        edtQuant.setText("1");
+
+        alert.setView(edtQuant);
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String quantity = edtQuant.getText().toString();
+
+                Product productSelectd = productsList.get(position);
+                OrderItens itemOrder = new OrderItens();
+
+                itemOrder.setIdProduct(productSelectd.getIdProd());
+                itemOrder.setNameProduct(productSelectd.getName());
+                itemOrder.setItenSalePrice(productSelectd.getSalePrice());
+                itemOrder.setQuantity(Integer.parseInt(quantity));
+
+                itensCars.add(itemOrder);
+
+                // msgShort(itensCars.toString());
+
+                if (ordersRecovery == null) {
+                    ordersRecovery = new Orders(retornIdUser);
+                }
+                ordersRecovery.setName(user.getName());
+                ordersRecovery.setAddress(user.getAddress());
+                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                ordersRecovery.setNumberHome(user.getNumberHome());
+                ordersRecovery.setCellphone(user.getPhone());
+                ordersRecovery.setOrderItens(itensCars);
+                ordersRecovery.salvar();
+
+
+            }
+        });
+    }
+
 
 }

@@ -1,6 +1,8 @@
 package com.example.hashisushi.views.cardap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -15,13 +17,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
+import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
+import com.example.hashisushi.model.OrderItens;
+import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
+import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 
 import com.example.hashisushi.views.ActPoints;
@@ -34,9 +41,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActDrinks extends AppCompatActivity implements View.OnClickListener{
@@ -46,6 +58,8 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private FloatingActionButton flotBntFinishD;
     private FloatingActionButton flotBntOrderSaleD;
 
+    private TextView txtQuantItensDr;
+    private TextView  txtTotalOrderDr;
     private TextView txtCardapD;
     private TextView txtLogoD;
     private TextView txtDrinks;
@@ -54,6 +68,15 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private List<Product> productsList = new ArrayList<Product>();
     private RecyclerView lstDrinks;
     private AdapterProduct adapterProduct;
+
+    private AlertDialog dialog;
+    private String retornIdUser;
+    private User user;
+
+    private Orders ordersRecovery;
+    private int qtdItensCar ;
+    private Double totalCar ;
+    private List<OrderItens> itensCars = new ArrayList<>();
 
 
     @Override
@@ -72,6 +95,9 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         fontLogo();
         recyclerViewConfig();
         recycleOnclick();
+
+        retornIdUser = UserFirebase.getIdUser();
+        recoveryDataUser();
     }
 
     private void recycleOnclick(){
@@ -84,13 +110,12 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
                             @Override
                             public void onItemClick(View view, int position) {
 
-                                msgShort("Posiçao :"+position);
+                                confirmItem(position);
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                Product produtoSelecionado = productsList.get(position);
-                                msgShort("Produto :"+produtoSelecionado);
+
                             }
 
                             @Override
@@ -188,6 +213,10 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     }
 
     private void initComponent(){
+
+        txtQuantItensDr = findViewById( R.id.txtQuantItensDr);
+        txtTotalOrderDr = findViewById( R.id.txtTotalOrderDr);
+
         flotBntVoltarD = findViewById(R.id.flotBntVoltarD);
         flotBntEdtPersoD = findViewById(R.id.flotBntEdtPersoD);
         flotBntFinishD = findViewById(R.id.flotBntFinishD);
@@ -237,6 +266,134 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private void msgShort(String msg) {
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    //recupera dados do usuario esta com
+    // proplema para recuperar user
+    private void recoveryDataUser() {
+
+ /* dialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage("Carregando dados....")
+                .setCancelable( false )
+                .build();
+        dialog.show();*/
+
+        DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
+
+        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if( dataSnapshot.getValue() != null ){
+
+                    user = dataSnapshot.getValue(User.class);
+                }
+                recoveryOrder();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+  //recupera pedido
+    private void recoveryOrder(){
+
+        DatabaseReference pedidoRef = reference
+                .child("orders_user")
+                .child( retornIdUser );
+
+        pedidoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                qtdItensCar = 0;
+                totalCar = 0.0;
+                itensCars = new ArrayList<>();
+
+                if(dataSnapshot.getValue() != null){
+
+                    ordersRecovery = dataSnapshot.getValue(Orders.class);
+                    itensCars = ordersRecovery.getOrderItens();
+
+
+                    for(OrderItens orderItens: itensCars){
+
+                        int qtde = orderItens.getQuantity();
+
+                        String strPreco = orderItens.getItenSalePrice();
+                        double preco = Double.parseDouble( strPreco );
+                        System.out.println(preco);
+
+                        totalCar += (qtde * preco);
+                        qtdItensCar += qtde;
+
+                    }
+
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
+                txtQuantItensDr.setText( String.valueOf(qtdItensCar) );
+                txtTotalOrderDr.setText(df.format( totalCar ) );
+
+              //  dialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //comfirmar item com dialog
+    private void confirmItem(final int position) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quantidade");
+        alert.setMessage("Digite a quantidade");
+
+        final EditText edtQuant = new EditText(this);
+        edtQuant.setText("1");
+
+        alert.setView(edtQuant);
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String quantity = edtQuant.getText().toString();
+
+                Product productSelectd = productsList.get(position);
+                OrderItens itemOrder = new OrderItens();
+
+                itemOrder.setIdProduct(productSelectd.getIdProd());
+                itemOrder.setNameProduct(productSelectd.getName());
+                itemOrder.setItenSalePrice(productSelectd.getSalePrice());
+                itemOrder.setQuantity(Integer.parseInt(quantity));
+
+                itensCars.add(itemOrder);
+
+                // msgShort(itensCars.toString());
+
+                if (ordersRecovery == null) {
+                    ordersRecovery = new Orders(retornIdUser);
+                }
+                ordersRecovery.setName(user.getName());
+                ordersRecovery.setAddress(user.getAddress());
+                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                ordersRecovery.setNumberHome(user.getNumberHome());
+                ordersRecovery.setCellphone(user.getPhone());
+                ordersRecovery.setOrderItens(itensCars);
+                ordersRecovery.salvar();
+
+
+            }
+        });
     }
 
 }

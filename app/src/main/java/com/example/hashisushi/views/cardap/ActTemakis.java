@@ -1,6 +1,8 @@
 package com.example.hashisushi.views.cardap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -15,16 +17,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;
+import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.listener.RecyclerItemClickListener;
+import com.example.hashisushi.model.OrderItens;
+import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
 
+import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
-import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -34,9 +40,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActTemakis extends AppCompatActivity implements View.OnClickListener {
@@ -46,6 +54,9 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
     private FloatingActionButton flotBtnFinishT;
     private FloatingActionButton flotBntComboT;
 
+
+    private TextView txtQuantItensT;
+    private TextView  txtTotalOrderT;
     private TextView txtCardapT;
     private TextView txtLogoT;
     private TextView txtTemakis;
@@ -54,6 +65,15 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
     private List<Product> productsList = new ArrayList<Product>();
     private RecyclerView lstTemakis;
     private AdapterProduct adapterProduct;
+
+    private AlertDialog dialog;
+    private String retornIdUser;
+    private User user;
+
+    private Orders ordersRecovery;
+    private int qtdItensCar ;
+    private Double totalCar ;
+    private List<OrderItens> itensCars = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +91,9 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         recyclerViewConfig();
         recycleOnclick();
 
+        retornIdUser = UserFirebase.getIdUser();
+        recoveryDataUser();
+
     }
 
     private void recycleOnclick(){
@@ -82,14 +105,12 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-
-                                msgShort("Posiçao :"+position);
+                                confirmItem(position);
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                Product produtoSelecionado = productsList.get(position);
-                                msgShort("Produto :"+produtoSelecionado);
+
                             }
 
                             @Override
@@ -187,6 +208,9 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
     private void initComponent(){
 
+        txtQuantItensT = findViewById( R.id.txtQuantItensT);
+        txtTotalOrderT = findViewById( R.id.txtTotalOrderT);
+
         flotBntVoltarT = findViewById(R.id.flotBntVoltarT);
         flotBntEdtPersoT = findViewById(R.id.flotBntEdtPersoT);
         flotBtnFinishT = findViewById(R.id.flotBtnFinishT);
@@ -202,7 +226,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
         txtTemakis = findViewById(R.id.txtTemakis);
 
         lstTemakis = findViewById(R.id.LstTemakis);
-
     }
 
     public void initSearch(){
@@ -232,9 +255,136 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
+
     private void msgShort(String msg) {
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
+    //recupera dados do usuario esta com
+    // proplema para recuperar user
+    private void recoveryDataUser() {
+
+ /* dialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage("Carregando dados....")
+                .setCancelable( false )
+                .build();
+        dialog.show();*/
+        DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
+
+        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if( dataSnapshot.getValue() != null ){
+
+                    user = dataSnapshot.getValue(User.class);
+                }
+                recoveryOrder();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    //recupera pedido
+    private void recoveryOrder(){
+
+        DatabaseReference pedidoRef = reference
+                .child("orders_user")
+                .child( retornIdUser );
+
+        pedidoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                qtdItensCar = 0;
+                totalCar = 0.0;
+                itensCars = new ArrayList<>();
+
+                if(dataSnapshot.getValue() != null){
+
+                    ordersRecovery = dataSnapshot.getValue(Orders.class);
+                    itensCars = ordersRecovery.getOrderItens();
+
+
+                    for(OrderItens orderItens: itensCars){
+
+                        int qtde = orderItens.getQuantity();
+
+                        String strPreco = orderItens.getItenSalePrice();
+                        double preco = Double.parseDouble( strPreco );
+                        System.out.println(preco);
+
+                        totalCar += (qtde * preco);
+                        qtdItensCar += qtde;
+
+                    }
+
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
+                txtQuantItensT.setText( String.valueOf(qtdItensCar) );
+                txtTotalOrderT.setText(df.format( totalCar ) );
+
+               // dialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //comfirmar item com dialog
+    private void confirmItem(final int position) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quantidade");
+        alert.setMessage("Digite a quantidade");
+
+        final EditText edtQuant = new EditText(this);
+        edtQuant.setText("1");
+
+        alert.setView(edtQuant);
+        alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String quantity = edtQuant.getText().toString();
+
+                Product productSelectd = productsList.get(position);
+                OrderItens itemOrder = new OrderItens();
+
+                itemOrder.setIdProduct(productSelectd.getIdProd());
+                itemOrder.setNameProduct(productSelectd.getName());
+                itemOrder.setItenSalePrice(productSelectd.getSalePrice());
+                itemOrder.setQuantity(Integer.parseInt(quantity));
+
+                itensCars.add(itemOrder);
+
+                // msgShort(itensCars.toString());
+
+                if (ordersRecovery == null) {
+                    ordersRecovery = new Orders(retornIdUser);
+                }
+                ordersRecovery.setName(user.getName());
+                ordersRecovery.setAddress(user.getAddress());
+                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                ordersRecovery.setNumberHome(user.getNumberHome());
+                ordersRecovery.setCellphone(user.getPhone());
+                ordersRecovery.setOrderItens(itensCars);
+                ordersRecovery.salvar();
+
+
+            }
+        });
+    }
 }

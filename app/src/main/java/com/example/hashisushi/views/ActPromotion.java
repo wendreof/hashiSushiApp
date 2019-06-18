@@ -87,6 +87,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private Orders ordersRecovery;
     private int qtdItensCar ;
     private Double totalCar ;
+
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
@@ -114,7 +115,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         recycleOnclick();
 
         initSearch();
-       recoveryDataUser();
+        recoveryDataUser();
     }//end oncreat
 
     private void recycleOnclick(){
@@ -131,8 +132,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                Product produtoSelecionado = productsList.get(position);
-                                msgShort("Produto :"+produtoSelecionado);
+                                //Product produtoSelecionado = productsList.get(position);
+                               // msgShort("Produto :"+produtoSelecionado);
                             }
 
                             @Override
@@ -156,6 +157,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     }
 
     private void startComponet(){
+
         txtStatus = findViewById( R.id.txtEstatus );
         txtTitle = findViewById( R.id.txtTitleReg);
         txtQuantItens = findViewById( R.id.txtQuantItens);
@@ -173,7 +175,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     private void getStatus(){
        String stt = System.getProperty("STATUS_ENV");
-       txtStatus.setText(stt);
+       txtStatus.setText(stt);recoveryDataUser();
     }
 
     @Override

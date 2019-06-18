@@ -12,18 +12,16 @@
         android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
         android:text="@string/txt_driks"
         android:textAlignment="center"
         android:textColor="@color/ic_launcher_background"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCardapT" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCardapD" />
 
     <TextView
         android:id="@+id/txtLogoD"
@@ -44,17 +42,16 @@
     <TextView
         android:id="@+id/txtCardapD"
         android:layout_width="0dp"
-        android:layout_height="34dp"
+        android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
         android:text="@string/txt_menu_sales"
         android:textAlignment="center"
         android:textColor="@color/ic_launcher_background"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtDrinks"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtLogoD" />
 
@@ -179,5 +176,79 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline6" />
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorAccent"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:paddingStart="2dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/LstDriks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDrinks">
+
+        <TextView
+            android:id="@+id/txt_car_item"
+            android:layout_width="90dp"
+            android:layout_height="20dp"
+            android:text="@string/txt_car_item"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_quant_item"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:text="@string/txt_quant_item"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtQuantItensDr"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:text="@string/txt_qt"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_total_order"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:text="@string/txt_total_order"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtTotalOrderDr"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:text="@string/txt_total"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
