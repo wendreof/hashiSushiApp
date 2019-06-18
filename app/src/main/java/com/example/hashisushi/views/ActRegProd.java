@@ -285,11 +285,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
                 String strProm = spnIsPrmotion.getSelectedItem().toString();
 
                 boolean bolProm  = false;
-                if(strProm.equals("Sim")){
-                    bolProm = true;
-                }else {
-                    bolProm = false;
-                }
+                bolProm = strProm.equals("Sim");
                 p.setPromotion(bolProm);
 
                 String strType = spnType.getSelectedItem().toString();

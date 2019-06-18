@@ -168,7 +168,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful())
                         {
                             msgShort("Pré cadastro concluido.");
-                            msgShort("Só mais um momento e terminamos tudo !");
+                            msgShort("Só mais um momento e terminamos tudo!");
                             initSignup();
                         }
                         else
