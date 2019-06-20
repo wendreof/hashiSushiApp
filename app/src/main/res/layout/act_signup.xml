@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
     android:padding="20dp"
-    tools:context=".views.ActSignup">
+    tools:context="com.example.hashisushi.views.ActSignup">
 
     <LinearLayout
         android:layout_width="match_parent"

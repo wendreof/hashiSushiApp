@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
-    tools:context=".views.cardap.ActPlatHot">
+    tools:context="com.example.hashisushi.views.cardap.ActPlatHot">
 
     <TextView
         android:id="@+id/txtCardapPh"

@@ -1,7 +1,5 @@
 package com.example.hashisushi.model;
 
-import java.math.BigDecimal;
-
 public class OrderItens {
 
     private String idProduct;

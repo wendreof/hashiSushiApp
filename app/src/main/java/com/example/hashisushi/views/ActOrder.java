@@ -2,13 +2,10 @@ package com.example.hashisushi.views;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,18 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.adapter.AdapterProduct;
 import com.example.hashisushi.dao.FirebaseConfig;
 import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.OrderItens;
 import com.example.hashisushi.model.Orders;
-import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.utils.MockPaymentMethods;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;

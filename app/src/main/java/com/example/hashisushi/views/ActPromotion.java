@@ -28,7 +28,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterProduct;

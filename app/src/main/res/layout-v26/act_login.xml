@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
-    tools:context=".views.ActLogin">
+    tools:context="com.example.hashisushi.views.ActLogin">
 
     <Button
         android:id="@+id/btnEntrar"
@@ -171,7 +171,7 @@
         android:textColor="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline18"
         app:layout_constraintVertical_bias="1.0" />

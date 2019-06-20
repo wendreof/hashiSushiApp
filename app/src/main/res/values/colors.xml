@@ -6,11 +6,8 @@
     <color name="colorSalmon">#FA7F72 </color>
     <color name="colorSilver">#C1C1C1</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="colorFace">#111d4a</color>
 
-    //PALETA ANTIGA
-    <color name="colorOrege">#F0A202</color>
-    <color name="colorVemelium">#D95D39</color>
-    <color name="colorMaize">#EDF060</color>
     <color name="colorSmoky">#070707</color>
     <color name="colorHintText">#9E9090</color>
 

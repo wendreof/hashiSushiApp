@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.hashisushi.model.Product;
-import com.example.hashisushi.model.User;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

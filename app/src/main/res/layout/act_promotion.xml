@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
     android:orientation="vertical"
-    tools:context=".views.ActPromotion">
+    tools:context="com.example.hashisushi.views.ActPromotion">
 
     <TextView
         android:id="@+id/txtPromution"

@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".utils.CustomApplication"
+        android:name="com.example.hashisushi.utils.CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,13 +19,28 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".views.ActRegProd" />
-        <activity android:name=".views.ActLogin"/>
-        <activity android:name=".views.ActOrder" />
-        <activity android:name=".views.ActSignup" />
-        <activity android:name=".views.ActPromotion" />
-        <activity android:name=".views.ActPoints" />
-        <activity android:name=".views.ActSplash">
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+                  android:value="@string/facebook_app_id"/>
+        <activity android:name="com.facebook.FacebookActivity"
+                  android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                  android:label="@string/app_name" />
+        <activity android:name="com.facebook.CustomTabActivity"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter> </activity>
+
+
+        <activity android:name="com.example.hashisushi.views.ActRegProd" />
+        <activity android:name="com.example.hashisushi.views.ActLogin"/>
+        <activity android:name="com.example.hashisushi.views.ActOrder" />
+        <activity android:name="com.example.hashisushi.views.ActSignup" />
+        <activity android:name="com.example.hashisushi.views.ActPromotion" />
+        <activity android:name="com.example.hashisushi.views.ActPoints" />
+        <activity android:name="com.example.hashisushi.views.ActSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,46 +48,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.ActSaleCardap"
-            android:parentActivityName=".views.cardap.ActPlatHot">
+            android:name="com.example.hashisushi.views.ActSaleCardap"
+            android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatHot">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.cardap.ActPlatHot" />
+                android:value="com.example.hashisushi.views.cardap.ActPlatHot" />
         </activity>
         <activity
-            android:name=".views.cardap.ActPlatHot"
-            android:parentActivityName=".views.cardap.ActPlatAce">
+            android:name="com.example.hashisushi.views.cardap.ActPlatHot"
+            android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatAce">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.ActPoints" />
+                android:value="com.example.hashisushi.views.ActPoints" />
         </activity>
         <activity
-            android:name=".views.cardap.ActPlatAce"
-            android:parentActivityName=".views.cardap.ActTemakis">
+            android:name="com.example.hashisushi.views.cardap.ActPlatAce"
+            android:parentActivityName="com.example.hashisushi.views.cardap.ActTemakis">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.cardap.ActTemakis" />
+                android:value="com.example.hashisushi.views.cardap.ActTemakis" />
         </activity>
         <activity
-            android:name=".views.cardap.ActTemakis"
-            android:parentActivityName=".views.cardap.ActCombo">
+            android:name="com.example.hashisushi.views.cardap.ActTemakis"
+            android:parentActivityName="com.example.hashisushi.views.cardap.ActCombo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.cardap.ActCombo" />
+                android:value="com.example.hashisushi.views.cardap.ActCombo" />
         </activity>
         <activity
-            android:name=".views.cardap.ActCombo"
-            android:parentActivityName=".views.cardap.ActDrinks">
+            android:name="com.example.hashisushi.views.cardap.ActCombo"
+            android:parentActivityName="com.example.hashisushi.views.cardap.ActDrinks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.cardap.ActDrinks" />
+                android:value="com.example.hashisushi.views.cardap.ActDrinks" />
         </activity>
         <activity
-            android:name=".views.cardap.ActDrinks"
-            android:parentActivityName=".views.ActOrder">
+            android:name="com.example.hashisushi.views.cardap.ActDrinks"
+            android:parentActivityName="com.example.hashisushi.views.ActOrder">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.cardap.ActDrinks" />
+                android:value="com.example.hashisushi.views.cardap.ActDrinks" />
         </activity>
     </application>
 
