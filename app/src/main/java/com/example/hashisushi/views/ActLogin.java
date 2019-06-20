@@ -79,6 +79,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         {
             edtSenha.requestFocus();
         }
+
+        edtEmail.setText("wendreolf@gmail.com");
+        edtSenha.setText("123456");
     }
 
     @Override
@@ -305,5 +308,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         btnCadastrar.setOnClickListener(this);
         btnEntrar.setOnClickListener(this);
         chkBxRememberPasswd.setOnClickListener(this);
+
     }
 }

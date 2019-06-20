@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.ActSaleCardap"
+            android:name=".views.cardap.ActSaleCardap"
             android:parentActivityName=".views.cardap.ActPlatHot">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
