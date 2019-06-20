@@ -102,6 +102,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             edtSenha.requestFocus();
         }
 
+<<<<<<< HEAD
         //inicia sdk facebook
         FacebookSdk.sdkInitialize(getApplicationContext());
         //AppEventsLogger.activateApp(this);
@@ -165,6 +166,10 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                         //hideProgressDialog();
                     }
                 });
+=======
+        edtEmail.setText("wendreolf@gmail.com");
+        edtSenha.setText("123456");
+>>>>>>> 5b87fcba6f7aeef7c029b6c849e7ae7e5aa62b03
     }
 
 
@@ -405,5 +410,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         btnCadastrar.setOnClickListener(this);
         btnEntrar.setOnClickListener(this);
         chkBxRememberPasswd.setOnClickListener(this);
+
     }
 }

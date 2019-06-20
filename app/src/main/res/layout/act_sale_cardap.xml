@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
+<<<<<<< HEAD
     tools:context="com.example.hashisushi.views.ActSaleCardap">
+=======
+    tools:context=".views.cardap.ActSaleCardap">
+>>>>>>> 5b87fcba6f7aeef7c029b6c849e7ae7e5aa62b03
 
     <TextView
         android:id="@+id/txtCardapScardp"

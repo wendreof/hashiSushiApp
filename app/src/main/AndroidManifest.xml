@@ -48,8 +48,13 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
             android:name="com.example.hashisushi.views.ActSaleCardap"
             android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatHot">
+=======
+            android:name=".views.cardap.ActSaleCardap"
+            android:parentActivityName=".views.cardap.ActPlatHot">
+>>>>>>> 5b87fcba6f7aeef7c029b6c849e7ae7e5aa62b03
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActPlatHot" />

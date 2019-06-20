@@ -1,12 +1,17 @@
 package com.example.hashisushi.model;
 
+<<<<<<< HEAD
 public class OrderItens {
+=======
+import java.io.Serializable;
+
+public class OrderItens  implements Serializable {
+>>>>>>> 5b87fcba6f7aeef7c029b6c849e7ae7e5aa62b03
 
     private String idProduct;
     private String nameProduct;
     private int quantity;
     private String itenSalePrice;
-
     public OrderItens() {
     }
 
@@ -40,5 +45,10 @@ public class OrderItens {
 
     public void setItenSalePrice(String itenSalePrice) {
         this.itenSalePrice = itenSalePrice;
+    }
+    
+    @Override
+    public String toString ( ) {
+        return "Produto: " + nameProduct + '\n' + "Quantidade: " + quantity;
     }
 }

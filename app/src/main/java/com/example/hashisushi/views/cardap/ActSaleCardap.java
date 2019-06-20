@@ -1,4 +1,4 @@
-package com.example.hashisushi.views;
+package com.example.hashisushi.views.cardap;
 
 
 import android.app.AlertDialog;
@@ -30,7 +30,8 @@ import com.example.hashisushi.model.OrderItens;
 import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
-import com.example.hashisushi.views.cardap.ActPlatHot;
+import com.example.hashisushi.views.ActOrder;
+import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -270,9 +271,8 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     }
 
     //comfirmar item com dialog
-    private void confirmItem(final int position, Product produtoSelecionado )
+    private void confirmItem(final int position, Product produtoSelecionado)
     {
-
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(produtoSelecionado.getName());
         alert.setMessage("\nInforme a quantiade desejada: ");
@@ -284,46 +284,65 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         alert.setPositiveButton("Confirmar", new DialogInterface.OnClickListener()
         {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(DialogInterface dialog, int which)
+            {
                 String quantity = edtQuant.getText().toString();
+                if (validaQuantidade(quantity) == 0) {
 
-                Product productSelectd = productsList.get(position);
-                OrderItens itemOrder = new OrderItens();
+                    Product productSelectd = productsList.get(position);
+                    OrderItens itemOrder = new OrderItens();
 
-                itemOrder.setIdProduct( productSelectd.getIdProd() );
-                itemOrder.setNameProduct(productSelectd.getName() );
-                itemOrder.setItenSalePrice( productSelectd.getSalePrice());
-                itemOrder.setQuantity( Integer.parseInt(quantity) );
+                    itemOrder.setIdProduct(productSelectd.getIdProd());
+                    itemOrder.setNameProduct(productSelectd.getName());
+                    itemOrder.setItenSalePrice(productSelectd.getSalePrice());
+                    itemOrder.setQuantity(Integer.parseInt(quantity));
 
-                itensCars.add( itemOrder );
+                    itensCars.add(itemOrder);
+                    msgShort("Produto adicionado ao seu carrinho!");
 
-                // msgShort(itensCars.toString());
+                    // msgShort(itensCars.toString());
 
-                if( ordersRecovery == null ){
-                    ordersRecovery = new Orders(retornIdUser);
+                    if (ordersRecovery == null)
+                    {
+                        ordersRecovery = new Orders(retornIdUser);
+                    }
+                    ordersRecovery.setName(user.getName());
+                    ordersRecovery.setAddress(user.getAddress());
+                    ordersRecovery.setNeigthborhood(user.getNeigthborhood());
+                    ordersRecovery.setNumberHome(user.getNumberHome());
+                    ordersRecovery.setCellphone(user.getPhone());
+                    ordersRecovery.setOrderItens(itensCars);
+                    ordersRecovery.salvar();
+
                 }
-                ordersRecovery.setName( user.getName() );
-                ordersRecovery.setAddress( user.getAddress() );
-                ordersRecovery.setNeigthborhood(user.getNeigthborhood());
-                ordersRecovery.setNumberHome(user.getNumberHome());
-                ordersRecovery.setCellphone(user.getPhone());
-                ordersRecovery.setOrderItens( itensCars );
-                ordersRecovery.salvar();
-
-
+                else
+                {
+                    edtQuant.setText("1");
+                }
             }
         });
 
-        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
 
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
 
+    private int validaQuantidade(String valor) //valida se o valor digitado é numérico
+    {
+        String regexStr = "^[0-9]*$";
+        if (!valor.trim().matches(regexStr))
+        {
+            msgShort("Por favor, informe um valor numérico!");
+            return 1;
+        }
+        else return 0;
     }
 
     //recupera dados do usuario esta com
