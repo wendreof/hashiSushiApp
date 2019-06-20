@@ -71,8 +71,8 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
     private User user;
 
     private Orders ordersRecovery;
-    private int qtdItensCar ;
-    private Double totalCar ;
+    private int qtdItensCar;
+    private Double totalCar;
     private List<OrderItens> itensCars = new ArrayList<>();
 
     @Override
@@ -252,7 +252,7 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                msgShort("Houve algum erro :" + databaseError);
+                msgShort("Houve algum erro:" + databaseError);
             }
         });
     }
@@ -267,7 +267,7 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
     {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(produtoSelecionado.getName());
-        alert.setMessage("\nInforme a quantiade desejada: ");
+        alert.setMessage("\nInforme a quantidade desejada: ");
 
         final EditText edtQuant = new EditText(this);
         edtQuant.setText("1");

@@ -1,14 +1,13 @@
 package com.example.hashisushi.model;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 
-public class OrderItens {
+public class OrderItens  implements Serializable {
 
     private String idProduct;
     private String nameProduct;
     private int quantity;
     private String itenSalePrice;
-
     public OrderItens() {
     }
 
@@ -42,5 +41,10 @@ public class OrderItens {
 
     public void setItenSalePrice(String itenSalePrice) {
         this.itenSalePrice = itenSalePrice;
+    }
+    
+    @Override
+    public String toString ( ) {
+        return "Produto: " + nameProduct + '\n' + "Quantidade: " + quantity;
     }
 }

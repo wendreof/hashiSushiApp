@@ -7,67 +7,67 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-public class Orders implements Serializable{
+public class Orders implements Serializable {
 
-        private String idOrders;
-        private String idUser;
-        private String name;
-        private String address;
-        private String neigthborhood;
-        private String numberHome;
-        private String cellphone;
-        private int dateOrder;
-        private int hour;
-        private String qrCode;
-        private int quantProd;
-        private int discont;
-        private double totalPrince;
-        private List<OrderItens> orderItens;
-        private String observation;
-        private String status;
+    private String idOrders;
+    private String idUser;
+    private String name;
+    private String address;
+    private String neigthborhood;
+    private String numberHome;
+    private String cellphone;
+    private int dateOrder;
+    private int hour;
+    private String qrCode;
+    private int quantProd;
+    private int discont;
+    private double totalPrince;
+    private List<OrderItens> orderItens;
+    private String observation;
+    private String status;
 
     public Orders() {
     }
 
     public Orders(String idUser) {
 
-        setIdUser( idUser );
+        setIdUser(idUser);
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders_user")
-                .child( idUser);
+                .child(idUser);
         UUID uuid = UUID.randomUUID();
         String strUuid = uuid.toString();
-        setIdOrders( strUuid );
+        setIdOrders(strUuid);
     }
 
-    public void salvar(){
+    public void salvar() {
 
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders_user")
-                .child( getIdUser() );
-        pedidoRef.setValue( this );
+                .child(getIdUser());
+        pedidoRef.setValue(this);
 
     }
 
-    public void remover(){
+    public void remover() {
 
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders_user")
-                .child( getIdUser() );
+                .child(getIdUser());
         pedidoRef.removeValue();
 
     }
 
-    public void confimar(){
+    public void confimar() {
 
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders")
-                .child( getIdOrders() );
-        pedidoRef.setValue( this );
+                .child(getIdOrders());
+        pedidoRef.setValue(this);
 
     }
 
