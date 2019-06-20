@@ -1,5 +1,6 @@
 package com.example.hashisushi.views;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
 	DatabaseReference reference;
+	Activity activity;
 	private TextView txtTitle;
 	private TextView txtPedido;
 	private TextView txtTotal;
@@ -50,7 +53,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private Button btnFinishOrder;
 	private String emailUser;
 	private ListView lstorder;
-	
+	private Context context;
 	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private AlertDialog dialog;
 	private String retornIdUser;
@@ -78,6 +81,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		reference = FirebaseConfig.getFirebase ( );
 		
 		recoveryDataUser ( );
+		lstorderClick ( );
 	}
 	
 	@Override
@@ -121,7 +125,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			startVibrate ( 190 );
 			valueTest ( );
 		}
-		
 	}
 	
 	//ao clicar em volta e chama efeito de transição
@@ -137,8 +140,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		if ( value.equals ( "00,00" ) ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
-		}
-		else{
+		} else {
 		
 		}
 	}
@@ -234,10 +236,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				
 				txtTotal.setText ( String.format ( "R$ %s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
-				  //ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, ordersRecovery.getOrderItens());
-				  ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, itensCars);
+				//ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, ordersRecovery.getOrderItens());
+				ArrayAdapter< OrderItens > adapter = new ArrayAdapter< OrderItens > ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
 				
-				lstorder.setAdapter(adapter);
+				lstorder.setAdapter ( adapter );
 				
 				dialog.dismiss ( );
 			}
@@ -259,5 +261,25 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		btnFinishOrder = findViewById ( R.id.btnFinishOrder );
 		editObservation = findViewById ( R.id.editObservation );
 		lstorder = findViewById ( R.id.lstOrder );
+	}
+	
+	private void lstorderClick ( ) {
+		
+		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+			
+			@Override
+			public void onItemClick ( AdapterView< ? > parent, View view, int position, long rowId ) {
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder ( ActOrder.this );
+				builder.setTitle ( "Remover item" );
+				builder.setMessage ( "Você está removendo: \n" + parent.getItemAtPosition ( position ) );
+				builder.setPositiveButton ( "Remover", null );
+				builder.setNegativeButton ( "Cancelar", null );
+				builder.create ( );
+				builder.show ( );
+				
+			}
+			
+		} );
 	}
 }
