@@ -13,7 +13,7 @@
         android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/screen_border"
         android:text="@string/btn_login"
@@ -31,33 +31,17 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/screen_border"
         android:text="@string/btn_signUp"
-        android:textColor="@android:color/background_light"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/btnEnterFacebook"
-        android:layout_width="300dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/sreen_border_blue"
-        android:text="@string/btn_login_facebook"
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEntrar"
+        app:layout_constraintVertical_bias="0.11" />
 
 
     <EditText
@@ -119,7 +103,7 @@
         android:id="@+id/txtSenha"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:text="@string/txt_password"
         android:textColor="@android:color/background_light"
@@ -133,7 +117,7 @@
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -152,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.65" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -196,7 +180,7 @@
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textColor="@color/colorText"
-        android:textSize="30sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -19,21 +19,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-                  android:value="@string/facebook_app_id"/>
-        <activity android:name="com.facebook.FacebookActivity"
-                  android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-                  android:label="@string/app_name" />
-        <activity android:name="com.facebook.CustomTabActivity"
-                  android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter> </activity>
-
-
         <activity android:name="com.example.hashisushi.views.ActRegProd" />
         <activity android:name="com.example.hashisushi.views.ActLogin"/>
         <activity android:name="com.example.hashisushi.views.ActOrder" />
@@ -47,18 +32,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-<<<<<<< HEAD
-            android:name="com.example.hashisushi.views.ActSaleCardap"
+            android:name="com.example.hashisushi.views.cardap.ActSaleCardap"
             android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatHot">
-=======
-            android:name=".views.cardap.ActSaleCardap"
-            android:parentActivityName=".views.cardap.ActPlatHot">
->>>>>>> 5b87fcba6f7aeef7c029b6c849e7ae7e5aa62b03
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActPlatHot" />
         </activity>
+
         <activity
             android:name="com.example.hashisushi.views.cardap.ActPlatHot"
             android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatAce">

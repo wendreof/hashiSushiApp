@@ -44,6 +44,7 @@ import com.example.hashisushi.views.cardap.ActPlatHot;
 import com.example.hashisushi.views.cardap.ActSaleCardap;
 import com.example.hashisushi.views.cardap.ActTemakis;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +53,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
@@ -60,6 +64,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActPromotion extends AppCompatActivity implements View.OnClickListener
 {
+    public static String STATUS = null;
     private TextView txtQuantItens;
     private TextView txtTotalOrder;
     private TextView txtTitle;
@@ -77,7 +82,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private AlertDialog dialog;
     private String retornIdUser;
     private User user;
-
+    private FirebaseAuth auth;
     private Orders ordersRecovery;
 
     private int qtdItensCar ;
@@ -97,6 +102,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        getDate();
         startComponet();
         initDB();
         retornIdUser = UserFirebase.getIdUser();
@@ -113,6 +119,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
         initSearch();
         recoveryDataUser();
+        this.auth = FirebaseAuth.getInstance();
     }//end oncreat
 
     private void recycleOnclick()
@@ -155,7 +162,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         list_produsts.setAdapter(adapterProduct);
     }
 
-
     private void startComponet()
     {
         txtStatus = findViewById(R.id.txtEstatus);
@@ -171,12 +177,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         list_produsts = findViewById(R.id.list_produsts);
     }
 
-
-
     private void getStatus()
     {
-        String stt = System.getProperty("STATUS_ENV");
-        if (stt.equals(getString(R.string.we_are_open_now)))
+
+        if (STATUS.equals(getString(R.string.we_are_open_now)))
         {
         txtStatus.setTextColor(Color.GREEN);
         }
@@ -184,20 +188,13 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         {
             txtStatus.setTextColor(Color.RED);
         }
-        txtStatus.setText(stt);
+        txtStatus.setText(STATUS);
     }
 
     @Override
     protected void attachBaseContext(Context newBase)
     {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    //Altera fonte do txtLogo
-    private void fontLogo()
-    {
-        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-//        txtTitle.setTypeface( font );
     }
 
     @Override
@@ -225,6 +222,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         {
             startVibrate(90);
             //finaliza a activity atual e todas a baixo
+            auth.signOut();
             this.finishAffinity();
         }
     }
@@ -305,6 +303,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                recoveryOrder();
+
                 String quantity = edtQuant.getText().toString();
                 if (validaQuantidade(quantity) == 0) {
 
@@ -314,6 +314,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                     itemOrder.setIdProduct(productSelectd.getIdProd());
                     itemOrder.setNameProduct(productSelectd.getName());
                     itemOrder.setItenSalePrice(productSelectd.getSalePrice());
+
                     itemOrder.setQuantity(Integer.parseInt(quantity));
 
                     itensCars.add(itemOrder);
@@ -328,7 +329,11 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                     ordersRecovery.setNeigthborhood(user.getNeigthborhood());
                     ordersRecovery.setNumberHome(user.getNumberHome());
                     ordersRecovery.setCellphone(user.getPhone());
+
                     ordersRecovery.setOrderItens(itensCars);
+                    ordersRecovery.setQuantProd(qtdItensCar);
+                    ordersRecovery.setTotalPrince(totalCar);
+
                     ordersRecovery.salvar();
                 }
                 else{
@@ -365,10 +370,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .setMessage("Carregando dados aguarde....")
-                .setCancelable( false )
+                .setCancelable( true )
                 .build();
         dialog.show();
-
 
         DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
 
@@ -383,12 +387,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 }
                 recoveryOrder();
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
     }
 
@@ -417,9 +417,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                     {
                         int qtde = orderItens.getQuantity();
 
-                        String strPreco = orderItens.getItenSalePrice();
-                        double preco = Double.parseDouble(strPreco);
-                        System.out.println(preco);
+                        double preco = Double.parseDouble(orderItens.getItenSalePrice());
 
                         totalCar += (qtde * preco);
                         qtdItensCar += qtde;
@@ -519,6 +517,25 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    private void getDate()
+    {
+        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HHmm");
+
+        Calendar cal = Calendar.getInstance();
+        Date data_atual = cal.getTime();
+
+        String hora_atual = dateFormat_hora.format(data_atual);
+        Integer intHora = Integer.parseInt(hora_atual);
+
+        if (intHora > 900 && intHora < 2200)
+        {
+            STATUS = getString(R.string.we_are_open_now);
+        }
+        else
+        {
+            STATUS = getString(R.string.we_are_not_open);
+        }
+    }
 
     //==>FIM MENUS
 

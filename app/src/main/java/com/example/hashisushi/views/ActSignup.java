@@ -16,11 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.dao.FirebaseConfig;
 import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.User;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -35,9 +37,8 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     private ScrollView ActSignUp;
     private User user;
     private FirebaseAuth auth;
-    private String retornIdUser;
-    DatabaseReference reference;
-    private String retornEmailUser;
+    private DatabaseReference reference;
+    private String retornEmailUser,retornIdUser,retornName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,17 +50,32 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         this.auth = FirebaseAuth.getInstance();
 
         //reference db and recover value
-        retornEmailUser = UserFirebase.getUserCorrent().getEmail();
-        retornIdUser = UserFirebase.getIdUser();
-        reference = FirebaseConfig.getFirebase();
+        startDB();
+
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        findViewById();
 
+        findViewById();
         fontLogo();
         btnSignUp.setOnClickListener(this);
+        setFilds();
 
+    }
+    //recupera dados do usuario esta com
+    private void setFilds()
+    {
+        retornIdUser = UserFirebase.getIdUser();
+        retornEmailUser = UserFirebase.getUserCorrent().getEmail();
+        retornName = UserFirebase.getUserCorrent().getDisplayName();
+        userName.setText(retornName);
         userEmail.setText(retornEmailUser);
+    }
+
+    private void startDB()
+    {
+        FirebaseApp.initializeApp(ActSignup.this);
+        this.reference = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override

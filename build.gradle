@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        mavenCentral()//baixa dependencia facabbok
+        //mavenCentral()//baixa dependencia facabbok
 
     }
     dependencies {

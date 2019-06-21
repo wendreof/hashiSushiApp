@@ -1,7 +1,6 @@
 package com.example.hashisushi.views;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,59 +20,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.dao.FirebaseConfig;
+import com.example.hashisushi.dao.UserFirebase;
+import com.example.hashisushi.model.User;
 import com.example.hashisushi.utils.data.SecurityPreferences;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.common.internal.LibraryVersion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.Tag;
-
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.example.hashisushi.R.id.btnEnterFacebook;
-
 public class ActLogin extends AppCompatActivity implements View.OnClickListener {
 
-    public static String STATUS = null;
-    private Button btnEntrar;
-    private Button btnCadastrar;
-    private LoginButton loginButton;
+
+    private Button btnEntrar,btnCadastrar;;
     private TextView txtLogo;
-    private EditText edtEmail;
-    private EditText edtSenha;
-    private String senha;
-    private String email;
+    private EditText edtEmail,edtSenha;
+    private String senha,email;
     private int cont;
     private char controlBtn;
     private ConstraintLayout ActLogin;
-    private FirebaseAuth userAuth;
     private SecurityPreferences shared;
     private Switch chkBxRememberPasswd;
     private String emailUser;
-
-    private CallbackManager callbackManager ;
-
+    //private String retornIdUser;
+    private FirebaseAuth userAuth;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -87,14 +62,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //Trava a rotaçãø da tela
 
         findViewByIds();
-
         fontLogo();  //Chama método que altera fonte logo
-        //facebook tbm usa esa instacia
-        this.userAuth = FirebaseAuth.getInstance();
-        getDate();
 
         emailUser = this.shared.getStoredString("EmailUserSaved");
-
         setEmailUser();
 
         if (!edtEmail.getText().toString().equals(""))
@@ -102,76 +72,16 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             edtSenha.requestFocus();
         }
 
-<<<<<<< HEAD
-        //inicia sdk facebook
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        //AppEventsLogger.activateApp(this);
-        //callbackManager para manipular retorno do face
-        callbackManager = CallbackManager.Factory.create();
-        loginFacebook();
-
+        startDB();
     }
 
-    //-----Login Facebook
-
-    @Override
-    protected void onActivityResult(int resquestCode,int resultCode, Intent data){
-        super.onActivityResult(resquestCode,resultCode,data);
-        callbackManager.onActivityResult(resquestCode,resultCode,data);
-    }
-
-    private void loginFacebook(){
-        // Initialize Facebook Login button
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                ShowMSG("Autenticação cancelada");
-                // [END_EXCLUDE]
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                ShowMSG("Erro na autenticação :"+error);
-            }
-        });
-        // [END initialize_fblogin]
-    }
-
-    // [START auth_with_facebook]
-    private void handleFacebookAccessToken(AccessToken token)
+    public void startDB()
     {
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        userAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser fbuser = userAuth.getCurrentUser();
-                            System.out.println("USER---------"+fbuser);
-
-
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            ShowMSG("Autenticação falhou !");
-                        }
-                        //hideProgressDialog();
-                    }
-                });
-=======
-        edtEmail.setText("wendreolf@gmail.com");
-        edtSenha.setText("123456");
->>>>>>> 5b87fcba6f7aeef7c029b6c849e7ae7e5aa62b03
+        FirebaseApp.initializeApp(ActLogin.this);
+        this.reference = FirebaseDatabase.getInstance().getReference();
+        this.userAuth = FirebaseAuth.getInstance();
+        //retornIdUser = UserFirebase.getIdUser();
     }
-
 
 
     @Override
@@ -210,12 +120,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             controlBtn = 'C';
             startVibrate(90);
             validateFields();
-        }
-        else if(v.getId() == btnEnterFacebook){
-            startVibrate(90);
-            validateFields();
-
-
         }
         else if (v.getId() == R.id.chkBxRememberPasswd)
         {
@@ -283,8 +187,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                 });
     }
 
-
-
     private void initPromotion()
     {
         Intent it = new Intent(this, ActPromotion.class);
@@ -328,7 +230,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                     addUserLogin(email,senha);
                 }
 
-                System.setProperty("STATUS_ENV", STATUS);
+                //System.setProperty("STATUS_ENV", STATUS);
                 clearFields();
                 cont = 0;
             }
@@ -357,26 +259,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtSenha.setText("");
     }
 
-    private void getDate()
-    {
-        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HHmm");
-
-        Calendar cal = Calendar.getInstance();
-        Date data_atual = cal.getTime();
-
-        String hora_atual = dateFormat_hora.format(data_atual);
-        Integer intHora = Integer.parseInt(hora_atual);
-
-        if (intHora > 900 && intHora < 2200)
-        {
-            STATUS = getString(R.string.we_are_open_now);
-        }
-        else
-        {
-            STATUS = getString(R.string.we_are_not_open);
-        }
-    }
-
     private void ShowMSG(String msg)
     {
         Snackbar.make(ActLogin, msg, Snackbar.LENGTH_LONG).show();
@@ -395,12 +277,10 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-
     private void findViewByIds()
     {
         btnEntrar = findViewById(R.id.btnEntrar);
         btnCadastrar = findViewById(R.id.btnCadastrar);
-        loginButton = findViewById(R.id.btnEnterFacebook);
         txtLogo = findViewById(R.id.txtLogoC);
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
