@@ -16,7 +16,7 @@ public class Orders implements Serializable {
     private String neigthborhood;
     private String numberHome;
     private String cellphone;
-    private int dateOrder;
+	private int dateOrder;
     private int hour;
     private String qrCode;
     private int quantProd;

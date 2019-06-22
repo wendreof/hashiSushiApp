@@ -13,7 +13,7 @@ public class OrderItens  implements Serializable {
     }
 
     public String getIdProduct() {
-        return idProduct;
+	    return idProduct;
     }
 
     public void setIdProduct(String idProduct) {

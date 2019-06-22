@@ -7,13 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -49,20 +49,19 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActSaleCardap extends AppCompatActivity implements View.OnClickListener
 {
+    Orders orders;
     private TextView txtQuantItensE;
     private TextView  txtTotalOrderE;
     private TextView txtCardapScardp;
     private TextView txtLogoScardp;
     private TextView txtSalesCardap;
-    Orders orders;
-
     private FloatingActionButton flotBntVoltarPromoE;
     private FloatingActionButton flotBntEdtPersoE;
     private FloatingActionButton flotBntFinishE;
     private FloatingActionButton flotBtnPlatHotE;
 
     private DatabaseReference reference ;
-    private List<Product> productsList = new ArrayList<>();
+	private List<Product> productsList = new ArrayList<>();
     private RecyclerView lstEntrada;
     private AdapterProduct adapterProduct;
 
@@ -75,9 +74,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private Orders ordersRecovery;
     private int qtdItensCar ;
     private Double totalCar ;
-
-
-
+    
     @Override
     protected void onCreate( Bundle savedInstanceState )
     {

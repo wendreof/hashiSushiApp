@@ -3,9 +3,11 @@ package com.example.hashisushi.views;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import com.example.hashisushi.dao.FirebaseConfig;
 import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.OrderItens;
 import com.example.hashisushi.model.Orders;
+import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.utils.MockPaymentMethods;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +47,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
 	DatabaseReference reference;
 	Activity activity;
+	ArrayAdapter< OrderItens > adapter;
 	private TextView txtTitle;
 	private TextView txtPedido;
 	private TextView txtTotal;
@@ -54,13 +59,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private String emailUser;
 	private ListView lstorder;
 	private Context context;
-	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private AlertDialog dialog;
 	private String retornIdUser;
 	private User user;
-	
 	private Orders ordersRecovery;
-	
+	private ScrollView ActOrder;
+	private List< OrderItens > itensCars = new ArrayList<> ( );
+	private List< Product > productsList = new ArrayList<> ( );
 	private int qtdItensCar;
 	private Double totalCar;
 	
@@ -237,7 +242,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				txtTotal.setText ( String.format ( "R$ %s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
 				//ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, ordersRecovery.getOrderItens());
-				ArrayAdapter< OrderItens > adapter = new ArrayAdapter< OrderItens > ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
+				adapter = new ArrayAdapter<> ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
 				
 				lstorder.setAdapter ( adapter );
 				
@@ -251,6 +256,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} );
 	}
 	
+	//recupera todos os ids
 	private void findViewByIds ( ) {
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
@@ -263,17 +269,48 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		lstorder = findViewById ( R.id.lstOrder );
 	}
 	
+	//captura o click no listview
 	private void lstorderClick ( ) {
 		
 		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
 			
 			@Override
-			public void onItemClick ( AdapterView< ? > parent, View view, int position, long rowId ) {
+			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId ) {
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder ( ActOrder.this );
 				builder.setTitle ( "Remover item" );
 				builder.setMessage ( "Você está removendo: \n" + parent.getItemAtPosition ( position ) );
-				builder.setPositiveButton ( "Remover", null );
+				builder.setPositiveButton ( "Remover", new DialogInterface.OnClickListener ( ) {
+					@Override
+					public void onClick ( DialogInterface dialog, int which ) {
+						
+						//Product productSelectd = productsList.get ( position );
+						OrderItens itemOrder = new OrderItens ( );
+						
+						//subtrai da quantidade total
+						itemOrder.setQuantity ( itemOrder.getQuantity ( ) - 1 );
+						
+						
+						itensCars.remove ( itemOrder );//remove o item do carrinho!
+						adapter.remove ( adapter.getItem ( position ) ); //remove do listview
+						adapter.notifyDataSetChanged ( ); //atualiza o listview
+						
+						msgShort ( "Item removido do seu carrinho! ;)" );
+						
+						if ( ordersRecovery == null ) {
+							ordersRecovery = new Orders ( retornIdUser );
+						}
+						ordersRecovery.setName ( user.getName ( ) );
+						ordersRecovery.setAddress ( user.getAddress ( ) );
+						ordersRecovery.setNeigthborhood ( user.getNeigthborhood ( ) );
+						ordersRecovery.setNumberHome ( user.getNumberHome ( ) );
+						ordersRecovery.setCellphone ( user.getPhone ( ) );
+						ordersRecovery.setOrderItens ( itensCars );
+						ordersRecovery.setQuantProd ( qtdItensCar );
+						ordersRecovery.setTotalPrince ( totalCar );
+						ordersRecovery.salvar ( );
+					}
+				} );
 				builder.setNegativeButton ( "Cancelar", null );
 				builder.create ( );
 				builder.show ( );
@@ -282,4 +319,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			
 		} );
 	}
+	
+	private void ShowMSG ( String msg ) {
+		Snackbar.make ( ActOrder, msg, Snackbar.LENGTH_LONG ).show ( );
+	}
+	
 }
