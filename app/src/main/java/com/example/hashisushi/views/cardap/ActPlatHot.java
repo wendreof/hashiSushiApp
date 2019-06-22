@@ -393,26 +393,40 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
                 totalCar = 0.0;
                 itensCars = new ArrayList<>();
 
-                if(dataSnapshot.getValue() != null){
 
+                if (dataSnapshot.getValue() != null)
+                {
                     ordersRecovery = dataSnapshot.getValue(Orders.class);
-                    itensCars = ordersRecovery.getOrderItens();
 
+                    //trata null pointer apos
+                    // remover untimo iten carrinho
+                    if (ordersRecovery != null)
+                    {
 
-                    for(OrderItens orderItens: itensCars){
+                        itensCars = ordersRecovery.getOrderItens();
 
-                        int qtde = orderItens.getQuantity();
-
-                        String strPreco = orderItens.getItenSalePrice();
-                        double preco = Double.parseDouble( strPreco );
-                        System.out.println(preco);
-
-                        totalCar += (qtde * preco);
-                        qtdItensCar += qtde;
-
+                    }else {
+                        Orders orders = new Orders();
+                        orders.removerOrderItens(retornIdUser);
                     }
+                    //trata NullPointer
+                    if (itensCars != null ) {
 
+                        for (OrderItens orderItens : itensCars) {
+                            int qtde = orderItens.getQuantity();
+
+                            double preco = Double.parseDouble(orderItens.getItenSalePrice());
+
+                            totalCar += (qtde * preco);
+                            qtdItensCar += qtde;
+                        }
+                    }else{
+
+                        Orders orders = new Orders();
+                        orders.removerOrderItens(retornIdUser);
+                    }
                 }
+
 
                 DecimalFormat df = new DecimalFormat("0.00");
 

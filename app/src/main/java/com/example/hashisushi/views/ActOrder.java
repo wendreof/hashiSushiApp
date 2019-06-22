@@ -68,6 +68,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private List< Product > productsList = new ArrayList<> ( );
 	private int qtdItensCar;
 	private Double totalCar;
+	private Orders orders ;
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -78,7 +79,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		findViewByIds ( );
 		fontLogo ( );
 		fillPayMent ( );
-		
+		orders = new Orders();
 		btnFinishOrder.setOnClickListener ( this );
 		//reference db and recover value
 		emailUser = UserFirebase.getUserCorrent ( ).getEmail ( );
@@ -219,33 +220,53 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				totalCar = 0.0;
 				
 				if ( dataSnapshot.getValue ( ) != null ) {
+
 					ordersRecovery = dataSnapshot.getValue ( Orders.class );
 					assert ordersRecovery != null;
-					itensCars = ordersRecovery.getOrderItens ( );
-					
-					for ( OrderItens orderItens : itensCars ) {
-						int qtde = orderItens.getQuantity ( );
-						
-						String strPreco = orderItens.getItenSalePrice ( );
-						double preco = Double.parseDouble ( strPreco );
-						
-						totalCar += ( qtde * preco );
-						qtdItensCar += qtde;
+
+					//trata null pointer apos
+					// remover untimo iten carrinho
+					if (ordersRecovery != null)
+					{
+						itensCars = ordersRecovery.getOrderItens();
+					}else {
+						Orders orders = new Orders();
+						orders.removerOrderItens(retornIdUser);
 					}
+					//trata NullPointer
+					if (itensCars != null )
+					{
+
+						for (OrderItens orderItens : itensCars) {
+							int qtde = orderItens.getQuantity();
+
+							String strPreco = orderItens.getItenSalePrice();
+							double preco = Double.parseDouble(strPreco);
+
+							totalCar += (qtde * preco);
+							qtdItensCar += qtde;
+						}
+					}else {
+						Orders orders = new Orders();
+						orders.removerOrderItens(retornIdUser);
+					}
+				}else {
+					Orders orders = new Orders();
+					orders.removerOrderItens(retornIdUser);
 				}
 				
 				DecimalFormat df = new DecimalFormat ( "0.00" );
 				
-				//txtQuantItensT.setText( String.valueOf(qtdItensCar) );
-				//txtTotalOrderT.setText(df.format( totalCar ) );
-				
 				txtTotal.setText ( String.format ( "R$ %s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
 				//ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, ordersRecovery.getOrderItens());
-				adapter = new ArrayAdapter<> ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
-				
-				lstorder.setAdapter ( adapter );
-				
+				//Trata Nullpointer
+				if (itensCars != null ) {
+
+					adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, itensCars);
+
+					lstorder.setAdapter(adapter);
+				}
 				dialog.dismiss ( );
 			}
 			
@@ -286,20 +307,21 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						
 						//Product productSelectd = productsList.get ( position );
 						OrderItens itemOrder = new OrderItens ( );
-						
+
 						//subtrai da quantidade total
 						itemOrder.setQuantity ( itemOrder.getQuantity ( ) - 1 );
-						
-						
+
 						itensCars.remove ( itemOrder );//remove o item do carrinho!
+
 						adapter.remove ( adapter.getItem ( position ) ); //remove do listview
 						adapter.notifyDataSetChanged ( ); //atualiza o listview
 						
 						msgShort ( "Item removido do seu carrinho! ;)" );
-						
-						if ( ordersRecovery == null ) {
+
+
+						/*if ( ordersRecovery == null ) {
 							ordersRecovery = new Orders ( retornIdUser );
-						}
+						}*/
 						ordersRecovery.setName ( user.getName ( ) );
 						ordersRecovery.setAddress ( user.getAddress ( ) );
 						ordersRecovery.setNeigthborhood ( user.getNeigthborhood ( ) );
@@ -314,7 +336,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				builder.setNegativeButton ( "Cancelar", null );
 				builder.create ( );
 				builder.show ( );
-				
+
 			}
 			
 		} );

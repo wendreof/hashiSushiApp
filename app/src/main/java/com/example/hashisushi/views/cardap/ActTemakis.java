@@ -377,28 +377,42 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 				qtdItensCar = 0;
 				totalCar = 0.0;
 				itensCars = new ArrayList<> ( );
-				
-				if ( dataSnapshot.getValue ( ) != null ) {
-					
-					ordersRecovery = dataSnapshot.getValue ( Orders.class );
-					itensCars = ordersRecovery.getOrderItens ( );
-					
-					
-					for ( OrderItens orderItens : itensCars ) {
-						
-						int qtde = orderItens.getQuantity ( );
-						
-						String strPreco = orderItens.getItenSalePrice ( );
-						double preco = Double.parseDouble ( strPreco );
-						System.out.println ( preco );
-						
-						totalCar += ( qtde * preco );
-						qtdItensCar += qtde;
-						
+
+
+				if (dataSnapshot.getValue() != null)
+				{
+					ordersRecovery = dataSnapshot.getValue(Orders.class);
+
+					//trata null pointer apos
+					// remover untimo iten carrinho
+					if (ordersRecovery != null)
+					{
+
+						itensCars = ordersRecovery.getOrderItens();
+
+					}else {
+						Orders orders = new Orders();
+						orders.removerOrderItens(retornIdUser);
 					}
-					
+					//trata NullPointer
+					if (itensCars != null ) {
+
+						for (OrderItens orderItens : itensCars) {
+							int qtde = orderItens.getQuantity();
+
+							double preco = Double.parseDouble(orderItens.getItenSalePrice());
+
+							totalCar += (qtde * preco);
+							qtdItensCar += qtde;
+						}
+					}else{
+
+						Orders orders = new Orders();
+						orders.removerOrderItens(retornIdUser);
+					}
 				}
-				
+
+
 				DecimalFormat df = new DecimalFormat ( "0.00" );
 				
 				txtQuantItensT.setText ( String.valueOf ( qtdItensCar ) );

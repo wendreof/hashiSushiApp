@@ -411,16 +411,33 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 if (dataSnapshot.getValue() != null)
                 {
                     ordersRecovery = dataSnapshot.getValue(Orders.class);
-                    itensCars = ordersRecovery.getOrderItens();
 
-                    for (OrderItens orderItens : itensCars)
+                    //trata null pointer apos
+                    // remover untimo iten carrinho
+                    if (ordersRecovery != null)
                     {
-                        int qtde = orderItens.getQuantity();
 
-                        double preco = Double.parseDouble(orderItens.getItenSalePrice());
+                        itensCars = ordersRecovery.getOrderItens();
 
-                        totalCar += (qtde * preco);
-                        qtdItensCar += qtde;
+                    }else {
+                        Orders orders = new Orders();
+                        orders.removerOrderItens(retornIdUser);
+                    }
+                    //trata NullPointer
+                    if (itensCars != null ) {
+
+                        for (OrderItens orderItens : itensCars) {
+                            int qtde = orderItens.getQuantity();
+
+                            double preco = Double.parseDouble(orderItens.getItenSalePrice());
+
+                            totalCar += (qtde * preco);
+                            qtdItensCar += qtde;
+                        }
+                    }else{
+
+                        Orders orders = new Orders();
+                        orders.removerOrderItens(retornIdUser);
                     }
                 }
 
