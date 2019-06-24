@@ -55,6 +55,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private RadioButton chkBxRetirar;
 	private RadioButton chkBxEntrega;
 	private EditText editObservation;
+	private EditText edtStreetDelivery;
+	private EditText edtNumberDelivery;
+	private EditText edtNeighborhoodDelivery;
 	private Button btnFinishOrder;
 	private String emailUser;
 	private ListView lstorder;
@@ -134,6 +137,18 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			startVibrate ( 190 );
 			valueTest ( );
 		}
+		else if(v.getId () == R.id.chkBxRetirar){
+			msgShort ( "Retirar" );
+			edtStreetDelivery.setText("Troca pela Rua Hashi Sushi");
+			edtNeighborhoodDelivery.setText("Troca pela Bairro Hashi Sushi");
+			edtNumberDelivery.setText("Troca pela Nº Hashi Sushi");
+		}
+		else if (v.getId () == R.id.chkBxEntrega){
+			msgShort ( "Entregar" );
+			edtStreetDelivery.setText(ordersRecovery.getAddress ());
+			edtNeighborhoodDelivery.setText(ordersRecovery.getNeigthborhood ());
+			edtNumberDelivery.setText(ordersRecovery.getNumberHome ());
+		}
 	}
 	
 	//ao clicar em volta e chama efeito de transição
@@ -150,7 +165,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		if ( value <= 0 ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
 		} else {
-			msgShort ( "OK!!!!" + value );
+			msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
 		}
 	}
 	
@@ -260,7 +275,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				
 				txtTotal.setText ( String.format ( "%s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
-				//ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, ordersRecovery.getOrderItens());
 				//Trata Nullpointer
 				if ( itensCars != null ) {
 					
@@ -289,6 +303,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		btnFinishOrder = findViewById ( R.id.btnFinishOrder );
 		editObservation = findViewById ( R.id.editObservation );
 		lstorder = findViewById ( R.id.lstOrder );
+		edtStreetDelivery = findViewById ( R.id.edtStreetDelivery);
+		edtNumberDelivery = findViewById ( R.id.edtNumberDelivery);
+		edtNeighborhoodDelivery = findViewById ( R.id.edtNeighborhoodDelivery);
+		
+		// seta os listeners
+		chkBxRetirar.setOnClickListener ( this );
+		chkBxEntrega.setOnClickListener ( this );
 	}
 	
 	//captura o click no listview
@@ -310,16 +331,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						itemOrder.setQuantity ( itemOrder.getQuantity ( ) - 1 );
 						
 						itensCars.remove ( itemOrder );//remove o item do carrinho!
-						
 						adapter.remove ( adapter.getItem ( position ) ); //remove do listview
 						adapter.notifyDataSetChanged ( ); //atualiza o listview
 						
 						msgShort ( "Item removido do seu carrinho! ;)" );
 
-
-						/*if ( ordersRecovery == null ) {
-							ordersRecovery = new Orders ( retornIdUser );
-						}*/
 						ordersRecovery.setName ( user.getName ( ) );
 						ordersRecovery.setAddress ( user.getAddress ( ) );
 						ordersRecovery.setNeigthborhood ( user.getNeigthborhood ( ) );

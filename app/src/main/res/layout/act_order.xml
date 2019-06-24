@@ -37,33 +37,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTitleReg" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/chkBxRetirar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Retirar"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textSize="18sp" />
-
-                <RadioButton
-                    android:id="@+id/chkBxEntrega"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Entregar"
-                    android:textColor="@color/ic_launcher_background"
-                    android:textSize="18sp" />
-            </RadioGroup>
-        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,30 +51,12 @@
             android:layout_width="match_parent"
             android:layout_height="234dp"
             android:layout_marginTop="10sp"
-            android:textAlignment="center"
             android:background="@color/colorSilver"
             android:nestedScrollingEnabled="true"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:text="@string/txt_type_payment"
-            android:textColor="@color/ic_launcher_background"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Spinner
-            android:id="@+id/spnfillPayMent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10sp"
-            android:background="@color/colorSilver"
-            android:textColor="@color/ic_launcher_background"
-            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -123,13 +78,111 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12sp"
-                android:textStyle="bold"
                 android:text="@string/txt_total"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp"
+                android:textSize="25sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/spnfillPayMent" />
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/chkBxRetirar"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Retirar"
+                    android:textColor="@color/ic_launcher_background"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/chkBxEntrega"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Entregar"
+                    android:textColor="@color/ic_launcher_background"
+                    android:textSize="18sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Endereço:"
+            android:textColor="@color/ic_launcher_background" />
+
+        <EditText
+            android:id="@+id/edtStreetDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="HAHAHA"
+            android:textColor="@color/colorHintText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Número:"
+            android:textColor="@color/ic_launcher_background" />
+
+        <EditText
+            android:id="@+id/edtNumberDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="HAHAHA"
+            android:textColor="@color/colorHintText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Bairro:"
+            android:textColor="@color/ic_launcher_background" />
+
+        <EditText
+            android:id="@+id/edtNeighborhoodDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="HAHAHA"
+            android:textColor="@color/colorHintText"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="@string/txt_type_payment"
+            android:textColor="@color/ic_launcher_background"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spnfillPayMent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10sp"
+            android:background="@color/colorSilver"
+            android:textColor="@color/ic_launcher_background"
+            android:textSize="18sp" />
+
 
         <TextView
             android:layout_width="123dp"
@@ -144,7 +197,7 @@
             android:id="@+id/editObservation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Ex: remover molho, troco p/..."
+            android:hint="Ex: remover molho, troco p/ 20..."
             android:inputType="text|textLongMessage"
             android:textColor="@color/colorHintText"
             android:textColorHint="@color/colorHintText" />
