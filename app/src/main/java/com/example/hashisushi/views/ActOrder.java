@@ -68,7 +68,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private List< Product > productsList = new ArrayList<> ( );
 	private int qtdItensCar;
 	private Double totalCar;
-	private Orders orders ;
+	private Orders orders;
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -79,15 +79,15 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		findViewByIds ( );
 		fontLogo ( );
 		fillPayMent ( );
-		orders = new Orders();
+		orders = new Orders ( );
 		btnFinishOrder.setOnClickListener ( this );
 		//reference db and recover value
 		emailUser = UserFirebase.getUserCorrent ( ).getEmail ( );
 		retornIdUser = UserFirebase.getIdUser ( );
 		reference = FirebaseConfig.getFirebase ( );
 		
-		recoveryDataUser ( );
-		lstorderClick ( );
+		recoveryDataUser ( ); //recupera os dados do user
+		lstorderClick ( ); //listener do listview
 	}
 	
 	@Override
@@ -109,6 +109,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		atvib.vibrate ( time );
 	}
 	
+	//carrega os métodos de pagamento
 	private void fillPayMent ( ) {
 		try {
 			List< String > list = MockPaymentMethods.INSTANCE.getPaymentMethods ( );
@@ -121,10 +122,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		}
 	}
 	
+	//exibe um ToastView
 	private void msgShort ( String msg ) {
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_SHORT ).show ( );
 	}
 	
+	//captura os clicks pelo ID
 	@Override
 	public void onClick ( View v ) {
 		if ( v.getId ( ) == R.id.btnFinishOrder ) {
@@ -142,12 +145,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	
 	// Verifica se o valor total é 0
 	private void valueTest ( ) {
-		String value = txtTotal.getText ( ).toString ( );
+		Double value =  Double.parseDouble(txtTotal.getText().toString ().replace ( "R$ ","" ).replace ( ",","."  ));
 		
-		if ( value.equals ( "00,00" ) ) {
+		if ( value <= 0 ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
 		} else {
-		
+			msgShort ( "OK!!!!" + value );
 		}
 	}
 	
@@ -220,52 +223,50 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				totalCar = 0.0;
 				
 				if ( dataSnapshot.getValue ( ) != null ) {
-
+					
 					ordersRecovery = dataSnapshot.getValue ( Orders.class );
 					assert ordersRecovery != null;
-
+					
 					//trata null pointer apos
 					// remover untimo iten carrinho
-					if (ordersRecovery != null)
-					{
-						itensCars = ordersRecovery.getOrderItens();
-					}else {
-						Orders orders = new Orders();
-						orders.removerOrderItens(retornIdUser);
+					if ( ordersRecovery != null ) {
+						itensCars = ordersRecovery.getOrderItens ( );
+					} else {
+						Orders orders = new Orders ( );
+						orders.removerOrderItens ( retornIdUser );
 					}
 					//trata NullPointer
-					if (itensCars != null )
-					{
-
-						for (OrderItens orderItens : itensCars) {
-							int qtde = orderItens.getQuantity();
-
-							String strPreco = orderItens.getItenSalePrice();
-							double preco = Double.parseDouble(strPreco);
-
-							totalCar += (qtde * preco);
+					if ( itensCars != null ) {
+						
+						for ( OrderItens orderItens : itensCars ) {
+							int qtde = orderItens.getQuantity ( );
+							
+							String strPreco = orderItens.getItenSalePrice ( );
+							double preco = Double.parseDouble ( strPreco );
+							
+							totalCar += ( qtde * preco );
 							qtdItensCar += qtde;
 						}
-					}else {
-						Orders orders = new Orders();
-						orders.removerOrderItens(retornIdUser);
+					} else {
+						Orders orders = new Orders ( );
+						orders.removerOrderItens ( retornIdUser );
 					}
-				}else {
-					Orders orders = new Orders();
-					orders.removerOrderItens(retornIdUser);
+				} else {
+					Orders orders = new Orders ( );
+					orders.removerOrderItens ( retornIdUser );
 				}
 				
 				DecimalFormat df = new DecimalFormat ( "0.00" );
 				
-				txtTotal.setText ( String.format ( "R$ %s", df.format ( totalCar ).replace ( ".", "," ) ) );
+				txtTotal.setText ( String.format ( "%s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
 				//ArrayAdapter<OrderItens> adapter = new ArrayAdapter<OrderItens>(getApplicationContext (), android.R.layout.simple_list_item_1, ordersRecovery.getOrderItens());
 				//Trata Nullpointer
-				if (itensCars != null ) {
-
-					adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, itensCars);
-
-					lstorder.setAdapter(adapter);
+				if ( itensCars != null ) {
+					
+					adapter = new ArrayAdapter<> ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
+					
+					lstorder.setAdapter ( adapter );
 				}
 				dialog.dismiss ( );
 			}
@@ -292,9 +293,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	
 	//captura o click no listview
 	private void lstorderClick ( ) {
-		
 		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
-			
 			@Override
 			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId ) {
 				
@@ -304,15 +303,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				builder.setPositiveButton ( "Remover", new DialogInterface.OnClickListener ( ) {
 					@Override
 					public void onClick ( DialogInterface dialog, int which ) {
-						
 						//Product productSelectd = productsList.get ( position );
 						OrderItens itemOrder = new OrderItens ( );
-
+						
 						//subtrai da quantidade total
 						itemOrder.setQuantity ( itemOrder.getQuantity ( ) - 1 );
-
+						
 						itensCars.remove ( itemOrder );//remove o item do carrinho!
-
+						
 						adapter.remove ( adapter.getItem ( position ) ); //remove do listview
 						adapter.notifyDataSetChanged ( ); //atualiza o listview
 						
@@ -336,7 +334,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				builder.setNegativeButton ( "Cancelar", null );
 				builder.create ( );
 				builder.show ( );
-
+				
 			}
 			
 		} );
@@ -345,5 +343,4 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private void ShowMSG ( String msg ) {
 		Snackbar.make ( ActOrder, msg, Snackbar.LENGTH_LONG ).show ( );
 	}
-	
 }
