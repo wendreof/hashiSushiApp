@@ -130,6 +130,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		if ( v.getId ( ) == R.id.btnFinishOrder ) {
 			startVibrate ( 190 );
 			valueTest ( );
+
 		}
 	}
 	
@@ -147,7 +148,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		if ( value.equals ( "00,00" ) ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
 		} else {
-		
+
 		}
 	}
 	
@@ -178,32 +179,44 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}
 		} );
 	}
-	
+
 	//confimar pedido  --  Este metodo provavel  mente saira
-	private void confirmarPedido ( ) {
-		String obs = String.valueOf ( editObservation.getText ( ) );
-		
-		SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "ddMMyyyy" );
-		SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HHmm" );
-		Calendar cal = Calendar.getInstance ( );
-		
-		Date data_atual = cal.getTime ( );
-		
-		String hora = horaFormat_hora.format ( data_atual );
-		String dataAtual = dateFormat_data.format ( data_atual );
-		
-		ordersRecovery.setDateOrder ( Integer.parseInt ( dataAtual ) );
-		ordersRecovery.setHour ( Integer.parseInt ( hora ) );
-		ordersRecovery.setObservation ( obs );
-		ordersRecovery.setQuantProd ( qtdItensCar );
-		//String total = String.valueOf(totalCar);
-		ordersRecovery.setTotalPrince ( totalCar );
-		ordersRecovery.setStatus ( "confirmado" );
-		ordersRecovery.confimar ( );
-		ordersRecovery.remover ( );
-		ordersRecovery = null;
-		
-		msgShort ( "Pedido Confirmado !" );
+	private void confirmOrder()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				SimpleDateFormat dateFormat_data = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat horaFormat_hora = new SimpleDateFormat("HH:mm");
+				Calendar cal = Calendar.getInstance();
+
+				Date data_atual = cal.getTime();
+
+				String hora = horaFormat_hora.format(data_atual);
+				String dataAtual = dateFormat_data.format(data_atual);
+
+				ordersRecovery.setDateOrder(Integer.parseInt(dataAtual));
+				ordersRecovery.setHour(Integer.parseInt(hora));
+				String obs = editObservation.getText().toString();
+				ordersRecovery.setObservation(obs);
+				ordersRecovery.setQuantProd(qtdItensCar);
+				ordersRecovery.setTotalPrince(totalCar);
+				ordersRecovery.setStatus("confirmado");
+				ordersRecovery.confimar();
+				ordersRecovery.remover();
+				ordersRecovery = null;
+
+				msgShort("Pedido Confirmado");
+
+			}
+		}).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				msgShort("Pedido não confirmado");
+			}
+		});
 	}
 	
 	//recupera pedido
@@ -328,8 +341,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						ordersRecovery.setNumberHome ( user.getNumberHome ( ) );
 						ordersRecovery.setCellphone ( user.getPhone ( ) );
 						ordersRecovery.setOrderItens ( itensCars );
-						ordersRecovery.setQuantProd ( qtdItensCar );
-						ordersRecovery.setTotalPrince ( totalCar );
 						ordersRecovery.salvar ( );
 					}
 				} );

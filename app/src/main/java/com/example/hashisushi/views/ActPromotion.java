@@ -319,8 +319,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
                     itensCars.add(itemOrder);
 
-                    // msgShort(itensCars.toString());
-
                     if (ordersRecovery == null) {
                         ordersRecovery = new Orders(retornIdUser);
                     }
@@ -331,8 +329,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                     ordersRecovery.setCellphone(user.getPhone());
 
                     ordersRecovery.setOrderItens(itensCars);
-                    ordersRecovery.setQuantProd(qtdItensCar);
-                    ordersRecovery.setTotalPrince(totalCar);
 
                     ordersRecovery.salvar();
                 }

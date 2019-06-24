@@ -309,8 +309,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
                     ordersRecovery.setCellphone(user.getPhone());
 
                     ordersRecovery.setOrderItens(itensCars);
-                    ordersRecovery.setQuantProd( qtdItensCar );
-                    ordersRecovery.setTotalPrince(totalCar);
 
                     ordersRecovery.salvar();
 

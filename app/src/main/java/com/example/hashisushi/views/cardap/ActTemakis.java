@@ -302,8 +302,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 					ordersRecovery.setNumberHome ( user.getNumberHome ( ) );
 					ordersRecovery.setCellphone ( user.getPhone ( ) );
 					ordersRecovery.setOrderItens ( itensCars );
-					ordersRecovery.setQuantProd( qtdItensCar );
-					ordersRecovery.setTotalPrince( totalCar );
 					ordersRecovery.salvar ( );
 					
 				} else {

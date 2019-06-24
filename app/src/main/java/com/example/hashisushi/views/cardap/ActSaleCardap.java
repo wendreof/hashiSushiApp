@@ -210,17 +210,20 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
     //oa clicar em voltar chama efeito de transição
     @Override
-    public void finish() {
+    public void finish()
+    {
         super.finish();
         overridePendingTransition(R.anim.mover_esquerda,R.anim.fade_out);
     }
 
-    public void initDB() {
+    public void initDB()
+    {
         FirebaseApp.initializeApp(ActSaleCardap.this);
         this.reference = FirebaseDatabase.getInstance().getReference();
     }
 
-    private void initComponent(){
+    private void initComponent()
+    {
         txtQuantItensE = findViewById( R.id.txtQuantItensE);
         txtTotalOrderE = findViewById( R.id.txtTotalOrderE);
         txtCardapScardp = findViewById(R.id.txtCardapScardp);
@@ -310,8 +313,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                     ordersRecovery.setCellphone(user.getPhone());
 
                     ordersRecovery.setOrderItens(itensCars);
-                    ordersRecovery.setQuantProd( qtdItensCar );
-                    ordersRecovery.setTotalPrince(totalCar);
 
                     ordersRecovery.salvar();
 

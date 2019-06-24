@@ -20,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
-import com.example.hashisushi.dao.UserFirebase;
-import com.example.hashisushi.model.User;
 import com.example.hashisushi.utils.data.SecurityPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,7 +80,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         this.userAuth = FirebaseAuth.getInstance();
         //retornIdUser = UserFirebase.getIdUser();
     }
-
 
     @Override
     protected void attachBaseContext(Context newBase)
@@ -286,7 +283,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtSenha = findViewById(R.id.edtSenha);
         ActLogin = findViewById(R.id.ActLogin);
         chkBxRememberPasswd = findViewById(R.id.chkBxRememberPasswd);
-
         btnCadastrar.setOnClickListener(this);
         btnEntrar.setOnClickListener(this);
         chkBxRememberPasswd.setOnClickListener(this);
