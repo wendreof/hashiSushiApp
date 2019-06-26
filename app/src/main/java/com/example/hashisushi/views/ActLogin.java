@@ -48,6 +48,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     private FirebaseAuth userAuth;
     private DatabaseReference reference;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,6 +57,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 
         this.shared = new SecurityPreferences(this);
         getSupportActionBar().hide();
+
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //Trava a rotaçãø da tela
 

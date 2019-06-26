@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -45,6 +46,7 @@ import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
+
 	DatabaseReference reference;
 	Activity activity;
 	ArrayAdapter< OrderItens > adapter;
@@ -130,13 +132,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_SHORT ).show ( );
 	}
 	
-	//captura os clicks pelo ID
+	//captura os clicks  -BNT-
 	@Override
 	public void onClick ( View v ) {
 		if ( v.getId ( ) == R.id.btnFinishOrder ) {
 			startVibrate ( 190 );
-			valueTest ( );
-
+			valueTest();
 		}
 		else if(v.getId () == R.id.chkBxRetirar){
 			msgShort ( "Retirar" );
@@ -166,11 +167,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		if ( value <= 0 ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
 		} else {
+
 			msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
+			confirmOrder();
+
 		}
 	}
 	
-	//recupera dados do usuario esta com
+	//recupera dados do usuario
 	private void recoveryDataUser ( ) {
 		dialog = new SpotsDialog.Builder ( )
 				.setContext ( this )
@@ -198,16 +202,22 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} );
 	}
 
-	//confimar pedido  --  Este metodo provavel  mente saira
+	//confimar pedido  --
 	private void confirmOrder()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Finalizar Pedido");
+		builder.setMessage("\nConfirmar pedido ?");
+
+
 		builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 
-				SimpleDateFormat dateFormat_data = new SimpleDateFormat("dd/MM/yyyy");
-				SimpleDateFormat horaFormat_hora = new SimpleDateFormat("HH:mm");
+				SimpleDateFormat dateFormat_data = new SimpleDateFormat("ddMMyyyy");
+				SimpleDateFormat horaFormat_hora = new SimpleDateFormat("HHmm");
 				Calendar cal = Calendar.getInstance();
 
 				Date data_atual = cal.getTime();
@@ -218,6 +228,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery.setDateOrder(Integer.parseInt(dataAtual));
 				ordersRecovery.setHour(Integer.parseInt(hora));
 				String obs = editObservation.getText().toString();
+				ordersRecovery.setAddress(edtStreetDelivery.getText().toString());
+				ordersRecovery.setNumberHome(edtNumberDelivery.getText().toString());
+				ordersRecovery.setNeigthborhood(edtNeighborhoodDelivery.getText().toString());
 				ordersRecovery.setObservation(obs);
 				ordersRecovery.setQuantProd(qtdItensCar);
 				ordersRecovery.setTotalPrince(totalCar);
@@ -227,6 +240,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery = null;
 
 				msgShort("Pedido Confirmado");
+				startActPromotion();
+				finish();
+
 
 			}
 		}).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -235,6 +251,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				msgShort("Pedido não confirmado");
 			}
 		});
+		builder.create ( );
+		builder.show ( );
 	}
 	
 	//recupera pedido
@@ -289,7 +307,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				txtTotal.setText ( String.format ( "%s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
 				//Trata Nullpointer
-				if ( itensCars != null ) {
+				if ( itensCars != null )
+				{
 					
 					adapter = new ArrayAdapter<> ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
 					
@@ -306,7 +325,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	//recupera todos os ids
-	private void findViewByIds ( ) {
+	private void findViewByIds ( )
+	{
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtPedido = findViewById ( R.id.txtPedido );
@@ -319,7 +339,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		edtStreetDelivery = findViewById ( R.id.edtStreetDelivery);
 		edtNumberDelivery = findViewById ( R.id.edtNumberDelivery);
 		edtNeighborhoodDelivery = findViewById ( R.id.edtNeighborhoodDelivery);
-		
 		// seta os listeners
 		chkBxRetirar.setOnClickListener ( this );
 		chkBxEntrega.setOnClickListener ( this );
@@ -369,5 +388,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	
 	private void ShowMSG ( String msg ) {
 		Snackbar.make ( ActOrder, msg, Snackbar.LENGTH_LONG ).show ( );
+	}
+
+	private void startActPromotion(){
+		Intent it = new Intent(this, ActPromotion.class);
+		startActivity(it);
 	}
 }

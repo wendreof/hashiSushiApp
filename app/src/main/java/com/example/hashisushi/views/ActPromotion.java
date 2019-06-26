@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -120,6 +119,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         initSearch();
         recoveryDataUser();
         this.auth = FirebaseAuth.getInstance();
+
     }//end oncreat
 
     private void recycleOnclick()
