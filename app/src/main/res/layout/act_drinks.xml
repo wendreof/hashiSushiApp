@@ -73,7 +73,7 @@
         app:srcCompat="@drawable/ic_arrow_left_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flotBntOrderSaleD"
+        android:id="@+id/flotBntHomeD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/ic_arrow_right_24dp" />
+        app:srcCompat="@drawable/ic_home_white_24dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"

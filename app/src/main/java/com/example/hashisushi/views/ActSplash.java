@@ -15,6 +15,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
+
+
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hashisushi.R;
@@ -25,6 +28,8 @@ public class ActSplash extends AppCompatActivity {
 
     private TextView txtDelivery;
     private TextView txtwhats;
+    private ImageView imgLogoS;
+    private ImageView imgWhats;
 
     private FirebaseAuth auth;
     private PendingIntent pendingIntent;
@@ -33,14 +38,20 @@ public class ActSplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_splash);
-        txtDelivery = findViewById(R.id.txtDelivery);
-        txtwhats = findViewById(R.id.txtWhats);
+
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        txtDelivery = findViewById(R.id.txtDelivery);
+        txtwhats = findViewById(R.id.txtWhats);
+        imgLogoS = findViewById(R.id.imgLogoS);
+        imgWhats = findViewById(R.id.imgWhats);
+
         fontLogo();
 
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -63,6 +74,9 @@ public class ActSplash extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtDelivery.setTypeface(font);
         txtwhats.setTypeface(font);
+
+        imgLogoS.setImageResource(R.drawable.lghashi);
+        imgWhats.setImageResource(R.drawable.whats);
 
     }
 

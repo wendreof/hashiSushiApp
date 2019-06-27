@@ -31,6 +31,7 @@ import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 
+import com.example.hashisushi.views.ActPromotion;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -53,7 +54,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private FloatingActionButton flotBntVoltarD;
     private FloatingActionButton flotBntEdtPersoD;
     private FloatingActionButton flotBntFinishD;
-    private FloatingActionButton flotBntOrderSaleD;
+    private FloatingActionButton flotBntHomeD;
 
     private TextView txtQuantItensDr;
     private TextView  txtTotalOrderDr;
@@ -162,10 +163,10 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
             startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
-        } else if(v.getId() == R.id.flotBntOrderSaleD) {
+        } else if(v.getId() == R.id.flotBntHomeD) {
 
             startVibrate(90);
-            openOrder();
+            startPromotion();
 
         }
     }
@@ -185,16 +186,11 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         txtDrinks.setTypeface(font);
     }
 
-    private void openOrder(){
+    private void startPromotion()
+    {
 
-        Intent intent = new Intent(ActDrinks.this,ActOrder.class);
-        //Passa efeitos de transzição
-        ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
-                R.anim.fade_in,R.anim.mover_direita);
-        ActivityCompat.startActivity(ActDrinks.this,intent,actcompat.toBundle());
-        //startActivity(intent);
-
-
+        Intent intent = new Intent(ActDrinks.this, ActPromotion.class);
+        startActivity(intent);
     }
 
     //oa clicar em voltar chama efeito de transição
@@ -217,12 +213,12 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         flotBntVoltarD = findViewById(R.id.flotBntVoltarD);
         flotBntEdtPersoD = findViewById(R.id.flotBntEdtPersoD);
         flotBntFinishD = findViewById(R.id.flotBntFinishD);
-        flotBntOrderSaleD = findViewById(R.id.flotBntOrderSaleD);
+        flotBntHomeD = findViewById(R.id.flotBntHomeD);
 
         flotBntVoltarD.setOnClickListener(this);
         flotBntEdtPersoD.setOnClickListener(this);
         flotBntFinishD.setOnClickListener(this);
-        flotBntOrderSaleD.setOnClickListener(this);
+        flotBntHomeD.setOnClickListener(this);
 
         txtCardapD = findViewById(R.id.txtCardapD);
         txtLogoD = findViewById(R.id.txtLogoD);

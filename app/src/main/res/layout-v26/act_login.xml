@@ -113,7 +113,7 @@
         app:layout_constraintStart_toStartOf="@+id/edtSenha" />
 
     <ImageView
-        android:id="@+id/imgLogo"
+        android:id="@+id/imgLogoS"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
