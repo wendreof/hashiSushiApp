@@ -4,35 +4,51 @@ import com.example.hashisushi.dao.FirebaseConfig;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import static com.example.hashisushi.dao.FirebaseConfig.getIdUsuario;
 
 public class Notification implements Serializable {
 
+    private String idNot;
     private String title;
     private String body;
     private boolean isSend;
 
     public Notification() { }
 
-    public void salvar(){
+    public void salvar()
+    {
 
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
-        DatabaseReference produtoRef = firebaseRef
+        DatabaseReference notificationRef = firebaseRef
                 .child("notification")
-                .child( getIdUsuario() );
-        produtoRef.setValue(this);
+                .child( getIdUsuario());
+
+        UUID uuid = UUID.randomUUID();
+        String strUuid = uuid.toString();
+
+        setIdNot(strUuid);
+        notificationRef.setValue(this);
 
     }
 
-    public void remover(){
+    public void remover(String idNotification)
+    {
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
-        DatabaseReference produtoRef = firebaseRef
-                .child("produtos")
-                .child( getIdUsuario() );
-        produtoRef.removeValue();
+        DatabaseReference notificationRef = firebaseRef
+                .child("notification")
+                .child( idNotification );
+        notificationRef.removeValue();
     }
 
+    public String getIdNot() {
+        return idNot;
+    }
+
+    public void setIdNot(String idNot) {
+        this.idNot = idNot;
+    }
 
     public String getTitle() {
         return title;

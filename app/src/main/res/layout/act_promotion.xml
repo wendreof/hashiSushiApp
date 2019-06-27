@@ -97,7 +97,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@drawable/ic_check_24dp" />
+        app:srcCompat="@drawable/ic_cart_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/flotBntEditPersonP"

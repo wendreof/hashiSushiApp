@@ -74,6 +74,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private int qtdItensCar;
 	private Double totalCar;
 	private Orders orders;
+
+	private int metodoEntrega;
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -147,9 +149,21 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		}
 		else if (v.getId () == R.id.chkBxEntrega){
 			msgShort ( "Entregar" );
-			edtStreetDelivery.setText(ordersRecovery.getAddress ());
-			edtNeighborhoodDelivery.setText(ordersRecovery.getNeigthborhood ());
-			edtNumberDelivery.setText(ordersRecovery.getNumberHome ());
+
+			//trata null pointer quaso orders_user
+			// não exita ainda para o usuario
+
+			if(ordersRecovery != null)
+			{
+				edtStreetDelivery.setText(ordersRecovery.getAddress());
+				edtNeighborhoodDelivery.setText(ordersRecovery.getNeigthborhood());
+				edtNumberDelivery.setText(ordersRecovery.getNumberHome());
+			}else {
+				msgShort("Voçê não tem itens no carrinho.");
+				msgShort("Primeiro adicione itens ao carrinho.");
+				msgShort("Só depois defina o endereço.");
+			}
+
 		}
 	}
 	
@@ -205,10 +219,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	//confimar pedido  --
 	private void confirmOrder()
 	{
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Finalizar Pedido");
-		builder.setMessage("\nConfirmar pedido ?");
 
+		builder.setMessage("\nConfirmar pedido ?");
 
 		builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
@@ -234,6 +249,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery.setObservation(obs);
 				ordersRecovery.setQuantProd(qtdItensCar);
 				ordersRecovery.setTotalPrince(totalCar);
+				//gera codigo caso compra maior 30
+				if(totalCar > 30.00){
+					ordersRecovery.setQrCode(retornIdUser+totalCar);
+				}else {
+					ordersRecovery.setQrCode("");
+				}
+
 				ordersRecovery.setStatus("confirmado");
 				ordersRecovery.confimar();
 				ordersRecovery.remover();

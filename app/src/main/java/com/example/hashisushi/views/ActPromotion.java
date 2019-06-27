@@ -86,6 +86,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     private int qtdItensCar ;
     private Double totalCar ;
+    private boolean typeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -381,6 +382,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 {
                     user = dataSnapshot.getValue(User.class);
                 }
+                typeUser = user.getIsAdmin();
+
                 recoveryOrder();
             }
             @Override
@@ -514,11 +517,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             startActivity(it);
             return true;
         }
-
-        if (id == R.id.menu_cad_prod)
+        if (id == R.id.menu_cad_prod )
         {
-            Intent it = new Intent(this, ActRegProd.class);
-            startActivity(it);
+                Intent it = new Intent(this, ActRegProd.class);
+                startActivity(it);
             return true;
         }
         if (id == R.id.menu_points)

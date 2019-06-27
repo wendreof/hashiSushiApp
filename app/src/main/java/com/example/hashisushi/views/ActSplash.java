@@ -39,19 +39,15 @@ public class ActSplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_splash);
 
+        getSupportActionBar().hide();
+
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        txtDelivery = findViewById(R.id.txtDelivery);
-        txtwhats = findViewById(R.id.txtWhats);
-        imgLogoS = findViewById(R.id.imgLogoS);
-        imgWhats = findViewById(R.id.imgWhats);
-
+        initComponent();
         fontLogo();
 
-        getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -69,7 +65,8 @@ public class ActSplash extends AppCompatActivity {
             setNotification("Oferta","Todos os combos a R$ 19,90");
     }
     //Altera fonte do txtLogo
-    private void fontLogo(){
+    private void fontLogo()
+    {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtDelivery.setTypeface(font);
@@ -78,6 +75,15 @@ public class ActSplash extends AppCompatActivity {
         imgLogoS.setImageResource(R.drawable.lghashi);
         imgWhats.setImageResource(R.drawable.whats);
 
+    }
+
+    private void initComponent()
+    {
+
+        txtDelivery = findViewById(R.id.txtDelivery);
+        txtwhats = findViewById(R.id.txtWhats);
+        imgLogoS = findViewById(R.id.imgLogoS);
+        imgWhats = findViewById(R.id.imgWhats);
     }
 
     //cria notificação

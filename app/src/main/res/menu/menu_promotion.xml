@@ -66,6 +66,5 @@
         android:id="@+id/menu_cad_prod"
         android:orderInCategory="100"
         android:title="@string/menu_cad_prod"
-        android:visible="true"
         app:showAsAction="never" />
 </menu>

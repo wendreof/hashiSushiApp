@@ -27,7 +27,7 @@ class ActPoints : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         supportActionBar!!.hide()
 
-        points = 24
+        points = 14
         val p = points.toString()
         txtPonts!!.text = p
         controlImgView()
@@ -73,7 +73,7 @@ class ActPoints : AppCompatActivity() {
                 txtPonts!!.text = p
                 controlPonts()
 
-                if (points > 25) points = 0
+                if (points > 15) points = 0
 
             } else alerta("Scan cancelado!")
 
@@ -99,13 +99,13 @@ class ActPoints : AppCompatActivity() {
 
         if (points == 0) alerta("Voçê não possui points para resgatar !")
 
-        if (points in 1..24) {
+        if (points in 1..14) {
 
-            alerta("Voçê não completou 25 atualmente voçê tem : $points ,points !")
-            val p = points - 25
+            alerta("Voçê não completou 15 atualmente voçê tem : $points ,points !")
+            val p = points - 15
             alerta("Faltam :$p points para voçê fazer o resgate !")
 
-        } else if (points == 25) {
+        } else if (points == 15) {
 
             val p = points.toString()
             System.setProperty("PONTS_ENV", p)

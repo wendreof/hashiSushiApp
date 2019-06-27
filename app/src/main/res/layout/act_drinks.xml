@@ -160,7 +160,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        app:srcCompat="@drawable/ic_check_24dp" />
+        app:srcCompat="@drawable/ic_cart_24dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/LstDriks"
