@@ -1,20 +1,28 @@
 package com.example.hashisushi.views.cardap;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -31,6 +39,7 @@ import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 
+import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActPromotion;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
@@ -59,7 +68,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private TextView txtQuantItensDr;
     private TextView  txtTotalOrderDr;
     private TextView txtCardapD;
-    private TextView txtLogoD;
+  //  private TextView txtLogoD;
     private TextView txtDrinks;
 
     private DatabaseReference reference ;
@@ -82,7 +91,11 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_drinks);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
+        bar.setTitle("");
 
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -181,7 +194,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private void fontLogo(){
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-        txtLogoD.setTypeface(font);
+      //  txtLogoD.setTypeface(font);
         txtCardapD.setTypeface(font);
         txtDrinks.setTypeface(font);
     }
@@ -221,7 +234,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         flotBntHomeD.setOnClickListener(this);
 
         txtCardapD = findViewById(R.id.txtCardapD);
-        txtLogoD = findViewById(R.id.txtLogoD);
+      //  txtLogoD = findViewById(R.id.txtLogoD);
         txtDrinks = findViewById(R.id.txtDrinks);
 
         lstDrinks = findViewById(R.id.LstDriks);
@@ -433,6 +446,75 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
             }
         });
+    }
+    //==> MENUS
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_promotion, menu);
+        return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_enter)
+        {
+            Intent it = new Intent(this, ActSaleCardap.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_plat_hot)
+        {
+            Intent it = new Intent(this, ActPlatHot.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_plat_ace)
+        {
+            Intent it = new Intent(this, ActPlatAce.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_combo)
+        {
+            Intent it = new Intent(this, ActCombo.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_drinks)
+        {
+            Intent it = new Intent(this, ActDrinks.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_temakis)
+        {
+            Intent it = new Intent(this, ActTemakis.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_edit_cadastro)
+        {
+            Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_points)
+        {
+            Intent it = new Intent(this, ActPoints.class);
+            startActivity(it);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

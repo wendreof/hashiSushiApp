@@ -46,6 +46,14 @@
         android:title="@string/txt_temakis"
         android:visible="true"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_portions"
+        android:icon="@drawable/plate"
+        android:orderInCategory="100"
+        android:title="@string/txt_portions"
+        android:visible="true"
+        app:showAsAction="never" />
+
 
     <item
         android:id="@+id/menu_drinks"

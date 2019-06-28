@@ -36,13 +36,9 @@ import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.OrderItens;
 import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
-
-
 import com.example.hashisushi.model.User;
-import com.example.hashisushi.utils.MyMenu;
 import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
-import com.example.hashisushi.views.ActRegProd;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -59,24 +55,24 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-//exibe cardapio pratos
-public class ActPlatHot extends AppCompatActivity implements View.OnClickListener{
+public class ActPortions extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView txtQuantItensPh;
-    private TextView  txtTotalOrderPh;
 
-    private FloatingActionButton flotBntVoltarPh;
-    private FloatingActionButton flotBntEdtPersoPh;
-    private FloatingActionButton flotBntFinishPh;
-    private FloatingActionButton flotBntPlanAcePh;
+    private TextView txtQuantItensPor;
+    private TextView  txtTotalOrderPor;
 
-    private TextView txtCardapPh;
-    //private TextView txtLogoPh;
-    private TextView txtPlatHot;
+    private FloatingActionButton flotBntVoltarPor;
+    private FloatingActionButton flotBntEdtPersoPor;
+    private FloatingActionButton flotBntFinishPor;
+    private FloatingActionButton flotBntDrinksPor;
+
+    private TextView txtCardapPor;
+   // private TextView txtLogoPor;
+    private TextView txtPortions;
 
     private DatabaseReference reference ;
     private List<Product> productsList = new ArrayList<Product>();
-    private RecyclerView lstPlaHot;
+    private RecyclerView lstPortions;
     private AdapterProduct adapterProduct;
 
     private List<OrderItens> itensCars = new ArrayList<>();
@@ -88,19 +84,18 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     private Orders ordersRecovery;
     private int qtdItensCar ;
     private Double totalCar ;
-    private  Menu menu;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_plat_hot);
+        setContentView(R.layout.act_portions);
 
         //getSupportActionBar().hide();
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
         bar.setTitle("");
+
         //Hold  rotat screen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -112,10 +107,10 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         recycleOnclick();
         retornIdUser = UserFirebase.getIdUser();
 
-        flotBntVoltarPh.setOnClickListener(this);
-        flotBntEdtPersoPh.setOnClickListener(this);
-        flotBntFinishPh.setOnClickListener(this);
-        flotBntPlanAcePh.setOnClickListener(this);
+        flotBntVoltarPor.setOnClickListener(this);
+        flotBntEdtPersoPor.setOnClickListener(this);
+        flotBntFinishPor.setOnClickListener(this);
+        flotBntDrinksPor.setOnClickListener(this);
 
         recoveryDataUser();
         recycleOnclick();
@@ -123,10 +118,10 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
     private void recycleOnclick(){
         //Adiciona evento de clique no recyclerview
-        lstPlaHot.addOnItemTouchListener(
+        lstPortions.addOnItemTouchListener(
                 new RecyclerItemClickListener(
                         this,
-                        lstPlaHot,
+                        lstPortions,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -154,10 +149,10 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     private void recyclerViewConfig(){
 
         //Configura recyclerview
-        lstPlaHot.setLayoutManager(new LinearLayoutManager(this));
-        lstPlaHot.setHasFixedSize(true);
+        lstPortions.setLayoutManager(new LinearLayoutManager(this));
+        lstPortions.setHasFixedSize(true);
         adapterProduct = new AdapterProduct(productsList, this);
-        lstPlaHot.setAdapter( adapterProduct );
+        lstPortions.setAdapter( adapterProduct );
 
     }
 
@@ -169,28 +164,28 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-        if ( v.getId() == R.id.flotBntVoltarPh ) {
+        if ( v.getId() == R.id.flotBntVoltarPor ) {
 
             startVibrate(90);
             //Intent it = new Intent(ActPlatHot.this, ActSaleCardap.class);
             //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-           // startActivity(it);
+            // startActivity(it);
             finish();
         }
-        if ( v.getId() == R.id.flotBntFinishPh ) {
+        if ( v.getId() == R.id.flotBntFinishPor ) {
 
             startVibrate(90);
             Intent it = new Intent( this, ActOrder.class);
             startActivity( it );
 
-        }if(v.getId() == R.id.flotBntEdtPersoPh){
+        }if(v.getId() == R.id.flotBntEdtPersoPor ){
             startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
-        } else if(v.getId() == R.id.flotBntPlanAcePh) {
+        } else if(v.getId() == R.id.flotBntDrinksPor ) {
 
             startVibrate(90);
-            openPlatAce();
+            openDrins();
 
         }
     }
@@ -207,18 +202,18 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     private void fontLogo(){
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-        txtCardapPh.setTypeface(font);
-       // txtLogoPh.setTypeface(font);
-        txtPlatHot.setTypeface(font);
+        txtCardapPor.setTypeface(font);
+       // txtLogoPor.setTypeface(font);
+        txtPortions.setTypeface(font);
     }
 
-    private void openPlatAce(){
+    private void openDrins(){
 
-        Intent intent = new Intent(ActPlatHot.this,ActPlatAce.class);
+        Intent intent = new Intent(ActPortions.this,ActDrinks.class);
         //Passa efeitos de transzição
         ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(),
                 R.anim.fade_in,R.anim.mover_direita);
-        ActivityCompat.startActivity(ActPlatHot.this,intent,actcompat.toBundle());
+        ActivityCompat.startActivity(ActPortions.this,intent,actcompat.toBundle());
 
     }
 
@@ -230,25 +225,24 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     }
 
     public void initDB() {
-        FirebaseApp.initializeApp(ActPlatHot.this);
+        FirebaseApp.initializeApp(ActPortions.this);
         this.reference = FirebaseDatabase.getInstance().getReference();
     }
 
     private void initComponent(){
 
-        txtQuantItensPh = findViewById( R.id.txtQuantItensPh);
-        txtTotalOrderPh = findViewById( R.id.txtTotalOrderPh);
-        txtCardapPh = findViewById(R.id.txtCardapPh);
-       // txtLogoPh = findViewById(R.id.txtLogoPh);
-        txtPlatHot = findViewById(R.id.txtPlaHot);
+        txtQuantItensPor = findViewById( R.id.txtQuantItensPor);
+        txtTotalOrderPor = findViewById( R.id.txtTotalOrderPor);
+        txtCardapPor = findViewById(R.id.txtCardapPor);
+       // txtLogoPor = findViewById(R.id.txtLogoPor);
+        txtPortions = findViewById(R.id.txtPortions);
 
-        flotBntVoltarPh = findViewById(R.id.flotBntVoltarPh);
-        flotBntEdtPersoPh = findViewById(R.id.flotBntEdtPersoPh);
-        flotBntFinishPh = findViewById(R.id.flotBntFinishPh);
-        flotBntPlanAcePh = findViewById(R.id.flotBntPlanAcePh);
+        flotBntVoltarPor = findViewById(R.id.flotBntVoltarPor);
+        flotBntEdtPersoPor = findViewById(R.id.flotBntEdtPersoPor);
+        flotBntFinishPor = findViewById(R.id.flotBntFinishPor);
+        flotBntDrinksPor = findViewById(R.id.flotBntDrinksPor);
 
-        lstPlaHot = findViewById(R.id.LstPlatHot);
-
+        lstPortions = findViewById(R.id.LstPortions);
 
     }
 
@@ -257,7 +251,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Pratos");
+        Query querySearch = productDB.orderByChild("type").equalTo("Porções");
 
         //cria um ouvinte
         querySearch.addValueEventListener(new ValueEventListener() {
@@ -445,8 +439,8 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                txtQuantItensPh.setText( String.valueOf(qtdItensCar) );
-                txtTotalOrderPh.setText(df.format( totalCar ) );
+                txtQuantItensPor.setText( String.valueOf(qtdItensCar) );
+                txtTotalOrderPor.setText(df.format( totalCar ) );
 
                 dialog.dismiss();
 
@@ -458,7 +452,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-
     //==> MENUS
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -528,4 +521,5 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

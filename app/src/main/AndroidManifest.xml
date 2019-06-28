@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.example.hashisushi.utils.CustomApplication"
+        android:name=".utils.CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,14 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
-        <activity android:name="com.example.hashisushi.views.ActRegProd" />
-        <activity android:name="com.example.hashisushi.views.ActLogin"/>
-        <activity android:name="com.example.hashisushi.views.ActOrder" />
-        <activity android:name="com.example.hashisushi.views.ActSignup" />
-        <activity android:name="com.example.hashisushi.views.ActPromotion" />
-        <activity android:name="com.example.hashisushi.views.ActPoints" />
-        <activity android:name="com.example.hashisushi.views.ActSplash">
+        <activity android:name=".views.ActRegProd" />
+        <activity android:name=".views.ActLogin" />
+        <activity android:name=".views.ActOrder" />
+        <activity android:name=".views.ActSignup" />
+        <activity android:name=".views.ActPromotion" />
+        <activity android:name=".views.ActPoints" />
+        <activity android:name=".views.ActSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,44 +33,56 @@
         </activity>
 
         <activity
-            android:name="com.example.hashisushi.views.cardap.ActSaleCardap"
-            android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatHot">
+            android:name=".views.cardap.ActSaleCardap"
+            android:parentActivityName=".views.cardap.ActPlatHot">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActPlatHot" />
         </activity>
 
         <activity
-            android:name="com.example.hashisushi.views.cardap.ActPlatHot"
-            android:parentActivityName="com.example.hashisushi.views.cardap.ActPlatAce">
+            android:name=".views.cardap.ActPlatHot"
+            android:parentActivityName=".views.cardap.ActPlatAce">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.ActPoints" />
         </activity>
+
         <activity
-            android:name="com.example.hashisushi.views.cardap.ActPlatAce"
-            android:parentActivityName="com.example.hashisushi.views.cardap.ActTemakis">
+            android:name=".views.cardap.ActPlatAce"
+            android:parentActivityName=".views.cardap.ActTemakis">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActTemakis" />
         </activity>
+
         <activity
-            android:name="com.example.hashisushi.views.cardap.ActTemakis"
-            android:parentActivityName="com.example.hashisushi.views.cardap.ActCombo">
+            android:name=".views.cardap.ActTemakis"
+            android:parentActivityName=".views.cardap.ActCombo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActCombo" />
         </activity>
+
         <activity
-            android:name="com.example.hashisushi.views.cardap.ActCombo"
-            android:parentActivityName="com.example.hashisushi.views.cardap.ActDrinks">
+            android:name=".views.cardap.ActCombo"
+            android:parentActivityName=".views.cardap.ActPortions">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.hashisushi.views.cardap.ActPortions" />
+        </activity>
+
+        <activity
+            android:name=".views.cardap.ActPortions"
+            android:parentActivityName=".views.cardap.ActDrinks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActDrinks" />
         </activity>
+
         <activity
-            android:name="com.example.hashisushi.views.cardap.ActDrinks"
-            android:parentActivityName="com.example.hashisushi.views.ActOrder">
+            android:name=".views.cardap.ActDrinks"
+            android:parentActivityName=".views.ActOrder">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActDrinks" />

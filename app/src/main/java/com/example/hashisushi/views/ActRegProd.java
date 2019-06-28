@@ -42,8 +42,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActRegProd extends AppCompatActivity implements View.OnClickListener{
 
-    private String[] type = { "Entrada","Pratos_Quentes","Pratos_Frios",
-            "Temakis","Bebidas","Combo"};
+    private String[] type = { "Entrada","Pratos","Monte_Prato",
+        "Temakis","Combo","Porções","Bebidas"};
     private String[] isPromotion = { "Não","Sim"};
     private Spinner spnType;
     private Spinner spnIsPrmotion;
@@ -200,6 +200,13 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
         flotBntExitReg = findViewById(R.id.flotBntExitReg);
     }
 
+    private  void clearFilds(){
+        edtDiscriptionProd.setText("");
+        edtNumberPro.setText("");
+        edtNameProd.setText("");
+        edtValProd.setText("");
+        edtUrl.setText("");
+    }
     private void isPromotionSpn(){
         try {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -253,6 +260,7 @@ public class ActRegProd extends AppCompatActivity implements View.OnClickListene
 
             startVibrate(90);
             addProd();
+            clearFilds();
         } if(v.getId() == R.id.flotBntExitReg) {
 
             startVibrate(90);

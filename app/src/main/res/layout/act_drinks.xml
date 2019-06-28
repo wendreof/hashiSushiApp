@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="8dp"
         android:text="@string/txt_driks"
         android:textAlignment="center"
@@ -24,36 +24,20 @@
         app:layout_constraintTop_toBottomOf="@+id/txtCardapD" />
 
     <TextView
-        android:id="@+id/txtLogoD"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/txt_name"
-        android:textAlignment="center"
-        android:textColor="@color/ic_launcher_background"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtCardapT"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/txtCardapD"
         android:layout_width="0dp"
-        android:layout_height="28dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="8dp"
         android:text="@string/txt_menu_sales"
         android:textAlignment="center"
         android:textColor="@color/ic_launcher_background"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLogoD" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -182,7 +166,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:background="@color/colorAccent"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"

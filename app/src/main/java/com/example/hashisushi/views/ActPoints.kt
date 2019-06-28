@@ -1,17 +1,25 @@
 package com.example.hashisushi.views
 
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import com.example.hashisushi.R
+import com.example.hashisushi.views.cardap.*
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.act_points.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -25,7 +33,11 @@ class ActPoints : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_points)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        supportActionBar!!.hide()
+        //supportActionBar!!.hide()
+
+        val bar = supportActionBar
+        bar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
+        bar.title = ""
 
         points = 14
         val p = points.toString()
@@ -47,7 +59,7 @@ class ActPoints : AppCompatActivity() {
     //Altera fonte do txtLogo
     private fun fontLogo() {
         val font = Typeface.createFromAsset(assets, "RagingRedLotusBB.ttf")
-        txtLogoC!!.typeface = font
+       // txtLogoC!!.typeface = font
         txtTitlePonts!!.typeface = font
     }
 
@@ -123,6 +135,65 @@ class ActPoints : AppCompatActivity() {
         val atvib = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         atvib.vibrate(time)
     }
+
+    //==> MENUS
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_promotion, menu)
+        return true
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.menu_enter) {
+            val it = Intent(this, ActSaleCardap::class.java)
+            startActivity(it)
+            return true
+        }
+
+        if (id == R.id.menu_plat_hot) {
+            val it = Intent(this, ActPlatHot::class.java)
+            startActivity(it)
+            return true
+        }
+
+        if (id == R.id.menu_plat_ace) {
+            val it = Intent(this, ActPlatAce::class.java)
+            startActivity(it)
+            return true
+        }
+
+        if (id == R.id.menu_combo) {
+            val it = Intent(this, ActCombo::class.java)
+            startActivity(it)
+            return true
+        }
+
+        if (id == R.id.menu_drinks) {
+            val it = Intent(this, ActDrinks::class.java)
+            startActivity(it)
+            return true
+        }
+        if (id == R.id.menu_temakis) {
+            val it = Intent(this, ActTemakis::class.java)
+            startActivity(it)
+            return true
+        }
+        if (id == R.id.menu_edit_cadastro) {
+            val it = Intent(this, ActSignup::class.java)
+            startActivity(it)
+            return true
+        }
+        if (id == R.id.menu_points) {
+            val it = Intent(this, ActPoints::class.java)
+            startActivity(it)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun controlImgView() {
         when {

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import com.example.hashisushi.views.cardap.ActCombo;
 import com.example.hashisushi.views.cardap.ActDrinks;
 import com.example.hashisushi.views.cardap.ActPlatAce;
 import com.example.hashisushi.views.cardap.ActPlatHot;
+import com.example.hashisushi.views.cardap.ActPortions;
 import com.example.hashisushi.views.cardap.ActSaleCardap;
 import com.example.hashisushi.views.cardap.ActTemakis;
 import com.google.firebase.FirebaseApp;
@@ -66,7 +68,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     public static String STATUS = null;
     private TextView txtQuantItens;
     private TextView txtTotalOrder;
-    private TextView txtTitle;
+    private TextView txtPromution;
     private TextView txtStatus;
     private FloatingActionButton flotBntSalesCardap;
     private FloatingActionButton flotBntFinishProm;
@@ -107,7 +109,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         initDB();
         retornIdUser = UserFirebase.getIdUser();
         getStatus();
-//        fontLogo();
+        fontLogo();
 
         flotBntExitP.setOnClickListener(this);
         flotBntFinishProm.setOnClickListener(this);
@@ -123,6 +125,15 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     }//end oncreat
 
+
+    //Altera fonte do txtLogo
+    private void fontLogo(){
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
+        txtPromution.setTypeface(font);
+        txtStatus.setTypeface(font);
+        // txtLogoC.setTypeface(font);
+    }
     private void recycleOnclick()
     {
         //Adiciona evento de clique no recyclerview
@@ -166,7 +177,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private void startComponet()
     {
         txtStatus = findViewById(R.id.txtEstatus);
-        txtTitle = findViewById(R.id.txtTitleReg);
+        txtPromution = findViewById(R.id.txtPromution);
         txtQuantItens = findViewById(R.id.txtQuantItens);
         txtTotalOrder = findViewById(R.id.txtTotalOrder);
 
@@ -514,6 +525,12 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.menu_edit_cadastro)
         {
             Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_portions )
+        {
+            Intent it = new Intent(this, ActPortions.class);
             startActivity(it);
             return true;
         }

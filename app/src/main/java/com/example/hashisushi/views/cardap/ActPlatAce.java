@@ -1,20 +1,29 @@
 package com.example.hashisushi.views.cardap;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -31,6 +40,8 @@ import com.example.hashisushi.model.Product;
 
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
+import com.example.hashisushi.views.ActPoints;
+import com.example.hashisushi.views.ActRegProd;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +58,7 @@ import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
+//exibe cardapio monte seu prato
 public class ActPlatAce extends AppCompatActivity implements View.OnClickListener {
 
     private FloatingActionButton flotBntVoltarAce;
@@ -58,7 +69,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
     private TextView txtQuantItensAce;
     private TextView  txtTotalOrderAce;
     private TextView txtCardapA;
-    private TextView txtLogoA;
+   // private TextView txtLogoA;
     private TextView txtPlatAce;
 
     private DatabaseReference reference ;
@@ -80,7 +91,10 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_plat_ace);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+        ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
+        bar.setTitle("");
 
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -186,7 +200,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardapA.setTypeface(font);
-        txtLogoA.setTypeface(font);
+        //txtLogoA.setTypeface(font);
         txtPlatAce.setTypeface(font);
     }
 
@@ -222,7 +236,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         flotBntTemakisAce = findViewById(R.id.flotBntTemakisAce);
 
         txtCardapA = findViewById(R.id.txtCardapA);
-        txtLogoA = findViewById(R.id.txtLogoA);
+        //txtLogoA = findViewById(R.id.txtLogoA);
         txtPlatAce = findViewById(R.id.txtPlatAce);
 
         lstPlaAce = findViewById(R.id.LstPlatAce);
@@ -234,7 +248,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         DatabaseReference productDB = reference.child("product");
         //retorna o no setado
         // DatabaseReference usersSearch = users.child("0001");
-        Query querySearch = productDB.orderByChild("type").equalTo("Pratos_Frios");
+        Query querySearch = productDB.orderByChild("type").equalTo("Monte_Prato");
 
         productsList.clear();
         //cria um ouvinte
@@ -435,4 +449,73 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         });
     }
 
+    //==> MENUS
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_promotion, menu);
+        return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_enter)
+        {
+            Intent it = new Intent(this, ActSaleCardap.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_plat_hot)
+        {
+            Intent it = new Intent(this, ActPlatHot.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_plat_ace)
+        {
+            Intent it = new Intent(this, ActPlatAce.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_combo)
+        {
+            Intent it = new Intent(this, ActCombo.class);
+            startActivity(it);
+            return true;
+        }
+
+        if (id == R.id.menu_drinks)
+        {
+            Intent it = new Intent(this, ActDrinks.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_temakis)
+        {
+            Intent it = new Intent(this, ActTemakis.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_edit_cadastro)
+        {
+            Intent it = new Intent(this, ActSignup.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_points)
+        {
+            Intent it = new Intent(this, ActPoints.class);
+            startActivity(it);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

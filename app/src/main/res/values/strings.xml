@@ -7,9 +7,9 @@
     <string name="txt_name">Hashi Sushi</string>
     <string name="hide_email">Informe seu e-mail</string>
     <string name="hint_password">Informe sua senha</string>
-    <string name="promotions">Promoções</string>
+    <string name="promotions">PROMOÇÕES</string>
     <string name="txt_search">Buscar prato:</string>
-    <string name="txt_menu_sales">Cardápio</string>
+    <string name="txt_menu_sales">CARDAPÍO</string>
     <string name="hint_seach_plate">Informe o prato para busca</string>
     <string name="txt_list_plate">Pratos e Bebidas</string>
     <string name="cadastro">Cadastro</string>
@@ -86,8 +86,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="txt_enter">ENTRADA</string>
-    <string name="txt_plat_hot">PRATOS QUENTES</string>
-    <string name="txt_plat_ace">PRATOS FRIOS</string>
+    <string name="txt_plat_hot">PRATOS</string>
+    <string name="txt_plat_ace">MONTE SEU PRATOS</string>
+    <string name="txt_portions">PORÇÔES</string>
     <string name="txt_temakis">TEMAKIS</string>
     <string name="txt_combo">COMBO</string>
     <string name="txt_driks">BEBIDAS E SUCOS</string>
@@ -144,8 +145,6 @@
     <string name="txt_qt">0</string>
     <string name="txt_total_order">R$:</string>
     //key face login
-   <string name="btn_login_facebook">ENTRAR COM FACEBOOK</string>
-    <string name="facebook_app_id">2330824877235920</string>
-    <string name="fb_login_protocol_scheme">fb2330824877235920</string>
+
 
 </resources>
