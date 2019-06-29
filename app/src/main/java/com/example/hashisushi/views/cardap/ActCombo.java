@@ -271,6 +271,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
             }
         });
     }
+
     private void msgShort(String msg) {
 
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();

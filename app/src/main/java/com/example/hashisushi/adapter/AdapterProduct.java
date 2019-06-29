@@ -26,7 +26,6 @@ public class AdapterProduct extends
         this.context = context;
     }
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -46,8 +45,17 @@ public class AdapterProduct extends
         holder.idProd.setText("Nº :"+ product.getIdProd());
 
         //Carregar imagem com picasso api
+        //casea url nulll ou vazia pega uma imagem setada
         String url = product.getImgUrl();
-                Picasso.get().load(url).into( holder.imgProductAd );
+        if (url.equals("") || url == null )
+        {
+            System.out.println("URL RETORN NADA - "+url);
+            url ="https://firebasestorage.googleapis.com/v0/b/hashishushi.appspot.com/o/produtos%2Fimg%2F81d4f1f3-8c8a-4417-a9f4-e314f3c166fcjpeg?alt=media&token=5254b041-1674-4bfe-86e8-afbdeaeb7cd9";
+            Picasso.get().load(url).into(holder.imgProductAd);
+        }else {
+
+            Picasso.get().load(url).into(holder.imgProductAd);
+        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ import com.example.hashisushi.utils.MockPaymentMethods;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -76,6 +78,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private ScrollView ActOrder;
 	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private List< Product > productsList = new ArrayList<> ( );
+	private List<Orders>ordersList = new ArrayList<>();
 	private int qtdItensCar;
 	private Double totalCar;
 	private Orders orders;
@@ -99,6 +102,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		recoveryDataUser ( ); //recupera os dados do user
 		lstorderClick ( ); //listener do listview
+
 	}
 	
 	@Override
@@ -165,7 +169,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}else {
 				msgShort("Voçê não tem itens no carrinho.");
 				msgShort("Primeiro adicione itens ao carrinho.");
-				msgShort("Só depois defina o endereço.");
+				msgShort("Só depois podera definir o endereço.");
 			}
 
 		}
@@ -188,7 +192,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} else {
 			msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
 			confirmOrder();
-
 		}
 	}
 	
@@ -219,6 +222,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}
 		} );
 	}
+
+
 
 	//confimar pedido  --
 	private void confirmOrder()
@@ -291,7 +296,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		builder.create ( );
 		builder.show ( );
 	}
-	
+
 	//recupera pedido
 	private void recoveryOrder ( ) {
 		
