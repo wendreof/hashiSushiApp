@@ -126,41 +126,39 @@
         <EditText
             android:id="@+id/edtStreetDelivery"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:enabled="false"
-            android:text="HAHAHA"
+            android:text="Rua São Pedro"
             android:textColor="@color/colorHintText"
             android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
             android:text="Número:"
             android:textColor="@color/ic_launcher_background" />
 
         <EditText
             android:id="@+id/edtNumberDelivery"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:enabled="false"
-            android:text="HAHAHA"
+            android:text="661"
             android:textColor="@color/colorHintText"
             android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
             android:text="Bairro:"
             android:textColor="@color/ic_launcher_background" />
 
         <EditText
             android:id="@+id/edtNeighborhoodDelivery"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:enabled="false"
-            android:text="HAHAHA"
+            android:text="Centro"
             android:textColor="@color/colorHintText"
             android:textSize="15sp" />
 

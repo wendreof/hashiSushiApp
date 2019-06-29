@@ -51,6 +51,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
 
+	public String EntregaRetira = "";
 	DatabaseReference reference;
 	Activity activity;
 	ArrayAdapter< OrderItens > adapter;
@@ -78,7 +79,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private int qtdItensCar;
 	private Double totalCar;
 	private Orders orders;
-
 	private int metodoEntrega;
 	
 	@Override
@@ -147,9 +147,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		}
 		else if(v.getId () == R.id.chkBxRetirar){
 			msgShort ( "Retirar" );
-			edtStreetDelivery.setText("Troca pela Rua Hashi Sushi");
-			edtNeighborhoodDelivery.setText("Troca pela Bairro Hashi Sushi");
-			edtNumberDelivery.setText("Troca pela Nº Hashi Sushi");
+			edtStreetDelivery.setText("Rua São Pedro");
+			edtNeighborhoodDelivery.setText("Centro");
+			edtNumberDelivery.setText("661");
 		}
 		else if (v.getId () == R.id.chkBxEntrega){
 			msgShort ( "Entregar" );
@@ -180,12 +180,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	
 	// Verifica se o valor total é 0
 	private void valueTest ( ) {
+		
 		Double value =  Double.parseDouble(txtTotal.getText().toString ().replace ( "R$ ","" ).replace ( ",","."  ));
 		
 		if ( value <= 0 ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
 		} else {
-
 			msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
 			confirmOrder();
 
@@ -196,7 +196,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private void recoveryDataUser ( ) {
 		dialog = new SpotsDialog.Builder ( )
 				.setContext ( this )
-				.setMessage ( "Carregando dados aguarde..." )
+				.setMessage ( "Carregando dados aguarde, por favor aguarde..." )
 				.setCancelable ( false )
 				.build ( );
 		dialog.show ( );
@@ -223,11 +223,22 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	//confimar pedido  --
 	private void confirmOrder()
 	{
-
+		if(chkBxEntrega.isChecked ()){
+			EntregaRetira = "A ser entregue em: ";
+		}
+		else
+		EntregaRetira = "A ser retirado em: ";
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Finalizar Pedido");
 
-		builder.setMessage("\nConfirmar pedido ?");
+		builder.setMessage("\nDeseja confirmar o pedido de:\n" +
+							"R$: " + txtTotal.getText () +
+							"\n\n" + EntregaRetira + "\n" +
+							edtStreetDelivery.getText() + ", nº " +
+							edtNumberDelivery.getText() + " - " +
+						    edtNeighborhoodDelivery.getText()
+		);
 
 		builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
