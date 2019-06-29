@@ -7,7 +7,7 @@ object MockPaymentMethods {
     val paymentMethods: List<String>
         get() {
             val list = ArrayList<String>()
-            list.add("Selecione uma opção")
+   //         list.add("Selecione uma opção")
             list.add("Dinheiro")
             list.add("MasterCard Crédito")
             list.add("MasterCard Débito")
