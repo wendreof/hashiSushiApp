@@ -5,15 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,7 +46,7 @@ import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
-
+	
 	public String EntregaRetira = "";
 	DatabaseReference reference;
 	Activity activity;
@@ -85,8 +81,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_order );
-		getSupportActionBar().hide();
-
+		getSupportActionBar ( ).hide ( );
+		
 		findViewByIds ( );
 		fontLogo ( );
 		fillPayMent ( );
@@ -143,31 +139,28 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	public void onClick ( View v ) {
 		if ( v.getId ( ) == R.id.btnFinishOrder ) {
 			startVibrate ( 190 );
-			valueTest();
-		}
-		else if(v.getId () == R.id.chkBxRetirar){
+			valueTest ( );
+		} else if ( v.getId ( ) == R.id.chkBxRetirar ) {
 			msgShort ( "Retirar" );
-			edtStreetDelivery.setText("Rua São Pedro");
-			edtNeighborhoodDelivery.setText("Centro");
-			edtNumberDelivery.setText("661");
-		}
-		else if (v.getId () == R.id.chkBxEntrega){
+			edtStreetDelivery.setText ( "Rua São Pedro" );
+			edtNeighborhoodDelivery.setText ( "Centro" );
+			edtNumberDelivery.setText ( "661" );
+		} else if ( v.getId ( ) == R.id.chkBxEntrega ) {
 			msgShort ( "Entregar" );
-
+			
 			//trata null pointer quaso orders_user
 			// não exita ainda para o usuario
-
-			if(ordersRecovery != null)
-			{
-				edtStreetDelivery.setText(ordersRecovery.getAddress());
-				edtNeighborhoodDelivery.setText(ordersRecovery.getNeigthborhood());
-				edtNumberDelivery.setText(ordersRecovery.getNumberHome());
-			}else {
-				msgShort("Voçê não tem itens no carrinho.");
-				msgShort("Primeiro adicione itens ao carrinho.");
-				msgShort("Só depois defina o endereço.");
+			
+			if ( ordersRecovery != null ) {
+				edtStreetDelivery.setText ( ordersRecovery.getAddress ( ) );
+				edtNeighborhoodDelivery.setText ( ordersRecovery.getNeigthborhood ( ) );
+				edtNumberDelivery.setText ( ordersRecovery.getNumberHome ( ) );
+			} else {
+				msgShort ( "Voçê não tem itens no carrinho." );
+				msgShort ( "Primeiro adicione itens ao carrinho." );
+				msgShort ( "Só depois defina o endereço." );
 			}
-
+			
 		}
 	}
 	
@@ -181,14 +174,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	// Verifica se o valor total é 0
 	private void valueTest ( ) {
 		
-		Double value =  Double.parseDouble(txtTotal.getText().toString ().replace ( "R$ ","" ).replace ( ",","."  ));
+		Double value = Double.parseDouble ( txtTotal.getText ( ).toString ( ).replace ( "R$ ", "" ).replace ( ",", "." ) );
 		
 		if ( value <= 0 ) {
 			msgShort ( "Não há itens para finalizar o pedido! =x" );
 		} else {
-			msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
-			confirmOrder();
-
+			//msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
+			confirmOrder ( );
+			
 		}
 	}
 	
@@ -219,75 +212,73 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}
 		} );
 	}
-
+	
 	//confimar pedido  --
-	private void confirmOrder()
-	{
-		if(chkBxEntrega.isChecked ()){
+	private void confirmOrder ( ) {
+		if ( chkBxEntrega.isChecked ( ) ) {
 			EntregaRetira = "A ser entregue em: ";
-		}
-		else
-		EntregaRetira = "A ser retirado em: ";
+		} else
+			EntregaRetira = "A ser retirado em: ";
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Finalizar Pedido");
-
-		builder.setMessage("\nDeseja confirmar o pedido de:\n" +
-							"R$: " + txtTotal.getText () +
-							"\n\n" + EntregaRetira + "\n" +
-							edtStreetDelivery.getText() + ", nº " +
-							edtNumberDelivery.getText() + " - " +
-						    edtNeighborhoodDelivery.getText()
+		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
+		builder.setTitle ( "Finalizar Pedido" );
+		
+		builder.setMessage ( "\nDeseja confirmar o pedido de:\n" +
+				"R$: " + txtTotal.getText ( ) + " - " + spnFillPayment.getSelectedItem ( ) +
+				"\n\n" + EntregaRetira + "\n" +
+				edtStreetDelivery.getText ( ) + ", nº " +
+				edtNumberDelivery.getText ( ) + " - " +
+				edtNeighborhoodDelivery.getText ( )
 		);
-
-		builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-
-
+		
+		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( ) {
+			
+			
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-
-				SimpleDateFormat dateFormat_data = new SimpleDateFormat("ddMMyyyy");
-				SimpleDateFormat horaFormat_hora = new SimpleDateFormat("HHmm");
-				Calendar cal = Calendar.getInstance();
-
-				Date data_atual = cal.getTime();
-
-				String hora = horaFormat_hora.format(data_atual);
-				String dataAtual = dateFormat_data.format(data_atual);
-
-				ordersRecovery.setDateOrder(Integer.parseInt(dataAtual));
-				ordersRecovery.setHour(Integer.parseInt(hora));
-				String obs = editObservation.getText().toString();
-				ordersRecovery.setAddress(edtStreetDelivery.getText().toString());
-				ordersRecovery.setNumberHome(edtNumberDelivery.getText().toString());
-				ordersRecovery.setNeigthborhood(edtNeighborhoodDelivery.getText().toString());
-				ordersRecovery.setObservation(obs);
-				ordersRecovery.setQuantProd(qtdItensCar);
-				ordersRecovery.setTotalPrince(totalCar);
+			public void onClick ( DialogInterface dialog, int which ) {
+				
+				SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "ddMMyyyy" );
+				SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HHmm" );
+				Calendar cal = Calendar.getInstance ( );
+				
+				Date data_atual = cal.getTime ( );
+				
+				String hora = horaFormat_hora.format ( data_atual );
+				String dataAtual = dateFormat_data.format ( data_atual );
+				
+				ordersRecovery.setDateOrder ( Integer.parseInt ( dataAtual ) );
+				ordersRecovery.setHour ( Integer.parseInt ( hora ) );
+				String obs = editObservation.getText ( ).toString ( );
+				ordersRecovery.setAddress ( edtStreetDelivery.getText ( ).toString ( ) );
+				ordersRecovery.setNumberHome ( edtNumberDelivery.getText ( ).toString ( ) );
+				ordersRecovery.setNeigthborhood ( edtNeighborhoodDelivery.getText ( ).toString ( ) );
+				ordersRecovery.setObservation ( obs );
+				ordersRecovery.setQuantProd ( qtdItensCar );
+				ordersRecovery.setTotalPrince ( totalCar );
 				//gera codigo caso compra maior 30
-				if(totalCar > 30.00){
-					ordersRecovery.setQrCode(retornIdUser+totalCar);
-				}else {
-					ordersRecovery.setQrCode("");
+				if ( totalCar > 30.00 ) {
+					ordersRecovery.setQrCode ( retornIdUser + totalCar );
+				} else {
+					ordersRecovery.setQrCode ( "" );
 				}
-
-				ordersRecovery.setStatus("confirmado");
-				ordersRecovery.confimar();
-				ordersRecovery.remover();
+				
+				ordersRecovery.setStatus ( "confirmado" );
+				ordersRecovery.confimar ( );
+				ordersRecovery.remover ( );
 				ordersRecovery = null;
-
-				msgShort("Pedido Confirmado");
-				startActPromotion();
-				finish();
-
-
+				
+				msgShort ( "Pedido Confirmado" );
+				startActPromotion ( );
+				finish ( );
+				
+				
 			}
-		}).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( ) {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				msgShort("Pedido não confirmado");
+			public void onClick ( DialogInterface dialog, int which ) {
+				msgShort ( "Pedido não confirmado" );
 			}
-		});
+		} );
 		builder.create ( );
 		builder.show ( );
 	}
@@ -344,8 +335,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				txtTotal.setText ( String.format ( "%s", df.format ( totalCar ).replace ( ".", "," ) ) );
 				
 				//Trata Nullpointer
-				if ( itensCars != null )
-				{
+				if ( itensCars != null ) {
 					
 					adapter = new ArrayAdapter<> ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
 					
@@ -362,8 +352,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	//recupera todos os ids
-	private void findViewByIds ( )
-	{
+	private void findViewByIds ( ) {
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtPedido = findViewById ( R.id.txtPedido );
@@ -373,9 +362,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		btnFinishOrder = findViewById ( R.id.btnFinishOrder );
 		editObservation = findViewById ( R.id.editObservation );
 		lstorder = findViewById ( R.id.lstOrder );
-		edtStreetDelivery = findViewById ( R.id.edtStreetDelivery);
-		edtNumberDelivery = findViewById ( R.id.edtNumberDelivery);
-		edtNeighborhoodDelivery = findViewById ( R.id.edtNeighborhoodDelivery);
+		edtStreetDelivery = findViewById ( R.id.edtStreetDelivery );
+		edtNumberDelivery = findViewById ( R.id.edtNumberDelivery );
+		edtNeighborhoodDelivery = findViewById ( R.id.edtNeighborhoodDelivery );
 		// seta os listeners
 		chkBxRetirar.setOnClickListener ( this );
 		chkBxEntrega.setOnClickListener ( this );
@@ -404,7 +393,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						adapter.notifyDataSetChanged ( ); //atualiza o listview
 						
 						msgShort ( "Item removido do seu carrinho! ;)" );
-
+						
 						ordersRecovery.setName ( user.getName ( ) );
 						ordersRecovery.setAddress ( user.getAddress ( ) );
 						ordersRecovery.setNeigthborhood ( user.getNeigthborhood ( ) );
@@ -426,11 +415,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private void ShowMSG ( String msg ) {
 		Snackbar.make ( ActOrder, msg, Snackbar.LENGTH_LONG ).show ( );
 	}
-
-	private void startActPromotion(){
-		Intent it = new Intent(this, ActPromotion.class);
-		startActivity(it);
+	
+	private void startActPromotion ( ) {
+		Intent it = new Intent ( this, ActPromotion.class );
+		startActivity ( it );
 	}
-
-
+	
+	
 }
