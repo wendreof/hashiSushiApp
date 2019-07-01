@@ -17,17 +17,35 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.widget.TextView
 import android.widget.Toast
 import com.example.hashisushi.R
+import com.example.hashisushi.dao.UserFirebase
+import com.example.hashisushi.model.User
 import com.example.hashisushi.views.cardap.*
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.zxing.integration.android.IntentIntegrator
+import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.act_points.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ActPoints : AppCompatActivity() {
+
     private var points: Int = 0
     // Activity read code
     private val actScanCod = this
+    private var retornIdUser: String? = null
+    private var user: User? = null
+    private var auth: FirebaseAuth? = null
+    private var typeUser: String? = null
+
+    private var user_points_code:TextView? = null
+    private var user_points_name:TextView? = null
+    private var txtponts:TextView? = null
+
+    private var reference: DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +57,13 @@ class ActPoints : AppCompatActivity() {
         bar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
         bar.title = ""
 
-        points = 14
-        val p = points.toString()
-        txtPonts!!.text = p
+        startComponent()
+
+        initDB()
+        retornIdUser = UserFirebase.getIdUser()
+
+       // val p = points.toString()
+       // txtPonts!!.text = p
         controlImgView()
         controlPonts()
         fontLogo()
@@ -50,6 +72,49 @@ class ActPoints : AppCompatActivity() {
         flotBntHomePont!!.setOnClickListener { startVibrate(90); initHome() }
         flotBntScanQcodePont!!.setOnClickListener { startVibrate(90); scanerCode(actScanCod) }
         btnRescuePont!!.setOnClickListener { startVibrate(90); pontinsTest() }
+
+        recoveryDataUser()
+    }
+
+    //recupera dados do usuario esta com
+    private fun recoveryDataUser()
+    {
+        val usuariosDB = retornIdUser?.let { reference?.child("users")?.child(it) }
+
+        usuariosDB?.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.value != null) {
+                    user = dataSnapshot.getValue(User::class.java)
+                }
+                //typeUser = user?.getIsAdmin().toString()
+                user_points_code?.setText(user?.idUser)
+                user_points_name?.setText(user?.name)
+
+                var num: Int? = user?.ponts
+                var strPonts:String = num.toString()
+                txtponts?.setText(strPonts)
+
+                points = user?.ponts!!
+                controlPonts()
+                controlImgView()
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
+    fun initDB()
+    {
+        FirebaseApp.initializeApp(this@ActPoints)
+        this.reference = FirebaseDatabase.getInstance().reference
+    }
+
+    fun startComponent(){
+        user_points_code = findViewById(R.id. user_points_code)
+        user_points_name = findViewById(R.id. user_points_name)
+        txtponts = findViewById(R.id.txtPonts)
+
     }
 
     override fun attachBaseContext(newBase: Context) {

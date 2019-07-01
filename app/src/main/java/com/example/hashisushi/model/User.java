@@ -4,6 +4,8 @@ import com.example.hashisushi.dao.FirebaseConfig;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -33,6 +35,16 @@ public class User implements Serializable {
         DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
         DatabaseReference usuarioRef = firebaseRef.child("users").child(getIdUser());
         usuarioRef.setValue(this);
+    }
+
+    public void uploadPonts(int ponto ) {
+
+        DatabaseReference firebaseRef = FirebaseConfig.getFirebase();
+        DatabaseReference hopperRef = firebaseRef.child("users").child(getIdUser());
+        Map<String, Object> hopperUpdates = new HashMap<>();
+        hopperUpdates.put("ponts", ponto );
+
+        hopperRef.updateChildren(hopperUpdates);
     }
 
     public String getIdUser() {

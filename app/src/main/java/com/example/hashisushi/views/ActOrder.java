@@ -260,11 +260,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery.setObservation ( obs );
 				ordersRecovery.setQuantProd ( qtdItensCar );
 				ordersRecovery.setTotalPrince ( totalCar );
-				//gera codigo caso compra maior 30
-				if ( totalCar > 30.00 ) {
-					ordersRecovery.setQrCode ( retornIdUser + totalCar );
-				} else {
-					ordersRecovery.setQrCode ( "" );
+
+				//gera ponto compra maior 30
+				if ( totalCar > 30.00 )
+				{
+					int p = user.getPonts();
+					p++;
+					user.uploadPonts(p);
 				}
 				
 				ordersRecovery.setStatus ( "confirmado" );
