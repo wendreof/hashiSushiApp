@@ -227,7 +227,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         {
             startVibrate(90);
             //Intent it = new Intent(this, ActSignup.class);
-            Intent it = new Intent(this, ActRegProd.class);
+            Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
         else if (v.getId() == R.id.flotBntExitP)

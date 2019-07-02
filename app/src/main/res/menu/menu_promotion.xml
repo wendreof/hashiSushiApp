@@ -70,9 +70,4 @@
         android:visible="true"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/menu_cad_prod"
-        android:orderInCategory="100"
-        android:title="@string/menu_cad_prod"
-        app:showAsAction="never" />
 </menu>

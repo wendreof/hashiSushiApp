@@ -84,12 +84,12 @@ public class MyMenu extends AppCompatActivity {
             startActivity(it);
             return true;
         }
-        if (id == R.id.menu_cad_prod )
+       /* if (id == R.id.menu_cad_prod )
         {
             Intent it = new Intent(this, ActRegProd.class);
             startActivity(it);
             return true;
-        }
+        }*/
         if (id == R.id.menu_points)
         {
             Intent it = new Intent(this, ActPoints.class);

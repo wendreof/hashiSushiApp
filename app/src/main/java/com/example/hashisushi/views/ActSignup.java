@@ -20,10 +20,14 @@ import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.User;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActSignup extends AppCompatActivity implements OnClickListener
@@ -59,6 +63,7 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         fontLogo();
         btnSignUp.setOnClickListener(this);
         setFilds();
+        recoveryDataUser();
 
     }
     //recupera dados do usuario esta com
@@ -220,5 +225,41 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     private void msgShort(String msg)
     {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    //recupera dados do usuario esta com
+    private void recoveryDataUser()
+    {
+
+
+        DatabaseReference usuariosDB = reference.child("users").child(retornIdUser);
+
+        usuariosDB.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.getValue() != null)
+                {
+                    user = dataSnapshot.getValue(User.class);
+                    userName.setText(user.getName());
+                    userCPF.setText(user.getCpf());
+                    userBornDate.setText(user.getBornDate());
+                    userAddressStreet.setText(user.getAddress()); ;
+                    userAddressNumber.setText(user.getNumberHome());
+                    userAddressNeighborhood.setText(user.getNeigthborhood());
+                    userAddressCity.setText(user.getCity());
+                    userAddressCEP.setText(user.getCep());
+                    userAddressState.setText(user.getState());
+                    userPassword.setText(user.getPassword());
+                    userEmail = findViewById(R.id.user_email);
+                    userPhone.setText(user.getPhone());
+
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 }
