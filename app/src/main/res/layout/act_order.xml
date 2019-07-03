@@ -32,7 +32,7 @@
             android:text="@string/txt_order"
             android:textAlignment="center"
             android:textColor="@color/ic_launcher_background"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTitleReg" />
@@ -125,7 +125,7 @@
 
         <EditText
             android:id="@+id/edtStreetDelivery"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
             android:enabled="false"
             android:text="Rua São Pedro"
@@ -134,13 +134,13 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Número:"
             android:textColor="@color/ic_launcher_background" />
 
         <EditText
             android:id="@+id/edtNumberDelivery"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
             android:enabled="false"
             android:text="661"
@@ -155,7 +155,7 @@
 
         <EditText
             android:id="@+id/edtNeighborhoodDelivery"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
             android:enabled="false"
             android:text="Centro"

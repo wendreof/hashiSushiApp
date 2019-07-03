@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,7 +33,6 @@ import com.example.hashisushi.utils.MockPaymentMethods;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
@@ -81,7 +79,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private int metodoEntrega;
 	
 	@Override
-	protected void onCreate ( Bundle savedInstanceState ) {
+	protected void onCreate ( Bundle savedInstanceState )
+	{
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_order );
 		getSupportActionBar ( ).hide ( );
@@ -102,96 +101,140 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	@Override
-	protected void attachBaseContext ( Context newBase ) {
+	protected void attachBaseContext ( Context newBase )
+	{
 		super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
 	}
 	
 	//Altera fonte do txtLogo
-	private void fontLogo ( ) {
+	private void fontLogo ( )
+	{
 		Typeface font = Typeface.createFromAsset ( getAssets ( ), "RagingRedLotusBB.ttf" );
 		txtTitle.setTypeface ( font );
 		txtPedido.setTypeface ( font );
 	}
 	
 	//Metudo que ativa vibração
-	public void startVibrate ( long time ) {
+	public void startVibrate ( long time )
+	{
 		// cria um obj atvib que recebe seu valor de context
 		Vibrator atvib = ( Vibrator ) getSystemService ( Context.VIBRATOR_SERVICE );
 		atvib.vibrate ( time );
 	}
 	
 	//carrega os métodos de pagamento
-	private void fillPayMent ( ) {
-		try {
+	private void fillPayMent ( )
+	{
+		try
+		{
 			List< String > list = MockPaymentMethods.INSTANCE.getPaymentMethods ( );
 			ArrayAdapter< String > adapter = new ArrayAdapter<> ( this,
 					android.R.layout.simple_list_item_1, list );
 			adapter.setDropDownViewResource ( android.R.layout.simple_spinner_dropdown_item );
 			spnFillPayment.setAdapter ( adapter );
-		} catch ( Exception ex ) {
+		}
+		catch ( Exception ex )
+		{
 			msgShort ( "Erro:" + ex.getMessage ( ) );
 		}
 	}
 	
 	//exibe um ToastView
-	private void msgShort ( String msg ) {
-		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_SHORT ).show ( );
+	private void msgShort ( String msg )
+	{
+		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_LONG ).show ( );
 	}
 	
-	//captura os clicks  -BNT-
+	//captura os clicks dos botões
 	@Override
-	public void onClick ( View v ) {
-		if ( v.getId ( ) == R.id.btnFinishOrder ) {
+	public void onClick ( View v )
+	{
+		if ( v.getId ( ) == R.id.btnFinishOrder )
+		{
 			startVibrate ( 190 );
 			valueTest ( );
-		} else if ( v.getId ( ) == R.id.chkBxRetirar ) {
-			msgShort ( "Retirar" );
+		}
+		else if ( v.getId ( ) == R.id.chkBxRetirar )
+		{
+			//msgShort ( "Retirar" );
 			edtStreetDelivery.setText ( "Rua São Pedro" );
 			edtNeighborhoodDelivery.setText ( "Centro" );
 			edtNumberDelivery.setText ( "661" );
-		} else if ( v.getId ( ) == R.id.chkBxEntrega ) {
-			msgShort ( "Entregar" );
+		}
+		else if ( v.getId ( ) == R.id.chkBxEntrega )
+		{
+			msgShort ( "Clique duas vezes nos campos para alterar o endereço de entrega" );
 			
-			//trata null pointer quaso orders_user
-			// não exita ainda para o usuario
-
-
+			// permite alterar os dados do endereço de entrega!
+			edtStreetDelivery.setEnabled ( true );
+			edtNeighborhoodDelivery.setEnabled ( true );
+			edtNumberDelivery.setEnabled ( true );
+			
+			//trata null pointer casp orders_user não exita ainda para o usuario
 			if(ordersRecovery != null)
 			{
 				edtStreetDelivery.setText(ordersRecovery.getAddress());
 				edtNeighborhoodDelivery.setText(ordersRecovery.getNeigthborhood());
 				edtNumberDelivery.setText(ordersRecovery.getNumberHome());
-			}else {
-				msgShort("Voçê não tem itens no carrinho.");
-				msgShort("Primeiro adicione itens ao carrinho.");
-				msgShort("Só depois podera definir o endereço.");
+				
 			}
-			
+			else
+			{
+				msgShort("Voçê não tem itens no carrinho. \n" +
+				"Primeiro adicione itens para definir o endereço. \n");
+			}
+		}
+		else if (v.getId ( ) == R.id.edtStreetDelivery
+				|| v.getId ( ) == R.id.edtNeighborhoodDelivery
+				|| v.getId ( ) == R.id.edtNumberDelivery)
+		{
+			edtStreetDelivery.setText("");
+			edtNeighborhoodDelivery.setText("");
+			edtNumberDelivery.setText("");
 		}
 	}
 	
 	//ao clicar em volta e chama efeito de transição
 	@Override
-	public void finish ( ) {
+	public void finish ( )
+	{
 		super.finish ( );
 		overridePendingTransition ( R.anim.mover_esquerda, R.anim.fade_out );
 	}
 	
 	// Verifica se o valor total é 0
-	private void valueTest ( ) {
+	private void valueTest ( )
+	{
+		String neighborhood = edtNeighborhoodDelivery.getText().toString ();
+		String streetDelivery = edtStreetDelivery.getText().toString ();
+		String numberDelivery = edtNumberDelivery.getText().toString ();
 		
-		Double value = Double.parseDouble ( txtTotal.getText ( ).toString ( ).replace ( "R$ ", "" ).replace ( ",", "." ) );
-		
-		if ( value <= 0 ) {
-			msgShort ( "Não há itens para finalizar o pedido! =x" );
-		} else {
-			msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
-			confirmOrder();
+		if ( !streetDelivery.equals ( "" ) ||
+			 !neighborhood.equals ( "" ) ||
+			 !numberDelivery.equals ( "" )
+		)
+		{
+			double value = Double.parseDouble (
+					txtTotal.getText ( )
+							.toString ( )
+							.replace ( "R$ ", "" )
+							.replace ( ",", "." ) );
+			
+			if ( value <= 0 )
+			{
+				msgShort ( "Não há itens para finalizar o pedido! =x" );
+			}
+			else
+				//msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
+				confirmOrder ( );
 		}
+		else
+			msgShort ( "Por favor, informe o endereço completo para entrega." );
 	}
 	
 	//recupera dados do usuario
-	private void recoveryDataUser ( ) {
+	private void recoveryDataUser ( )
+	{
 		dialog = new SpotsDialog.Builder ( )
 				.setContext ( this )
 				.setMessage ( "Carregando dados aguarde, por favor aguarde..." )
@@ -218,11 +261,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} );
 	}
 
-	//confimar pedido  --
-	private void confirmOrder ( ) {
-		if ( chkBxEntrega.isChecked ( ) ) {
+	//confimar pedido
+	private void confirmOrder ( )
+	{
+		if ( chkBxEntrega.isChecked ( ) )
+		{
 			EntregaRetira = "A ser entregue em: ";
-		} else
+		}
+		else
 			EntregaRetira = "A ser retirado em: ";
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
@@ -236,12 +282,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				edtNeighborhoodDelivery.getText ( )
 		);
 		
-		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( ) {
-			
-			
+		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( )
+		{
 			@Override
-			public void onClick ( DialogInterface dialog, int which ) {
-				
+			public void onClick ( DialogInterface dialog, int which )
+			{
 				SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "ddMMyyyy" );
 				SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HHmm" );
 				Calendar cal = Calendar.getInstance ( );
@@ -277,13 +322,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				msgShort ( "Pedido Confirmado" );
 				startActPromotion ( );
 				finish ( );
-				
-				
 			}
-		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( ) {
+		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( )
+		{
 			@Override
-			public void onClick ( DialogInterface dialog, int which ) {
-				msgShort ( "Pedido não confirmado" );
+			public void onClick ( DialogInterface dialog, int which )
+			{
+				//msgShort ( "Pedido não confirmado" );
 			}
 		} );
 		builder.create ( );
@@ -291,7 +336,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 
 	//recupera pedido
-	private void recoveryOrder ( ) {
+	private void recoveryOrder ( )
+	{
 		
 		DatabaseReference pedidoRef = reference
 				.child ( "orders_user" )
@@ -358,8 +404,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} );
 	}
 	
-	//recupera todos os ids
-	private void findViewByIds ( ) {
+	//recupera todos os ids e seta os listeners
+	private void findViewByIds ( )
+	{
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtPedido = findViewById ( R.id.txtPedido );
@@ -372,16 +419,23 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		edtStreetDelivery = findViewById ( R.id.edtStreetDelivery );
 		edtNumberDelivery = findViewById ( R.id.edtNumberDelivery );
 		edtNeighborhoodDelivery = findViewById ( R.id.edtNeighborhoodDelivery );
+		
 		// seta os listeners
 		chkBxRetirar.setOnClickListener ( this );
 		chkBxEntrega.setOnClickListener ( this );
+		edtStreetDelivery.setOnClickListener ( this );
+		edtNumberDelivery.setOnClickListener ( this );
+		edtNeighborhoodDelivery.setOnClickListener ( this );
 	}
 	
 	//captura o click no listview
-	private void lstorderClick ( ) {
-		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+	private void lstorderClick ( )
+	{
+		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( )
+		{
 			@Override
-			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId ) {
+			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId )
+			{
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder ( ActOrder.this );
 				builder.setTitle ( "Remover item" );
@@ -419,14 +473,15 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} );
 	}
 	
-	private void ShowMSG ( String msg ) {
+	private void ShowMSG ( String msg )
+	{
 		Snackbar.make ( ActOrder, msg, Snackbar.LENGTH_LONG ).show ( );
 	}
 	
-	private void startActPromotion ( ) {
+	// Inicializa activityPromotion
+	private void startActPromotion ( )
+	{
 		Intent it = new Intent ( this, ActPromotion.class );
 		startActivity ( it );
 	}
-	
-	
 }

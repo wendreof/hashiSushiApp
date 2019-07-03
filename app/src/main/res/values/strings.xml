@@ -7,9 +7,9 @@
     <string name="txt_name">Hashi Sushi</string>
     <string name="hide_email">Informe seu e-mail</string>
     <string name="hint_password">Informe sua senha</string>
-    <string name="promotions">PROMOÇÕES</string>
+    <string name="promotions">PROMOCOES</string>
     <string name="txt_search">Buscar prato:</string>
-    <string name="txt_menu_sales">CARDAPÍO</string>
+    <string name="txt_menu_sales">CARDAPIO</string>
     <string name="hint_seach_plate">Informe o prato para busca</string>
     <string name="txt_list_plate">Pratos e Bebidas</string>
     <string name="cadastro">Cadastro</string>
@@ -60,7 +60,7 @@
     <string name="points">Pontos:</string>
     <string name="_8">0</string>
     <string name="txt_open">Estamos Atendeno:</string>
-    <string name="txt_close">Não estamos atendeno.</string>
+    <string name="txt_close">Não estamos atendendo</string>
     <string name="txt_order">Pedido</string>
     <string name="txt_orders">Itens do Pedido:</string>
     <string name="ridio_btn_Delivery">Entregar</string>
@@ -73,7 +73,7 @@
     <string name="title_activity_act_cardap">Cardapio</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_act_cardapio">Cardápio</string>
+    <string name="title_activity_act_cardapio">Cardapio</string>
 
     <string-array name="titles_tab">
         <item>ENTRADA</item>
@@ -88,7 +88,7 @@
     <string name="txt_enter">ENTRADA</string>
     <string name="txt_plat_hot">PRATOS</string>
     <string name="txt_plat_ace">MONTE SEU PRATOS</string>
-    <string name="txt_portions">PORÇÔES</string>
+    <string name="txt_portions">PORCOES</string>
     <string name="txt_temakis">TEMAKIS</string>
     <string name="txt_combo">COMBO</string>
     <string name="txt_driks">BEBIDAS E SUCOS</string>
