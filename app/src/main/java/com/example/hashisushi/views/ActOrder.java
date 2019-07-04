@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -316,6 +315,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				
 				ordersRecovery.setStatus ( "confirmado" );
 				ordersRecovery.confimar ( );
+
+				orders = ordersRecovery;
+
 				ordersRecovery.remover ( );
 				ordersRecovery = null;
 				
@@ -472,16 +474,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			
 		} );
 	}
-	
-	private void ShowMSG ( String msg )
-	{
-		Snackbar.make ( ActOrder, msg, Snackbar.LENGTH_LONG ).show ( );
-	}
-	
+
 	// Inicializa activityPromotion
 	private void startActPromotion ( )
 	{
 		Intent it = new Intent ( this, ActPromotion.class );
 		startActivity ( it );
 	}
+
+
+
 }

@@ -1,9 +1,14 @@
 package com.example.hashisushi.views;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -19,9 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ActSplash extends AppCompatActivity {
 
     private TextView txtDelivery;
-    private TextView txtwhats;
     private ImageView imgLogoS;
-    private ImageView imgWhats;
+
 
     private FirebaseAuth auth;
 
@@ -35,21 +39,31 @@ public class ActSplash extends AppCompatActivity {
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+       boolean statuInternet =  isOnline(this);
+
         initComponent();
         fontLogo();
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (statuInternet == false)
+       {
+           alertOffline();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-               // startActivity(new Intent(getBaseContext(),ActLogin.class));
-                testUserCurrent();
-                finish();
-            }
-        },5000);
+       }else {
 
-        this.auth = FirebaseAuth.getInstance();
+           getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+           new Handler().postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   // startActivity(new Intent(getBaseContext(),ActLogin.class));
+                   testUserCurrent();
+                   finish();
+               }
+           },5000);
+
+            this.auth = FirebaseAuth.getInstance();
+
+       }
 
      }
     //Altera fonte do txtLogo
@@ -58,10 +72,7 @@ public class ActSplash extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtDelivery.setTypeface(font);
-        txtwhats.setTypeface(font);
-
         imgLogoS.setImageResource(R.drawable.lghashi);
-        imgWhats.setImageResource(R.drawable.whats);
 
     }
 
@@ -69,15 +80,14 @@ public class ActSplash extends AppCompatActivity {
     {
 
         txtDelivery = findViewById(R.id.txtDelivery);
-        txtwhats = findViewById(R.id.txtWhats);
         imgLogoS = findViewById(R.id.imgLogoS);
-        imgWhats = findViewById(R.id.imgWhats);
+
     }
 
     //case user login  ok  actpromotion
     public void testUserCurrent(){
 
-        if (auth.getCurrentUser() != null)
+        if (auth.getCurrentUser() != null )
         {
             Intent it = new Intent(this, ActPromotion.class);
             startActivity(it);
@@ -90,5 +100,41 @@ public class ActSplash extends AppCompatActivity {
         }
 
     }
+
+    //test coctividade
+    public static boolean isOnline(Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+
+    //confimar pedido
+    private void alertOffline ( )
+    {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder ( this );
+        builder.setTitle ( "Sem Intenet !" );
+
+        builder.setMessage ("O Hashi Sushi não funciona sem internet verifique sua conexão e tente novamente");
+
+        builder.setPositiveButton ( "Entendi", new DialogInterface.OnClickListener ( )
+        {
+            @Override
+            public void onClick ( DialogInterface dialog, int which )
+            {
+                finish ( );
+            }
+        } );
+        builder.create ( );
+        builder.show ( );
+    }
+
+
 
 }

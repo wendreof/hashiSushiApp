@@ -18,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
     tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.ActRegProd" />
         <activity android:name=".views.ActLogin" />
         <activity android:name=".views.ActOrder" />
         <activity android:name=".views.ActSignup" />

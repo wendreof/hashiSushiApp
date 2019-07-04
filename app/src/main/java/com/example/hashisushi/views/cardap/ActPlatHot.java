@@ -39,10 +39,8 @@ import com.example.hashisushi.model.Product;
 
 
 import com.example.hashisushi.model.User;
-import com.example.hashisushi.utils.MyMenu;
 import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
-import com.example.hashisushi.views.ActRegProd;
 import com.example.hashisushi.views.ActSignup;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;

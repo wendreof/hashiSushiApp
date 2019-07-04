@@ -88,7 +88,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     private int qtdItensCar ;
     private Double totalCar ;
-    private boolean typeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,7 +98,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
         bar.setTitle("");
-        //getSupportActionBar().hide();
 
         //Travæ rotaçãø da tela
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -125,14 +123,12 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     }//end oncreat
 
-
     //Altera fonte do txtLogo
     private void fontLogo(){
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtPromution.setTypeface(font);
         txtStatus.setTypeface(font);
-        // txtLogoC.setTypeface(font);
     }
     private void recycleOnclick()
     {
@@ -165,9 +161,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         );
     }
 
+    //Configura recyclerview
     private void recyclerViewConfig()
     {
-        //Configura recyclerview
+
         list_produsts.setLayoutManager(new LinearLayoutManager(this));
         list_produsts.setHasFixedSize(true);
         adapterProduct = new AdapterProduct(productsList, this);
@@ -226,7 +223,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.flotBntEditPersonP)
         {
             startVibrate(90);
-            //Intent it = new Intent(this, ActSignup.class);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
@@ -265,9 +261,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     public void initSearch()
     {
-        //retorna usuarios
+        //retorna produto
         DatabaseReference productDB = reference.child("product");
-        //retorna o no setado
+        //retorna tipo setado
         Query querySearch = productDB.orderByChild("promotion").equalTo(true);
 
         //cria um ouvinte
@@ -296,7 +292,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
-
 
     //comfirmar item com dialog
     private void confirmItem(final int position, Product produtoSelecionado )
@@ -393,7 +388,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 {
                     user = dataSnapshot.getValue(User.class);
                 }
-                typeUser = user.getIsAdmin();
 
                 recoveryOrder();
             }
@@ -534,12 +528,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             startActivity(it);
             return true;
         }
-       /* if (id == R.id.menu_cad_prod )
-        {
-                Intent it = new Intent(this, ActRegProd.class);
-                startActivity(it);
-            return true;
-        }*/
         if (id == R.id.menu_points)
         {
             Intent it = new Intent(this, ActPoints.class);
