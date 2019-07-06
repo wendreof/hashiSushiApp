@@ -6,6 +6,7 @@ public class Product implements Serializable {
 
     private String description;
     private String idProd;
+    private String idInterno;
     private Boolean isPromotion;
     private String name;
     private String salePrice;
@@ -15,6 +16,14 @@ public class Product implements Serializable {
 
     public Product() {
 
+    }
+
+    public String getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(String idInterno) {
+        this.idInterno = idInterno;
     }
 
     public String getDescription() {
@@ -78,6 +87,7 @@ public class Product implements Serializable {
         return "Product{" +
                 "description='" + description + '\'' +
                 ", idProd='" + idProd + '\'' +
+                ", idInterno='" + idInterno + '\'' +
                 ", isPromotion=" + isPromotion +
                 ", name='" + name + '\'' +
                 ", salePrice='" + salePrice + '\'' +

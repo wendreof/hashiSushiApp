@@ -37,7 +37,6 @@ import com.example.hashisushi.model.OrderItens;
 import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
 
-
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
@@ -69,7 +68,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     private FloatingActionButton flotBntPlanAcePh;
 
     private TextView txtCardapPh;
-    //private TextView txtLogoPh;
     private TextView txtPlatHot;
 
     private DatabaseReference reference ;
@@ -93,8 +91,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_plat_hot);
-
-        //getSupportActionBar().hide();
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
@@ -134,15 +130,10 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
                             }
 
                             @Override
-                            public void onLongItemClick(View view, int position) {
-                                Product produtoSelecionado = productsList.get(position);
-
-                            }
+                            public void onLongItemClick(View view, int position) { }
 
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
                         }
                 )
         );
@@ -170,9 +161,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         if ( v.getId() == R.id.flotBntVoltarPh ) {
 
             startVibrate(90);
-            //Intent it = new Intent(ActPlatHot.this, ActSaleCardap.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-           // startActivity(it);
             finish();
         }
         if ( v.getId() == R.id.flotBntFinishPh ) {
@@ -182,6 +170,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
             startActivity( it );
 
         }if(v.getId() == R.id.flotBntEdtPersoPh){
+
             startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
@@ -206,7 +195,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardapPh.setTypeface(font);
-       // txtLogoPh.setTypeface(font);
         txtPlatHot.setTypeface(font);
     }
 
@@ -237,7 +225,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         txtQuantItensPh = findViewById( R.id.txtQuantItensPh);
         txtTotalOrderPh = findViewById( R.id.txtTotalOrderPh);
         txtCardapPh = findViewById(R.id.txtCardapPh);
-       // txtLogoPh = findViewById(R.id.txtLogoPh);
         txtPlatHot = findViewById(R.id.txtPlaHot);
 
         flotBntVoltarPh = findViewById(R.id.flotBntVoltarPh);
@@ -246,15 +233,12 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         flotBntPlanAcePh = findViewById(R.id.flotBntPlanAcePh);
 
         lstPlaHot = findViewById(R.id.LstPlatHot);
-
-
     }
 
     public void initSearch(){
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
-        //retorna o no setado
-        // DatabaseReference usersSearch = users.child("0001");
+
         Query querySearch = productDB.orderByChild("type").equalTo("Pratos");
 
         //cria um ouvinte
@@ -301,6 +285,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
+
                     OrderItens itemOrder = new OrderItens();
 
                     itemOrder.setIdProduct(productSelectd.getIdProd());
@@ -310,8 +295,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 
                     itensCars.add(itemOrder);
                     msgShort("Produto adicionado ao seu carrinho!");
-
-                    // msgShort(itensCars.toString());
 
                     if (ordersRecovery == null)
                     {
@@ -451,9 +434,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
     }
 

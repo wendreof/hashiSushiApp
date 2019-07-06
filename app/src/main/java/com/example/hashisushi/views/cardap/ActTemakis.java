@@ -66,7 +66,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 	private TextView txtQuantItensT;
 	private TextView txtTotalOrderT;
 	private TextView txtCardapT;
-	//private TextView txtLogoT;
 	private TextView txtTemakis;
 	
 	private DatabaseReference reference;
@@ -87,7 +86,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_temakis );
-		//getSupportActionBar().hide();
 
 		ActionBar bar = getSupportActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
@@ -121,15 +119,10 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 							}
 							
 							@Override
-							public void onLongItemClick ( View view, int position ) {
-								//Product produtoSelecionado = productsList.get(position);
-								// msgShort("Produto :"+produtoSelecionado);
-							}
+							public void onLongItemClick ( View view, int position ) { }
 							
 							@Override
-							public void onItemClick ( AdapterView< ? > parent, View view, int position, long id ) {
-							
-							}
+							public void onItemClick ( AdapterView< ? > parent, View view, int position, long id ) { }
 						}
 				)
 		);
@@ -152,9 +145,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 		if ( v.getId ( ) == R.id.flotBntVoltarT ) {
 			
 			startVibrate ( 90 );
-			//Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
-			//it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-			//startActivity(it);
 			finish ( );
 			
 		}
@@ -238,7 +228,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 		flotBntComboT.setOnClickListener ( this );
 		
 		txtCardapT = findViewById ( R.id.txtCardapT );
-		//txtLogoT = findViewById ( R.id.txtLogoT );
 		txtTemakis = findViewById ( R.id.txtTemakis );
 		
 		lstTemakis = findViewById ( R.id.LstTemakis );
@@ -303,8 +292,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 					
 					itensCars.add ( itemOrder );
 					msgShort ( "Produto adicionado ao seu carrinho!" );
-					
-					// msgShort(itensCars.toString());
 					
 					if ( ordersRecovery == null ) {
 						ordersRecovery = new Orders ( retornIdUser );

@@ -158,9 +158,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         if ( v.getId() == R.id.flotBntVoltarC ) {
 
             startVibrate(90);
-            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //startActivity(it);
             finish();
 
         }
@@ -194,7 +191,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardapC.setTypeface(font);
         txtCombo.setTypeface(font);
-       // txtLogoC.setTypeface(font);
     }
 
     private void openPortins(){
@@ -231,7 +227,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         flotBntPortinsC = findViewById(R.id.flotBntPortinsC);
 
         txtCardapC = findViewById(R.id.txtCardapC);
-       // txtLogoC = findViewById(R.id.txtLogoC);
         txtCombo = findViewById(R.id.txtCombo);
 
         flotBntVoltarC.setOnClickListener(this);
@@ -297,6 +292,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
+
                     OrderItens itemOrder = new OrderItens();
 
                     itemOrder.setIdProduct(productSelectd.getIdProd());

@@ -128,14 +128,10 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
                             }
 
                             @Override
-                            public void onLongItemClick(View view, int position) {
-
-                            }
+                            public void onLongItemClick(View view, int position) { }
 
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
                         }
                 )
         );
@@ -163,9 +159,6 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         if ( v.getId() == R.id.flotBntVoltarAce ) {
 
             startVibrate(90);
-            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //startActivity(it);
             finish();
 
         }
@@ -198,7 +191,6 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardapA.setTypeface(font);
-        //txtLogoA.setTypeface(font);
         txtPlatAce.setTypeface(font);
     }
 
@@ -234,18 +226,15 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         flotBntTemakisAce = findViewById(R.id.flotBntTemakisAce);
 
         txtCardapA = findViewById(R.id.txtCardapA);
-        //txtLogoA = findViewById(R.id.txtLogoA);
         txtPlatAce = findViewById(R.id.txtPlatAce);
 
         lstPlaAce = findViewById(R.id.LstPlatAce);
-
     }
 
     public void initSearch(){
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
-        //retorna o no setado
-        // DatabaseReference usersSearch = users.child("0001");
+
         Query querySearch = productDB.orderByChild("type").equalTo("Monte_Prato");
 
         productsList.clear();
@@ -293,6 +282,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
+
                     OrderItens itemOrder = new OrderItens();
 
                     itemOrder.setIdProduct(productSelectd.getIdProd());

@@ -57,7 +57,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActPortions extends AppCompatActivity implements View.OnClickListener {
 
-
     private TextView txtQuantItensPor;
     private TextView  txtTotalOrderPor;
 
@@ -67,7 +66,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
     private FloatingActionButton flotBntDrinksPor;
 
     private TextView txtCardapPor;
-   // private TextView txtLogoPor;
     private TextView txtPortions;
 
     private DatabaseReference reference ;
@@ -89,8 +87,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_portions);
-
-        //getSupportActionBar().hide();
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
@@ -131,15 +127,10 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
                             }
 
                             @Override
-                            public void onLongItemClick(View view, int position) {
-                                Product produtoSelecionado = productsList.get(position);
-
-                            }
+                            public void onLongItemClick(View view, int position) { }
 
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
                         }
                 )
         );
@@ -167,9 +158,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         if ( v.getId() == R.id.flotBntVoltarPor ) {
 
             startVibrate(90);
-            //Intent it = new Intent(ActPlatHot.this, ActSaleCardap.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            // startActivity(it);
             finish();
         }
         if ( v.getId() == R.id.flotBntFinishPor ) {
@@ -234,7 +222,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         txtQuantItensPor = findViewById( R.id.txtQuantItensPor);
         txtTotalOrderPor = findViewById( R.id.txtTotalOrderPor);
         txtCardapPor = findViewById(R.id.txtCardapPor);
-       // txtLogoPor = findViewById(R.id.txtLogoPor);
         txtPortions = findViewById(R.id.txtPortions);
 
         flotBntVoltarPor = findViewById(R.id.flotBntVoltarPor);
@@ -297,6 +284,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
+
                     OrderItens itemOrder = new OrderItens();
 
                     itemOrder.setIdProduct(productSelectd.getIdProd());
@@ -306,8 +294,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 
                     itensCars.add(itemOrder);
                     msgShort("Produto adicionado ao seu carrinho!");
-
-                    // msgShort(itensCars.toString());
 
                     if (ordersRecovery == null)
                     {

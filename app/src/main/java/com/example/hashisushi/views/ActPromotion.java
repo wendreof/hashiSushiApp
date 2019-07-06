@@ -318,10 +318,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                     Product productSelectd = productsList.get(position);
                     OrderItens itemOrder = new OrderItens();
 
+
                     itemOrder.setIdProduct(productSelectd.getIdProd());
                     itemOrder.setNameProduct(productSelectd.getName());
                     itemOrder.setItenSalePrice(productSelectd.getSalePrice());
-
                     itemOrder.setQuantity(Integer.parseInt(quantity));
 
                     itensCars.add(itemOrder);

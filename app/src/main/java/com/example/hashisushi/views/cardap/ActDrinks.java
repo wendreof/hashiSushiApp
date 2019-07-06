@@ -14,8 +14,6 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -91,8 +89,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_drinks);
 
-        //getSupportActionBar().hide();
-
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
         bar.setTitle("");
@@ -108,7 +104,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         recyclerViewConfig();
         recycleOnclick();
         recoveryDataUser();
-
     }
 
     private void recycleOnclick(){
@@ -126,8 +121,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                //Product produtoSelecionado = productsList.get(position);
-                                // msgShort("Produto :"+produtoSelecionado);
+
                             }
 
                             @Override
@@ -160,9 +154,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         if ( v.getId() == R.id.flotBntVoltarD ) {
 
             startVibrate(90);
-            //Intent it = new Intent(ActPlatAce.this, ActPlatHot.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //startActivity(it);
             finish();
 
         }
@@ -244,8 +235,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     public void initSearch(){
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
-        //retorna o no setado
-        // DatabaseReference usersSearch = users.child("0001");
+
         Query querySearch = productDB.orderByChild("type").equalTo("Bebidas");
 
         productsList.clear();
@@ -253,7 +243,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         querySearch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
                     Product product = objSnapshot.getValue(Product.class);
@@ -293,6 +282,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
+
                     OrderItens itemOrder = new OrderItens();
 
                     itemOrder.setIdProduct(productSelectd.getIdProd());

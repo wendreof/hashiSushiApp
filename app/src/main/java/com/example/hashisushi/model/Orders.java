@@ -36,8 +36,10 @@ public class Orders implements Serializable {
         DatabaseReference pedidoRef = firebaseRef
                 .child("orders_user")
                 .child(idUser);
+
         UUID uuid = UUID.randomUUID();
         String strUuid = uuid.toString();
+
         setIdOrders(strUuid);
     }
 
