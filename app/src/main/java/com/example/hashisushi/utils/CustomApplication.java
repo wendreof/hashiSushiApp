@@ -44,6 +44,4 @@ public class CustomApplication extends Application {
 			}
 		} );
 	}
-	
-	
 }

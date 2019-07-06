@@ -118,6 +118,4 @@ public class Order implements Serializable {
     public void setObservation(String observation) {
         this.observation = observation;
     }
-
-
 }

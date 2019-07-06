@@ -257,10 +257,9 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtEmail.setText("");
         edtSenha.setText("");
     }
-
-    private void ShowMSG(String msg)
-    {
-        Snackbar.make(ActLogin, msg, Snackbar.LENGTH_LONG).show();
+    
+    private void ShowMSG(String msg) {
+        Snackbar.make ( ActLogin, msg, Snackbar.LENGTH_LONG ).show ( );
     }
 
     private void setEmailUser()

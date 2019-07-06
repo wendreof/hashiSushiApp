@@ -22,8 +22,7 @@ public class ProductDao {
         this.reference = FirebaseDatabase.getInstance().getReference();
        //FirebaseApp.initializeApp(Act);
     }
-
-
+    
     public void addProduct(Product product) {
 
         DatabaseReference productsDB = reference.child("product");
@@ -62,5 +61,4 @@ public class ProductDao {
             }
         });
     }
-
 }

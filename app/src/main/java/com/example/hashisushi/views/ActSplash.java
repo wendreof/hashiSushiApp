@@ -7,18 +7,15 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.WindowManager;
-
-
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hashisushi.R;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ActSplash extends AppCompatActivity {
@@ -28,6 +25,18 @@ public class ActSplash extends AppCompatActivity {
 
 
     private FirebaseAuth auth;
+
+    //test coctividade
+    public static boolean isOnline(Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,7 @@ public class ActSplash extends AppCompatActivity {
        }
 
      }
+
     //Altera fonte do txtLogo
     private void fontLogo()
     {
@@ -99,18 +109,6 @@ public class ActSplash extends AppCompatActivity {
             startActivity(it);
         }
 
-    }
-
-    //test coctividade
-    public static boolean isOnline(Context context)
-    {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-
-        if (netInfo != null && netInfo.isConnected())
-            return true;
-        else
-            return false;
     }
 
     //confimar pedido
