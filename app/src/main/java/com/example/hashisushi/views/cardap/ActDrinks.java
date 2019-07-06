@@ -10,13 +10,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -36,7 +36,6 @@ import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
-
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActPromotion;
 import com.example.hashisushi.views.ActSignup;
@@ -50,7 +49,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;

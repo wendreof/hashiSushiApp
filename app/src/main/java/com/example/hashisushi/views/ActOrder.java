@@ -71,15 +71,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private ScrollView ActOrder;
 	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private List< Product > productsList = new ArrayList<> ( );
-	private List<Orders>ordersList = new ArrayList<>();
+	private List< Orders > ordersList = new ArrayList<> ( );
 	private int qtdItensCar;
 	private Double totalCar;
 	private Orders orders;
 	private int metodoEntrega;
 	
 	@Override
-	protected void onCreate ( Bundle savedInstanceState )
-	{
+	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_order );
 		getSupportActionBar ( ).hide ( );
@@ -96,73 +95,59 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		recoveryDataUser ( ); //recupera os dados do user
 		lstorderClick ( ); //listener do listview
-
+		
 	}
 	
 	@Override
-	protected void attachBaseContext ( Context newBase )
-	{
+	protected void attachBaseContext ( Context newBase ) {
 		super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
 	}
 	
 	//Altera fonte do txtLogo
-	private void fontLogo ( )
-	{
+	private void fontLogo ( ) {
 		Typeface font = Typeface.createFromAsset ( getAssets ( ), "RagingRedLotusBB.ttf" );
 		txtTitle.setTypeface ( font );
 		txtPedido.setTypeface ( font );
 	}
 	
 	//Metudo que ativa vibração
-	public void startVibrate ( long time )
-	{
+	public void startVibrate ( long time ) {
 		// cria um obj atvib que recebe seu valor de context
 		Vibrator atvib = ( Vibrator ) getSystemService ( Context.VIBRATOR_SERVICE );
 		atvib.vibrate ( time );
 	}
 	
 	//carrega os métodos de pagamento
-	private void fillPayMent ( )
-	{
-		try
-		{
+	private void fillPayMent ( ) {
+		try {
 			List< String > list = MockPaymentMethods.INSTANCE.getPaymentMethods ( );
 			ArrayAdapter< String > adapter = new ArrayAdapter<> ( this,
 					android.R.layout.simple_list_item_1, list );
 			adapter.setDropDownViewResource ( android.R.layout.simple_spinner_dropdown_item );
 			spnFillPayment.setAdapter ( adapter );
-		}
-		catch ( Exception ex )
-		{
+		} catch ( Exception ex ) {
 			msgShort ( "Erro:" + ex.getMessage ( ) );
 		}
 	}
 	
 	//exibe um ToastView
-	private void msgShort ( String msg )
-	{
+	private void msgShort ( String msg ) {
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_LONG ).show ( );
 	}
 	
 	//captura os clicks dos botões
 	@Override
-	public void onClick ( View v )
-	{
-		if ( v.getId ( ) == R.id.btnFinishOrder )
-		{
+	public void onClick ( View v ) {
+		if ( v.getId ( ) == R.id.btnFinishOrder ) {
 			startVibrate ( 190 );
 			valueTest ( );
-		}
-		else if ( v.getId ( ) == R.id.chkBxRetirar )
-		{
+		} else if ( v.getId ( ) == R.id.chkBxRetirar ) {
 			//msgShort ( "Retirar" );
 			edtStreetDelivery.setText ( "Rua São Pedro" );
 			edtNeighborhoodDelivery.setText ( "Centro" );
 			edtNumberDelivery.setText ( "661" );
-		}
-		else if ( v.getId ( ) == R.id.chkBxEntrega )
-		{
-			msgShort ( "Clique duas vezes nos campos para alterar o endereço de entrega" );
+		} else if ( v.getId ( ) == R.id.chkBxEntrega ) {
+			msgShort ( "Clique 2x nos campos para alterar o endereço de entrega!" );
 			
 			// permite alterar os dados do endereço de entrega!
 			edtStreetDelivery.setEnabled ( true );
@@ -170,70 +155,57 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			edtNumberDelivery.setEnabled ( true );
 			
 			//trata null pointer casp orders_user não exita ainda para o usuario
-			if(ordersRecovery != null)
-			{
-				edtStreetDelivery.setText(ordersRecovery.getAddress());
-				edtNeighborhoodDelivery.setText(ordersRecovery.getNeigthborhood());
-				edtNumberDelivery.setText(ordersRecovery.getNumberHome());
+			if ( ordersRecovery != null ) {
+				edtStreetDelivery.setText ( ordersRecovery.getAddress ( ) );
+				edtNeighborhoodDelivery.setText ( ordersRecovery.getNeigthborhood ( ) );
+				edtNumberDelivery.setText ( ordersRecovery.getNumberHome ( ) );
 				
+			} else {
+				msgShort ( "Voçê não tem itens no carrinho. \n" +
+						"Primeiro adicione itens para definir o endereço. \n" );
 			}
-			else
-			{
-				msgShort("Voçê não tem itens no carrinho. \n" +
-				"Primeiro adicione itens para definir o endereço. \n");
-			}
-		}
-		else if (v.getId ( ) == R.id.edtStreetDelivery
+		} else if ( v.getId ( ) == R.id.edtStreetDelivery
 				|| v.getId ( ) == R.id.edtNeighborhoodDelivery
-				|| v.getId ( ) == R.id.edtNumberDelivery)
-		{
-			edtStreetDelivery.setText("");
-			edtNeighborhoodDelivery.setText("");
-			edtNumberDelivery.setText("");
+				|| v.getId ( ) == R.id.edtNumberDelivery ) {
+			edtStreetDelivery.setText ( "" );
+			edtNeighborhoodDelivery.setText ( "" );
+			edtNumberDelivery.setText ( "" );
 		}
 	}
 	
 	//ao clicar em volta e chama efeito de transição
 	@Override
-	public void finish ( )
-	{
+	public void finish ( ) {
 		super.finish ( );
 		overridePendingTransition ( R.anim.mover_esquerda, R.anim.fade_out );
 	}
 	
 	// Verifica se o valor total é 0
-	private void valueTest ( )
-	{
-		String neighborhood = edtNeighborhoodDelivery.getText().toString ();
-		String streetDelivery = edtStreetDelivery.getText().toString ();
-		String numberDelivery = edtNumberDelivery.getText().toString ();
+	private void valueTest ( ) {
+		String neighborhood = edtNeighborhoodDelivery.getText ( ).toString ( );
+		String streetDelivery = edtStreetDelivery.getText ( ).toString ( );
+		String numberDelivery = edtNumberDelivery.getText ( ).toString ( );
 		
-		if ( !streetDelivery.equals ( "" ) ||
-			 !neighborhood.equals ( "" ) ||
-			 !numberDelivery.equals ( "" )
-		)
-		{
+		if ( streetDelivery.equals ( "" ) || neighborhood.equals ( "" ) || numberDelivery.equals ( "" ) ) {
+			msgShort ( "Por favor, informe o endereço completo para entrega." );
+			
+		} else {
 			double value = Double.parseDouble (
 					txtTotal.getText ( )
 							.toString ( )
 							.replace ( "R$ ", "" )
 							.replace ( ",", "." ) );
 			
-			if ( value <= 0 )
-			{
+			if ( value <= 0 ) {
 				msgShort ( "Não há itens para finalizar o pedido! =x" );
-			}
-			else
+			} else
 				//msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
 				confirmOrder ( );
 		}
-		else
-			msgShort ( "Por favor, informe o endereço completo para entrega." );
 	}
 	
 	//recupera dados do usuario
-	private void recoveryDataUser ( )
-	{
+	private void recoveryDataUser ( ) {
 		dialog = new SpotsDialog.Builder ( )
 				.setContext ( this )
 				.setMessage ( "Carregando dados aguarde, por favor aguarde..." )
@@ -259,15 +231,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}
 		} );
 	}
-
+	
 	//confimar pedido
-	private void confirmOrder ( )
-	{
-		if ( chkBxEntrega.isChecked ( ) )
-		{
+	private void confirmOrder ( ) {
+		if ( chkBxEntrega.isChecked ( ) ) {
 			EntregaRetira = "A ser entregue em: ";
-		}
-		else
+		} else
 			EntregaRetira = "A ser retirado em: ";
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
@@ -281,11 +250,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				edtNeighborhoodDelivery.getText ( )
 		);
 		
-		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( )
-		{
+		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( ) {
 			@Override
-			public void onClick ( DialogInterface dialog, int which )
-			{
+			public void onClick ( DialogInterface dialog, int which ) {
 				SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "ddMMyyyy" );
 				SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HHmm" );
 				Calendar cal = Calendar.getInstance ( );
@@ -304,20 +271,19 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery.setObservation ( obs );
 				ordersRecovery.setQuantProd ( qtdItensCar );
 				ordersRecovery.setTotalPrince ( totalCar );
-
+				
 				//gera ponto compra maior 30
-				if ( totalCar > 30.00 )
-				{
-					int p = user.getPonts();
+				if ( totalCar > 30.00 ) {
+					int p = user.getPonts ( );
 					p++;
-					user.uploadPonts(p);
+					user.uploadPonts ( p );
 				}
 				
 				ordersRecovery.setStatus ( "confirmado" );
 				ordersRecovery.confimar ( );
-
+				
 				orders = ordersRecovery;
-
+				
 				ordersRecovery.remover ( );
 				ordersRecovery = null;
 				
@@ -325,21 +291,18 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				startActPromotion ( );
 				finish ( );
 			}
-		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( )
-		{
+		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( ) {
 			@Override
-			public void onClick ( DialogInterface dialog, int which )
-			{
+			public void onClick ( DialogInterface dialog, int which ) {
 				//msgShort ( "Pedido não confirmado" );
 			}
 		} );
 		builder.create ( );
 		builder.show ( );
 	}
-
+	
 	//recupera pedido
-	private void recoveryOrder ( )
-	{
+	private void recoveryOrder ( ) {
 		
 		DatabaseReference pedidoRef = reference
 				.child ( "orders_user" )
@@ -407,8 +370,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	//recupera todos os ids e seta os listeners
-	private void findViewByIds ( )
-	{
+	private void findViewByIds ( ) {
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtPedido = findViewById ( R.id.txtPedido );
@@ -431,13 +393,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	//captura o click no listview
-	private void lstorderClick ( )
-	{
-		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( )
-		{
+	private void lstorderClick ( ) {
+		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
 			@Override
-			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId )
-			{
+			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId ) {
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder ( ActOrder.this );
 				builder.setTitle ( "Remover item" );
@@ -474,14 +433,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			
 		} );
 	}
-
+	
 	// Inicializa activityPromotion
-	private void startActPromotion ( )
-	{
+	private void startActPromotion ( ) {
 		Intent it = new Intent ( this, ActPromotion.class );
 		startActivity ( it );
 	}
-
-
-
 }

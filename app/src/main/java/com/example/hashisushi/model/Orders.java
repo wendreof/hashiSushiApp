@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class Orders implements Serializable {
-
-    private String idOrders;
-    private String idUser;
-    private String name;
-    private String address;
-    private String neigthborhood;
-    private String numberHome;
-    private String cellphone;
+	
+	private String idOrders;
+	private String idUser;
+	private String name;
+	private String address;
+	private String neigthborhood;
+	private String numberHome;
+	private String cellphone;
 	private int dateOrder;
     private int hour;
     private String qrCode;
@@ -231,4 +231,5 @@ public class Orders implements Serializable {
                 ", status='" + status + '\'' +
                 '}';
     }
+
 }
