@@ -36,10 +36,7 @@ import com.example.hashisushi.listener.RecyclerItemClickListener;
 import com.example.hashisushi.model.OrderItens;
 import com.example.hashisushi.model.Orders;
 import com.example.hashisushi.model.Product;
-<<<<<<< HEAD
 
-=======
->>>>>>> 8cb2d17f5b9ca4b5012ef4c825a29f57fc812cf6
 import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
