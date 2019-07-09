@@ -40,7 +40,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	private TextView  meioPagamento;
 	private TextView  enderecoSimplificado;
 	private TextView  previsaoEntrega;
-	private CheckBox confirmed;
+	private CheckBox done;
 	private CheckBox doing;
 	private CheckBox received;
 	private String retornIdUser;
@@ -71,6 +71,9 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		
 		recoveryDataUser ( ); //recupera os dados do user
 		
+		done.setClickable ( false );
+		doing.setClickable ( false );
+		received.setClickable ( false );
 	}
 	
 	@Override
@@ -177,15 +180,12 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		enderecoSimplificado = findViewById ( R.id.enderecoSimplificado );
 		previsaoEntrega = findViewById ( R.id.previsaoEntrega );
 		dataPedido = findViewById ( R.id.dataPedido );
-		confirmed = findViewById ( R.id.done );
+		done = findViewById ( R.id.done );
 		doing = findViewById ( R.id.doing );
 		received = findViewById ( R.id.received );
 		
 		//listeners
 		numberToCall.setOnClickListener ( this );
-		confirmed.setOnClickListener ( this );
-		doing.setOnClickListener ( this );
-		received.setOnClickListener ( this );
 	}
 	
 	@Override
