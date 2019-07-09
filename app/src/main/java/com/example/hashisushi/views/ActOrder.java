@@ -436,7 +436,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	
 	// Inicializa activityPromotion
 	private void startActPromotion ( ) {
-		Intent it = new Intent ( this, ActPromotion.class );
-		startActivity ( it );
+		//Intent it = new Intent ( this, ActPromotion.class )
+		
+		Intent i = new Intent(getApplicationContext(), ActWait.class);
+		startActivity(i);
 	}
 }

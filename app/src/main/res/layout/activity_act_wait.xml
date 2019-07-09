@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSmoky"
+    android:padding="20dp"
+    tools:context=".views.ActWait">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="677dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitleReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:paddingBottom="30sp"
+            android:text="Status do Pedido"
+            android:textAlignment="center"
+            android:textColor="@color/ic_launcher_background"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitleReg" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cliente: "
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/nomeCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cód. pedido:"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/codPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valor total:"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/valorTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Meio de pagamento:"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/meioPagamento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entregar/Retirar em:"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/enderecoSimplificado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/received"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:clickable="false"
+            android:text="Recebido"
+            android:layout_marginTop="30sp"
+            android:textColor="@android:color/background_light"
+            android:textSize="25sp" />
+
+        <CheckBox
+            android:id="@+id/doing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="Em preparo"
+            android:textColor="@android:color/background_light"
+            android:textSize="25sp" />
+
+        <CheckBox
+            android:id="@+id/done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finalizado"
+            android:clickable="false"
+            android:layout_marginBottom="30sp"
+            android:textColor="@android:color/background_light"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data/Hora pedido:"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/dataPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Previsão de entrega:"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/previsaoEntrega"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" XXXXX"
+                android:textSize="15sp"
+                android:textColor="@color/colorHintText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alguma dúvida?      "
+                android:textColor="@color/colorHintText"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/numberToCall"
+                android:layout_width="211dp"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_phone_black_24dp"
+                android:text=" (19) 98605-6578"
+                android:textColor="@color/colorHintText"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

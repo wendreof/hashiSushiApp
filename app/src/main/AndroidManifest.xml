@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".utils.CustomApplication"
@@ -17,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-    tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".views.ActWait"></activity>
         <activity android:name=".views.ActLogin" />
         <activity android:name=".views.ActOrder" />
         <activity android:name=".views.ActSignup" />
@@ -30,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".views.cardap.ActSaleCardap"
             android:parentActivityName=".views.cardap.ActPlatHot">
@@ -38,7 +39,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActPlatHot" />
         </activity>
-
         <activity
             android:name=".views.cardap.ActPlatHot"
             android:parentActivityName=".views.cardap.ActPlatAce">
@@ -46,7 +46,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.ActPoints" />
         </activity>
-
         <activity
             android:name=".views.cardap.ActPlatAce"
             android:parentActivityName=".views.cardap.ActTemakis">
@@ -54,7 +53,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActTemakis" />
         </activity>
-
         <activity
             android:name=".views.cardap.ActTemakis"
             android:parentActivityName=".views.cardap.ActCombo">
@@ -62,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActCombo" />
         </activity>
-
         <activity
             android:name=".views.cardap.ActCombo"
             android:parentActivityName=".views.cardap.ActPortions">
@@ -70,7 +67,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActPortions" />
         </activity>
-
         <activity
             android:name=".views.cardap.ActPortions"
             android:parentActivityName=".views.cardap.ActDrinks">
@@ -78,7 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hashisushi.views.cardap.ActDrinks" />
         </activity>
-
         <activity
             android:name=".views.cardap.ActDrinks"
             android:parentActivityName=".views.ActOrder">
