@@ -41,7 +41,7 @@ public class ActSplash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_act_splash);
+        setContentView(R.layout.act_splash);
 
         getSupportActionBar().hide();
 

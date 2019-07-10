@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.adapter.AdapterItensOrders;
 import com.example.hashisushi.dao.FirebaseConfig;
 import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.OrderItens;
@@ -49,7 +50,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	public String EntregaRetira = "";
 	DatabaseReference reference;
 	Activity activity;
-	ArrayAdapter< OrderItens > adapter;
+	//ArrayAdapter< OrderItens > adapter;
+	private AdapterItensOrders adapter;
+
 	private TextView txtTitle;
 	private TextView txtPedido;
 	private TextView txtTotal;
@@ -62,20 +65,22 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private EditText edtNeighborhoodDelivery;
 	private Button btnFinishOrder;
 	private String emailUser;
-	private ListView lstorder;
-	private Context context;
+	private ListView lstOrder;
+	//private Context context;
 	private AlertDialog dialog;
 	private String retornIdUser;
 	private User user;
 	private Orders ordersRecovery;
 	private ScrollView ActOrder;
+
 	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private List< Product > productsList = new ArrayList<> ( );
 	private List< Orders > ordersList = new ArrayList<> ( );
+
 	private int qtdItensCar;
 	private Double totalCar;
 	private Orders orders;
-	private int metodoEntrega;
+	//private int metodoEntrega;
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -355,9 +360,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				//Trata Nullpointer
 				if ( itensCars != null ) {
 					
-					adapter = new ArrayAdapter<> ( getApplicationContext ( ), android.R.layout.simple_list_item_1, itensCars );
-					
-					lstorder.setAdapter ( adapter );
+					adapter = new AdapterItensOrders ( getApplicationContext ( ), itensCars );
+
+					lstOrder.setAdapter ( adapter );
 				}
 				dialog.dismiss ( );
 			}
@@ -379,7 +384,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		chkBxEntrega = findViewById ( R.id.chkBxEntrega );
 		btnFinishOrder = findViewById ( R.id.btnFinishOrder );
 		editObservation = findViewById ( R.id.editObservation );
-		lstorder = findViewById ( R.id.lstOrder );
+		lstOrder = findViewById ( R.id.lstOrder );
 		edtStreetDelivery = findViewById ( R.id.edtStreetDelivery );
 		edtNumberDelivery = findViewById ( R.id.edtNumberDelivery );
 		edtNeighborhoodDelivery = findViewById ( R.id.edtNeighborhoodDelivery );
@@ -390,11 +395,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		edtStreetDelivery.setOnClickListener ( this );
 		edtNumberDelivery.setOnClickListener ( this );
 		edtNeighborhoodDelivery.setOnClickListener ( this );
+
 	}
 	
 	//captura o click no listview
 	private void lstorderClick ( ) {
-		lstorder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+		lstOrder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
 			@Override
 			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId ) {
 				
@@ -411,7 +417,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						itemOrder.setQuantity ( itemOrder.getQuantity ( ) - 1 );
 						
 						itensCars.remove ( itemOrder );//remove o item do carrinho!
-						adapter.remove ( adapter.getItem ( position ) ); //remove do listview
+
+						//adapter.remove ( adapter.getItem ( position ) ); //remove do listview
+						//adp chama metudo remover  
+						adapter.remove ( position );
 						adapter.notifyDataSetChanged ( ); //atualiza o listview
 						
 						msgShort ( "Item removido do seu carrinho! ;)" );
