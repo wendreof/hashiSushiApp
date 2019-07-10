@@ -534,6 +534,13 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             startActivity(it);
             return true;
         }
+        if (id == R.id.menu_satus)
+        {
+            Intent it = new Intent(this, ActWait.class);
+            startActivity(it);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

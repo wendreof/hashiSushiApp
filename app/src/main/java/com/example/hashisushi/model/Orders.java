@@ -16,8 +16,8 @@ public class Orders implements Serializable {
 	private String neigthborhood;
 	private String numberHome;
 	private String cellphone;
-	private int dateOrder;
-    private int hour;
+	private String dateOrder;
+    private String hour;
     private String qrCode;
     private int quantProd;
     private int discont;
@@ -138,7 +138,7 @@ public class Orders implements Serializable {
         this.cellphone = cellphone;
     }
 
-    public int getDateOrder() {
+  /*  public int getDateOrder() {
         return dateOrder;
     }
 
@@ -151,6 +151,22 @@ public class Orders implements Serializable {
     }
 
     public void setHour(int hour) {
+        this.hour = hour;
+    }*/
+
+    public String getDateOrder() {
+        return dateOrder;
+    }
+
+    public void setDateOrder(String dateOrder) {
+        this.dateOrder = dateOrder;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
         this.hour = hour;
     }
 

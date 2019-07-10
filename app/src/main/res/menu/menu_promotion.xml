@@ -4,6 +4,9 @@
     tools:context="com.rangelti.lamp.ActPromotion">
 
     <item
+        android:id="@+id/menu_satus"
+        android:title="@string/menu_sattus" />
+    <item
         android:id="@+id/menu_points"
         android:icon="@drawable/ic_ponits_black_24dp"
         android:orderInCategory="100"

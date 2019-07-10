@@ -256,6 +256,12 @@ class ActPoints : AppCompatActivity() {
             startActivity(it)
             return true
         }
+        if (id == R.id.menu_satus) {
+            val it = Intent(this, ActWait::class.java)
+            startActivity(it)
+            return true
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

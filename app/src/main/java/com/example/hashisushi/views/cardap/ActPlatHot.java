@@ -41,6 +41,7 @@ import com.example.hashisushi.model.User;
 import com.example.hashisushi.views.ActOrder;
 import com.example.hashisushi.views.ActPoints;
 import com.example.hashisushi.views.ActSignup;
+import com.example.hashisushi.views.ActWait;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -502,6 +503,12 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         if (id == R.id.menu_points)
         {
             Intent it = new Intent(this, ActPoints.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.menu_satus)
+        {
+            Intent it = new Intent(this, ActWait.class);
             startActivity(it);
             return true;
         }

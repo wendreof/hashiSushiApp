@@ -258,8 +258,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( ) {
 			@Override
 			public void onClick ( DialogInterface dialog, int which ) {
-				SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "ddMMyyyy" );
-				SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HHmm" );
+				SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "dd/MM/yyyy" );
+				SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HH:mm" );
 				Calendar cal = Calendar.getInstance ( );
 				
 				Date data_atual = cal.getTime ( );
@@ -267,8 +267,10 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				String hora = horaFormat_hora.format ( data_atual );
 				String dataAtual = dateFormat_data.format ( data_atual );
 				
-				ordersRecovery.setDateOrder ( Integer.parseInt ( dataAtual ) );
-				ordersRecovery.setHour ( Integer.parseInt ( hora ) );
+				//ordersRecovery.setDateOrder ( Integer.parseInt ( dataAtual ) );
+				//ordersRecovery.setHour ( Integer.parseInt ( hora ) );
+				ordersRecovery.setDateOrder ( dataAtual );
+				ordersRecovery.setHour ( hora );
 				String obs = editObservation.getText ( ).toString ( );
 				ordersRecovery.setAddress ( edtStreetDelivery.getText ( ).toString ( ) );
 				ordersRecovery.setNumberHome ( edtNumberDelivery.getText ( ).toString ( ) );
@@ -419,7 +421,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						itensCars.remove ( itemOrder );//remove o item do carrinho!
 
 						//adapter.remove ( adapter.getItem ( position ) ); //remove do listview
-						//adp chama metudo remover  
+						//adp chama metudo remover
 						adapter.remove ( position );
 						adapter.notifyDataSetChanged ( ); //atualiza o listview
 						
