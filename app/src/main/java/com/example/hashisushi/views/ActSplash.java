@@ -117,9 +117,8 @@ public class ActSplash extends AppCompatActivity {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder ( this );
-        builder.setTitle ( "Sem Intenet !" );
-
-        builder.setMessage ("O Hashi Sushi não funciona sem internet verifique sua conexão e tente novamente");
+        builder.setTitle ( "Sem conexão :(" );
+        builder.setMessage ("Para utilizar o aplicativo, por favor verifique sua conexão de dados e tente novamente. Obrigado!");
 
         builder.setPositiveButton ( "Entendi", new DialogInterface.OnClickListener ( )
         {
