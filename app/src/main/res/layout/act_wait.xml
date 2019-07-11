@@ -39,13 +39,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="266dp"
+            android:layout_height="228dp"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_statusOrders"
                 android:layout_width="match_parent"
-                android:layout_height="257dp" />
+                android:layout_height="215dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,9 +64,9 @@
                 android:id="@+id/previsaoEntrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" XXXXX"
-                android:textSize="15sp"
-                android:textColor="@color/colorHintText" />
+                android:text="@string/txt_previsap_entrega"
+                android:textColor="@color/colorHintText"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/zxing_viewfinder_laser" />
+            android:textColor="@color/color_green_status" />
 
         <TextView
             android:id="@+id/txtIdOrder"

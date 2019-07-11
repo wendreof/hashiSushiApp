@@ -1,13 +1,15 @@
 <resources>
+
     <string name="app_name">Hashi Sushi</string>
     <string name="txt_user">E-mail:</string>
     <string name="txt_password">Senha:</string>
     <string name="btn_login">ENTRAR</string>
     <string name="btn_signUp">CADASTRAR</string>
+    <string name="marcos_f_c_rangel">Marcos F C Rangel</string>
     <string name="txt_name">Hashi Sushi</string>
     <string name="hide_email">Informe seu e-mail</string>
     <string name="hint_password">Informe sua senha</string>
-    <string name="promotions">PROMOCOES</string>
+    <string name="promotions">PROMOCÕES</string>
     <string name="txt_search">Buscar prato:</string>
     <string name="txt_menu_sales">CARDAPIO</string>
     <string name="hint_seach_plate">Informe o prato para busca</string>
@@ -56,11 +58,10 @@
     <string name="code">Código:</string>
     <string name="_2071">2071</string>
     <string name="client">Cliente:</string>
-    <string name="marcos_f_c_rangel">Marcos F C Rangel</string>
     <string name="points">Pontos:</string>
     <string name="_8">0</string>
-    <string name="txt_open">Estamos Atendeno:</string>
-    <string name="txt_close">Não estamos atendendo</string>
+    <string name="txt_open">ESTAMOS ATENDENO</string>
+    <string name="txt_close">NÃO ESTAMOS ATENDENO</string>
     <string name="txt_order">Pedido</string>
     <string name="txt_orders">Itens do Pedido:</string>
     <string name="ridio_btn_Delivery">Entregar</string>
@@ -121,8 +122,8 @@
     <string name="txt_splash_fone">19 9.8605-6578</string>
     <string name="vgs">Vargem Grande do Sul</string>
     <string name="SP">São Paulo</string>
-    <string name="we_are_not_open">Não estamos atendendo agora!</string>
-    <string name="we_are_open_now">Estamos atendendo!</string>
+    <string name="we_are_not_open">NÃO ESTAMOS ATENDENDO</string>
+    <string name="we_are_open_now">ESTAMOS ATENDENDO</string>
     <string name="app_finished">Hashi Sushi Finalizado!</string>
     <string name="please_type_password">Por favor, preencha esse campo!</string>
     <string name="please_type_email">Por favor, preencha esse campo!</string>
@@ -144,8 +145,9 @@
     <string name="txt_quant_item">Qt:</string>
     <string name="txt_qt">0</string>
     <string name="txt_total_order">R$:</string>
-    <string name="menu_sattus">STATUS PEDIDO</string>
-    //key face login
+    <string name="menu_sattus">STATUS PEDIDOS</string>
+    <string name="txt_previsap_entrega">40 min. Em média</string>
 
 
 </resources>
+

@@ -38,10 +38,7 @@ class ActPoints : AppCompatActivity() {
     private val actScanCod = this
     private var retornIdUser: String? = null
     private var user: User? = null
-    private var auth: FirebaseAuth? = null
-    private var typeUser: String? = null
 
-    private var user_points_code:TextView? = null
     private var user_points_name:TextView? = null
     private var txtponts:TextView? = null
 
@@ -53,18 +50,22 @@ class ActPoints : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         //supportActionBar!!.hide()
 
+        //mostra toobar s/ titulu cor preta
         val bar = supportActionBar
         bar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
         bar.title = ""
 
+        //inicia componebtes
         startComponent()
 
+        //inicia DB
         initDB()
+
         retornIdUser = UserFirebase.getIdUser()
 
-       // val p = points.toString()
-       // txtPonts!!.text = p
+        //controla exibição de imagens pontos
         controlImgView()
+        //controla os pontos
         controlPonts()
         fontLogo()
 
@@ -73,6 +74,7 @@ class ActPoints : AppCompatActivity() {
         flotBntScanQcodePont!!.setOnClickListener { startVibrate(90); scanerCode(actScanCod) }
         btnRescuePont!!.setOnClickListener { startVibrate(90); pontinsTest() }
 
+        //recupera dado user
         recoveryDataUser()
     }
 
@@ -83,11 +85,12 @@ class ActPoints : AppCompatActivity() {
 
         usuariosDB?.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.value != null) {
+
+                if (dataSnapshot.value != null)
+                {
                     user = dataSnapshot.getValue(User::class.java)
                 }
-                //typeUser = user?.getIsAdmin().toString()
-                user_points_code?.setText(user?.idUser)
+
                 user_points_name?.setText(user?.name)
 
                 var num: Int? = user?.ponts
@@ -110,14 +113,15 @@ class ActPoints : AppCompatActivity() {
         this.reference = FirebaseDatabase.getInstance().reference
     }
 
-    fun startComponent(){
-        user_points_code = findViewById(R.id. user_points_code)
+    fun startComponent()
+    {
         user_points_name = findViewById(R.id. user_points_name)
         txtponts = findViewById(R.id.txtPonts)
 
     }
-
-    override fun attachBaseContext(newBase: Context) {
+    //altera fonts
+    override fun attachBaseContext(newBase: Context)
+    {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
@@ -137,6 +141,7 @@ class ActPoints : AppCompatActivity() {
         integrator.initiateScan()
     }
 
+    //sacaner
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
@@ -731,296 +736,6 @@ class ActPoints : AppCompatActivity() {
                 imgVw23!!.visibility = INVISIBLE
                 imgVw24!!.visibility = INVISIBLE
                 imgVw25!!.visibility = INVISIBLE
-            }
-            16 -> {
-                imgVw16!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-
-                imgVw17!!.visibility = INVISIBLE
-                imgVw18!!.visibility = INVISIBLE
-                imgVw19!!.visibility = INVISIBLE
-                imgVw20!!.visibility = INVISIBLE
-                imgVw21!!.visibility = INVISIBLE
-                imgVw22!!.visibility = INVISIBLE
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            17 -> {
-                imgVw17!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-
-                imgVw18!!.visibility = INVISIBLE
-                imgVw19!!.visibility = INVISIBLE
-                imgVw20!!.visibility = INVISIBLE
-                imgVw21!!.visibility = INVISIBLE
-                imgVw22!!.visibility = INVISIBLE
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            18 -> {
-                imgVw18!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-
-                imgVw18!!.visibility = INVISIBLE
-                imgVw19!!.visibility = INVISIBLE
-                imgVw20!!.visibility = INVISIBLE
-                imgVw21!!.visibility = INVISIBLE
-                imgVw22!!.visibility = INVISIBLE
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            19 -> {
-                imgVw19!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-
-                imgVw20!!.visibility = INVISIBLE
-                imgVw21!!.visibility = INVISIBLE
-                imgVw22!!.visibility = INVISIBLE
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            20 -> {
-                imgVw20!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-                imgVw19!!.visibility = VISIBLE
-
-                imgVw21!!.visibility = INVISIBLE
-                imgVw22!!.visibility = INVISIBLE
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            21 -> {
-                imgVw21!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-                imgVw19!!.visibility = VISIBLE
-                imgVw20!!.visibility = VISIBLE
-
-                imgVw22!!.visibility = INVISIBLE
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            22 -> {
-                imgVw22!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-                imgVw19!!.visibility = VISIBLE
-                imgVw20!!.visibility = VISIBLE
-                imgVw21!!.visibility = VISIBLE
-
-                imgVw23!!.visibility = INVISIBLE
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            23 -> {
-                imgVw23!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-                imgVw19!!.visibility = VISIBLE
-                imgVw20!!.visibility = VISIBLE
-                imgVw21!!.visibility = VISIBLE
-                imgVw22!!.visibility = VISIBLE
-
-                imgVw24!!.visibility = INVISIBLE
-                imgVw25!!.visibility = INVISIBLE
-            }
-            24 -> {
-                imgVw24!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-                imgVw19!!.visibility = VISIBLE
-                imgVw20!!.visibility = VISIBLE
-                imgVw21!!.visibility = VISIBLE
-                imgVw22!!.visibility = VISIBLE
-                imgVw23!!.visibility = VISIBLE
-
-                imgVw25!!.visibility = INVISIBLE
-            }
-            25 -> {
-                imgVw25!!.visibility = VISIBLE
-
-                imgVw1!!.visibility = VISIBLE
-                imgVw2!!.visibility = VISIBLE
-                imgVw3!!.visibility = VISIBLE
-                imgVw4!!.visibility = VISIBLE
-                imgVw5!!.visibility = VISIBLE
-                imgVw6!!.visibility = VISIBLE
-                imgVw7!!.visibility = VISIBLE
-                imgVw8!!.visibility = VISIBLE
-                imgVw9!!.visibility = VISIBLE
-                imgVw10!!.visibility = VISIBLE
-                imgVw11!!.visibility = VISIBLE
-                imgVw12!!.visibility = VISIBLE
-                imgVw13!!.visibility = VISIBLE
-                imgVw14!!.visibility = VISIBLE
-                imgVw15!!.visibility = VISIBLE
-                imgVw16!!.visibility = VISIBLE
-                imgVw17!!.visibility = VISIBLE
-                imgVw18!!.visibility = VISIBLE
-                imgVw19!!.visibility = VISIBLE
-                imgVw20!!.visibility = VISIBLE
-                imgVw21!!.visibility = VISIBLE
-                imgVw22!!.visibility = VISIBLE
-                imgVw23!!.visibility = VISIBLE
-                imgVw24!!.visibility = VISIBLE
             }
         }
     }

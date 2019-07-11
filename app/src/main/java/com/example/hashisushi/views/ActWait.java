@@ -19,13 +19,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hashisushi.R;
 import com.example.hashisushi.adapter.AdapterStatusOrders;
 import com.example.hashisushi.dao.FirebaseConfig;
 import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.Orders;
-import com.example.hashisushi.model.Product;
 import com.example.hashisushi.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,29 +38,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	
-	DatabaseReference reference;
+	private DatabaseReference reference;
 	private TextView txtTitle;
 	private TextView dataPedido;
 	private TextView  previsaoEntrega;
-
 	private String retornIdUser;
 	private Orders orders;
 	private TextView numberToCall;
 
 	private AdapterStatusOrders adapterStatusOrders;
-
 	private RecyclerView list_statusOrders;
-
 	private List<Orders> ordersList = new ArrayList<>();
-
-	private User user;
 	private TextView txtPedido;
 	
 	@Override
@@ -74,13 +68,17 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 
 		retornIdUser = UserFirebase.getIdUser ( );
 		reference = FirebaseConfig.getFirebase ( );
-		
-		recoveryDataUser ( ); //recupera os dados do user
-		//listesnerEventPedidos(retornIdUser);
-		getOrder(retornIdUser);
+
+		listesnerEventPedidos(retornIdUser);
 		recyclerViewConfig();
 
 
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		finish();
 	}
 
 	//Configura recyclerview
@@ -97,29 +95,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	protected void attachBaseContext ( Context newBase ) {
 		super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
 	}
-	
-	private void recoveryDataUser ( ) {
 
-		
-		
-		DatabaseReference usuariosDB = reference.child ( "users" ).child ( retornIdUser );
-		
-		usuariosDB.addListenerForSingleValueEvent ( new ValueEventListener ( ) {
-			@Override
-			public void onDataChange ( DataSnapshot dataSnapshot ) {
-				if ( dataSnapshot.getValue ( ) != null ) {
-					user = dataSnapshot.getValue ( User.class );
-				}
-			}
-			
-			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			
-			}
-		} );
-	}
-
-	
 	//Altera fonte do txtLogo
 	private void fontLogo ( ) {
 		Typeface font = Typeface.createFromAsset ( getAssets ( ), "RagingRedLotusBB.ttf" );
@@ -157,84 +133,40 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 
 		//retorna pedido
 		DatabaseReference pedidosDB = reference.child("orders");
-
-		final Query querySearch = pedidosDB.orderByChild("idUser").equalTo(idUser);
+		//recupara pedidos do user limitando  por id
+		Query querySearch = pedidosDB.orderByChild("idUser").equalTo(idUser);
 
 
 		querySearch.addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-				/*
-				Orders orders = dataSnapshot.getValue(Orders.class);
 
+				//pode ser usado para carregar lista
+				Orders orders = dataSnapshot.getValue(Orders.class);
 				ordersList.add(orders);
 
 				adapterStatusOrders.notifyDataSetChanged();
-				*/
 			}
 
 			@Override
 			public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+				// qualquer mudança de status sera alertada
 				Orders orders = dataSnapshot.getValue(Orders.class);
-				System.out.println("PEDIDO MODOU Status-------  "+orders.getStatus());
-
-				if (orders.getStatus().equals("entregue")){
-
-				}
-
-					notificacao(orders);
-
+				notificacao(orders);
 			}
 
 			@Override
-			public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-				Orders orders = dataSnapshot.getValue(Orders.class);
-				System.out.println("PEDIDO REMOVIDO-------  "+orders.getStatus());
-
-			}
+			public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
 
 			@Override
-			public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-			}
+			public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
 
 			@Override
 			public void onCancelled(@NonNull DatabaseError databaseError) {
-
+				msgShort("Status Erro "+databaseError);
 			}
 		});
 
-	}
-
-	public void getOrder(final String idUser)
-	{
-		//retorna pedido
-		DatabaseReference pedidosDB = reference.child("orders");
-
-		final Query querySearch = pedidosDB.orderByChild("idUser").equalTo(idUser);
-
-		//cria um ouvinte
-		querySearch.addValueEventListener(new ValueEventListener()
-		{
-			@Override
-			public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-			{
-
-				for (DataSnapshot objSnapshot : dataSnapshot.getChildren())
-				{
-					Orders orders = objSnapshot.getValue(Orders.class);
-					ordersList.add(orders);
-				}
-
-				adapterStatusOrders.notifyDataSetChanged();
-
-				listesnerEventPedidos(idUser);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError databaseError) { }
-		});
 	}
 
 
@@ -275,20 +207,21 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		}
 	}
 
-
-	private void tempEntrega()
+	private String getDate()
 	{
-		SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HHmm");
+		SimpleDateFormat dateFormat_data = new SimpleDateFormat("dd/MM/yyyy" );
 
 		Calendar cal = Calendar.getInstance();
 		Date data_atual = cal.getTime();
 
-		String hora_atual = dateFormat_hora.format(data_atual);
-		Integer intHora = Integer.parseInt(hora_atual);
+		String data = dateFormat_data.format(data_atual);
+
+		return data;
+	}
 
 
-		String numero = "sd657dsf765sdaf756";
-		numero = numero.replaceAll("[^0-9]*", "");
-
+	private void msgShort(String msg)
+	{
+		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 	}
 }

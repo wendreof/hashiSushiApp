@@ -10,5 +10,6 @@
 
     <color name="colorSmoky">#070707</color>
     <color name="colorHintText">#9E9090</color>
+    <color name="color_green_status">#07C717</color>
 
 </resources>
