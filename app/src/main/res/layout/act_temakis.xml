@@ -195,7 +195,7 @@
 
         <TextView
             android:id="@+id/txt_quant_item"
-            android:layout_width="30dp"
+            android:layout_width="49dp"
             android:layout_height="20dp"
             android:text="@string/txt_quant_item"
             android:textAlignment="textEnd"
