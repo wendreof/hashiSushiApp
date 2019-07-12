@@ -38,20 +38,27 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
 
         Orders orders = ordersList.get(i);
 
-        holder.idOrders.setText("Cod Pedido :" + orders.getIdOrders());
-        holder.name.setText("Nome :" + orders.getName());
-        holder.dateOrder.setText("Data :" + orders.getDateOrder());
-        holder.hour.setText("Hora :" + orders.getHour());
-        holder.quantProd.setText("Qt itens :" + orders.getQuantProd());
-        holder.discont.setText("Desconto :" + orders.getDiscont());
-        holder.status.setText("Status :" + orders.getStatus());
-        holder.totalPrince.setText("Total do Pedido:" + orders.getTotalPrince());
+        holder.idOrders.setText("Cód. pedido: " + orders.getIdOrders());
+        holder.name.setText("Cliente: " + orders.getName());
+        holder.dateOrder.setText("Data: " + orders.getDateOrder());
+        holder.hour.setText("Hora: " + orders.getHour());
+        holder.quantProd.setText("Itens: " + orders.getQuantProd());
+        holder.discont.setText("Desconto: " + orders.getDiscont());
+        holder.status.setText("Status: " + orders.getStatus());
+        holder.totalPrince.setText("Total: " + orders.getTotalPrince());
     }
 
     @Override
     public int getItemCount() {
 
         return ordersList.size();
+    }
+
+    public void updateListOrdes(int position) {
+
+        this.ordersList.remove(position);
+        notifyDataSetChanged();
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -81,12 +88,4 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
 
         }
     }
-
-    public void updateListOrdes(int position) {
-
-        this.ordersList.remove(position);
-        notifyDataSetChanged();
-
-    }
-
 }

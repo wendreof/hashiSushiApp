@@ -45,7 +45,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_statusOrders"
                 android:layout_width="match_parent"
-                android:layout_height="215dp" />
+                android:layout_height="247dp"
+                android:layout_marginBottom="30dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Previsão de entrega:"
+                android:layout_marginTop="30dp"
                 android:textSize="15sp"
                 android:textColor="@color/colorHintText" />
 
@@ -64,6 +66,7 @@
                 android:id="@+id/previsaoEntrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="@string/txt_previsap_entrega"
                 android:textColor="@color/colorHintText"
                 android:textSize="15sp" />
@@ -77,7 +80,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:text="Alguma dúvida?      "
                 android:textColor="@color/colorHintText"
                 android:textSize="15sp" />
