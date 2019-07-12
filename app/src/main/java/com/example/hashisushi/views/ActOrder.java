@@ -50,12 +50,12 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	public String EntregaRetira = "";
 	DatabaseReference reference;
 	Activity activity;
-	//ArrayAdapter< OrderItens > adapter;
 	private AdapterItensOrders adapter;
 
 	private TextView txtTitle;
 	private TextView txtPedido;
 	private TextView txtTotal;
+	private TextView txtDesconto;
 	private Spinner spnFillPayment;
 	private RadioButton chkBxRetirar;
 	private RadioButton chkBxEntrega;
@@ -66,7 +66,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private Button btnFinishOrder;
 	private String emailUser;
 	private ListView lstOrder;
-	//private Context context;
 	private AlertDialog dialog;
 	private String retornIdUser;
 	private User user;
@@ -79,8 +78,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 
 	private int qtdItensCar;
 	private Double totalCar;
+	private Double desconto;
 	private Orders orders;
-	//private int metodoEntrega;
+
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -100,9 +100,34 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		recoveryDataUser ( ); //recupera os dados do user
 		lstorderClick ( ); //listener do listview
+		recuperaDesconto();
 		
 	}
-	
+
+	@Override
+	public void onBackPressed()
+	{
+		finish();
+	}
+
+	//recupera desconto enviado por usuario
+	private void recuperaDesconto()
+	{
+		String desc = "0.00" ;
+
+		if(System.getProperty("DESCONTO_ENV") != null) {
+
+			desc = System.getProperty("DESCONTO_ENV");
+
+			if (desc.equals("30.00")) {
+				txtDesconto.setText(desc);
+			} else {
+				txtDesconto.setText("0,00");
+			}
+
+		}
+	}
+
 	@Override
 	protected void attachBaseContext ( Context newBase ) {
 		super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
@@ -246,9 +271,20 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
 		builder.setTitle ( "Finalizar Pedido" );
-		
+
+		//captura valores
+		String strTotal = txtTotal.getText().toString();
+		String strDesconto = txtDesconto.getText().toString();
+
+		double dblTotal = Double.parseDouble (
+				strTotal.replace ( ",", "." ) );
+
+		double dblDesconto = Double.parseDouble(strDesconto);
+
+		Double totalComDesconto =  dblTotal - dblDesconto ;
+
 		builder.setMessage ( "\nDeseja confirmar o pedido de:\n" +
-				"R$: " + txtTotal.getText ( ) + " - " + spnFillPayment.getSelectedItem ( ) +
+				"R$: " + totalComDesconto + " - " + spnFillPayment.getSelectedItem ( ) +
 				"\n\n" + EntregaRetira + "\n" +
 				edtStreetDelivery.getText ( ) + ", nº " +
 				edtNumberDelivery.getText ( ) + " - " +
@@ -277,12 +313,33 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery.setNeigthborhood ( edtNeighborhoodDelivery.getText ( ).toString ( ) );
 				ordersRecovery.setObservation ( obs );
 				ordersRecovery.setQuantProd ( qtdItensCar );
-				ordersRecovery.setTotalPrince ( totalCar );
+
+				//recupera desconto
+				desconto = Double.valueOf( txtDesconto.getText().toString() ) ;
+				ordersRecovery.setDiscont( desconto );
 
 				//Recupera pontos
 				int p = user.getPonts ( );
+
+				//se  maior 0 ponto  igual zero
+				// total recebe totalCar - desconto
+				//seta total zera e atualiza pontos
+				if(desconto > 0 && p == 15)
+				{
+					Double total = totalCar - desconto;
+
+					ordersRecovery.setTotalPrince ( total );
+					//zera pontos atualiza
+					p = 0;
+					user.uploadPonts(p);
+					System.clearProperty("DESCONTO_ENV");
+				}else{
+					ordersRecovery.setTotalPrince ( totalCar );
+				}
+
 				//gera ponto compra maior 30
-				if ( totalCar > 30.00 && p < 15) {
+				if ( totalCar > 30.00 && p < 15)
+				{
 					p++;
 					user.uploadPonts ( p );
 				}
@@ -381,6 +438,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private void findViewByIds ( ) {
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
+		txtDesconto = findViewById( R.id.txtDesconto);
 		txtPedido = findViewById ( R.id.txtPedido );
 		txtTotal = findViewById ( R.id.txtTotal );
 		chkBxRetirar = findViewById ( R.id.chkBxRetirar );
@@ -453,4 +511,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		Intent i = new Intent(getApplicationContext(), ActWait.class);
 		startActivity(i);
 	}
+
+
 }

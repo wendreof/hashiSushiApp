@@ -147,6 +147,7 @@
     <string name="txt_total_order">R$:</string>
     <string name="menu_sattus">STATUS PEDIDOS</string>
     <string name="txt_previsap_entrega">40 min. Em média</string>
+    <string name="txt_desconto">Desconto:</string>
 
 
 </resources>

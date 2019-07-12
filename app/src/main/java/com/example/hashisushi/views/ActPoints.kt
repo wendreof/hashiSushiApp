@@ -78,6 +78,11 @@ class ActPoints : AppCompatActivity() {
         recoveryDataUser()
     }
 
+    //finaliza se voltar
+    override fun onBackPressed() {
+        finish()
+    }
+
     //recupera dados do usuario esta com
     private fun recoveryDataUser()
     {
@@ -170,11 +175,13 @@ class ActPoints : AppCompatActivity() {
     private fun initHome() {
         val it = Intent(this, ActPromotion::class.java)
         startActivity(it)
+        finish()
     }
 
     private fun initOrder() {
         val it = Intent(this, ActOrder::class.java)
         startActivity(it)
+        finish()
     }
 
     private fun pontinsTest() {
@@ -189,13 +196,16 @@ class ActPoints : AppCompatActivity() {
 
         } else if (points == 15) {
 
-            val p = points.toString()
-            System.setProperty("PONTS_ENV", p)
+            val desconto = "30.00"
+            System.setProperty("DESCONTO_ENV", desconto)
 
             points = 0
             txtPonts!!.text = "0"
             alerta("Pontos regatados !")
             controlImgView()
+
+            finish()
+
         }
     }
 

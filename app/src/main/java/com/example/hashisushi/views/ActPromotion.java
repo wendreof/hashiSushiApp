@@ -2,13 +2,20 @@ package com.example.hashisushi.views;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -17,6 +24,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,6 +96,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     private int qtdItensCar ;
     private Double totalCar ;
+    private int pontos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -232,6 +241,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             //finaliza a activity atual e todas a baixo
             auth.signOut();
             this.finishAffinity();
+
         }
     }
 
@@ -387,6 +397,14 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 if (dataSnapshot.getValue() != null)
                 {
                     user = dataSnapshot.getValue(User.class);
+                }
+
+                // recupera pontos
+                pontos = user.getPonts();
+
+                //se ponto 15 notifica
+                if (pontos == 15){
+                    notificacaoPonto(user);
                 }
 
                 recoveryOrder();
@@ -565,5 +583,41 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     }
 
     //==>FIM MENUS
+    private void notificacaoPonto( User user){
+
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        //PendingIntent p = PendingIntent.getActivity(this,0, new Intent(),0 );
+        PendingIntent p = PendingIntent.getActivity(this,0, new Intent(this,ActPoints.class),0 );
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setTicker("Status de pontos");
+        builder.setContentTitle("Parabens você atingiu :"+user.getPonts());
+
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources() ,R.mipmap.ic_launcher));
+        builder.setContentIntent(p);
+
+        NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle();
+        String[] descs = new String[]{"Faça o regate na proxima compra"};
+        for(int i = 0;i < descs.length; i++){
+            style.addLine(descs[i]);
+        }
+        builder.setStyle(style);
+
+        Notification no = builder.build();
+        no.vibrate = new long[]{150,300,150};
+        no.flags = Notification.FLAG_AUTO_CANCEL;
+        nm.notify(R.mipmap.ic_launcher,no);
+
+        try {
+            Uri som = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone toque = RingtoneManager.getRingtone(this,som);
+            toque.play();
+        }catch (Exception e){
+
+            System.out.println("Erro ao gerar toque notificação : "+e);
+        }
+    }
 
 }

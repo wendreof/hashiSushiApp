@@ -64,6 +64,14 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
         recoveryDataUser();
 
     }
+
+  //finaliza se voltar
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
+
     //recupera dados do usuario esta com
     private void setFilds()
     {

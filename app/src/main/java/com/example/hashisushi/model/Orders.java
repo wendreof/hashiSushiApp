@@ -20,7 +20,7 @@ public class Orders implements Serializable {
     private String hour;
     private String qrCode;
     private int quantProd;
-    private int discont;
+    private double discont;
     private double totalPrince;
     private List<OrderItens> orderItens;
     private String observation;
@@ -186,11 +186,11 @@ public class Orders implements Serializable {
         this.quantProd = quantProd;
     }
 
-    public int getDiscont() {
+    public double getDiscont() {
         return discont;
     }
 
-    public void setDiscont(int discont) {
+    public void setDiscont(double discont) {
         this.discont = discont;
     }
 
