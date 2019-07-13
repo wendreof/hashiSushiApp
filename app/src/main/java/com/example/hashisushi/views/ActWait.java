@@ -176,17 +176,17 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActWait.class ), 0 );
 		
 		NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
-		builder.setTicker ( "Status de Pedido" );
-		builder.setContentTitle ( "Status atual :" + orders.getStatus ( ) );
+		builder.setTicker ( "Status do Pedido" );
+		builder.setContentTitle ( "Status atual:" + orders.getStatus ( ) );
 		
 		builder.setSmallIcon ( R.mipmap.ic_launcher );
 		builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
 		builder.setContentIntent ( p );
 		
 		NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
-		String[] descs = new String[] { "O estatus de seu pedido modou :" };
-		for ( int i = 0; i < descs.length; i++ ) {
-			style.addLine ( descs[ i ] );
+		String[] descs = new String[] { "O status de seu pedido modou:" };
+		for ( String desc : descs ) {
+			style.addLine ( desc );
 		}
 		builder.setStyle ( style );
 		
@@ -201,7 +201,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 			toque.play ( );
 		} catch ( Exception e ) {
 			
-			System.out.println ( "Erro ao gerar toque notificação : " + e );
+			System.out.println ( "Erro ao gerar toque notificação: " + e );
 		}
 	}
 	
