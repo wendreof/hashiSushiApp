@@ -64,8 +64,8 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
     // barcode reader
-    implementation 'com.google.zxing:core:3.2.1'
-    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+//    implementation 'com.google.zxing:core:3.2.1'
+  //  implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
     // api
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
