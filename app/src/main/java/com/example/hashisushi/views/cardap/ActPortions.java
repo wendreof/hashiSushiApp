@@ -166,15 +166,18 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
             startVibrate(90);
             Intent it = new Intent( this, ActOrder.class);
             startActivity( it );
+            finish();
 
         }if(v.getId() == R.id.flotBntEdtPersoPor ){
             startVibrate(90);
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
+            finish();
         } else if(v.getId() == R.id.flotBntDrinksPor ) {
 
             startVibrate(90);
             openDrins();
+            finish();
 
         }
     }
@@ -458,6 +461,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         {
             Intent it = new Intent(this, ActSaleCardap.class);
             startActivity(it);
+            finish();
             return true;
         }
 
@@ -465,6 +469,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         {
             Intent it = new Intent(this, ActPlatHot.class);
             startActivity(it);
+            finish();
             return true;
         }
 
@@ -472,6 +477,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         {
             Intent it = new Intent(this, ActPlatAce.class);
             startActivity(it);
+            finish();
             return true;
         }
 
@@ -479,6 +485,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         {
             Intent it = new Intent(this, ActCombo.class);
             startActivity(it);
+            finish();
             return true;
         }
 
@@ -486,34 +493,40 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         {
             Intent it = new Intent(this, ActDrinks.class);
             startActivity(it);
+            finish();
             return true;
         }
         if (id == R.id.menu_temakis)
         {
             Intent it = new Intent(this, ActTemakis.class);
             startActivity(it);
+            finish();
             return true;
         }
         if (id == R.id.menu_edit_cadastro)
         {
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
+            finish();
             return true;
         }
         if (id == R.id.menu_points)
         {
             Intent it = new Intent(this, ActPoints.class);
             startActivity(it);
+            finish();
             return true;
         }
         if (id == R.id.menu_satus)
         {
             Intent it = new Intent(this, ActWait.class);
             startActivity(it);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
