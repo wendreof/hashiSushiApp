@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="114dp"
+        android:layout_height="121dp"
         android:orientation="horizontal"
         android:padding="1dp">
 
@@ -21,7 +21,7 @@
 
         <LinearLayout
             android:layout_width="299dp"
-            android:layout_height="114dp"
+            android:layout_height="121dp"
             android:orientation="vertical">
 
             <TextView
@@ -61,8 +61,8 @@
 
             <TextView
                 android:id="@+id/txtDescriptionAd"
-                android:layout_width="232dp"
-                android:layout_height="33dp"
+                android:layout_width="235dp"
+                android:layout_height="41dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="8dp"

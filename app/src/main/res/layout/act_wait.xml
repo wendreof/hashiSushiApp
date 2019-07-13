@@ -57,7 +57,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Previsão de entrega:"
+                android:text="Previsão de entrega:      "
                 android:layout_marginTop="30dp"
                 android:textSize="15sp"
                 android:textColor="@color/colorHintText" />
