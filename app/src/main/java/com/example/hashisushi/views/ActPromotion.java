@@ -132,6 +132,13 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 
     }//end oncreat
 
+    //finaliza se voltar
+    @Override
+    public void onBackPressed()
+    {
+        finish();
+    }
+
     //Altera fonte do txtLogo
     private void fontLogo(){
 

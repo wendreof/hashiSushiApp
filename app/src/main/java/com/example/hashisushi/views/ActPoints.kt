@@ -35,7 +35,6 @@ class ActPoints : AppCompatActivity() {
 
     private var points: Int = 0
     // Activity read code
-    private val actScanCod = this
     private var retornIdUser: String? = null
     private var user: User? = null
 
@@ -71,7 +70,6 @@ class ActPoints : AppCompatActivity() {
 
         flotBntOrderPont!!.setOnClickListener { startVibrate(90); initOrder() }
         flotBntHomePont!!.setOnClickListener { startVibrate(90); initHome() }
-        flotBntScanQcodePont!!.setOnClickListener { startVibrate(90); scanerCode(actScanCod) }
         btnRescuePont!!.setOnClickListener { startVibrate(90); pontinsTest() }
 
         //recupera dado user
@@ -137,36 +135,6 @@ class ActPoints : AppCompatActivity() {
         txtTitlePonts!!.typeface = font
     }
 
-    //Implemention Scan
-    private fun scanerCode(activity: Activity) {
-        val integrator = IntentIntegrator(activity)
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-        integrator.setPrompt("Scaneando codigo...")
-        integrator.setCameraId(0)
-        integrator.initiateScan()
-    }
-
-    //sacaner
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-
-        when {
-            result != null -> if (result.contents != null) {
-                alerta("Codigo recebido :" + result.contents)
-                //val  codigo = result.contents
-                points++
-
-                val p = points.toString()
-                txtPonts!!.text = p
-                controlPonts()
-
-                if (points > 15) points = 0
-
-            } else alerta("Scan cancelado!")
-
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
 
     private fun alerta(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_LONG).show()
@@ -196,7 +164,7 @@ class ActPoints : AppCompatActivity() {
 
         } else if (points == 15) {
 
-            val desconto = "30.00"
+            val desconto = "30,00"
             System.setProperty("DESCONTO_ENV", desconto)
 
             points = 0
@@ -230,50 +198,59 @@ class ActPoints : AppCompatActivity() {
         if (id == R.id.menu_enter) {
             val it = Intent(this, ActSaleCardap::class.java)
             startActivity(it)
+            finish()
             return true
         }
 
         if (id == R.id.menu_plat_hot) {
             val it = Intent(this, ActPlatHot::class.java)
             startActivity(it)
+            finish()
             return true
         }
 
         if (id == R.id.menu_plat_ace) {
             val it = Intent(this, ActPlatAce::class.java)
             startActivity(it)
+            finish()
             return true
         }
 
         if (id == R.id.menu_combo) {
             val it = Intent(this, ActCombo::class.java)
             startActivity(it)
+            finish()
             return true
         }
 
         if (id == R.id.menu_drinks) {
             val it = Intent(this, ActDrinks::class.java)
             startActivity(it)
+            finish()
             return true
         }
         if (id == R.id.menu_temakis) {
             val it = Intent(this, ActTemakis::class.java)
             startActivity(it)
+            finish()
             return true
         }
         if (id == R.id.menu_edit_cadastro) {
             val it = Intent(this, ActSignup::class.java)
             startActivity(it)
+            finish()
             return true
         }
         if (id == R.id.menu_points) {
             val it = Intent(this, ActPoints::class.java)
             startActivity(it)
+            finish()
             return true
         }
         if (id == R.id.menu_satus) {
             val it = Intent(this, ActWait::class.java)
             startActivity(it)
+            finish()
             return true
         }
 

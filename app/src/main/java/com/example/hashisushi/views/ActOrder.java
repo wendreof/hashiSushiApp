@@ -104,6 +104,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 	}
 
+	//finaliza se voltar
 	@Override
 	public void onBackPressed()
 	{
@@ -113,13 +114,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	//recupera desconto enviado por usuario
 	private void recuperaDesconto()
 	{
-		String desc = "0.00" ;
+		String desc = "0,00" ;
 
 		if(System.getProperty("DESCONTO_ENV") != null) {
 
 			desc = System.getProperty("DESCONTO_ENV");
 
-			if (desc.equals("30.00")) {
+			if (desc.equals("30,00")) {
 				txtDesconto.setText(desc);
 			} else {
 				txtDesconto.setText("0,00");
@@ -276,11 +277,14 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		String strTotal = txtTotal.getText().toString();
 		String strDesconto = txtDesconto.getText().toString();
 
+		//troca vigula por ponto
 		double dblTotal = Double.parseDouble (
 				strTotal.replace ( ",", "." ) );
 
-		double dblDesconto = Double.parseDouble(strDesconto);
+		double dblDesconto = Double.parseDouble(
+				strDesconto.replace ( ",", "." ) );
 
+		//calcula desconto
 		Double totalComDesconto =  dblTotal - dblDesconto ;
 
 		builder.setMessage ( "\nDeseja confirmar o pedido de:\n" +
@@ -302,9 +306,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				
 				String hora = horaFormat_hora.format ( data_atual );
 				String dataAtual = dateFormat_data.format ( data_atual );
-				
-				//ordersRecovery.setDateOrder ( Integer.parseInt ( dataAtual ) );
-				//ordersRecovery.setHour ( Integer.parseInt ( hora ) );
+
 				ordersRecovery.setDateOrder ( dataAtual );
 				ordersRecovery.setHour ( hora );
 				String obs = editObservation.getText ( ).toString ( );
@@ -314,8 +316,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				ordersRecovery.setObservation ( obs );
 				ordersRecovery.setQuantProd ( qtdItensCar );
 
-				//recupera desconto
-				desconto = Double.valueOf( txtDesconto.getText().toString() ) ;
+				//recupera desconto e e converte troca , por .
+				String strDescontoRecuperado = txtDesconto.getText().toString();
+				desconto = Double.parseDouble(
+						strDescontoRecuperado.replace ( ",", "." ) );
+
 				ordersRecovery.setDiscont( desconto );
 
 				//Recupera pontos
@@ -359,7 +364,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( ) {
 			@Override
 			public void onClick ( DialogInterface dialog, int which ) {
-				//msgShort ( "Pedido não confirmado" );
+				msgShort ( "Pedido não confirmado !" );
 			}
 		} );
 		builder.create ( );
