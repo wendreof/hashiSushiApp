@@ -430,7 +430,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                 }
 
 
-                DecimalFormat df = new DecimalFormat("0.00");
+                DecimalFormat df = new DecimalFormat("0,00");
 
                 txtQuantItensC.setText( String.valueOf(qtdItensCar) );
                 txtTotalOrderC.setText(df.format( totalCar ) );

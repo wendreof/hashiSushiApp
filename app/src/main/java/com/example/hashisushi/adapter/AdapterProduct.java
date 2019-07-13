@@ -40,9 +40,9 @@ public class AdapterProduct extends
 		Product product = products.get ( i );
 		
 		holder.nameProduction.setText ( product.getName ( ) );
-		holder.descrition.setText ( " " + product.getDescription ( ) );
-		holder.sales_price.setText ( " " + product.getSalePrice ( ).replace ( ".","," ) );
-		holder.idProd.setText ( "Nº: " + product.getIdProd ( ) );
+		holder.descrition.setText ( String.format ( " %s", product.getDescription ( ) ) );
+		holder.sales_price.setText ( String.format ( " %s", product.getSalePrice ( ).replace ( ".", "," ) ) );
+		holder.idProd.setText ( String.format ( "Nº: %s", product.getIdProd ( ) ) );
 		
 		//Carregar imagem com picasso api
 		//casea url nulll ou vazia pega uma imagem setada

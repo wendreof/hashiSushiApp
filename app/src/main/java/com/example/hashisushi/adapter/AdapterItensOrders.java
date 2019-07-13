@@ -46,17 +46,17 @@ public class AdapterItensOrders extends BaseAdapter {
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.itens_adp_list, null);
 
-        TextView idProd = (TextView) view.findViewById(R.id.txtIdProd_It);
-        idProd.setText("Cod Produto :" + String.valueOf(orderItens.getIdProduct()));
+        TextView idProd = view.findViewById(R.id.txtIdProd_It);
+        idProd.setText( String.format ( "Cód.: %s", String.valueOf ( orderItens.getIdProduct ( ) ) ) );
 
-        TextView nameProd = (TextView) view.findViewById(R.id.txtName_It);
-        nameProd.setText("Nome :" + orderItens.getNameProduct());
+        TextView nameProd = view.findViewById(R.id.txtName_It);
+        nameProd.setText( String.format ( "Nome: %s", orderItens.getNameProduct ( ) ) );
 
-        TextView quantidade = (TextView) view.findViewById(R.id.txtQuant_It);
-        quantidade.setText("Qt :" + orderItens.getQuantity());
+        TextView quantidade = view.findViewById(R.id.txtQuant_It);
+        quantidade.setText( String.format ( "Quantidade: %d", orderItens.getQuantity ( ) ) );
 
-        TextView valor = (TextView) view.findViewById(R.id.txtSalesPrice_It);
-        valor.setText("R$: " + orderItens.getItenSalePrice());
+        TextView valor = view.findViewById(R.id.txtSalesPrice_It);
+        valor.setText( String.format ( "R$: %s", orderItens.getItenSalePrice ( ).replace ( ".", "," ) ) );
 
         return view;
     }

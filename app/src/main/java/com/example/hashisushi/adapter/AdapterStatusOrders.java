@@ -38,14 +38,14 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
 
         Orders orders = ordersList.get(i);
 
-        holder.idOrders.setText("Cód. pedido: " + orders.getIdOrders());
-        holder.name.setText("Cliente: " + orders.getName());
-        holder.dateOrder.setText("Data: " + orders.getDateOrder());
-        holder.hour.setText("Hora: " + orders.getHour());
-        holder.quantProd.setText("Itens: " + orders.getQuantProd());
-        holder.discont.setText("Desconto: " + orders.getDiscont());
-        holder.status.setText("Status: " + orders.getStatus());
-        holder.totalPrince.setText("Total: " + orders.getTotalPrince());
+        holder.idOrders.setText( String.format ( "Cód. pedido: %s", orders.getIdOrders ( ) ) );
+        holder.name.setText( String.format ( "Cliente: %s", orders.getName ( ) ) );
+        holder.dateOrder.setText( String.format ( "Data: %s", orders.getDateOrder ( ) ) );
+        holder.hour.setText( String.format ( "Hora: %s", orders.getHour ( ) ) );
+        holder.quantProd.setText( String.format ( "Itens: %d", orders.getQuantProd ( ) ) );
+        holder.discont.setText( String.format ( "Desconto: %s", orders.getDiscont ( ) ) );
+        holder.status.setText( String.format ( "Status: %s", orders.getStatus ( ) ) );
+        holder.totalPrince.setText( String.format ( "Total: %s", orders.getTotalPrince ( ) ) );
     }
 
     @Override
