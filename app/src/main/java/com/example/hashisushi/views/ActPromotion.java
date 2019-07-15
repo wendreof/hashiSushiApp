@@ -239,6 +239,10 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.flotBntEditPersonP)
         {
             startVibrate(90);
+
+            String editar = "editar";
+            System.setProperty("CAD_KAY",editar);
+
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
         }
@@ -327,9 +331,15 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                recoveryOrder();
-
                 String quantity = edtQuant.getText().toString();
+
+                //trata erro de qt vazia
+                if (quantity.equals("")){
+                    quantity = "1";
+                    msgShort("Você não definiu Quantidade !");
+                    msgShort("um item foi adicionado automaticamente.");
+                }
+
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
@@ -339,7 +349,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                     itemOrder.setIdProduct(productSelectd.getIdProd());
                     itemOrder.setNameProduct(productSelectd.getName());
                     itemOrder.setItenSalePrice(productSelectd.getSalePrice());
-                    itemOrder.setQuantity(Integer.parseInt(quantity));
+                    itemOrder.setQuantity( Integer.parseInt(quantity) );
 
                     itensCars.add(itemOrder);
 
@@ -405,12 +415,14 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
                 {
                     user = dataSnapshot.getValue(User.class);
                 }
-
-                // recupera pontos
-                pontos = user.getPonts();
+                //trata user null
+                if((user != null )){
+                    // recupera pontos
+                    pontos = user.getPonts();
+                }
 
                 //se ponto 15 notifica
-                if (pontos == 15){
+                if (pontos == 15) {
                     notificacaoPonto(user);
                 }
 

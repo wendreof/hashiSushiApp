@@ -301,6 +301,14 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialog, int which)
             {
                 String quantity = edtQuant.getText().toString();
+
+                //trata erro de qt vazia
+                if (quantity.equals("")){
+                    quantity = "1";
+                    msgShort("Você não definiu Quantidade !");
+                    msgShort("um item foi adicionado automaticamente.");
+                }
+
                 if (validaQuantidade(quantity) == 0) {
 
                     Product productSelectd = productsList.get(position);
@@ -522,6 +530,9 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         }
         if (id == R.id.menu_edit_cadastro)
         {
+            String editar = "editar";
+            System.setProperty("CAD_KAY",editar);
+
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
             finish();

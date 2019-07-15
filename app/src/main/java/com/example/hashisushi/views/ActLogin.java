@@ -1,7 +1,9 @@
 package com.example.hashisushi.views;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -15,11 +17,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hashisushi.R;
+import com.example.hashisushi.model.OrderItens;
+import com.example.hashisushi.model.Orders;
+import com.example.hashisushi.model.Product;
 import com.example.hashisushi.utils.data.SecurityPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -118,7 +124,8 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
             //-----------------
             controlBtn = 'C';
             startVibrate(90);
-            validateFields();
+            iniciarCadastro();
+            //validateFields();
         }
         else if (v.getId() == R.id.chkBxRememberPasswd)
         {
@@ -223,13 +230,11 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                 {
                     login(email, senha);
 
-
                 }if(controlBtn == 'C')
                 {
-                    addUserLogin(email,senha);
-                }
+                    //addUserLogin(email,senha);
 
-                //System.setProperty("STATUS_ENV", STATUS);
+                }
                 clearFields();
                 cont = 0;
             }
@@ -257,7 +262,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         edtEmail.setText("");
         edtSenha.setText("");
     }
-    
+
     private void ShowMSG(String msg) {
         Snackbar.make ( ActLogin, msg, Snackbar.LENGTH_LONG ).show ( );
     }
@@ -288,5 +293,67 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         btnEntrar.setOnClickListener(this);
         chkBxRememberPasswd.setOnClickListener(this);
 
+    }
+
+
+    //comfirmar item com dialog
+    private void iniciarCadastro( )
+    {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Atenção !");
+        alert.setMessage("\nSe possuir conta insira email e senha e clique no botão entra," +
+                "caso não tenha cadastro insira aqui seu email e defina uma senha para " +
+                "iniciar seu cadastro");
+
+
+        final EditText edtEmail = new EditText(this);
+        final EditText edtPassword = new EditText(this);
+
+        LinearLayout layoutFilds = new LinearLayout(this);
+        layoutFilds.setOrientation(LinearLayout.VERTICAL);
+
+        layoutFilds.addView(edtEmail);
+        edtEmail.setHint("Digite seu email");
+
+        layoutFilds.addView(edtPassword);
+        edtPassword.setHint("Digite uma senha");
+
+        alert.setView(layoutFilds);
+
+
+        alert.setPositiveButton("Continuar Cadastro", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String email = edtEmail.getText().toString();
+                String password = edtPassword.getText().toString();
+
+                if(email.equals("") || password.equals("") ){
+
+                    msgShort("Atenção campos sem valor !");
+
+                    if (email.equals("")){
+                        msgShort("Insira um valido Email !");
+                    }else if(password.equals("")){
+                        msgShort("Insira uma senha !");
+                    }
+
+                }else {
+                    addUserLogin(email,password);
+                }
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 }

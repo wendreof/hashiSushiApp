@@ -25,7 +25,6 @@ import com.example.hashisushi.model.User
 import com.example.hashisushi.views.cardap.*
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
-import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.act_points.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
