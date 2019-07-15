@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +20,10 @@ import android.widget.Toast;
 import com.example.hashisushi.R;
 import com.example.hashisushi.dao.UserFirebase;
 import com.example.hashisushi.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,7 +70,7 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
 
     }
 
-  //finaliza se voltar
+    //finaliza se voltar
     @Override
     public void onBackPressed()
     {
@@ -144,9 +149,9 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
                 userPasswordRetype.setError(getString(R.string.pass_not_equals));
             }
             else
-             {
-                 addUser();
-             }
+            {
+                addUser();
+            }
         }
     }
 
@@ -154,44 +159,45 @@ public class ActSignup extends AppCompatActivity implements OnClickListener
     {
         try
         {
-                user = new User();
-                user.setIdUser(retornIdUser);
-                user.setName(userName.getText().toString());
-                user.setBornDate(userBornDate.getText().toString());
-                if(userReferencePoint.getText().toString().equals(""))
-                {
-                    user.setAddress(userAddressStreet.getText().toString());
-                }
-                else
-                {
-                    user.setAddress(userAddressStreet.getText().toString() + " - Ponto de referência: " + userReferencePoint.getText().toString());
-                }
-                user.setNeigthborhood(userAddressNeighborhood.getText().toString());
-                user.setNumberHome(userAddressNumber.getText().toString());
-                user.setCity(userAddressCity.getText().toString());
-                user.setCep(userAddressCEP.getText().toString());
-                user.setState(userAddressState.getText().toString());
-                user.setPhone(userPhone.getText().toString());
-                user.setEmail(userEmail.getText().toString());
-                user.setIsAdmin(false); //----verificar com Wendreo
-                user.setPassword(userPassword.getText().toString());
-                user.setCpf(userCPF.getText().toString());
+            user = new User();
+            user.setIdUser(retornIdUser);
+            user.setName(userName.getText().toString());
+            user.setBornDate(userBornDate.getText().toString());
+            if(userReferencePoint.getText().toString().equals(""))
+            {
+                user.setAddress(userAddressStreet.getText().toString());
+            }
+            else
+            {
+                user.setAddress(userAddressStreet.getText().toString() + " - Ponto de referência: " + userReferencePoint.getText().toString());
+            }
+            user.setNeigthborhood(userAddressNeighborhood.getText().toString());
+            user.setNumberHome(userAddressNumber.getText().toString());
+            user.setCity(userAddressCity.getText().toString());
+            user.setCep(userAddressCEP.getText().toString());
+            user.setState(userAddressState.getText().toString());
+            user.setPhone(userPhone.getText().toString());
+            user.setEmail(userEmail.getText().toString());
+            user.setIsAdmin(false); //----verificar com Wendreo
+            user.setPassword(userPassword.getText().toString());
+            user.setCpf(userCPF.getText().toString());
 
-                user.setPonts(0);
-                //novo metudo para salvar user
-                user.salvarUser();
+            user.setPonts(0);
+            //novo metudo para salvar user
+            user.salvarUser();
 
-                if (auth.getCurrentUser() != null)
-                {
-                    Intent it = new Intent(getApplicationContext(), ActPromotion.class);
-                    startActivity(it);
-                    msgShort("Cadastro finalizado com sucesso!");
-                }
-                else {
-                    Intent it = new Intent(getApplicationContext(), ActLogin.class);
-                    startActivity(it);
-                    msgShort("Novo login é necessario.");
-                }
+            if (auth.getCurrentUser() != null)
+            {
+                Intent it = new Intent(getApplicationContext(), ActPromotion.class);
+                startActivity(it);
+                msgShort("Cadastro finalizado com sucesso!");
+                finish();
+            }
+            else {
+                Intent it = new Intent(getApplicationContext(), ActLogin.class);
+                startActivity(it);
+                msgShort("Novo login é necessario.");
+            }
 
         }
         catch (Exception erro)

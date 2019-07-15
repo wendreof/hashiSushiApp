@@ -184,7 +184,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		builder.setContentIntent ( p );
 		
 		NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
-		String[] descs = new String[] { "O status de seu pedido modou:" };
+		String[] descs = new String[] { "O status de seu pedido mudou:" };
 		for ( String desc : descs ) {
 			style.addLine ( desc );
 		}
