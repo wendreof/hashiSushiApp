@@ -301,10 +301,11 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setIcon(R.drawable.ic_warning_yello_24dp);
         alert.setTitle("Atenção !");
-        alert.setMessage("\nSe possuir conta insira email e senha e clique no botão entra," +
-                "caso não tenha cadastro insira aqui seu email e defina uma senha para " +
-                "iniciar seu cadastro");
+        alert.setMessage("\nSe possuir conta insira email e senha e clique " +
+                "no botão entra,caso não tenha cadastro insira aqui seu email " +
+                "e defina uma senha para iniciarmos");
 
 
         final EditText edtEmail = new EditText(this);
