@@ -362,7 +362,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 					finish ( );
 				} else {
 					//se o restaurante estiver fechado, não permite prosseguir com o pedido!
-					msgShort ( "Você poderá finalizar um pedido quando estivermos abertos!:)" );
+					msgShort ( "Você poderá finalizar um pedido quando estivermos abertos! :)" );
 				}
 			}
 			
