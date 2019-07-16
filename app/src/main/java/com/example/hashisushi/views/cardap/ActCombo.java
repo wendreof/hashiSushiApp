@@ -59,14 +59,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
     private FloatingActionButton flotBntVoltarC;
-    private FloatingActionButton flotBntEdtPersoC;
     private FloatingActionButton flotBntFinishC;
     private FloatingActionButton flotBntPortinsC;
     private TextView txtQuantItensC;
     private TextView  txtTotalOrderC;
 
     private TextView txtCardapC;
-    //private TextView txtLogoC;
     private TextView txtCombo;
 
     private AlertDialog dialog;
@@ -86,8 +84,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_combo);
-
-        //getSupportActionBar().hide();
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
@@ -136,7 +132,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
 
     }
 
-
     private void recyclerViewConfig(){
 
         //Configura recyclerview
@@ -167,12 +162,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
             startVibrate(90);
             Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
-
-        }if(v.getId() == R.id.flotBntEdtPersoC) {
-            //finaliza cha carrinho
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
 
         } if(v.getId() == R.id.flotBntPortinsC) {
 
@@ -224,7 +213,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         txtTotalOrderC = findViewById( R.id.txtTotalOrderC);
 
         flotBntVoltarC = findViewById(R.id.flotBntVoltarC);
-        flotBntEdtPersoC = findViewById(R.id.flotBntEdtPersoC);
         flotBntFinishC = findViewById(R.id.flotBntFinshC);
         flotBntPortinsC = findViewById(R.id.flotBntPortinsC);
 
@@ -232,7 +220,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         txtCombo = findViewById(R.id.txtCombo);
 
         flotBntVoltarC.setOnClickListener(this);
-        flotBntEdtPersoC.setOnClickListener(this);
         flotBntFinishC.setOnClickListener(this);
         flotBntPortinsC.setOnClickListener(this);
 
@@ -243,8 +230,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
     public void initSearch(){
         //retorna usuarios
         DatabaseReference productDB = reference.child("product");
-        //retorna o no setado
-        // DatabaseReference usersSearch = users.child("0001");
+
         Query querySearch = productDB.orderByChild("type").equalTo("Combo");
 
         productsList.clear();
@@ -312,8 +298,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                     itensCars.add(itemOrder);
                     msgShort("Produto adicionado ao seu carrinho!");
 
-                    // msgShort(itensCars.toString());
-
                     if (ordersRecovery == null)
                     {
                         ordersRecovery = new Orders(retornIdUser);
@@ -337,10 +321,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
         alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
         {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-
-            }
+            public void onClick(DialogInterface dialog, int which) {}
         });
         AlertDialog dialog = alert.create();
         dialog.show();
@@ -404,7 +385,6 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                 totalCar = 0.0;
                 itensCars = new ArrayList<>();
 
-
                 if (dataSnapshot.getValue() != null)
                 {
                     ordersRecovery = dataSnapshot.getValue(Orders.class);
@@ -439,18 +419,18 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener{
                 }
 
 
-                DecimalFormat df = new DecimalFormat("0,00");
+                DecimalFormat df = new DecimalFormat("0.00");
 
                 txtQuantItensC.setText( String.valueOf(qtdItensCar) );
                 txtTotalOrderC.setText(df.format( totalCar ) );
-
+                //fecha dialog
                 dialog.dismiss();
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                msgShort("ERRO ao carregar users ERRO:"+databaseError);
             }
         });
     }

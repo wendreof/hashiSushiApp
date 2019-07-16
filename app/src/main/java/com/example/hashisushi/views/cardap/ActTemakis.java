@@ -59,7 +59,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActTemakis extends AppCompatActivity implements View.OnClickListener {
 	
 	private FloatingActionButton flotBntVoltarT;
-	private FloatingActionButton flotBntEdtPersoT;
 	private FloatingActionButton flotBtnFinishT;
 	private FloatingActionButton flotBntComboT;
 	
@@ -155,11 +154,6 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 			Intent it = new Intent ( this, ActOrder.class );
 			startActivity ( it );
 			
-		}
-		if ( v.getId ( ) == R.id.flotBntEdtPersoT ) {
-			startVibrate ( 90 );
-			Intent it = new Intent ( this, ActSignup.class );
-			startActivity ( it );
 		} else if ( v.getId ( ) == R.id.flotBntComboT ) {
 			
 			startVibrate ( 90 );
@@ -196,9 +190,7 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 		ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation ( getApplicationContext ( ),
 				R.anim.fade_in, R.anim.mover_direita );
 		ActivityCompat.startActivity ( ActTemakis.this, intent, actcompat.toBundle ( ) );
-		//startActivity(intent);
-		
-		
+
 	}
 	
 	//oa clicar em voltar chama efeito de transição
@@ -219,12 +211,10 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 		txtTotalOrderT = findViewById ( R.id.txtTotalOrderT );
 		
 		flotBntVoltarT = findViewById ( R.id.flotBntVoltarT );
-		flotBntEdtPersoT = findViewById ( R.id.flotBntEdtPersoT );
 		flotBtnFinishT = findViewById ( R.id.flotBtnFinishT );
 		flotBntComboT = findViewById ( R.id.flotBntComboT );
 		
 		flotBntVoltarT.setOnClickListener ( this );
-		flotBntEdtPersoT.setOnClickListener ( this );
 		flotBtnFinishT.setOnClickListener ( this );
 		flotBntComboT.setOnClickListener ( this );
 		
@@ -235,10 +225,8 @@ public class ActTemakis extends AppCompatActivity implements View.OnClickListene
 	}
 	
 	public void initSearch ( ) {
-		//retorna usuarios
+		//retorna
 		DatabaseReference productDB = reference.child ( "product" );
-		//retorna o no setado
-		// DatabaseReference usersSearch = users.child("0001");
 		Query querySearch = productDB.orderByChild ( "type" ).equalTo ( "Temakis" );
 		
 		//cria um ouvinte

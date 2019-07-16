@@ -63,10 +63,9 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     private TextView txtQuantItensE;
     private TextView  txtTotalOrderE;
     private TextView txtCardapScardp;
-   // private TextView txtLogoScardp;
+
     private TextView txtSalesCardap;
     private FloatingActionButton flotBntVoltarPromoE;
-    private FloatingActionButton flotBntEdtPersoE;
     private FloatingActionButton flotBntFinishE;
     private FloatingActionButton flotBtnPlatHotE;
 
@@ -90,7 +89,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate( savedInstanceState);
         setContentView( R.layout.act_sale_cardap );
-        //getSupportActionBar().hide();
 
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
@@ -106,7 +104,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         retornIdUser = UserFirebase.getIdUser();
 
         flotBntVoltarPromoE.setOnClickListener(this);
-        flotBntEdtPersoE.setOnClickListener(this);
         flotBntFinishE.setOnClickListener(this);
         flotBtnPlatHotE.setOnClickListener(this);
 
@@ -165,10 +162,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         if ( v.getId() == R.id.flotBntVoltarPromoE) {
 
             startVibrate(90);
-
-            //Intent it = new Intent(ActSaleCardap.this, ActPromotion.class);
-            //it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //startActivity(it);
             finish();
         }
         if ( v.getId() == R.id.flotBntFinishE ) {
@@ -177,10 +170,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
             Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
-        }if(v.getId() == R.id.flotBntEdtPersoE){
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
         } if(v.getId() == R.id.flotBtnPlatHotE) {
 
             startVibrate(90);
@@ -194,7 +183,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
         txtCardapScardp.setTypeface(font);
-        //txtLogoScardp.setTypeface(font);
         txtSalesCardap.setTypeface(font);
     }
 
@@ -219,7 +207,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
                 .makeCustomAnimation(getApplicationContext(),
                 R.anim.fade_in,R.anim.mover_direita);
         ActivityCompat.startActivity(ActSaleCardap.this,intent,actcompat.toBundle());
-        //startActivity(intent);
     }
 
     //oa clicar em voltar chama efeito de transição
@@ -241,11 +228,9 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         txtQuantItensE = findViewById( R.id.txtQuantItensE);
         txtTotalOrderE = findViewById( R.id.txtTotalOrderE);
         txtCardapScardp = findViewById(R.id.txtCardapScardp);
-       // txtLogoScardp = findViewById(R.id.txtLogoScardp);
         txtSalesCardap = findViewById(R.id.txtSalesCardap);
 
         flotBntVoltarPromoE = findViewById(R.id.flotBntVoltarPromoE);
-        flotBntEdtPersoE = findViewById(R.id.flotBntEdtPersoE);
         flotBntFinishE = findViewById(R.id.flotBntFinishE);
         flotBtnPlatHotE = findViewById(R.id.flotBtnPlatHotE);
 
@@ -530,9 +515,6 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
         }
         if (id == R.id.menu_edit_cadastro)
         {
-            String editar = "editar";
-            System.setProperty("CAD_KAY",editar);
-
             Intent it = new Intent(this, ActSignup.class);
             startActivity(it);
             finish();

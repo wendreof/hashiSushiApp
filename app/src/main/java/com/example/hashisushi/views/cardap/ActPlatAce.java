@@ -59,14 +59,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActPlatAce extends AppCompatActivity implements View.OnClickListener {
 
     private FloatingActionButton flotBntVoltarAce;
-    private FloatingActionButton flotBntEdtPersoAce;
     private FloatingActionButton flotBntFinishAce;
     private FloatingActionButton flotBntTemakisAce;
 
     private TextView txtQuantItensAce;
     private TextView  txtTotalOrderAce;
     private TextView txtCardapA;
-   // private TextView txtLogoA;
     private TextView txtPlatAce;
 
     private DatabaseReference reference ;
@@ -106,7 +104,6 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         recoveryDataUser();
 
         flotBntVoltarAce.setOnClickListener(this);
-        flotBntEdtPersoAce.setOnClickListener(this);
         flotBntFinishAce.setOnClickListener(this);
         flotBntTemakisAce.setOnClickListener(this);
 
@@ -167,10 +164,6 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
             Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
-        }if(v.getId() == R.id.flotBntEdtPersoAce){
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
         } else if(v.getId() == R.id.flotBntTemakisAce) {
 
             startVibrate(90);
@@ -220,7 +213,6 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         txtQuantItensAce = findViewById( R.id.txtQuantItensAce);
         txtTotalOrderAce = findViewById( R.id.txtTotalOrderAce);
         flotBntVoltarAce = findViewById(R.id.flotBntVoltarAce);
-        flotBntEdtPersoAce = findViewById(R.id.flotBntEdtPersoAce);
         flotBntFinishAce = findViewById(R.id.flotBntFinishAce);
         flotBntTemakisAce = findViewById(R.id.flotBntTemakisAce);
 
@@ -325,10 +317,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
         alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
         {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-
-            }
+            public void onClick(DialogInterface dialog, int which) { }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
@@ -438,7 +427,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                msgShort("ERRO ao carregar ERRO:"+databaseError);
             }
         });
     }
@@ -528,5 +517,6 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 
         return super.onOptionsItemSelected(item);
     }
+    //==>END MENUS
 
 }

@@ -81,7 +81,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton flotBntSalesCardap;
     private FloatingActionButton flotBntFinishProm;
     private FloatingActionButton flotBntExitP;
-    private FloatingActionButton flotBntEditPersonP;
 
     private DatabaseReference reference;
     private List<Product> productsList = new ArrayList<Product>();
@@ -117,11 +116,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         retornIdUser = UserFirebase.getIdUser();
         getStatus();
         fontLogo();
-
-        flotBntExitP.setOnClickListener(this);
-        flotBntFinishProm.setOnClickListener(this);
-        flotBntSalesCardap.setOnClickListener(this);
-        flotBntEditPersonP.setOnClickListener(this);
 
         recyclerViewConfig();
         recycleOnclick();
@@ -197,9 +191,12 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         flotBntExitP = findViewById(R.id.flotBntExitP);
         flotBntFinishProm = findViewById(R.id.flotBntFinishProm);
         flotBntSalesCardap = findViewById(R.id.flotBntSalesCardap);
-        flotBntEditPersonP = findViewById(R.id.flotBntEditPersonP);
         //RecyclerView---
         list_produsts = findViewById(R.id.list_produsts);
+
+        flotBntExitP.setOnClickListener(this);
+        flotBntFinishProm.setOnClickListener(this);
+        flotBntSalesCardap.setOnClickListener(this);
     }
 
     private void getStatus()
@@ -235,16 +232,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             startVibrate(90);
              Intent it = new Intent( this, ActOrder.class );
              startActivity( it );
-        }
-        if (v.getId() == R.id.flotBntEditPersonP)
-        {
-            startVibrate(90);
-
-            String editar = "editar";
-            System.setProperty("CAD_KAY",editar);
-
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
         }
         else if (v.getId() == R.id.flotBntExitP)
         {

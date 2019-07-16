@@ -62,7 +62,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
     private TextView  txtTotalOrderPor;
 
     private FloatingActionButton flotBntVoltarPor;
-    private FloatingActionButton flotBntEdtPersoPor;
     private FloatingActionButton flotBntFinishPor;
     private FloatingActionButton flotBntDrinksPor;
 
@@ -105,7 +104,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         retornIdUser = UserFirebase.getIdUser();
 
         flotBntVoltarPor.setOnClickListener(this);
-        flotBntEdtPersoPor.setOnClickListener(this);
         flotBntFinishPor.setOnClickListener(this);
         flotBntDrinksPor.setOnClickListener(this);
 
@@ -168,12 +166,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
             startActivity( it );
             finish();
 
-        }if(v.getId() == R.id.flotBntEdtPersoPor ){
-
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
-            finish();
         } else if(v.getId() == R.id.flotBntDrinksPor ) {
 
             startVibrate(90);
@@ -230,7 +222,6 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
         txtPortions = findViewById(R.id.txtPortions);
 
         flotBntVoltarPor = findViewById(R.id.flotBntVoltarPor);
-        flotBntEdtPersoPor = findViewById(R.id.flotBntEdtPersoPor);
         flotBntFinishPor = findViewById(R.id.flotBntFinishPor);
         flotBntDrinksPor = findViewById(R.id.flotBntDrinksPor);
 
@@ -291,7 +282,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
                 if (quantity.equals("")){
                     quantity = "1";
                     msgShort("Você não definiu Quantidade !");
-                    msgShort("um item foi adicionado automaticamente.");
+                    msgShort("Um item foi adicionado automaticamente.");
                 }
 
                 if (validaQuantidade(quantity) == 0) {

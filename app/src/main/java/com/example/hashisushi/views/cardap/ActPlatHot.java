@@ -64,7 +64,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     private TextView  txtTotalOrderPh;
 
     private FloatingActionButton flotBntVoltarPh;
-    private FloatingActionButton flotBntEdtPersoPh;
     private FloatingActionButton flotBntFinishPh;
     private FloatingActionButton flotBntPlanAcePh;
 
@@ -85,8 +84,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
     private Orders ordersRecovery;
     private int qtdItensCar ;
     private Double totalCar ;
-    private  Menu menu;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +105,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         retornIdUser = UserFirebase.getIdUser();
 
         flotBntVoltarPh.setOnClickListener(this);
-        flotBntEdtPersoPh.setOnClickListener(this);
         flotBntFinishPh.setOnClickListener(this);
         flotBntPlanAcePh.setOnClickListener(this);
 
@@ -170,11 +166,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
             Intent it = new Intent( this, ActOrder.class);
             startActivity( it );
 
-        }if(v.getId() == R.id.flotBntEdtPersoPh){
-
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
         } else if(v.getId() == R.id.flotBntPlanAcePh) {
 
             startVibrate(90);
@@ -229,7 +220,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         txtPlatHot = findViewById(R.id.txtPlaHot);
 
         flotBntVoltarPh = findViewById(R.id.flotBntVoltarPh);
-        flotBntEdtPersoPh = findViewById(R.id.flotBntEdtPersoPh);
         flotBntFinishPh = findViewById(R.id.flotBntFinishPh);
         flotBntPlanAcePh = findViewById(R.id.flotBntPlanAcePh);
 
@@ -318,7 +308,6 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
                     ordersRecovery.setOrderItens(itensCars);
 
                     ordersRecovery.salvar();
-
                 }
                 else
                 {
@@ -330,10 +319,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
         alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener()
         {
             @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-
-            }
+            public void onClick(DialogInterface dialog, int which) { }
         });
         AlertDialog dialog = alert.create();
         dialog.show();

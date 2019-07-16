@@ -58,14 +58,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class ActDrinks extends AppCompatActivity implements View.OnClickListener{
 
     private FloatingActionButton flotBntVoltarD;
-    private FloatingActionButton flotBntEdtPersoD;
     private FloatingActionButton flotBntFinishD;
     private FloatingActionButton flotBntHomeD;
 
     private TextView txtQuantItensDr;
     private TextView  txtTotalOrderDr;
     private TextView txtCardapD;
-  //  private TextView txtLogoD;
     private TextView txtDrinks;
 
     private DatabaseReference reference ;
@@ -104,7 +102,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         recycleOnclick();
         recoveryDataUser();
     }
-
+    //click do RerycleVeaw
     private void recycleOnclick(){
         //Adiciona evento de clique no recyclerview
         lstDrinks.addOnItemTouchListener(
@@ -119,14 +117,10 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
                             }
 
                             @Override
-                            public void onLongItemClick(View view, int position) {
-
-                            }
+                            public void onLongItemClick(View view, int position) { }
 
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
                         }
                 )
         );
@@ -154,7 +148,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
             startVibrate(90);
             finish();
-
         }
         if ( v.getId() == R.id.flotBntFinishD) {
 
@@ -162,10 +155,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
             Intent it = new Intent( this, ActOrder.class );
             startActivity( it );
 
-        }if(v.getId() == R.id.flotBntEdtPersoD){
-            startVibrate(90);
-            Intent it = new Intent(this, ActSignup.class);
-            startActivity(it);
         } else if(v.getId() == R.id.flotBntHomeD) {
 
             startVibrate(90);
@@ -185,7 +174,6 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
     private void fontLogo(){
 
         Typeface font = Typeface.createFromAsset(getAssets(), "RagingRedLotusBB.ttf");
-      //  txtLogoD.setTypeface(font);
         txtCardapD.setTypeface(font);
         txtDrinks.setTypeface(font);
     }
@@ -215,17 +203,14 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
         txtTotalOrderDr = findViewById( R.id.txtTotalOrderDr);
 
         flotBntVoltarD = findViewById(R.id.flotBntVoltarD);
-        flotBntEdtPersoD = findViewById(R.id.flotBntEdtPersoD);
         flotBntFinishD = findViewById(R.id.flotBntFinishD);
         flotBntHomeD = findViewById(R.id.flotBntHomeD);
 
         flotBntVoltarD.setOnClickListener(this);
-        flotBntEdtPersoD.setOnClickListener(this);
         flotBntFinishD.setOnClickListener(this);
         flotBntHomeD.setOnClickListener(this);
 
         txtCardapD = findViewById(R.id.txtCardapD);
-      //  txtLogoD = findViewById(R.id.txtLogoD);
         txtDrinks = findViewById(R.id.txtDrinks);
 
         lstDrinks = findViewById(R.id.LstDriks);
@@ -373,7 +358,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                msgShort("ERRO ao carregar users ERRO:"+databaseError);
             }
         });
 
@@ -440,7 +425,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                msgShort("ERRO ao carregar ERRO:"+databaseError);
             }
         });
     }

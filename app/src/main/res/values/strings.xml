@@ -9,7 +9,7 @@
     <string name="txt_name">Hashi Sushi</string>
     <string name="hide_email">Informe seu e-mail</string>
     <string name="hint_password">Informe sua senha</string>
-    <string name="promotions">PROMOCOES</string>
+    <string name="promotions">PROMOCÕES</string>
     <string name="txt_search">Buscar prato:</string>
     <string name="txt_menu_sales">CARDAPIO</string>
     <string name="hint_seach_plate">Informe o prato para busca</string>
@@ -61,7 +61,7 @@
     <string name="points">Pontos:</string>
     <string name="_8">0</string>
     <string name="txt_open">ESTAMOS ATENDENDO</string>
-    <string name="txt_close">NAO ESTAMOS ATENDENDO</string>
+    <string name="txt_close">NÃO ESTAMOS ATENDENDO</string>
     <string name="txt_order">Pedido</string>
     <string name="txt_orders">Itens do Pedido:</string>
     <string name="ridio_btn_Delivery">Entregar</string>
@@ -122,7 +122,7 @@
     <string name="txt_splash_fone">19 9.8605-6578</string>
     <string name="vgs">Vargem Grande do Sul</string>
     <string name="SP">São Paulo</string>
-    <string name="we_are_not_open">NAO ESTAMOS ATENDENDO</string>
+    <string name="we_are_not_open">NÃO ESTAMOS ATENDENDO</string>
     <string name="we_are_open_now">ESTAMOS ATENDENDO</string>
     <string name="app_finished">Hashi Sushi Finalizado!</string>
     <string name="please_type_password">Por favor, preencha esse campo!</string>

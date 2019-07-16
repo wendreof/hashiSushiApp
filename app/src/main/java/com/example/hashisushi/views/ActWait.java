@@ -32,10 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -47,7 +44,6 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	private TextView dataPedido;
 	private TextView previsaoEntrega;
 	private String retornIdUser;
-	private Orders orders;
 	private TextView numberToCall;
 	
 	private AdapterStatusOrders adapterStatusOrders;
@@ -69,8 +65,6 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		
 		listesnerEventPedidos ( retornIdUser );
 		recyclerViewConfig ( );
-		
-		
 	}
 	
 	@Override
@@ -104,6 +98,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtPedido = findViewById ( R.id.txtPedido );
 		numberToCall = findViewById ( R.id.numberToCall );
+
 		previsaoEntrega = findViewById ( R.id.previsaoEntrega );
 		
 		//RecyclerView---
@@ -111,8 +106,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		
 		//listeners
 		numberToCall.setOnClickListener ( this );
-		
-		
+
 	}
 	
 	@Override
@@ -172,7 +166,6 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		
 		
 		NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
-		//PendingIntent p = PendingIntent.getActivity(this,0, new Intent(),0 );
 		PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActWait.class ), 0 );
 		
 		NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
@@ -204,19 +197,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 			System.out.println ( "Erro ao gerar toque notificação: " + e );
 		}
 	}
-	
-	private String getDate ( ) {
-		SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "dd/MM/yyyy" );
-		
-		Calendar cal = Calendar.getInstance ( );
-		Date data_atual = cal.getTime ( );
-		
-		String data = dateFormat_data.format ( data_atual );
-		
-		return data;
-	}
-	
-	
+
 	private void msgShort ( String msg ) {
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_SHORT ).show ( );
 	}

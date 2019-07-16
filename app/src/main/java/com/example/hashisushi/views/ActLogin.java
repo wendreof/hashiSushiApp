@@ -86,7 +86,6 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
         FirebaseApp.initializeApp(ActLogin.this);
         this.reference = FirebaseDatabase.getInstance().getReference();
         this.userAuth = FirebaseAuth.getInstance();
-        //retornIdUser = UserFirebase.getIdUser();
     }
 
     @Override
@@ -296,7 +295,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-    //comfirmar item com dialog
+    // dialog
     private void iniciarCadastro( )
     {
 

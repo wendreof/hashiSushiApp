@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="677dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -39,13 +39,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="228dp"
+            android:layout_height="220dp"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_statusOrders"
                 android:layout_width="match_parent"
-                android:layout_height="247dp"
+                android:layout_height="219dp"
                 android:layout_marginBottom="30dp" />
         </LinearLayout>
 
@@ -57,10 +57,10 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Previsão de entrega:      "
                 android:layout_marginTop="30dp"
-                android:textSize="15sp"
-                android:textColor="@color/colorHintText" />
+                android:text="Previsão de entrega: "
+                android:textColor="@color/colorHintText"
+                android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/previsaoEntrega"
@@ -73,15 +73,15 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="30sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="Alguma dúvida?      "
+                android:text="Dúvida/ Cancelar: "
                 android:textColor="@color/colorHintText"
                 android:textSize="15sp" />
 
@@ -94,6 +94,7 @@
                 android:textColor="@color/colorHintText"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
 
