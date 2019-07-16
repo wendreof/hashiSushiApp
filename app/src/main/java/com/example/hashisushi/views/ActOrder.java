@@ -47,11 +47,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActOrder extends AppCompatActivity implements View.OnClickListener {
 	
+	public static boolean STATUS;
 	public String EntregaRetira = "";
 	DatabaseReference reference;
 	Activity activity;
 	private AdapterItensOrders adapter;
-
+	
 	private TextView txtTitle;
 	private TextView txtPedido;
 	private TextView txtTotal;
@@ -71,16 +72,15 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private User user;
 	private Orders ordersRecovery;
 	private ScrollView ActOrder;
-
+	
 	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private List< Product > productsList = new ArrayList<> ( );
 	private List< Orders > ordersList = new ArrayList<> ( );
-
+	
 	private int qtdItensCar;
 	private Double totalCar;
 	private Double desconto;
 	private Orders orders;
-
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -100,35 +100,33 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		recoveryDataUser ( ); //recupera os dados do user
 		lstorderClick ( ); //listener do listview
-		recuperaDesconto();
-		
+		recuperaDesconto ( ); //recupera o desconto
+		getDate ( ); // verica hora atual e altera o STATUS (true or false)
 	}
-
+	
 	//finaliza se voltar
 	@Override
-	public void onBackPressed()
-	{
-		finish();
+	public void onBackPressed ( ) {
+		finish ( );
 	}
-
+	
 	//recupera desconto enviado por usuario
-	private void recuperaDesconto()
-	{
-		String desc = "0,00" ;
-
-		if(System.getProperty("DESCONTO_ENV") != null) {
-
-			desc = System.getProperty("DESCONTO_ENV");
-
-			if (desc.equals("30,00")) {
-				txtDesconto.setText(desc);
+	private void recuperaDesconto ( ) {
+		String desc = "0,00";
+		
+		if ( System.getProperty ( "DESCONTO_ENV" ) != null ) {
+			
+			desc = System.getProperty ( "DESCONTO_ENV" );
+			
+			if ( desc.equals ( "30,00" ) ) {
+				txtDesconto.setText ( desc );
 			} else {
-				txtDesconto.setText("0,00");
+				txtDesconto.setText ( "0,00" );
 			}
-
+			
 		}
 	}
-
+	
 	@Override
 	protected void attachBaseContext ( Context newBase ) {
 		super.attachBaseContext ( CalligraphyContextWrapper.wrap ( newBase ) );
@@ -272,21 +270,21 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
 		builder.setTitle ( "Finalizar Pedido" );
-
+		
 		//captura valores
-		String strTotal = txtTotal.getText().toString();
-		String strDesconto = txtDesconto.getText().toString();
-
+		String strTotal = txtTotal.getText ( ).toString ( );
+		String strDesconto = txtDesconto.getText ( ).toString ( );
+		
 		//troca vigula por ponto
 		double dblTotal = Double.parseDouble (
 				strTotal.replace ( ",", "." ) );
-
-		double dblDesconto = Double.parseDouble(
+		
+		double dblDesconto = Double.parseDouble (
 				strDesconto.replace ( ",", "." ) );
-
+		
 		//calcula desconto
-		Double totalComDesconto =  dblTotal - dblDesconto ;
-
+		Double totalComDesconto = dblTotal - dblDesconto;
+		
 		builder.setMessage ( "\nDeseja confirmar o pedido de:\n" +
 				"R$: " + totalComDesconto + " - " + spnFillPayment.getSelectedItem ( ) +
 				"\n\n" + EntregaRetira + "\n" +
@@ -298,69 +296,76 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		builder.setPositiveButton ( "Confirmar", new DialogInterface.OnClickListener ( ) {
 			@Override
 			public void onClick ( DialogInterface dialog, int which ) {
-				SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "dd/MM/yyyy" );
-				SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HH:mm" );
-				Calendar cal = Calendar.getInstance ( );
 				
-				Date data_atual = cal.getTime ( );
-				
-				String hora = horaFormat_hora.format ( data_atual );
-				String dataAtual = dateFormat_data.format ( data_atual );
-
-				ordersRecovery.setDateOrder ( dataAtual );
-				ordersRecovery.setHour ( hora );
-				String obs = editObservation.getText ( ).toString ( );
-				ordersRecovery.setAddress ( edtStreetDelivery.getText ( ).toString ( ) );
-				ordersRecovery.setNumberHome ( edtNumberDelivery.getText ( ).toString ( ) );
-				ordersRecovery.setNeigthborhood ( edtNeighborhoodDelivery.getText ( ).toString ( ) );
-				ordersRecovery.setObservation ( obs );
-				ordersRecovery.setQuantProd ( qtdItensCar );
-
-				//recupera desconto e e converte troca , por .
-				String strDescontoRecuperado = txtDesconto.getText().toString();
-				desconto = Double.parseDouble(
-						strDescontoRecuperado.replace ( ",", "." ) );
-
-				ordersRecovery.setDiscont( desconto );
-
-				//Recupera pontos
-				int p = user.getPonts ( );
-
-				//se  maior 0 ponto  igual zero
-				// total recebe totalCar - desconto
-				//seta total zera e atualiza pontos
-				if(desconto > 0 && p == 15)
-				{
-					Double total = totalCar - desconto;
-
-					ordersRecovery.setTotalPrince ( total );
-					//zera pontos atualiza
-					p = 0;
-					user.uploadPonts(p);
-					System.clearProperty("DESCONTO_ENV");
-				}else{
-					ordersRecovery.setTotalPrince ( totalCar );
+				//se o restaurante estiver aberto, continua com finalização do pedido!
+				if ( STATUS ) {
+					
+					SimpleDateFormat dateFormat_data = new SimpleDateFormat ( "dd/MM/yyyy" );
+					SimpleDateFormat horaFormat_hora = new SimpleDateFormat ( "HH:mm" );
+					Calendar cal = Calendar.getInstance ( );
+					
+					Date data_atual = cal.getTime ( );
+					
+					String hora = horaFormat_hora.format ( data_atual );
+					String dataAtual = dateFormat_data.format ( data_atual );
+					
+					ordersRecovery.setDateOrder ( dataAtual );
+					ordersRecovery.setHour ( hora );
+					String obs = editObservation.getText ( ).toString ( );
+					ordersRecovery.setAddress ( edtStreetDelivery.getText ( ).toString ( ) );
+					ordersRecovery.setNumberHome ( edtNumberDelivery.getText ( ).toString ( ) );
+					ordersRecovery.setNeigthborhood ( edtNeighborhoodDelivery.getText ( ).toString ( ) );
+					ordersRecovery.setObservation ( obs );
+					ordersRecovery.setQuantProd ( qtdItensCar );
+					
+					//recupera desconto e e converte troca , por .
+					String strDescontoRecuperado = txtDesconto.getText ( ).toString ( );
+					desconto = Double.parseDouble (
+							strDescontoRecuperado.replace ( ",", "." ) );
+					
+					ordersRecovery.setDiscont ( desconto );
+					
+					//Recupera pontos
+					int p = user.getPonts ( );
+					
+					//se  maior 0 ponto  igual zero
+					// total recebe totalCar - desconto
+					//seta total zera e atualiza pontos
+					if ( desconto > 0 && p == 15 ) {
+						Double total = totalCar - desconto;
+						
+						ordersRecovery.setTotalPrince ( total );
+						//zera pontos atualiza
+						p = 0;
+						user.uploadPonts ( p );
+						System.clearProperty ( "DESCONTO_ENV" );
+					} else {
+						ordersRecovery.setTotalPrince ( totalCar );
+					}
+					
+					//gera ponto compra maior 30
+					if ( totalCar > 30.00 && p < 15 ) {
+						p++;
+						user.uploadPonts ( p );
+					}
+					
+					ordersRecovery.setStatus ( "confirmado" );
+					ordersRecovery.confimar ( );
+					
+					orders = ordersRecovery;
+					
+					ordersRecovery.remover ( );
+					ordersRecovery = null;
+					
+					msgShort ( "Pedido Confirmado" );
+					startActPromotion ( );
+					finish ( );
+				} else {
+					//se o restaurante estiver fechado, não permite prosseguir com o pedido!
+					msgShort ( "Você poderá finalizar um pedido quando estivermos abertos! :)" );
 				}
-
-				//gera ponto compra maior 30
-				if ( totalCar > 30.00 && p < 15)
-				{
-					p++;
-					user.uploadPonts ( p );
-				}
-				
-				ordersRecovery.setStatus ( "confirmado" );
-				ordersRecovery.confimar ( );
-				
-				orders = ordersRecovery;
-				
-				ordersRecovery.remover ( );
-				ordersRecovery = null;
-				
-				msgShort ( "Pedido Confirmado" );
-				startActPromotion ( );
-				finish ( );
 			}
+			
 		} ).setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( ) {
 			@Override
 			public void onClick ( DialogInterface dialog, int which ) {
@@ -426,7 +431,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 				if ( itensCars != null ) {
 					
 					adapter = new AdapterItensOrders ( getApplicationContext ( ), itensCars );
-
+					
 					lstOrder.setAdapter ( adapter );
 				}
 				dialog.dismiss ( );
@@ -443,7 +448,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private void findViewByIds ( ) {
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
-		txtDesconto = findViewById( R.id.txtDesconto);
+		txtDesconto = findViewById ( R.id.txtDesconto );
 		txtPedido = findViewById ( R.id.txtPedido );
 		txtTotal = findViewById ( R.id.txtTotal );
 		chkBxRetirar = findViewById ( R.id.chkBxRetirar );
@@ -461,7 +466,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		edtStreetDelivery.setOnClickListener ( this );
 		edtNumberDelivery.setOnClickListener ( this );
 		edtNeighborhoodDelivery.setOnClickListener ( this );
-
+		
 	}
 	
 	//captura o click no listview
@@ -483,7 +488,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						itemOrder.setQuantity ( itemOrder.getQuantity ( ) - 1 );
 						
 						itensCars.remove ( itemOrder );//remove o item do carrinho!
-
+						
 						//adapter.remove ( adapter.getItem ( position ) ); //remove do listview
 						//adp chama metudo remover
 						adapter.remove ( position );
@@ -513,9 +518,19 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private void startActPromotion ( ) {
 		//Intent it = new Intent ( this, ActPromotion.class )
 		
-		Intent i = new Intent(getApplicationContext(), ActWait.class);
-		startActivity(i);
+		Intent i = new Intent ( getApplicationContext ( ), ActWait.class );
+		startActivity ( i );
 	}
-
-
+	
+	// verica hora atual e altera o STATUS aberto ou fechado  (true or false)
+	private void getDate ( ) {
+		SimpleDateFormat dateFormat_hora = new SimpleDateFormat ( "HHmm" );
+		Calendar cal = Calendar.getInstance ( );
+		Date data_atual = cal.getTime ( );
+		
+		String hora_atual = dateFormat_hora.format ( data_atual );
+		Integer intHora = Integer.parseInt ( hora_atual );
+		
+		STATUS = intHora > 900 && intHora < 2200;
+	}
 }

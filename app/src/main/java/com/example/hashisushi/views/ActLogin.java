@@ -308,6 +308,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
                 "e defina uma senha para iniciarmos");
 
 
+
         final EditText edtEmail = new EditText(this);
         final EditText edtPassword = new EditText(this);
 

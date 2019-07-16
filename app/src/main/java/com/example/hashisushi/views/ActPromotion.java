@@ -610,15 +610,15 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
         PendingIntent p = PendingIntent.getActivity(this,0, new Intent(this,ActPoints.class),0 );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setTicker("Status de pontos");
-        builder.setContentTitle("Parabens você atingiu :"+user.getPonts());
+        builder.setTicker("Pontuação");
+        builder.setContentTitle("Parabens você atingiu: "+user.getPonts());
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources() ,R.mipmap.ic_launcher));
         builder.setContentIntent(p);
 
         NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle();
-        String[] descs = new String[]{"Faça o regate na proxima compra"};
+        String[] descs = new String[]{"Faça o resgate na próxima compra"};
         for(int i = 0;i < descs.length; i++){
             style.addLine(descs[i]);
         }
@@ -635,7 +635,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
             toque.play();
         }catch (Exception e){
 
-            System.out.println("Erro ao gerar toque notificação : "+e);
+            System.out.println("Erro ao gerar toque notificação: "+e);
         }
     }
 
