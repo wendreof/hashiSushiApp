@@ -71,9 +71,13 @@ dependencies {
     implementation 'com.vicmikhailau:MaskedEditText:2.0.4'
 
     // Firebase db,core and auth
-    implementation 'com.google.firebase:firebase-database:16.1.0'
+    /*implementation 'com.google.firebase:firebase-database:16.1.0'
     implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'*/
+    implementation 'com.google.firebase:firebase-database:15.0.0'
+    implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation 'com.google.firebase:firebase-auth:15.0.0'
+
 
     // firebase storage
     implementation 'com.google.firebase:firebase-storage:15.0.2'
