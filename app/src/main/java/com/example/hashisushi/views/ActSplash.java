@@ -118,9 +118,9 @@ public class ActSplash extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder ( this );
         builder.setIcon(R.drawable.signal_wifi_off_black_24dp);
-        builder.setTitle ( "Sem conexão com internet :(" );
-        builder.setMessage ("Dispositivo offline,para utilizar o aplicativo " +
-                " verifique sua conexão de dados ou wifi e tente novamente. Obrigado!");
+        builder.setTitle ( getString( R.string.no_connection) );
+        builder.setMessage (getString( R.string.offile_device) +
+                           getString( R.string.check_your_connecntion));
 
         builder.setPositiveButton ( "Entendi", new DialogInterface.OnClickListener ( )
         {

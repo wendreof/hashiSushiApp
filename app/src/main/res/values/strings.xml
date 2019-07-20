@@ -148,5 +148,31 @@
     <string name="menu_sattus">STATUS PEDIDOS</string>
     <string name="txt_previsap_entrega">40 min. Em média</string>
     <string name="txt_desconto">Desconto:</string>
+    <string name="no_connection">Sem conexão :(</string>
+    <string name="offile_device">Dispositivo offline, para utilizar o aplicativo</string>
+    <string name="check_your_connecntion">verifique sua conexão de internet e tente novamente. Obrigado!</string>
+    <string name="sushu_address">Rua São Pedro</string>
+    <string name="sushi_neigh">Centro</string>
+    <string name="sushi_number">661</string>
+    <string name="click_twice">Clique 2x nos campos para alterar o endereço de entrega!</string>
+    <string name="you_dont_have_products">Você não tem itens no carrinho.</string>
+    <string name="firs_add_products">Primeiro adicione itens para definir o endereço.</string>
+    <string name="please_add_your_address">Por favor, informe o endereço completo para entrega.</string>
+    <string name="there_are_no_items">Não há itens para finalizar o pedido! =x</string>
+    <string name="please_wait">Carregando dados aguarde, por favor aguarde...</string>
+    <string name="checkout1">A ser entregue em:</string>
+    <string name="checkout2">A ser retirado em:</string>
+    <string name="end_order">Finalizar Pedido</string>
+    <string name="confirm_order">Deseja confirmar o pedido de:</string>
+    <string name="confirm">Confirmar</string>
+    <string name="try_when_we_are_open">Você poderá finalizar um pedido quando estivermos abertos! :)</string>
+    <string name="not_confirmed">Pedido não confirmado!</string>
+    <string name="remove_item">Remover item</string>
+    <string name="are_you_removing">Você está removendo:</string>
+    <string name="remove">Remover</string>
+    <string name="item_removed">Item removido do seu carrinho! ;)</string>
+    <string name="cancel">Cancelar</string>
+    <string name="order_confirmed">Pedido Confirmado</string>
+    <string name="confirmed">confirmado</string>
 </resources>
 
