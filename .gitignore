@@ -60,7 +60,7 @@ captures/
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-# google-services.json
+google-services.json
 
 # Freeline
 freeline.py
@@ -269,4 +269,3 @@ modules.xml
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/android,jetbrains+all,androidstudio
-
