@@ -74,7 +74,7 @@ The terms used in this Privacy Policy have the same meanings as in our Terms and
 
 **Information Collection and Use**
 
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Nome; Endereço completo; Telefone; Celular; CEP; E-mail. The information that we request will be retained by us and used as described in this privacy policy.
+For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Name; Full Address; Phone; Mobile Phone; Zip Code; E-mail. The information that we request will be retained by us and used as described in this privacy policy.
 
 The app does use third party services that may collect information used to identify you.
 
