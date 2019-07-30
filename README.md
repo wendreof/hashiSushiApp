@@ -1,6 +1,4 @@
-## Privacy Policy em Português
-
-## Política de Privacidade
+## Política de Privacidade em Português
 
 WM Digital Techs construiu o aplicativo Hashi Sushi Delivery como um aplicativo gratuito. Este SERVIÇO é fornecido gratuitamente pela WM Digital Techs e destina-se a ser utilizado tal como está.
 
