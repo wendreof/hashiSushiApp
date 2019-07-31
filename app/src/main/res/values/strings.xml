@@ -148,7 +148,7 @@
     <string name="menu_sattus">STATUS PEDIDOS</string>
     <string name="txt_previsap_entrega">40 min. Em média</string>
     <string name="txt_desconto">Desconto:</string>
-    <string name="no_connection">Sem conexão :(</string>
+    <string name="no_connection">Sem conexão com internet :(</string>
     <string name="offile_device">Dispositivo offline, para utilizar o aplicativo</string>
     <string name="check_your_connecntion">verifique sua conexão de internet e tente novamente. Obrigado!</string>
     <string name="sushu_address">Rua São Pedro</string>

@@ -154,7 +154,7 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 							msgShort ( "Só mais um momento e terminamos tudo!" );
 							initSignup ( );
 						} else {
-							msgShort ( "Infelizmente não foi possível concluir o cadastro :-(" );
+							msgShort ( "Infelizmente não foi possível concluir o cadastro :(" );
 							Log.i ( "Erro", "Infelizmente não foi possível concluir o cadastro :(" );
 							//desloga
 							userAuth.signOut ( );
@@ -255,8 +255,8 @@ public class ActLogin extends AppCompatActivity implements View.OnClickListener 
 		alert.setIcon ( R.drawable.ic_warning_yello_24dp );
 		alert.setTitle ( "Atenção !" );
 		alert.setMessage ( "\nSe possuir conta insira email e senha e clique " +
-				"no botão entra,caso não tenha cadastro insira aqui seu email " +
-				"e defina uma senha para iniciarmos" );
+				"no botão entrar,caso não tenha cadastro insira aqui seu email " +
+				"e defina uma senha para iniciarmos o seu" );
 		
 		
 		final EditText edtEmail = new EditText ( this );
