@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
-    tools:context=".views.cardap.ActPortions">
+    tools:context="design.wendreo.hashisushi.views.cardap.ActPortions">
 
     <TextView
         android:id="@+id/txtCardapPor"

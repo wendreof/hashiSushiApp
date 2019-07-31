@@ -8,7 +8,7 @@
     android:background="@color/colorSmoky"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.example.hashisushi.views.ActPoints">
+    tools:context="design.wendreo.hashisushi.views.ActPoints">
 
     <TextView
         android:id="@+id/user_points_points"

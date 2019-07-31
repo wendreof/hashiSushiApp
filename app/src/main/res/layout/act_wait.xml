@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
     android:padding="20dp"
-    tools:context=".views.ActWait">
+    tools:context="design.wendreo.hashisushi.views.ActWait">
 
     <LinearLayout
         android:layout_width="match_parent"

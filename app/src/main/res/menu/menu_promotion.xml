@@ -73,4 +73,18 @@
         android:visible="true"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_edit_about"
+        android:orderInCategory="100"
+        android:title="SOBRE"
+        android:visible="true"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_edit_privacy_policy"
+        android:orderInCategory="100"
+        android:title="POLÍTICA DE PRIVACIDADE"
+        android:visible="true"
+        app:showAsAction="never" />
+
 </menu>

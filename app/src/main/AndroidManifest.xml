@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.hashisushi">
+    package="design.wendreo.hashisushi">
 
     <dist:module dist:instant="true" />
 
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name=".utils.CustomApplication"
+        android:name="design.wendreo.hashisushi.utils.CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,13 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.ActWait"></activity>
-        <activity android:name=".views.ActLogin" />
-        <activity android:name=".views.ActOrder" />
-        <activity android:name=".views.ActSignup" />
-        <activity android:name=".views.ActPromotion" />
-        <activity android:name=".views.ActPoints" />
-        <activity android:name=".views.ActSplash">
+        <activity android:name="design.wendreo.hashisushi.views.policyPrivacy.ActPolicyPrivacy" />
+        <activity android:name="design.wendreo.hashisushi.views.ActWait" />
+        <activity android:name="design.wendreo.hashisushi.views.ActLogin" />
+        <activity android:name="design.wendreo.hashisushi.views.ActOrder" />
+        <activity android:name="design.wendreo.hashisushi.views.ActSignup" />
+
+        <activity android:name="design.wendreo.hashisushi.views.ActPromotion" />
+        <activity android:name="design.wendreo.hashisushi.views.ActPoints" />
+        <activity android:name="design.wendreo.hashisushi.views.ActSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,53 +35,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.cardap.ActSaleCardap"
-            android:parentActivityName=".views.cardap.ActPlatHot">
+            android:name="design.wendreo.hashisushi.views.cardap.ActSaleCardap"
+            android:parentActivityName="design.wendreo.hashisushi.views.cardap.ActPlatHot">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.cardap.ActPlatHot" />
+                android:value="design.wendreo.hashisushi.views.cardap.ActPlatHot" />
         </activity>
         <activity
-            android:name=".views.cardap.ActPlatHot"
-            android:parentActivityName=".views.cardap.ActPlatAce">
+            android:name="design.wendreo.hashisushi.views.cardap.ActPlatHot"
+            android:parentActivityName="design.wendreo.hashisushi.views.cardap.ActPlatAce">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.ActPoints" />
+                android:value="design.wendreo.hashisushi.views.ActPoints" />
         </activity>
         <activity
-            android:name=".views.cardap.ActPlatAce"
-            android:parentActivityName=".views.cardap.ActTemakis">
+            android:name="design.wendreo.hashisushi.views.cardap.ActPlatAce"
+            android:parentActivityName="design.wendreo.hashisushi.views.cardap.ActTemakis">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.cardap.ActTemakis" />
+                android:value="design.wendreo.hashisushi.views.cardap.ActTemakis" />
         </activity>
         <activity
-            android:name=".views.cardap.ActTemakis"
-            android:parentActivityName=".views.cardap.ActCombo">
+            android:name="design.wendreo.hashisushi.views.cardap.ActTemakis"
+            android:parentActivityName="design.wendreo.hashisushi.views.cardap.ActCombo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.cardap.ActCombo" />
+                android:value="design.wendreo.hashisushi.views.cardap.ActCombo" />
         </activity>
         <activity
-            android:name=".views.cardap.ActCombo"
-            android:parentActivityName=".views.cardap.ActPortions">
+            android:name="design.wendreo.hashisushi.views.cardap.ActCombo"
+            android:parentActivityName="design.wendreo.hashisushi.views.cardap.ActPortions">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.cardap.ActPortions" />
+                android:value="design.wendreo.hashisushi.views.cardap.ActPortions" />
         </activity>
         <activity
-            android:name=".views.cardap.ActPortions"
-            android:parentActivityName=".views.cardap.ActDrinks">
+            android:name="design.wendreo.hashisushi.views.cardap.ActPortions"
+            android:parentActivityName="design.wendreo.hashisushi.views.cardap.ActDrinks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.cardap.ActDrinks" />
+                android:value="design.wendreo.hashisushi.views.cardap.ActDrinks" />
         </activity>
         <activity
-            android:name=".views.cardap.ActDrinks"
-            android:parentActivityName=".views.ActOrder">
+            android:name="design.wendreo.hashisushi.views.cardap.ActDrinks"
+            android:parentActivityName="design.wendreo.hashisushi.views.ActOrder">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hashisushi.views.cardap.ActDrinks" />
+                android:value="design.wendreo.hashisushi.views.cardap.ActDrinks" />
         </activity>
     </application>
 

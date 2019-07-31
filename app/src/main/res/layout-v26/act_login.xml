@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSmoky"
-    tools:context="com.example.hashisushi.views.ActLogin">
+    tools:context="design.wendreo.hashisushi.views.ActLogin">
 
     <Button
         android:id="@+id/btnEntrar"

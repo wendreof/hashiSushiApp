@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:872099789834:android:0db554c81e135a08",
         "android_client_info": {
-          "package_name": "com.example.hashisushi"
+          "package_name": "design.wendreo.hashisushi"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "872099789834-hm8r04t6vgf4rpeeob82kh2tu13uk52o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.hashisushi",
+            "package_name": "design.wendreo.hashisushi",
             "certificate_hash": "a9698dd67aede012db582655a50b731262c6693b"
           }
         },
