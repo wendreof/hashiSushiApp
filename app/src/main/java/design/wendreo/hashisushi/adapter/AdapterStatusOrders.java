@@ -44,6 +44,7 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
         holder.hour.setText( String.format ( "Hora: %s", orders.getHour ( ) ) );
         holder.quantProd.setText( String.format ( "Itens: %d", orders.getQuantProd ( ) ) );
         holder.discont.setText( String.format ( "Desconto: %s", orders.getDiscont ( ) ) );
+        holder.deliveryCost.setText( String.format ( "Taxa de entrega: %s", orders.getDeliveryCost ( ) ) );
         holder.status.setText( String.format ( "Status: %s", orders.getStatus ( ) ) );
         holder.totalPrince.setText( String.format ( "Total: %s", orders.getTotalPrince ( ) ) );
     }
@@ -70,6 +71,7 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
         TextView quantProd;
         TextView discont;
         TextView status;
+        TextView deliveryCost;
         TextView totalPrince;
         TextView observation;
 
@@ -83,6 +85,7 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
             quantProd = itemView.findViewById(R.id.txtQuatProtod);
             discont = itemView.findViewById(R.id.txtDiscont);
             totalPrince = itemView.findViewById(R.id.txtTotalPrince);
+            deliveryCost = itemView.findViewById(R.id.txtDeliveryCost);
             observation = itemView.findViewById(R.id.txtObservation);
             status = itemView.findViewById(R.id.txtStatus);
 

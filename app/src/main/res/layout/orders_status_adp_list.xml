@@ -56,6 +56,13 @@
             android:textColor="#FFFFFF" />
 
         <TextView
+            android:id="@+id/txtObservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="S/obs"
+            android:textColor="#FFFFFF" />
+
+        <TextView
             android:id="@+id/txtDiscont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,11 +70,11 @@
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/txtObservation"
+            android:id="@+id/txtDeliveryCost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="S/obs"
-            android:textColor="#FFFFFF" />
+            android:text="TextView"
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/txtTotalPrince"

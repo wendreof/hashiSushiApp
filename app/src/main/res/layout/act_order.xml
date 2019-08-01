@@ -16,15 +16,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtTitleReg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
-
-        <TextView
             android:id="@+id/txtPedido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +46,38 @@
             android:nestedScrollingEnabled="true"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" >
+
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textCost"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:text="@string/txt_custo_entrega"
+                android:textAppearance="@style/txt_custo_entrega"
+                android:textColor="@color/ic_launcher_background"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textCostDelivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:text="@string/txt_total"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spnfillPayMent" />
+        </LinearLayout>
 
 
         <LinearLayout

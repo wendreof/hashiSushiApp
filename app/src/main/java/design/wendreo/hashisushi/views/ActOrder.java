@@ -25,6 +25,7 @@ import design.wendreo.hashisushi.R;
 import design.wendreo.hashisushi.adapter.AdapterItensOrders;
 import design.wendreo.hashisushi.dao.FirebaseConfig;
 import design.wendreo.hashisushi.dao.UserFirebase;
+import design.wendreo.hashisushi.model.Costs;
 import design.wendreo.hashisushi.model.OrderItens;
 import design.wendreo.hashisushi.model.Orders;
 import design.wendreo.hashisushi.model.Product;
@@ -57,6 +58,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private TextView txtPedido;
 	private TextView txtTotal;
 	private TextView txtDesconto;
+	private TextView textCostDelivery;
 	private Spinner spnFillPayment;
 	private RadioButton chkBxRetirar;
 	private RadioButton chkBxEntrega;
@@ -70,6 +72,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private AlertDialog dialog;
 	private String retornIdUser;
 	private User user;
+	private Costs costs;
 	private Orders ordersRecovery;
 	private ScrollView ActOrder;
 	
@@ -80,6 +83,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	private int qtdItensCar;
 	private Double totalCar;
 	private Double desconto;
+	private Double entregaCusto;
 	private Orders orders;
 	
 	@Override
@@ -102,6 +106,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		lstorderClick ( ); //listener do listview
 		recuperaDesconto ( ); //recupera o desconto
 		getDate ( ); // verica hora atual e altera o STATUS (true or false)
+		recoveryCostDelivery ( );//recupera custo entrega
 	}
 	
 	//finaliza se voltar
@@ -135,7 +140,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	//Altera fonte do txtLogo
 	private void fontLogo ( ) {
 		Typeface font = Typeface.createFromAsset ( getAssets ( ), "RagingRedLotusBB.ttf" );
-		txtTitle.setTypeface ( font );
+
 		txtPedido.setTypeface ( font );
 	}
 	
@@ -171,13 +176,20 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			startVibrate ( 190 );
 			valueTest ( );
 		} else if ( v.getId ( ) == R.id.chkBxRetirar ) {
+
 			//msgShort ( "Retirar" );
 			edtStreetDelivery.setText ( "Rua São Pedro" );
 			edtNeighborhoodDelivery.setText ( "Centro" );
 			edtNumberDelivery.setText ( "661" );
+			//seta valor da entraga recuperado
+			textCostDelivery.setText( "0,00");
+
 		} else if ( v.getId ( ) == R.id.chkBxEntrega ) {
 			msgShort ( "Clique 2x nos campos para alterar o endereço de entrega!" );
-			
+
+			//seta valor da entraga recuperado
+			textCostDelivery.setText( costs.getCustoEntrega() );
+
 			// permite alterar os dados do endereço de entrega!
 			edtStreetDelivery.setEnabled ( true );
 			edtNeighborhoodDelivery.setEnabled ( true );
@@ -235,6 +247,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	
 	//recupera dados do usuario
 	private void recoveryDataUser ( ) {
+
 		dialog = new SpotsDialog.Builder ( )
 				.setContext ( this )
 				.setMessage ( "Carregando dados aguarde, por favor aguarde..." )
@@ -260,6 +273,28 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}
 		} );
 	}
+
+	//recupera custo de entrega
+	private void recoveryCostDelivery ( ) {
+
+		DatabaseReference costsDB = reference.child ("costs").child("-LlDgMNFRyCWC1bjkL55");
+
+		costsDB.addListenerForSingleValueEvent ( new ValueEventListener ( ) {
+			@Override
+			public void onDataChange ( DataSnapshot dataSnapshot ) {
+				if ( dataSnapshot.getValue ( ) != null ) {
+
+					System.out.println("CUST 1 --------------------------------------"+dataSnapshot.toString());
+					costs = dataSnapshot.getValue ( Costs.class );
+
+					System.out.println("CUST 2--------------------------------------"+costs.getCustoEntrega());
+
+				}
+			}
+			@Override
+			public void onCancelled ( DatabaseError databaseError ) { }
+		} );
+	}
 	
 	//confimar pedido
 	private void confirmOrder ( ) {
@@ -272,18 +307,28 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		builder.setTitle ( "Finalizar Pedido" );
 		
 		//captura valores
-		String strTotal = txtTotal.getText ( ).toString ( );
+		 String strCustoEntrega = textCostDelivery.getText().toString();
 		String strDesconto = txtDesconto.getText ( ).toString ( );
+		String strTotal = txtTotal.getText ( ).toString ( );
+
+		double dblCustoEntrega = Double.parseDouble (
+				strCustoEntrega.replace ( ",", "." ) );
+
+		double dblDesconto = Double.parseDouble (
+				strDesconto.replace ( ",", "." ) );
 		
 		//troca vigula por ponto
 		double dblTotal = Double.parseDouble (
 				strTotal.replace ( ",", "." ) );
-		
-		double dblDesconto = Double.parseDouble (
-				strDesconto.replace ( ",", "." ) );
+
+		//se custo de entrega maior que zero soma em total
+		if ( dblCustoEntrega > 0 )
+		{
+			dblTotal = dblTotal + dblCustoEntrega;
+		}
 		
 		//calcula desconto
-		Double totalComDesconto = dblTotal - dblDesconto;
+		final Double totalComDesconto = dblTotal - dblDesconto;
 		
 		builder.setMessage ( "\nDeseja confirmar o pedido de:\n" +
 				"R$: " + totalComDesconto + " - " + spnFillPayment.getSelectedItem ( ) +
@@ -317,6 +362,13 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 					ordersRecovery.setNeigthborhood ( edtNeighborhoodDelivery.getText ( ).toString ( ) );
 					ordersRecovery.setObservation ( obs );
 					ordersRecovery.setQuantProd ( qtdItensCar );
+
+					//recupera custo e converte troca , por .
+					String strCustoEntregaRecuperado = textCostDelivery.getText().toString( ) ;
+					entregaCusto = Double.parseDouble (
+							strCustoEntregaRecuperado.replace ( ",", "." ) );
+
+					ordersRecovery.setDeliveryCost( strCustoEntregaRecuperado );
 					
 					//recupera desconto e e converte troca , por .
 					String strDescontoRecuperado = txtDesconto.getText ( ).toString ( );
@@ -324,14 +376,15 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 							strDescontoRecuperado.replace ( ",", "." ) );
 					
 					ordersRecovery.setDiscont ( desconto );
-					
+
 					//Recupera pontos
 					int p = user.getPonts ( );
 					
 					//se  maior 0 ponto  igual zero
 					// total recebe totalCar - desconto
 					//seta total zera e atualiza pontos
-					if ( desconto > 0 && p == 15 ) {
+					if ( desconto > 0 && p == 15 )
+					{
 						Double total = totalCar - desconto;
 						
 						ordersRecovery.setTotalPrince ( total );
@@ -339,7 +392,15 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						p = 0;
 						user.uploadPonts ( p );
 						System.clearProperty ( "DESCONTO_ENV" );
-					} else {
+
+					} if( entregaCusto > 0 )
+					{
+						// se custo de entrega maior zero soma em total
+						Double totalComEntrega = totalCar + entregaCusto;
+
+						ordersRecovery.setTotalPrince ( totalComEntrega );
+
+					}else {
 						ordersRecovery.setTotalPrince ( totalCar );
 					}
 					
@@ -450,6 +511,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtDesconto = findViewById ( R.id.txtDesconto );
 		txtPedido = findViewById ( R.id.txtPedido );
+		textCostDelivery = findViewById(R.id.textCostDelivery);
 		txtTotal = findViewById ( R.id.txtTotal );
 		chkBxRetirar = findViewById ( R.id.chkBxRetirar );
 		chkBxEntrega = findViewById ( R.id.chkBxEntrega );

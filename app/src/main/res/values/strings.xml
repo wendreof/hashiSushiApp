@@ -174,5 +174,6 @@
     <string name="cancel">Cancelar</string>
     <string name="order_confirmed">Pedido Confirmado</string>
     <string name="confirmed">confirmado</string>
+    <string name="txt_custo_entrega">Custo de entrega:</string>
 </resources>
 
