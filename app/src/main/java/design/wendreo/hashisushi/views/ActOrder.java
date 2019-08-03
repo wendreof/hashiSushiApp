@@ -238,9 +238,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 							.replace ( ",", "." ) );
 			
 			if ( value <= 0 ) {
-				msgShort ( "Não há itens para finalizar o pedido! =x" );
+				msgShort ( "Não há itens para finalizar o pedido! :[" );
 			} else
-				//msgShort ( "OK!!!!" + value + 	ordersRecovery.getAddress () );
 				confirmOrder ( );
 		}
 	}
@@ -282,13 +281,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		costsDB.addListenerForSingleValueEvent ( new ValueEventListener ( ) {
 			@Override
 			public void onDataChange ( DataSnapshot dataSnapshot ) {
+
 				if ( dataSnapshot.getValue ( ) != null ) {
-
-					System.out.println("CUST 1 --------------------------------------"+dataSnapshot.toString());
 					costs = dataSnapshot.getValue ( Costs.class );
-
-					System.out.println("CUST 2--------------------------------------"+costs.getCustoEntrega());
-
 				}
 			}
 			@Override
