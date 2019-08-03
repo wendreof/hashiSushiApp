@@ -87,6 +87,10 @@ dependencies {
 
     //onesignal push notifications
     implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
+
+    //about page
+    implementation 'com.github.medyo:android-about-page:1.2.5'
+
 }
 repositories {
     mavenCentral()

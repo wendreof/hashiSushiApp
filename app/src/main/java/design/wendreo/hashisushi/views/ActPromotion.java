@@ -521,6 +521,12 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 			return true;
 		}
 		
+		if(id == R.id.menu_edit_about){
+			Intent it = new Intent ( this, ActInfo.class );
+			startActivity ( it );
+			return true;
+		}
+		
 		return super.onOptionsItemSelected ( item );
 	}
 	
