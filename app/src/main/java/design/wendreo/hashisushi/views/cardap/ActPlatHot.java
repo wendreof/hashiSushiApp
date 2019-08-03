@@ -504,6 +504,12 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 			startActivity ( it );
 			return true;
 		}
+
+		if(id == R.id.menu_addional){
+			Intent it = new Intent ( this, ActAdditional.class );
+			startActivity ( it );
+			return true;
+		}
 		
 		return super.onOptionsItemSelected ( item );
 	}

@@ -175,5 +175,7 @@
     <string name="order_confirmed">Pedido Confirmado</string>
     <string name="confirmed">confirmado</string>
     <string name="txt_custo_entrega">Custo de entrega:</string>
+    <string name="txt_addtional">ADICIONAIS</string>
+    <string name="menu_add">ADICIONAIS</string>
 </resources>
 

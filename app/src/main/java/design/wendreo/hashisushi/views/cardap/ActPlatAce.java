@@ -522,6 +522,12 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
             return true;
         }
 
+        if(id == R.id.menu_addional){
+            Intent it = new Intent ( this, ActAdditional.class );
+            startActivity ( it );
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
     //==>END MENUS

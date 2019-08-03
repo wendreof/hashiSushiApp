@@ -53,6 +53,7 @@ import design.wendreo.hashisushi.model.OrderItens;
 import design.wendreo.hashisushi.model.Orders;
 import design.wendreo.hashisushi.model.Product;
 import design.wendreo.hashisushi.model.User;
+import design.wendreo.hashisushi.views.cardap.ActAdditional;
 import design.wendreo.hashisushi.views.cardap.ActCombo;
 import design.wendreo.hashisushi.views.cardap.ActDrinks;
 import design.wendreo.hashisushi.views.cardap.ActPlatAce;
@@ -419,7 +420,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 						
 						for ( OrderItens orderItens : itensCars ) {
 							int qtde = orderItens.getQuantity ( );
-							
+
+
 							double preco = Double.parseDouble ( orderItens.getItenSalePrice ( ) );
 							
 							totalCar += ( qtde * preco );
@@ -523,6 +525,12 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		
 		if(id == R.id.menu_edit_about){
 			Intent it = new Intent ( this, ActInfo.class );
+			startActivity ( it );
+			return true;
+		}
+
+		if(id == R.id.menu_addional){
+			Intent it = new Intent ( this, ActAdditional.class );
 			startActivity ( it );
 			return true;
 		}

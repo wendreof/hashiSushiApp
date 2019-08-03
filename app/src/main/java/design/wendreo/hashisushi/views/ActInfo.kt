@@ -1,5 +1,6 @@
 package design.wendreo.hashisushi.views
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 
 import design.wendreo.hashisushi.R
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ActInfo : AppCompatActivity() {
 
@@ -14,6 +16,10 @@ class ActInfo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_info)
         supportActionBar!!.hide()
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
     fun openBrowser(view: View) {

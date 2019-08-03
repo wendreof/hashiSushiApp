@@ -64,7 +64,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 	
 	private FloatingActionButton flotBntVoltarPor;
 	private FloatingActionButton flotBntFinishPor;
-	private FloatingActionButton flotBntDrinksPor;
+	private FloatingActionButton flotBntAddionaalPor;
 	
 	private TextView txtCardapPor;
 	private TextView txtPortions;
@@ -106,7 +106,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 		
 		flotBntVoltarPor.setOnClickListener ( this );
 		flotBntFinishPor.setOnClickListener ( this );
-		flotBntDrinksPor.setOnClickListener ( this );
+		flotBntAddionaalPor.setOnClickListener ( this );
 		
 		recoveryDataUser ( );
 		recycleOnclick ( );
@@ -169,12 +169,10 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 			startActivity ( it );
 			finish ( );
 			
-		} else if ( v.getId ( ) == R.id.flotBntDrinksPor ) {
+		} else if ( v.getId ( ) == R.id.flotBntAddionaalPor ) {
 			
 			startVibrate ( 90 );
-			openDrins ( );
-			finish ( );
-			
+			openAdditional ( );
 		}
 	}
 	
@@ -195,9 +193,9 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 		txtPortions.setTypeface ( font );
 	}
 	
-	private void openDrins ( ) {
+	private void openAdditional ( ) {
 		
-		Intent intent = new Intent ( ActPortions.this, ActDrinks.class );
+		Intent intent = new Intent ( ActPortions.this, ActAdditional.class );
 		//Passa efeitos de transzição
 		ActivityOptionsCompat actcompat = ActivityOptionsCompat.makeCustomAnimation ( getApplicationContext ( ),
 				R.anim.fade_in, R.anim.mover_direita );
@@ -226,7 +224,7 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 		
 		flotBntVoltarPor = findViewById ( R.id.flotBntVoltarPor );
 		flotBntFinishPor = findViewById ( R.id.flotBntFinishPor );
-		flotBntDrinksPor = findViewById ( R.id.flotBntDrinksPor );
+		flotBntAddionaalPor = findViewById ( R.id.flotBntAddionaalPor );
 		
 		lstPortions = findViewById ( R.id.LstPortions );
 		
@@ -509,6 +507,12 @@ public class ActPortions extends AppCompatActivity implements View.OnClickListen
 		
 		if ( id == R.id.menu_edit_privacy_policy ) {
 			Intent it = new Intent ( this, ActPolicyPrivacy.class );
+			startActivity ( it );
+			return true;
+		}
+
+		if(id == R.id.menu_addional){
+			Intent it = new Intent ( this, ActAdditional.class );
 			startActivity ( it );
 			return true;
 		}

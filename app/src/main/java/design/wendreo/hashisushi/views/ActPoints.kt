@@ -24,6 +24,7 @@ import design.wendreo.hashisushi.model.User
 import design.wendreo.hashisushi.views.cardap.*
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
+import design.wendreo.hashisushi.views.policyPrivacy.ActPolicyPrivacy
 import kotlinx.android.synthetic.main.act_points.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -156,7 +157,7 @@ class ActPoints : AppCompatActivity() {
 
             alerta("Voçê não completou 15 atualmente voçê tem : $points ,points !")
             val p = points - 15
-            alerta("Faltam :$p points para voçê fazer o resgate !")
+            alerta("Faltam  $p points para voçê fazer o resgate !")
 
         } else if (points == 15) {
 
@@ -247,6 +248,23 @@ class ActPoints : AppCompatActivity() {
             val it = Intent(this, ActWait::class.java)
             startActivity(it)
             finish()
+            return true
+        }
+
+        if (id == R.id.menu_edit_privacy_policy) {
+            val it = Intent(this, ActPolicyPrivacy::class.java)
+            startActivity(it)
+            return true
+        }
+
+        if (id == R.id.menu_edit_about) {
+            val it = Intent(this, ActInfo::class.java)
+            startActivity(it)
+            return true
+        }
+        if (id == R.id.menu_addional) {
+            val it = Intent(this, ActAdditional::class.java)
+            startActivity(it)
             return true
         }
 

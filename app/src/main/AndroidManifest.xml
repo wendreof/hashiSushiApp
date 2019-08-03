@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".views.ActInfo"></activity>
+
+        <activity android:name=".views.ActInfo" />
         <activity android:name=".views.policyPrivacy.ActPolicyPrivacy" />
         <activity android:name=".views.ActWait" />
         <activity android:name=".views.ActLogin" />
@@ -27,7 +28,8 @@
         <activity android:name=".views.ActSignup" />
         <activity android:name=".views.ActPromotion" />
         <activity android:name=".views.ActPoints" />
-        <activity android:name=".views.ActSplash">
+
+        <activity android:name=".views.ActSplash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,6 +73,13 @@
         </activity>
         <activity
             android:name=".views.cardap.ActPortions"
+            android:parentActivityName=".views.cardap.ActAdditional">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="design.wendreo.hashisushi.views.cardap.ActAdditional" />
+        </activity>
+        <activity
+            android:name=".views.cardap.ActAdditional"
             android:parentActivityName=".views.cardap.ActDrinks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
