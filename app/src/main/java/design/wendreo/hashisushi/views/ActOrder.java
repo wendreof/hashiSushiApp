@@ -399,11 +399,9 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 						ordersRecovery.setTotalPrince ( totalCar );
 					}
 					
-					//gera ponto compra maior 30
-					if ( totalCar > 30.00 && p < 15 ) {
-						p++;
-						user.uploadPonts ( p );
-					}
+					/* Gera ponto compra maior 30
+					 * Removido ***
+					 */
 					
 					ordersRecovery.setStatus ( "confirmado" );
 					ordersRecovery.confimar ( );

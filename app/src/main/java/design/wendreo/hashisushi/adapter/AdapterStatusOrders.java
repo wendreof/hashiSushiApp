@@ -11,6 +11,7 @@ import android.widget.TextView;
 import design.wendreo.hashisushi.R;
 import design.wendreo.hashisushi.model.Orders;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrders.MyViewHolder> {
@@ -46,7 +47,10 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
         holder.discont.setText( String.format ( "Desconto: %s", orders.getDiscont ( ) ) );
         holder.deliveryCost.setText( String.format ( "Taxa de entrega: %s", orders.getDeliveryCost ( ) ) );
         holder.status.setText( String.format ( "Status: %s", orders.getStatus ( ) ) );
-        holder.totalPrince.setText( String.format ( "Total: %s", orders.getTotalPrince ( ) ) );
+
+        DecimalFormat df = new DecimalFormat ( "0.00" );
+
+        holder.totalPrince.setText( String.format ( "Total: %s",df.format ( orders.getTotalPrince ( ) ) ) );
     }
 
     @Override
@@ -55,7 +59,7 @@ public class AdapterStatusOrders extends RecyclerView.Adapter<AdapterStatusOrder
         return ordersList.size();
     }
 
-    public void updateListOrdes(int position) {
+    public void updateListStatusOrdes(int position) {
 
         this.ordersList.remove(position);
         notifyDataSetChanged();

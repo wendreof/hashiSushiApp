@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -123,6 +125,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		initSearch ( );
 		recoveryDataUser ( );
 		this.auth = FirebaseAuth.getInstance ( );
+
+		listesnerEventPedidos ( );//escula pedidos
+
 		
 	}//end oncreat
 	
@@ -377,7 +382,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 				
 				//se ponto 15 notifica
 				if ( pontos == 15 ) {
-					notificacaoPonto ( user );
+					notificacaoPonto ("Pontuação"
+							,"Parabens você atingiu: " + user.getPonts ( )
+							,"Faça o resgate na próxima compra"  );
 				}
 				
 				recoveryOrder ( );
@@ -555,41 +562,79 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 	}
 	
 	//==>FIM MENUS
-	private void notificacaoPonto ( User user ) {
-		
-		
+	private void notificacaoPonto ( String ticker,String titulo,String msg) {
+
+
 		NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
-		//PendingIntent p = PendingIntent.getActivity(this,0, new Intent(),0 );
-		PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActPoints.class ), 0 );
-		
+		//PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActPoints.class ), 0 );
+		PendingIntent p = PendingIntent.getActivity(this,0, new Intent(),0 );
+
+
 		NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
-		builder.setTicker ( "Pontuação" );
-		builder.setContentTitle ( "Parabens você atingiu: " + user.getPonts ( ) );
-		
+		builder.setTicker ( ticker );
+		builder.setContentTitle ( titulo );
+
 		builder.setSmallIcon ( R.mipmap.ic_launcher );
 		builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
 		builder.setContentIntent ( p );
-		
+
 		NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
-		String[] descs = new String[] { "Faça o resgate na próxima compra" };
+		String[] descs = new String[] { msg };
 		for ( int i = 0; i < descs.length; i++ ) {
 			style.addLine ( descs[ i ] );
 		}
 		builder.setStyle ( style );
-		
+
 		Notification no = builder.build ( );
 		no.vibrate = new long[] { 150, 300, 150 };
 		no.flags = Notification.FLAG_AUTO_CANCEL;
 		nm.notify ( R.mipmap.ic_launcher, no );
-		
+
 		try {
 			Uri som = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
 			Ringtone toque = RingtoneManager.getRingtone ( this, som );
 			toque.play ( );
 		} catch ( Exception e ) {
-			
+
 			System.out.println ( "Erro ao gerar toque notificação: " + e );
 		}
+	}
+
+	public void listesnerEventPedidos (  ) {
+
+		//retorna pedido
+		DatabaseReference pedidosDB = reference.child ( "orders" );
+		//recupara pedidos do user limitando  por id
+		Query querySearch = pedidosDB.orderByChild ( "idUser" ).equalTo ( retornIdUser );
+
+
+		querySearch.addChildEventListener ( new ChildEventListener( ) {
+			@Override
+			public void onChildAdded ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) { }
+
+			@Override
+			public void onChildChanged ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+				// qualquer mudança de status sera alertada
+				Orders orders = dataSnapshot.getValue ( Orders.class );
+
+				notificacaoPonto ("Status do Pedido"
+						,"Status atual:" + orders.getStatus ( )
+						,"O status mudou confira."  );
+
+			}
+
+			@Override
+			public void onChildRemoved ( @NonNull DataSnapshot dataSnapshot ) { }
+
+			@Override
+			public void onChildMoved ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) { }
+
+			@Override
+			public void onCancelled ( @NonNull DatabaseError databaseError ) {
+				msgShort ( "Status Erro " + databaseError );
+			}
+		} );
+
 	}
 	
 }

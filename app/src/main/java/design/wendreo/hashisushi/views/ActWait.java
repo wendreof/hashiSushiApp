@@ -31,10 +31,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import design.wendreo.hashisushi.model.User;
+import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActWait extends AppCompatActivity implements View.OnClickListener {
@@ -50,6 +53,8 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	private RecyclerView list_statusOrders;
 	private List< Orders > ordersList = new ArrayList<> ( );
 	private TextView txtPedido;
+	private User user;
+
 	
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
@@ -65,6 +70,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		
 		listesnerEventPedidos ( retornIdUser );
 		recyclerViewConfig ( );
+		recoveryDataUser ( );
 	}
 	
 	@Override
@@ -142,7 +148,17 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 			public void onChildChanged ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
 				// qualquer mudança de status sera alertada
 				Orders orders = dataSnapshot.getValue ( Orders.class );
+
 				notificacao ( orders );
+
+				String status =  orders.getStatus();
+
+				if(status.equals("entregue")){
+
+					calcPonts( orders );
+				}
+
+
 			}
 			
 			@Override
@@ -198,7 +214,87 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		}
 	}
 
+	private void notificacaoPonto ( ) {
+
+		NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
+		PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActPoints.class ), 0 );
+
+		NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
+		builder.setTicker ( "Pontuação" );
+		builder.setContentTitle ( "Você ganhou um ponto. ");
+
+		builder.setSmallIcon ( R.mipmap.ic_launcher );
+		builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
+		builder.setContentIntent ( p );
+
+		NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
+		String[] descs = new String[] { "Faça o resgate quando atingir 15 pontos" };
+		for ( String desc : descs ) {
+			style.addLine ( desc );
+		}
+		builder.setStyle ( style );
+
+		Notification no = builder.build ( );
+		no.vibrate = new long[] { 150, 300, 150 };
+		no.flags = Notification.FLAG_AUTO_CANCEL;
+		nm.notify ( R.mipmap.ic_launcher, no );
+
+		try {
+			Uri som = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
+			Ringtone toque = RingtoneManager.getRingtone ( this, som );
+			toque.play ( );
+		} catch ( Exception e ) {
+
+			System.out.println ( "Erro ao gerar toque notificação: " + e );
+		}
+	}
+
 	private void msgShort ( String msg ) {
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_SHORT ).show ( );
+	}
+
+
+	//recupera dados do usuario
+	private void recoveryDataUser ( ) {
+
+
+
+		DatabaseReference usuariosDB = reference.child ( "users" ).child ( retornIdUser );
+
+		usuariosDB.addListenerForSingleValueEvent ( new ValueEventListener( ) {
+			@Override
+			public void onDataChange ( DataSnapshot dataSnapshot ) {
+				if ( dataSnapshot.getValue ( ) != null ) {
+					user = dataSnapshot.getValue ( User.class );
+				}
+
+			}
+
+			@Override
+			public void onCancelled ( DatabaseError databaseError ) {
+
+			}
+		} );
+	}
+
+	//calcula valor de compra e gera ponto se
+	// status igual a entregue
+	private void calcPonts(Orders orders){
+
+		int ponto = user.getPonts();
+		//troca vigula por ponto
+		String strTaxaEntrega =  orders.getDeliveryCost();
+		double taxaEntrega = Double.parseDouble (
+				strTaxaEntrega.replace ( ",", "." ) );
+
+		double totalCompra = orders.getTotalPrince() ;
+		double totalFinal = totalCompra - taxaEntrega;
+
+		//gera ponto compra maior 30
+		if ( totalFinal > 30.00 && ponto < 15 ) {
+			ponto++;
+			user.uploadPonts ( ponto );
+			notificacaoPonto();
+		}
 	}
 }
