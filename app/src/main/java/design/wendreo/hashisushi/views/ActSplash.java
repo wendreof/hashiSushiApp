@@ -112,7 +112,7 @@ public class ActSplash extends AppCompatActivity {
 		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
 		builder.setIcon ( R.drawable.signal_wifi_off_black_24dp );
 		builder.setTitle ( getString ( R.string.no_connection ) );
-		builder.setMessage ( getString ( R.string.offile_device ) +
+		builder.setMessage ( getString ( R.string.offile_device ) +" "+
 				getString ( R.string.check_your_connecntion ) );
 		
 		builder.setPositiveButton ( "Entendi", new DialogInterface.OnClickListener ( ) {
