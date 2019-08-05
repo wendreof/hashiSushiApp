@@ -267,9 +267,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 			}
 			
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			
-			}
+			public void onCancelled ( DatabaseError databaseError ) { }
 		} );
 	}
 
@@ -324,9 +322,11 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		
 		//calcula desconto
 		final Double totalComDesconto = dblTotal - dblDesconto;
-		
+		//formato decimal
+		DecimalFormat df = new DecimalFormat ( "0.00" );
+
 		builder.setMessage ( "\nDeseja confirmar o pedido de:\n" +
-				"R$: " + totalComDesconto + " - " + spnFillPayment.getSelectedItem ( ) +
+				"R$: " + df.format ( totalComDesconto )+ " - " + spnFillPayment.getSelectedItem ( ) +
 				"\n\n" + EntregaRetira + "\n" +
 				edtStreetDelivery.getText ( ) + ", nº " +
 				edtNumberDelivery.getText ( ) + " - " +
@@ -412,7 +412,7 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 					ordersRecovery = null;
 					
 					msgShort ( "Pedido Confirmado" );
-					startActPromotion ( );
+					startActWailt ( );
 					finish ( );
 				} else {
 					//se o restaurante estiver fechado, não permite prosseguir com o pedido!
@@ -499,7 +499,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	//recupera todos os ids e seta os listeners
-	private void findViewByIds ( ) {
+	private void findViewByIds ( )
+	{
 		spnFillPayment = findViewById ( R.id.spnfillPayMent );
 		txtTitle = findViewById ( R.id.txtTitleReg );
 		txtDesconto = findViewById ( R.id.txtDesconto );
@@ -525,7 +526,8 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	//captura o click no listview
-	private void lstorderClick ( ) {
+	private void lstorderClick ( )
+	{
 		lstOrder.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
 			@Override
 			public void onItemClick ( AdapterView< ? > parent, View view, final int position, long rowId ) {
@@ -570,15 +572,15 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 	}
 	
 	// Inicializa activityPromotion
-	private void startActPromotion ( ) {
-		//Intent it = new Intent ( this, ActPromotion.class )
-		
+	private void startActWailt  ( )
+	{
 		Intent i = new Intent ( getApplicationContext ( ), ActWait.class );
 		startActivity ( i );
 	}
 	
 	// verica hora atual e altera o STATUS aberto ou fechado  (true or false)
-	private void getDate ( ) {
+	private void getDate ( )
+	{
 		SimpleDateFormat dateFormat_hora = new SimpleDateFormat ( "HHmm" );
 		Calendar cal = Calendar.getInstance ( );
 		Date data_atual = cal.getTime ( );
