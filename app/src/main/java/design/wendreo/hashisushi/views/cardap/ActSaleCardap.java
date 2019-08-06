@@ -37,6 +37,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import design.wendreo.hashisushi.R;
 import design.wendreo.hashisushi.adapter.AdapterProduct;
 import design.wendreo.hashisushi.dao.UserFirebase;
@@ -45,16 +50,12 @@ import design.wendreo.hashisushi.model.OrderItens;
 import design.wendreo.hashisushi.model.Orders;
 import design.wendreo.hashisushi.model.Product;
 import design.wendreo.hashisushi.model.User;
+import design.wendreo.hashisushi.views.ActInfo;
 import design.wendreo.hashisushi.views.ActOrder;
 import design.wendreo.hashisushi.views.ActPoints;
 import design.wendreo.hashisushi.views.ActSignup;
 import design.wendreo.hashisushi.views.ActWait;
 import design.wendreo.hashisushi.views.policyPrivacy.ActPolicyPrivacy;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -270,7 +271,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 	private void confirmItem ( final int position, Product produtoSelecionado ) {
 		AlertDialog.Builder alert = new AlertDialog.Builder ( this );
 		alert.setTitle ( produtoSelecionado.getName ( ) );
-		alert.setMessage ( "\nInforme a quantiade desejada: " );
+		alert.setMessage ( "\nInforme a quantidade desejada: " );
 		
 		final EditText edtQuant = new EditText ( this );
 		edtQuant.setText ( "1" );
@@ -514,15 +515,19 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 			startActivity ( it );
 			return true;
 		}
-
-		if(id == R.id.menu_addional){
+		
+		if ( id == R.id.menu_addional ) {
 			Intent it = new Intent ( this, ActAdditional.class );
+			startActivity ( it );
+			return true;
+		}
+		
+		if ( id == R.id.menu_edit_about ) {
+			Intent it = new Intent ( this, ActInfo.class );
 			startActivity ( it );
 			return true;
 		}
 		
 		return super.onOptionsItemSelected ( item );
 	}
-	
-	
 }
