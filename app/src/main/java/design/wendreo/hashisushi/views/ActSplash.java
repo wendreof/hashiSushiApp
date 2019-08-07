@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
 import design.wendreo.hashisushi.R;
 
 public class ActSplash extends AppCompatActivity {
@@ -41,12 +42,9 @@ public class ActSplash extends AppCompatActivity {
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
 		setContentView ( R.layout.act_splash );
-		
 		getSupportActionBar ( ).hide ( );
-		
 		//Travæ rotaçãø da tela
 		setRequestedOrientation ( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
-		
 		boolean statuInternet = isOnline ( this );
 		
 		initComponent ( );
@@ -54,11 +52,9 @@ public class ActSplash extends AppCompatActivity {
 		
 		if ( statuInternet == false ) {
 			alertOffline ( );
-			
 		} else {
 			
 			getWindow ( ).setFlags ( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
-			
 			new Handler ( ).postDelayed ( new Runnable ( ) {
 				@Override
 				public void run ( ) {
@@ -69,25 +65,19 @@ public class ActSplash extends AppCompatActivity {
 			}, 5000 );
 			
 			this.auth = FirebaseAuth.getInstance ( );
-			
 		}
-		
 	}
 	
 	//Altera fonte do txtLogo
 	private void fontLogo ( ) {
-		
 		Typeface font = Typeface.createFromAsset ( getAssets ( ), "RagingRedLotusBB.ttf" );
 		txtDelivery.setTypeface ( font );
 		imgLogoS.setImageResource ( R.drawable.lghashi );
-		
 	}
 	
 	private void initComponent ( ) {
-		
 		txtDelivery = findViewById ( R.id.txtDelivery );
 		imgLogoS = findViewById ( R.id.imgLogoS );
-		
 	}
 	
 	//case user login  ok  actpromotion
@@ -96,26 +86,21 @@ public class ActSplash extends AppCompatActivity {
 		if ( auth.getCurrentUser ( ) != null ) {
 			Intent it = new Intent ( this, ActPromotion.class );
 			startActivity ( it );
-			
 		} else {
 			
 			Intent it = new Intent ( this, ActLogin.class );
 			startActivity ( it );
 		}
-		
 	}
 	
 	//confimar pedido
 	private void alertOffline ( ) {
-		
-		
 		AlertDialog.Builder builder = new AlertDialog.Builder ( this );
 		builder.setIcon ( R.drawable.signal_wifi_off_black_24dp );
 		builder.setTitle ( getString ( R.string.no_connection ) );
-		builder.setMessage ( getString ( R.string.offile_device ) +" "+
-				getString ( R.string.check_your_connecntion ) );
+		builder.setMessage ( getString ( R.string.check_your_connecntion ) );
 		
-		builder.setPositiveButton ( "Entendi", new DialogInterface.OnClickListener ( ) {
+		builder.setPositiveButton ( "Ok", new DialogInterface.OnClickListener ( ) {
 			@Override
 			public void onClick ( DialogInterface dialog, int which ) {
 				finish ( );
@@ -124,6 +109,4 @@ public class ActSplash extends AppCompatActivity {
 		builder.create ( );
 		builder.show ( );
 	}
-	
-	
 }

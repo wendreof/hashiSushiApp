@@ -9,7 +9,7 @@
     <string name="txt_name">Hashi Sushi</string>
     <string name="hide_email">Informe seu e-mail</string>
     <string name="hint_password">Informe sua senha</string>
-    <string name="promotions">PROMOCÕES</string>
+    <string name="promotions">PROMOCOES</string>
     <string name="txt_search">Buscar prato:</string>
     <string name="txt_menu_sales">CARDAPIO</string>
     <string name="hint_seach_plate">Informe o prato para busca</string>
@@ -122,7 +122,7 @@
     <string name="txt_splash_fone">19 9.8605-6578</string>
     <string name="vgs">Vargem Grande do Sul</string>
     <string name="SP">São Paulo</string>
-    <string name="we_are_not_open">NÃO ESTAMOS ATENDENDO</string>
+    <string name="we_are_not_open">NAO ESTAMOS ATENDENDO</string>
     <string name="we_are_open_now">ESTAMOS ATENDENDO</string>
     <string name="app_finished">Hashi Sushi Finalizado!</string>
     <string name="please_type_password">Por favor, preencha esse campo!</string>
@@ -148,9 +148,9 @@
     <string name="menu_sattus">STATUS PEDIDOS</string>
     <string name="txt_previsap_entrega">40 min. Em média</string>
     <string name="txt_desconto">Desconto:</string>
-    <string name="no_connection">Sem conexão com internet :(</string>
-    <string name="offile_device">Dispositivo offline, para utilizar o aplicativo</string>
-    <string name="check_your_connecntion">verifique sua conexão de internet e tente novamente. Obrigado!</string>
+    <string name="no_connection">Sem conexão!</string>
+    <string name="offile_device">Sem conexão</string>
+    <string name="check_your_connecntion">Verifique sua conexão de internet e tente novamente.</string>
     <string name="sushu_address">Rua São Pedro</string>
     <string name="sushi_neigh">Centro</string>
     <string name="sushi_number">661</string>

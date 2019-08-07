@@ -289,7 +289,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		
 		AlertDialog.Builder alert = new AlertDialog.Builder ( this );
 		alert.setTitle ( produtoSelecionado.getName ( ) );
-		alert.setMessage ( "\nInforme a quantiade desejada: " );
+		alert.setMessage ( "\nInforme a quantidade desejada: " );
 		
 		final EditText edtQuant = new EditText ( this );
 		edtQuant.setText ( "1" );
