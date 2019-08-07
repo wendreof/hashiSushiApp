@@ -588,6 +588,6 @@ public class ActOrder extends AppCompatActivity implements View.OnClickListener 
 		String hora_atual = dateFormat_hora.format ( data_atual );
 		int intHora = Integer.parseInt ( hora_atual );
 		
-		STATUS = intHora > 900 && intHora < 2200;
+		STATUS = intHora > 1530 && intHora < 2300;
 	}
 }

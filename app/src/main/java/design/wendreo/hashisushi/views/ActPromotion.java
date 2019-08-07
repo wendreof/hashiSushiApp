@@ -554,7 +554,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		String hora_atual = dateFormat_hora.format ( data_atual );
 		int intHora = Integer.parseInt ( hora_atual );
 		
-		if ( intHora > 900 && intHora < 2200 ) {
+		if ( intHora > 1530 && intHora < 2300 ) {
 			STATUS = getString ( R.string.we_are_open_now );
 		} else {
 			STATUS = getString ( R.string.we_are_not_open );
