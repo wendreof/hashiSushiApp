@@ -47,6 +47,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import design.wendreo.hashisushi.R;
 import design.wendreo.hashisushi.adapter.AdapterProduct;
 import design.wendreo.hashisushi.dao.UserFirebase;
@@ -64,16 +75,14 @@ import design.wendreo.hashisushi.views.cardap.ActPortions;
 import design.wendreo.hashisushi.views.cardap.ActSaleCardap;
 import design.wendreo.hashisushi.views.cardap.ActTemakis;
 import design.wendreo.hashisushi.views.policyPrivacy.ActPolicyPrivacy;
-
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+/*
+* DO NOT remove microsoft app center below
+ */
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 
 public class ActPromotion extends AppCompatActivity implements View.OnClickListener {
 	public static String STATUS = null;
@@ -125,11 +134,14 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		initSearch ( );
 		recoveryDataUser ( );
 		this.auth = FirebaseAuth.getInstance ( );
-
-		listesnerEventPedidos ( );//escula pedidos
-
 		
-	}//end oncreat
+		listesnerEventPedidos ( );//escula pedidos
+		
+		//microsoft app center DO NO REMOVE
+		AppCenter.start ( getApplication ( ), "da48292b-6c75-4397-bfea-56eefa9bb546",
+				Analytics.class, Crashes.class );
+		
+	}//end onCreate
 	
 	//finaliza se voltar
 	@Override
@@ -382,9 +394,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 				
 				//se ponto 15 notifica
 				if ( pontos == 15 ) {
-					notificacaoPonto ("Pontuação"
-							,"Parabens você atingiu: " + user.getPonts ( )
-							,"Faça o resgate na próxima compra"  );
+					notificacaoPonto ( "Pontuação"
+							, "Parabens você atingiu: " + user.getPonts ( )
+							, "Faça o resgate na próxima compra" );
 				}
 				
 				recoveryOrder ( );
@@ -427,8 +439,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 						
 						for ( OrderItens orderItens : itensCars ) {
 							int qtde = orderItens.getQuantity ( );
-
-
+							
+							
 							double preco = Double.parseDouble ( orderItens.getItenSalePrice ( ) );
 							
 							totalCar += ( qtde * preco );
@@ -524,19 +536,19 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 			return true;
 		}
 		
-		if( id == R.id.menu_edit_privacy_policy ){
+		if ( id == R.id.menu_edit_privacy_policy ) {
 			Intent it = new Intent ( this, ActPolicyPrivacy.class );
 			startActivity ( it );
 			return true;
 		}
 		
-		if(id == R.id.menu_edit_about){
+		if ( id == R.id.menu_edit_about ) {
 			Intent it = new Intent ( this, ActInfo.class );
 			startActivity ( it );
 			return true;
 		}
-
-		if(id == R.id.menu_addional){
+		
+		if ( id == R.id.menu_addional ) {
 			Intent it = new Intent ( this, ActAdditional.class );
 			startActivity ( it );
 			return true;
@@ -562,79 +574,82 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 	}
 	
 	//==>FIM MENUS
-	private void notificacaoPonto ( String ticker,String titulo,String msg) {
-
-
+	private void notificacaoPonto ( String ticker, String titulo, String msg ) {
+		
+		
 		NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
 		//PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActPoints.class ), 0 );
-		PendingIntent p = PendingIntent.getActivity(this,0, new Intent(),0 );
-
-
+		PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( ), 0 );
+		
+		
 		NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
 		builder.setTicker ( ticker );
 		builder.setContentTitle ( titulo );
-
+		
 		builder.setSmallIcon ( R.mipmap.ic_launcher );
 		builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
 		builder.setContentIntent ( p );
-
+		
 		NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
 		String[] descs = new String[] { msg };
 		for ( int i = 0; i < descs.length; i++ ) {
 			style.addLine ( descs[ i ] );
 		}
 		builder.setStyle ( style );
-
+		
 		Notification no = builder.build ( );
 		no.vibrate = new long[] { 150, 300, 150 };
 		no.flags = Notification.FLAG_AUTO_CANCEL;
 		nm.notify ( R.mipmap.ic_launcher, no );
-
+		
 		try {
 			Uri som = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
 			Ringtone toque = RingtoneManager.getRingtone ( this, som );
 			toque.play ( );
 		} catch ( Exception e ) {
-
+			
 			System.out.println ( "Erro ao gerar toque notificação: " + e );
 		}
 	}
-
-	public void listesnerEventPedidos (  ) {
-
+	
+	public void listesnerEventPedidos ( ) {
+		
 		//retorna pedido
 		DatabaseReference pedidosDB = reference.child ( "orders" );
 		//recupara pedidos do user limitando  por id
 		Query querySearch = pedidosDB.orderByChild ( "idUser" ).equalTo ( retornIdUser );
-
-
-		querySearch.addChildEventListener ( new ChildEventListener( ) {
+		
+		
+		querySearch.addChildEventListener ( new ChildEventListener ( ) {
 			@Override
-			public void onChildAdded ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) { }
-
+			public void onChildAdded ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+			}
+			
 			@Override
 			public void onChildChanged ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
 				// qualquer mudança de status sera alertada
 				Orders orders = dataSnapshot.getValue ( Orders.class );
-
-				notificacaoPonto ("Status do Pedido"
-						,"Status atual:" + orders.getStatus ( )
-						,"O status mudou confira."  );
-
+				
+				notificacaoPonto ( "Status do Pedido"
+						, "Status atual:" + orders.getStatus ( )
+						, "O status mudou confira." );
+				
 			}
-
+			
 			@Override
-			public void onChildRemoved ( @NonNull DataSnapshot dataSnapshot ) { }
-
+			public void onChildRemoved ( @NonNull DataSnapshot dataSnapshot ) {
+			}
+			
 			@Override
-			public void onChildMoved ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) { }
-
+			public void onChildMoved ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+			}
+			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
 				msgShort ( "Status Erro " + databaseError );
 			}
 		} );
-
+		
 	}
 	
 }

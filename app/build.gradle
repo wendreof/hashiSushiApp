@@ -27,8 +27,8 @@ android {
         applicationId 'design.wendreo.hashisushi'
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 5
-        versionName "5.0"
+        versionCode 7
+        versionName "6.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 onesignal_app_id               : 'e3a889ff-93f3-413d-a8cb-ec99054cceca',
@@ -91,6 +91,10 @@ dependencies {
     //about page
     implementation 'com.github.medyo:android-about-page:1.2.5'
 
+    //microsoft app center
+    def appCenterSdkVersion = '2.3.0'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 }
 repositories {
     mavenCentral()

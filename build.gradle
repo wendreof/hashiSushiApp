@@ -9,9 +9,13 @@ buildscript {
 
     }
     dependencies {
+        //gradle
         classpath 'com.android.tools.build:gradle:3.4.2'
-                //depemdecia firebase
+
+        //firebase
         classpath 'com.google.gms:google-services:4.0.1'
+
+        //kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
