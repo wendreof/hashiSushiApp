@@ -23,6 +23,11 @@ out/
 .gradle/
 build/
 deploy/
+admin/
+keyhashisushi.jks
+*.jks
+private_key.pepk
+*.pepk
 
 # Local configuration file (sdk path, etc)
 local.properties
