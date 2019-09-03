@@ -91,7 +91,7 @@ dependencies {
     //about page
     implementation 'com.github.medyo:android-about-page:1.2.5'
 
-    //microsoft app center
+    // microsoft app center
     def appCenterSdkVersion = '2.3.0'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"

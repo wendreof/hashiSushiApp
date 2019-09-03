@@ -140,7 +140,6 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		//microsoft app center DO NO REMOVE
 		AppCenter.start ( getApplication ( ), "da48292b-6c75-4397-bfea-56eefa9bb546",
 				Analytics.class, Crashes.class );
-		
 	}//end onCreate
 	
 	//finaliza se voltar
