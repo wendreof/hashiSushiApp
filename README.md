@@ -16,10 +16,10 @@ O aplicativo usa serviços de terceiros que podem coletar informações usadas p
 
 Link para a política de privacidade de provedores de serviços de terceiros usados pelo aplicativo
 
-* [Google Play Services] (https://www.google.com/policies/privacy/)
-* [Firebase Analytics] (https://firebase.google.com/policies/analytics)
+*  [Google Play Services] (https://www.google.com/policies/privacy/)
+*  [Firebase Analytics] (https://firebase.google.com/policies/analytics)
 
-**"Dados de registo
+**Dados de registro
 
 Queremos informá-lo de que sempre que utilizar o nosso Serviço, em caso de erro na aplicação, recolhemos dados e informações (através de produtos de terceiros) no seu telefone chamado Log Data. Estes Log Data podem incluir informações como o endereço IP do seu dispositivo, nome do dispositivo, versão do sistema operativo, a configuração da aplicação ao utilizar o nosso Serviço, a hora e data da sua utilização do Serviço e outras estatísticas.
 
@@ -33,10 +33,10 @@ Este Serviço não utiliza estes "cookies" explicitamente. No entanto, o aplicat
 
 podemos empregar empresas terceirizadas e indivíduos pelas seguintes razões:
 
-* Facilitar o nosso Serviço;
-* Prestar o Serviço em nosso nome;
-* Executar serviços relacionados com o Serviço; ou
-* Ajudar-nos a analisar como o nosso Serviço é utilizado.
+*  Facilitar o nosso Serviço;
+*  Prestar o Serviço em nosso nome;
+*  Executar serviços relacionados com o Serviço; ou
+*  Ajudar-nos a analisar como o nosso Serviço é utilizado.
 
 Queremos informar aos usuários deste Serviço que esses terceiros têm acesso às suas Informações Pessoais. A razão é executar as tarefas que lhes são atribuídas em nosso nome. No entanto, eles são obrigados a não divulgar ou usar as informações para qualquer outro propósito.
 
