@@ -85,7 +85,6 @@
         <item>BEBIDAS</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="txt_enter">ENTRADA</string>
     <string name="txt_plat_hot">PRATOS</string>
     <string name="txt_plat_ace">MONTE SEU PRATO</string>
