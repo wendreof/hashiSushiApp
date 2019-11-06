@@ -7,7 +7,7 @@
 
 -------
 <p align="center">
-    <a href="#motivation">Download</a> &bull;
+    <a href="#donwload">Download</a> &bull;
     <a href="#policeprivacy">Privacy Police [PT-BR]</a>
 </p>
 
