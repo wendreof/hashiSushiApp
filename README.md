@@ -1,4 +1,17 @@
-## Política de Privacidade em Português
+# Hashi Sushi App
+
+[![GitHub issues](https://img.shields.io/github/issues/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/issues)
+[![GitHub forks](https://img.shields.io/github/forks/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/network)
+[![GitHub stars](https://img.shields.io/github/stars/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/stargazers)
+
+-------
+<p align="center">
+    <a href="#motivation">Motivation</a> &bull;
+    <a href="#installation">Installation</a> &bull;
+    <a href="#policeprivacy">Police Privacy [PT-BR]</a>
+</p>
+
+## Política de Privacidade
 
 WM Digital Techs construiu o aplicativo Hashi Sushi Delivery como um aplicativo gratuito. Este SERVIÇO é fornecido gratuitamente pela WM Digital Techs e destina-se a ser utilizado tal como está.
 
