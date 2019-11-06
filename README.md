@@ -6,10 +6,12 @@
 
 -------
 <p align="center">
-    <a href="#motivation">Motivation</a> &bull;
-    <a href="#installation">Installation</a> &bull;
+    <a href="#motivation">Download</a> &bull;
     <a href="#policeprivacy">Police Privacy [PT-BR]</a>
 </p>
+
+## Download
+*  [Google Play Page](https://play.google.com/store/apps/details?id=design.wendreo.hashisushi)
 
 ## Política de Privacidade
 
