@@ -4,7 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/issues)
 [![GitHub forks](https://img.shields.io/github/forks/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/network)
 [![GitHub stars](https://img.shields.io/github/stars/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/stargazers)
-[![GitHub last commit](https://img.shields.io/github/last-commit/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp)/commits/master)
+[![GitHub last commit](https://img.shields.io/github/last-commit/wendreof/hashiSushiApp)](https://github.com/wendreof/hashiSushiApp/commits/master)
 
 -------
 <p align="center">
