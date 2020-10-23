@@ -30,9 +30,9 @@ public class ProductDao {
         try {
             // push cria um novo no
             productsDB.push().setValue(product);
-            System.out.printf("ERRO-produto não foi salvo !");
+            System.out.print("ERRO-produto não foi salvo !");
         } catch (Exception erro) {
-            System.out.printf("Atenção produto não foi salvo ! ERRO :"+erro);
+            System.out.print("Atenção produto não foi salvo ! ERRO :" + erro);
         }
     }
 

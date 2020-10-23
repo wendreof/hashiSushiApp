@@ -23,8 +23,6 @@ public class ActSplash extends AppCompatActivity {
 	
 	private TextView txtDelivery;
 	private ImageView imgLogoS;
-	
-	
 	private FirebaseAuth auth;
 	
 	//test coctividade
@@ -54,7 +52,8 @@ public class ActSplash extends AppCompatActivity {
 			alertOffline ( );
 		} else {
 			
-			getWindow ( ).setFlags ( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+			getWindow ( ).setFlags ( WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN );
 			new Handler ( ).postDelayed ( new Runnable ( ) {
 				@Override
 				public void run ( ) {

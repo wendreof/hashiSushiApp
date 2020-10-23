@@ -60,6 +60,7 @@ import java.util.List;
 
 import design.wendreo.hashisushi.R;
 import design.wendreo.hashisushi.adapter.AdapterProduct;
+import design.wendreo.hashisushi.adapter.AdapterProductPromotion;
 import design.wendreo.hashisushi.dao.UserFirebase;
 import design.wendreo.hashisushi.listener.RecyclerItemClickListener;
 import design.wendreo.hashisushi.model.OrderItens;
@@ -98,7 +99,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 	private List< Product > productsList = new ArrayList< Product > ( );
 	private List< OrderItens > itensCars = new ArrayList<> ( );
 	private RecyclerView list_produsts;
-	private AdapterProduct adapterProduct;
+	//private AdapterProduct adapterProduct;
+	private AdapterProductPromotion adapterProductPromotion;
 	private AlertDialog dialog;
 	private String retornIdUser;
 	private User user;
@@ -191,8 +193,9 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		
 		list_produsts.setLayoutManager ( new LinearLayoutManager ( this ) );
 		list_produsts.setHasFixedSize ( true );
-		adapterProduct = new AdapterProduct ( productsList, this );
-		list_produsts.setAdapter ( adapterProduct );
+		adapterProductPromotion = new AdapterProductPromotion( productsList, this );
+		//adapterProduct = new AdapterProduct ( productsList, this );
+		list_produsts.setAdapter ( adapterProductPromotion );
 	}
 	
 	private void startComponet ( ) {
@@ -281,7 +284,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 					Product p = objSnapshot.getValue ( Product.class );
 					productsList.add ( p );
 				}
-				adapterProduct.notifyDataSetChanged ( );
+				adapterProductPromotion.notifyDataSetChanged ( );
 			}
 			
 			@Override
