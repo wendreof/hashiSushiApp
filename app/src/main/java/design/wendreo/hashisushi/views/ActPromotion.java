@@ -10,13 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -48,9 +45,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -60,7 +54,6 @@ import java.util.Date;
 import java.util.List;
 
 import design.wendreo.hashisushi.R;
-import design.wendreo.hashisushi.adapter.AdapterProduct;
 import design.wendreo.hashisushi.adapter.AdapterProductPromotion;
 import design.wendreo.hashisushi.dao.UserFirebase;
 import design.wendreo.hashisushi.listener.RecyclerItemClickListener;
@@ -79,12 +72,6 @@ import design.wendreo.hashisushi.views.cardap.ActTemakis;
 import design.wendreo.hashisushi.views.policyPrivacy.ActPolicyPrivacy;
 import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-/*
-* DO NOT remove microsoft app center below
- */
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
 
 public class ActPromotion extends AppCompatActivity implements View.OnClickListener {
 	public static String STATUS = null;
@@ -139,10 +126,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 		this.auth = FirebaseAuth.getInstance ( );
 		
 		listesnerEventPedidos ( );//escula pedidos
-		
-		//microsoft app center DO NO REMOVE
-		AppCenter.start ( getApplication ( ), "da48292b-6c75-4397-bfea-56eefa9bb546",
-				Analytics.class, Crashes.class );
+
 	}//end onCreate
 	
 	//finaliza se voltar
