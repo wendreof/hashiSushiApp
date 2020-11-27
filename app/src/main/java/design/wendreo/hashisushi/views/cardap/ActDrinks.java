@@ -245,7 +245,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Houve algum erro :" + databaseError );
+				System.out.println( "Houve algum erro :" + databaseError );
 			}
 		} );
 	}
@@ -356,7 +356,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 			
 			@Override
 			public void onCancelled ( DatabaseError databaseError ) {
-				msgShort ( "ERRO ao carregar users ERRO:" + databaseError );
+				///msgShort ( "ERRO ao carregar users ERRO:" + databaseError );
 			}
 		} );
 		
@@ -421,7 +421,7 @@ public class ActDrinks extends AppCompatActivity implements View.OnClickListener
 			
 			@Override
 			public void onCancelled ( DatabaseError databaseError ) {
-				msgShort ( "ERRO ao carregar ERRO:" + databaseError );
+				//msgShort ( "ERRO ao carregar ERRO:" + databaseError );
 			}
 		} );
 	}

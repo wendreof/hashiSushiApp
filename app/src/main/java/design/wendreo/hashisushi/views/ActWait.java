@@ -1,19 +1,22 @@
 package design.wendreo.hashisushi.views;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Icon;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,12 +24,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import design.wendreo.hashisushi.R;
-import design.wendreo.hashisushi.adapter.AdapterStatusOrders;
-import design.wendreo.hashisushi.dao.FirebaseConfig;
-import design.wendreo.hashisushi.dao.UserFirebase;
-import design.wendreo.hashisushi.model.OrderItens;
-import design.wendreo.hashisushi.model.Orders;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,20 +31,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import design.wendreo.hashisushi.model.Product;
+import design.wendreo.hashisushi.R;
+import design.wendreo.hashisushi.adapter.AdapterStatusOrders;
+import design.wendreo.hashisushi.dao.FirebaseConfig;
+import design.wendreo.hashisushi.dao.UserFirebase;
+import design.wendreo.hashisushi.model.Orders;
 import design.wendreo.hashisushi.model.User;
-import dmax.dialog.SpotsDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActWait extends AppCompatActivity implements View.OnClickListener {
-	
+
 	private DatabaseReference reference;
 	private TextView txtTitle;
 	private TextView dataPedido;
@@ -61,7 +57,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	private TextView txtPedido;
 	private User user;
 
-	
+
 	@Override
 	protected void onCreate ( Bundle savedInstanceState ) {
 		super.onCreate ( savedInstanceState );
@@ -141,7 +137,7 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 		
 		querySearch.addChildEventListener ( new ChildEventListener ( ) {
 			@Override
-			public void onChildAdded ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+			public void onChildAdded (  DataSnapshot dataSnapshot,  String s ) {
 				
 				//pode ser usado para carregar lista
 				Orders orders = dataSnapshot.getValue ( Orders.class );
@@ -151,106 +147,32 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 			}
 			
 			@Override
-			public void onChildChanged ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+			public void onChildChanged ( DataSnapshot dataSnapshot,  String s ) {
 				// qualquer mudança de status sera alertada
 				Orders orders = dataSnapshot.getValue ( Orders.class );
-
-				notificacao ( orders,"Status do Pedido","Status atual:" + orders.getStatus ( ),"O status de seu pedido mudou:" );
-
+				ordersList.add ( orders );
+				adapterStatusOrders.notifyDataSetChanged ();
+				//notification( orders,"Status do Pedido","Status do Pedido" + orders.getStatus ( ),"O status de seu pedido mudou:" );
+				sendNotification("Status do Pedido","Status atual " + orders.getStatus ( ),"O status de seu pedido mudou:");
+				//createNotification("Status Pedido " ,st);
 				String status =  orders.getStatus();
-
 				if(status.equals("entregue")){
-
 					calcPonts( orders );
 				}
-
-
 			}
-			
 			@Override
-			public void onChildRemoved ( @NonNull DataSnapshot dataSnapshot ) {
-			}
-			
+			public void onChildRemoved (  DataSnapshot dataSnapshot ) {}
 			@Override
-			public void onChildMoved ( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
-			}
-			
+			public void onChildMoved (  DataSnapshot dataSnapshot,  String s ) {}
 			@Override
-			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Status Erro " + databaseError );
+			public void onCancelled ( DatabaseError databaseError ) {
+				//msgShort ( "Status Erro " + databaseError );
+				System.out.println("@@@@@@@@ onCancelled  ----- " + " Status Erro " + databaseError );
 			}
 		} );
 		
 	}
 	
-	
-	private void notificacao ( Orders orders,String ticker,String title,String msg) {
-
-		if(ticker.equals("Pontuação")){
-			PendingIntent p = PendingIntent.getActivity ( this, 0
-					, new Intent ( this, ActPoints.class ), 0 );
-			NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
-
-
-			NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
-			builder.setTicker ( ticker );
-			builder.setContentTitle ( title );
-
-			builder.setSmallIcon ( R.mipmap.ic_launcher );
-			builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
-			builder.setContentIntent ( p );
-
-			NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
-			String[] descs = new String[] { msg };
-			for ( String desc : descs ) {
-				style.addLine ( desc );
-			}
-			builder.setStyle ( style );
-
-			Notification no = builder.build ( );
-			no.vibrate = new long[] { 150, 300, 150 };
-			no.flags = Notification.FLAG_AUTO_CANCEL;
-			nm.notify ( R.mipmap.ic_launcher, no );
-
-		}else if(ticker.equals("Status do Pedido")){
-			PendingIntent p = PendingIntent.getActivity ( this, 0
-					, new Intent ( this, ActWait.class ), 0 );
-			NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
-
-
-			NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
-			builder.setTicker ( ticker );
-			builder.setContentTitle ( title );
-
-			builder.setSmallIcon ( R.mipmap.ic_launcher );
-			builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
-			builder.setContentIntent ( p );
-
-			NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
-			String[] descs = new String[] { msg };
-			for ( String desc : descs ) {
-				style.addLine ( desc );
-			}
-			builder.setStyle ( style );
-
-			Notification no = builder.build ( );
-			no.vibrate = new long[] { 150, 300, 150 };
-			no.flags = Notification.FLAG_AUTO_CANCEL;
-			nm.notify ( R.mipmap.ic_launcher, no );
-		}
-		
-
-		
-		try {
-			Uri som = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
-			Ringtone toque = RingtoneManager.getRingtone ( this, som );
-			toque.play ( );
-		} catch ( Exception e ) {
-			
-			System.out.println ( "Erro ao gerar toque notificação: " + e );
-		}
-	}
-
 
 	private void msgShort ( String msg ) {
 		Toast.makeText ( getApplicationContext ( ), msg, Toast.LENGTH_SHORT ).show ( );
@@ -260,8 +182,6 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 	//recupera dados do usuario
 	private void recoveryDataUser ( ) {
 
-
-
 		DatabaseReference usuariosDB = reference.child ( "users" ).child ( retornIdUser );
 
 		usuariosDB.addListenerForSingleValueEvent ( new ValueEventListener( ) {
@@ -270,35 +190,84 @@ public class ActWait extends AppCompatActivity implements View.OnClickListener {
 				if ( dataSnapshot.getValue ( ) != null ) {
 					user = dataSnapshot.getValue ( User.class );
 				}
-
 			}
-
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-
-			}
+			public void onCancelled ( DatabaseError databaseError ) { }
 		} );
 	}
 
 	//calcula valor de compra e gera ponto se
 	// status igual a entregue
 	private void calcPonts(Orders orders){
-
 		int ponto = user.getPonts();
 		//troca vigula por ponto
 		String strTaxaEntrega =  orders.getDeliveryCost();
 		double taxaEntrega = Double.parseDouble (
 				strTaxaEntrega.replace ( ",", "." ) );
-
 		double totalCompra = orders.getTotalPrince() ;
 		double totalFinal = totalCompra - taxaEntrega;
-
 		//gera ponto compra maior 30
 		if ( totalFinal > 30.00 && ponto < 15 ) {
 			ponto++;
 			user.uploadPonts ( ponto );
-			notificacao(orders,"Pontuação","Você ganhou um ponto.", "Faça o resgate quando atingir 15 pontos" );
+			sendNotification("Pontuação","Você ganhou um ponto.", "Faça o resgate quando atingir 15 pontos" );
 		}
 	}
 
+	private void sendNotification( String ticker, String title, String msg){
+		int notification_id = (int) System.currentTimeMillis();
+		NotificationManager notificationManager = null;
+		NotificationCompat.Builder mBuilder;
+
+		String body = ticker;
+		String type = "Status";
+		String CHANNEL_DESCRIPTION = msg;
+		String CHANNEL_NAME = title;
+		//Set pending intent to builder
+		Intent intent = new Intent(getApplicationContext(), ActWait.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+		//Notification builder
+		if (notificationManager == null){
+			notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		}
+
+
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+			int importance = NotificationManager.IMPORTANCE_HIGH;
+			NotificationChannel mChannel = notificationManager.getNotificationChannel(ticker);
+			if (mChannel == null){
+				mChannel = new NotificationChannel(ticker, CHANNEL_NAME, importance);
+				mChannel.setDescription(CHANNEL_DESCRIPTION);
+				mChannel.enableVibration(true);
+				mChannel.setLightColor(Color.GREEN);
+				mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+				notificationManager.createNotificationChannel(mChannel);
+			}
+
+			mBuilder = new NotificationCompat.Builder(this, ticker);
+			mBuilder.setContentTitle(title)
+					.setSmallIcon(R.drawable.iconstrave)
+					.setContentText(body) //show icon on status bar
+					.setContentIntent(pendingIntent)
+					.setAutoCancel(true)
+					.setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+					.setDefaults(Notification.DEFAULT_ALL);
+		}else {
+			mBuilder = new NotificationCompat.Builder(this);
+			mBuilder.setContentTitle(title)
+					.setSmallIcon(R.drawable.iconstrave)
+					.setContentText(body)
+					.setPriority(Notification.PRIORITY_HIGH)
+					.setContentIntent(pendingIntent)
+					.setAutoCancel(true)
+					.setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+					.setDefaults(Notification.DEFAULT_VIBRATE);
+		}
+
+		notificationManager.notify(1002, mBuilder.build());
+	}
+
 }
+
+

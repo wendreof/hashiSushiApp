@@ -254,7 +254,7 @@ public class ActAdditional extends AppCompatActivity implements View.OnClickList
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Houve algum erro :" + databaseError );
+				System.out.println( "Houve algum erro :" + databaseError );
 			}
 		} );
 	}
@@ -360,9 +360,7 @@ public class ActAdditional extends AppCompatActivity implements View.OnClickList
 			}
 			
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			
-			}
+			public void onCancelled ( DatabaseError databaseError ) {}
 		} );
 		
 	}
@@ -425,7 +423,7 @@ public class ActAdditional extends AppCompatActivity implements View.OnClickList
 			
 			@Override
 			public void onCancelled ( DatabaseError databaseError ) {
-				msgShort ( "ERRO ao carregar users ERRO:" + databaseError );
+				System.out.println( "ERRO ao carregar users ERRO:" + databaseError );
 			}
 		} );
 	}

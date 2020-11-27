@@ -255,7 +255,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener 
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Houve algum erro :" + databaseError );
+				System.out.println( "Houve algum erro :" + databaseError );
 			}
 		} );
 	}
@@ -319,8 +319,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener 
 		
 		alert.setNegativeButton ( "Cancelar", new DialogInterface.OnClickListener ( ) {
 			@Override
-			public void onClick ( DialogInterface dialog, int which ) {
-			}
+			public void onClick ( DialogInterface dialog, int which ) {}
 		} );
 		AlertDialog dialog = alert.create ( );
 		dialog.show ( );
@@ -361,9 +360,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener 
 			}
 			
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			
-			}
+			public void onCancelled ( DatabaseError databaseError ) {}
 		} );
 		
 	}
@@ -426,7 +423,7 @@ public class ActCombo extends AppCompatActivity implements View.OnClickListener 
 			
 			@Override
 			public void onCancelled ( DatabaseError databaseError ) {
-				msgShort ( "ERRO ao carregar users ERRO:" + databaseError );
+				System.out.println( "ERRO ao carregar users ERRO:" + databaseError );
 			}
 		} );
 	}

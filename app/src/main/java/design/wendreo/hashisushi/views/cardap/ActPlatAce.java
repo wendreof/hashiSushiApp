@@ -250,7 +250,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Houve algum erro :" + databaseError );
+				//msgShort ( "Houve algum erro :" + databaseError );
 			}
 		} );
 	}
@@ -359,9 +359,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 			}
 			
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			
-			}
+			public void onCancelled ( DatabaseError databaseError ) {}
 		} );
 		
 	}
@@ -425,7 +423,7 @@ public class ActPlatAce extends AppCompatActivity implements View.OnClickListene
 			
 			@Override
 			public void onCancelled ( DatabaseError databaseError ) {
-				msgShort ( "ERRO ao carregar ERRO:" + databaseError );
+				//msgShort ( "ERRO ao carregar ERRO:" + databaseError );
 			}
 		} );
 	}

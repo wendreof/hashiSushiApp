@@ -250,7 +250,7 @@ public class ActPlatHot extends AppCompatActivity implements View.OnClickListene
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Houve algum erro :" + databaseError );
+				//msgShort ( "Houve algum erro :" + databaseError );
 			}
 		} );
 	}

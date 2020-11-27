@@ -261,7 +261,7 @@ public class ActSaleCardap extends AppCompatActivity implements View.OnClickList
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
 				
-				msgShort ( "Houve algum erro :" + databaseError );
+				//msgShort ( "Houve algum erro :" + databaseError );
 			}
 		} );
 		

@@ -3,6 +3,7 @@ package design.wendreo.hashisushi.views;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -289,7 +290,8 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Houve algum erro:" + databaseError );
+				System.out.println("Houve algum erro:" + databaseError );
+				//msgShort ( "Houve algum erro:" + databaseError );
 			}
 		} );
 	}
@@ -405,8 +407,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 			}
 			
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			}
+			public void onCancelled ( DatabaseError databaseError ) {}
 		} );
 	}
 	
@@ -464,9 +465,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 			}
 			
 			@Override
-			public void onCancelled ( DatabaseError databaseError ) {
-			
-			}
+			public void onCancelled ( DatabaseError databaseError ) {}
 		} );
 	}
 	
@@ -576,42 +575,59 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 	}
 	
 	//==>FIM MENUS
-	private void notificacaoPonto ( String ticker, String titulo, String msg ) {
-		
-		
-		NotificationManager nm = ( NotificationManager ) getSystemService ( NOTIFICATION_SERVICE );
-		//PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( this, ActPoints.class ), 0 );
-		PendingIntent p = PendingIntent.getActivity ( this, 0, new Intent ( ), 0 );
-		
-		
-		NotificationCompat.Builder builder = new NotificationCompat.Builder ( this );
-		builder.setTicker ( ticker );
-		builder.setContentTitle ( titulo );
-		
-		builder.setSmallIcon ( R.mipmap.ic_launcher );
-		builder.setLargeIcon ( BitmapFactory.decodeResource ( getResources ( ), R.mipmap.ic_launcher ) );
-		builder.setContentIntent ( p );
-		
-		NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle ( );
-		String[] descs = new String[] { msg };
-		for ( int i = 0; i < descs.length; i++ ) {
-			style.addLine ( descs[ i ] );
+
+	private void notificacaoPonto( String ticker, String title, String msg){
+		int notification_id = (int) System.currentTimeMillis();
+		NotificationManager notificationManager = null;
+		NotificationCompat.Builder mBuilder;
+
+		String body = ticker;
+		String type = "Status";
+		String CHANNEL_DESCRIPTION = msg;
+		String CHANNEL_NAME = title;
+		//Set pending intent to builder
+		Intent intent = new Intent(getApplicationContext(), ActPoints.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+		//Notification builder
+		if (notificationManager == null){
+			notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		}
-		builder.setStyle ( style );
-		
-		Notification no = builder.build ( );
-		no.vibrate = new long[] { 150, 300, 150 };
-		no.flags = Notification.FLAG_AUTO_CANCEL;
-		nm.notify ( R.mipmap.ic_launcher, no );
-		
-		try {
-			Uri som = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
-			Ringtone toque = RingtoneManager.getRingtone ( this, som );
-			toque.play ( );
-		} catch ( Exception e ) {
-			
-			System.out.println ( "Erro ao gerar toque notificação: " + e );
+
+
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+			int importance = NotificationManager.IMPORTANCE_HIGH;
+			NotificationChannel mChannel = notificationManager.getNotificationChannel(ticker);
+			if (mChannel == null){
+				mChannel = new NotificationChannel(ticker, CHANNEL_NAME, importance);
+				mChannel.setDescription(CHANNEL_DESCRIPTION);
+				mChannel.enableVibration(true);
+				mChannel.setLightColor(Color.GREEN);
+				mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+				notificationManager.createNotificationChannel(mChannel);
+			}
+
+			mBuilder = new NotificationCompat.Builder(this, ticker);
+			mBuilder.setContentTitle(title)
+					.setSmallIcon(R.drawable.iconstrave)
+					.setContentText(body) //show icon on status bar
+					.setContentIntent(pendingIntent)
+					.setAutoCancel(true)
+					.setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+					.setDefaults(Notification.DEFAULT_ALL);
+		}else {
+			mBuilder = new NotificationCompat.Builder(this);
+			mBuilder.setContentTitle(title)
+					.setSmallIcon(R.drawable.iconstrave)
+					.setContentText(body)
+					.setPriority(Notification.PRIORITY_HIGH)
+					.setContentIntent(pendingIntent)
+					.setAutoCancel(true)
+					.setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+					.setDefaults(Notification.DEFAULT_VIBRATE);
 		}
+
+		notificationManager.notify(1002, mBuilder.build());
 	}
 	
 	public void listesnerEventPedidos ( ) {
@@ -648,7 +664,7 @@ public class ActPromotion extends AppCompatActivity implements View.OnClickListe
 			
 			@Override
 			public void onCancelled ( @NonNull DatabaseError databaseError ) {
-				msgShort ( "Status Erro " + databaseError );
+				System.out.println( "Status Erro " + databaseError );
 			}
 		} );
 		
